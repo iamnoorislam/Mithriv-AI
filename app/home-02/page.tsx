@@ -3362,109 +3362,9 @@ export default function Home02Page() {
                 style="position: absolute; inset: -150px 0 -150px 0; background: linear-gradient(180deg, rgba(11, 13, 15, 0) 0%, rgba(11, 13, 15, 0) 35%, rgba(250, 245, 235, 0.95) 92%, #FAF5EB 100%); z-index: -1; animation: secDemoBreath 4.5s ease-in-out infinite alternate;">
             </div>
 
+
+
             <style>
-                .comp-grid-wrapper {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    border-top: 1px solid rgba(0, 0, 0, 0.08);
-                    border-left: 1px solid rgba(0, 0, 0, 0.08);
-                    position: relative;
-                }
-
-                .comp-grid-cell {
-                    border-right: 1px solid rgba(0, 0, 0, 0.08);
-                    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-                    padding: 48px;
-                    display: flex;
-                    flex-direction: column;
-                    min-height: 420px;
-                    position: relative;
-                    background: rgba(255, 255, 255, 0.15);
-                    backdrop-filter: blur(12px);
-                    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-                }
-
-                @media (max-width: 768px) {
-                    .comp-grid-wrapper {
-                        grid-template-columns: 1fr;
-                    }
-
-                    .comp-grid-cell {
-                        min-height: 320px;
-                        padding: 32px;
-                    }
-                }
-
-                .comp-grid-cell:hover {
-                    background: rgba(255, 255, 255, 0.6);
-                    box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.1);
-                }
-
-                .comp-label {
-                    font-family: var(--font-mono);
-                    font-size: 0.7rem;
-                    letter-spacing: 2px;
-                    color: rgba(0, 0, 0, 0.4);
-                    text-transform: uppercase;
-                }
-
-                .comp-title {
-                    font-family: var(--font-main);
-                    font-size: 1.25rem;
-                    font-weight: 600;
-                    color: #111827;
-                    margin-bottom: 12px;
-                }
-
-                .comp-desc {
-                    font-family: var(--font-main);
-                    font-size: 1.05rem;
-                    color: #4B5563;
-                    line-height: 1.6;
-                    margin: 0;
-                }
-
-                @keyframes comp-dash-flow {
-                    to {
-                        stroke-dashoffset: -20;
-                    }
-                }
-
-                @keyframes comp-float {
-
-                    0%,
-                    100% {
-                        transform: translateY(0);
-                    }
-
-                    50% {
-                        transform: translateY(-6px);
-                    }
-                }
-
-                @keyframes comp-pulse {
-
-                    0%,
-                    100% {
-                        opacity: 0.6;
-                    }
-
-                    50% {
-                        opacity: 1;
-                        filter: drop-shadow(0 0 8px currentColor);
-                    }
-                }
-
-                @keyframes comp-spin {
-                    from {
-                        transform: rotate(0deg);
-                    }
-
-                    to {
-                        transform: rotate(360deg);
-                    }
-                }
-
                 #hero .ent-btn-primary {
                     backdrop-filter: none !important;
                     -webkit-backdrop-filter: none !important;
@@ -3503,11 +3403,11 @@ export default function Home02Page() {
                 <div class="comp-grid-wrapper">
 
                     <!-- Cell 1 -->
-                    <div class="comp-grid-cell">
+                    <div class="comp-grid-cell" style="--card-glow-color: rgba(139, 92, 246, 0.15); --card-glow-shadow: rgba(139, 92, 246, 0.08);">
+                        <div class="card-glow"></div>
                         <span class="comp-label">FIG. 2.1 — AUTO-EVIDENCE</span>
 
-                        <div
-                            style="flex: 1; display: flex; align-items: center; justify-content: center; position: relative;">
+                        <div class="comp-svg-container">
                             <svg width="200" height="200" viewBox="0 0 200 200" fill="none" style="overflow: visible;">
                                 <!-- Data streams flowing in -->
                                 <path d="M20,100 L80,100" stroke="rgba(0,0,0,0.15)" stroke-width="1.5"
@@ -3525,7 +3425,7 @@ export default function Home02Page() {
                                     <rect x="90" y="60" width="60" height="80" rx="4" fill="rgba(255,255,255,0.8)"
                                         stroke="#111827" stroke-width="1.5" />
                                     <!-- Glowing generated lines -->
-                                    <line x1="100" y1="75" x2="140" y2="75" stroke="#8b5cf6" stroke-width="2"
+                                    <line class="auto-evidence-line" x1="100" y1="75" x2="140" y2="75" stroke="#8b5cf6" stroke-width="2"
                                         style="animation: comp-pulse 2s infinite;" />
                                     <line x1="100" y1="85" x2="130" y2="85" stroke="rgba(0,0,0,0.2)" stroke-width="2" />
                                     <line x1="100" y1="95" x2="140" y2="95" stroke="rgba(0,0,0,0.2)" stroke-width="2" />
@@ -3541,7 +3441,7 @@ export default function Home02Page() {
                             </svg>
                         </div>
 
-                        <div>
+                        <div class="comp-text-container">
                             <h3 class="comp-title">Evidence generates itself</h3>
                             <p class="comp-desc">When operations flow through a unified system, compliance documentation
                                 is automatic, not a separate project.</p>
@@ -3549,21 +3449,21 @@ export default function Home02Page() {
                     </div>
 
                     <!-- Cell 2 -->
-                    <div class="comp-grid-cell">
+                    <div class="comp-grid-cell" style="--card-glow-color: rgba(6, 182, 212, 0.15); --card-glow-shadow: rgba(6, 182, 212, 0.08);">
+                        <div class="card-glow"></div>
                         <span class="comp-label">FIG. 2.2 — MULTI-FRAMEWORK</span>
 
-                        <div
-                            style="flex: 1; display: flex; align-items: center; justify-content: center; position: relative;">
+                        <div class="comp-svg-container">
                             <svg width="200" height="200" viewBox="0 0 200 200" fill="none" style="overflow: visible;">
                                 <!-- Rotating framework orbits -->
-                                <circle cx="100" cy="100" r="60" stroke="rgba(0,0,0,0.08)" stroke-width="1"
+                                <circle class="orbit-circle-1" cx="100" cy="100" r="60" stroke="rgba(0,0,0,0.08)" stroke-width="1"
                                     stroke-dasharray="4 4"
                                     style="animation: comp-spin 20s linear infinite; transform-origin: 100px 100px;" />
-                                <circle cx="100" cy="100" r="45" stroke="rgba(0,0,0,0.12)" stroke-width="1"
+                                <circle class="orbit-circle-2" cx="100" cy="100" r="45" stroke="rgba(0,0,0,0.12)" stroke-width="1"
                                     stroke-dasharray="2 4"
                                     style="animation: comp-spin 15s linear infinite reverse; transform-origin: 100px 100px;" />
 
-                                <g style="animation: comp-float 5s ease-in-out infinite;">
+                                <g class="shield-group" style="animation: comp-float 5s ease-in-out infinite; transform-origin: 100px 100px;">
                                     <!-- Shield Core -->
                                     <path
                                         d="M100,55 L130,70 L130,105 C130,125 115,140 100,145 C85,140 70,125 70,105 L70,70 L100,55 Z"
@@ -3576,24 +3476,30 @@ export default function Home02Page() {
                                 </g>
 
                                 <!-- Floating Framework Tags -->
-                                <rect x="30" y="50" width="35" height="14" rx="2" fill="rgba(0,0,0,0.05)"
-                                    stroke="rgba(0,0,0,0.1)" />
-                                <text x="47.5" y="60" font-family="monospace" font-size="7" fill="#111827"
-                                    text-anchor="middle">SOC 2</text>
+                                <g class="fw-tag SOC2">
+                                    <rect x="30" y="50" width="35" height="14" rx="2" fill="rgba(0,0,0,0.05)"
+                                        stroke="rgba(0,0,0,0.1)" />
+                                    <text x="47.5" y="60" font-family="monospace" font-size="7" fill="#111827"
+                                        text-anchor="middle">SOC 2</text>
+                                </g>
 
-                                <rect x="140" y="80" width="35" height="14" rx="2" fill="rgba(0,0,0,0.05)"
-                                    stroke="rgba(0,0,0,0.1)" />
-                                <text x="157.5" y="90" font-family="monospace" font-size="7" fill="#111827"
-                                    text-anchor="middle">HIPAA</text>
+                                <g class="fw-tag HIPAA">
+                                    <rect x="140" y="80" width="35" height="14" rx="2" fill="rgba(0,0,0,0.05)"
+                                        stroke="rgba(0,0,0,0.1)" />
+                                    <text x="157.5" y="90" font-family="monospace" font-size="7" fill="#111827"
+                                        text-anchor="middle">HIPAA</text>
+                                </g>
 
-                                <rect x="40" y="130" width="45" height="14" rx="2" fill="rgba(0,0,0,0.05)"
-                                    stroke="rgba(0,0,0,0.1)" />
-                                <text x="62.5" y="140" font-family="monospace" font-size="7" fill="#111827"
-                                    text-anchor="middle">ISO 27001</text>
+                                <g class="fw-tag ISO">
+                                    <rect x="40" y="130" width="45" height="14" rx="2" fill="rgba(0,0,0,0.05)"
+                                        stroke="rgba(0,0,0,0.1)" />
+                                    <text x="62.5" y="140" font-family="monospace" font-size="7" fill="#111827"
+                                        text-anchor="middle">ISO 27001</text>
+                                </g>
                             </svg>
                         </div>
 
-                        <div>
+                        <div class="comp-text-container">
                             <h3 class="comp-title">Frameworks addressed</h3>
                             <p class="comp-desc">SOC 2 Type II &bull; PCI DSS &bull; HIPAA &bull; ISO 27001 &bull; NERC
                                 CIP &bull; GxP/Annex 11 &bull; IEC 62443</p>
@@ -3601,11 +3507,11 @@ export default function Home02Page() {
                     </div>
 
                     <!-- Cell 3 -->
-                    <div class="comp-grid-cell">
+                    <div class="comp-grid-cell" style="--card-glow-color: rgba(59, 130, 246, 0.15); --card-glow-shadow: rgba(59, 130, 246, 0.08);">
+                        <div class="card-glow"></div>
                         <span class="comp-label">FIG. 2.3 — TIME COMPRESSION</span>
 
-                        <div
-                            style="flex: 1; display: flex; align-items: center; justify-content: center; position: relative;">
+                        <div class="comp-svg-container">
                             <svg width="200" height="200" viewBox="0 0 200 200" fill="none" style="overflow: visible;">
                                 <g style="animation: comp-float 3.5s ease-in-out infinite;">
                                     <!-- Clock / Dial -->
@@ -3620,7 +3526,7 @@ export default function Home02Page() {
                                     <!-- Clock hands -->
                                     <line x1="100" y1="100" x2="100" y2="80" stroke="rgba(0,0,0,0.3)" stroke-width="2"
                                         stroke-linecap="round" />
-                                    <line x1="100" y1="100" x2="120" y2="100" stroke="#8b5cf6" stroke-width="2"
+                                    <line class="clock-hand-fast" x1="100" y1="100" x2="120" y2="100" stroke="#8b5cf6" stroke-width="2"
                                         stroke-linecap="round"
                                         style="transform-origin: 100px 100px; animation: comp-spin 3s linear infinite;" />
                                     <circle cx="100" cy="100" r="3" fill="#111827" />
@@ -3629,14 +3535,14 @@ export default function Home02Page() {
                                 <!-- Export connection -->
                                 <path d="M140,100 L160,100" stroke="rgba(0,0,0,0.15)" stroke-width="1.5"
                                     stroke-dasharray="2 2" />
-                                <rect x="160" y="85" width="24" height="30" rx="2" fill="rgba(139,92,246,0.1)"
+                                <rect class="zip-rect" x="160" y="85" width="24" height="30" rx="2" fill="rgba(139,92,246,0.1)"
                                     stroke="#8b5cf6" stroke-width="1.5" style="animation: comp-pulse 2s infinite;" />
-                                <text x="172" y="103" font-family="monospace" font-size="7" fill="#8b5cf6"
+                                <text class="zip-text" x="172" y="103" font-family="monospace" font-size="7" fill="#8b5cf6"
                                     text-anchor="middle" font-weight="bold">ZIP</text>
                             </svg>
                         </div>
 
-                        <div>
+                        <div class="comp-text-container">
                             <h3 class="comp-title">Hours, not months</h3>
                             <p class="comp-desc">What took 2-3 months of preparation now takes a query and an export.
                             </p>
@@ -3644,11 +3550,11 @@ export default function Home02Page() {
                     </div>
 
                     <!-- Cell 4 -->
-                    <div class="comp-grid-cell">
+                    <div class="comp-grid-cell" style="--card-glow-color: rgba(16, 185, 129, 0.15); --card-glow-shadow: rgba(16, 185, 129, 0.08);">
+                        <div class="card-glow"></div>
                         <span class="comp-label">FIG. 2.4 — CONTINUOUS MONITORING</span>
 
-                        <div
-                            style="flex: 1; display: flex; align-items: center; justify-content: center; position: relative;">
+                        <div class="comp-svg-container">
                             <svg width="200" height="200" viewBox="0 0 200 200" fill="none" style="overflow: visible;">
                                 <!-- Bounds -->
                                 <line x1="40" y1="70" x2="160" y2="70" stroke="rgba(0,0,0,0.1)" stroke-width="1"
@@ -3666,20 +3572,20 @@ export default function Home02Page() {
                                     stroke-width="1.5" fill="none" />
 
                                 <!-- Active scanning pulse -->
-                                <path d="M40,100 Q55,70 70,100 T100,100" stroke="#10b981" stroke-width="2" fill="none"
+                                <path class="scanning-pulse" d="M40,100 Q55,70 70,100 T100,100" stroke="#10b981" stroke-width="2" fill="none"
                                     stroke-dasharray="100" stroke-dashoffset="100"
                                     style="animation: comp-dash-flow 3s linear infinite;" />
 
-                                <circle cx="100" cy="100" r="4" fill="#10b981"
+                                <circle class="sync-dot" cx="100" cy="100" r="4" fill="#10b981"
                                     style="animation: comp-pulse 1.5s infinite;" />
-                                <rect x="90" y="108" width="20" height="10" rx="2" fill="rgba(16, 185, 129, 0.1)"
+                                <rect class="sync-rect" x="90" y="108" width="20" height="10" rx="2" fill="rgba(16, 185, 129, 0.1)"
                                     stroke="#10b981" stroke-width="1" />
-                                <text x="100" y="115" font-family="monospace" font-size="6" fill="#10b981"
+                                <text class="sync-text" x="100" y="115" font-family="monospace" font-size="6" fill="#10b981"
                                     text-anchor="middle">SYNC</text>
                             </svg>
                         </div>
 
-                        <div>
+                        <div class="comp-text-container">
                             <h3 class="comp-title">Continuous conformance</h3>
                             <p class="comp-desc">Policy adherence measured in real-time. Violations flagged immediately.
                                 No audit-season panic.</p>
