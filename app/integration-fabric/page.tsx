@@ -1,0 +1,2135 @@
+'use client'
+
+import React, { useEffect, useState } from 'react'
+import Script from 'next/script'
+import '../style.css'
+
+export default function IntegrationFabricPage() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
+    // Hide Preloaders
+    setTimeout(() => {
+      const preloader1 = document.getElementById('premium-preloader');
+      if (preloader1) {
+        preloader1.style.opacity = '0';
+        setTimeout(() => preloader1.style.display = 'none', 500);
+      }
+      const preloader2 = document.querySelector('.preloader');
+      if (preloader2) {
+        (preloader2 as HTMLElement).style.opacity = '0';
+        setTimeout(() => (preloader2 as HTMLElement).style.display = 'none', 500);
+      }
+    }, 800);
+
+    let timer: NodeJS.Timeout;
+    const init = () => {
+      const w = window as any;
+      if (w.runMain && w.runIntegrationFabric && w.gsap && w.ScrollTrigger && typeof w.Lenis !== 'undefined') {
+        w.runPreloader && w.runPreloader();
+        w.runMain();
+        w.runIntegrationFabric();
+      } else {
+        timer = setTimeout(init, 50);
+      }
+    };
+    init();
+
+    return () => {
+      clearTimeout(timer);
+      const w = window as any;
+      if (w.cleanupMain) {
+        w.cleanupMain();
+      }
+      if (w.gsap && w.ScrollTrigger) {
+        w.ScrollTrigger.getAll().forEach((t: any) => t.kill(true));
+      }
+      if (w.cancelIntegrationFabric) {
+        w.cancelIntegrationFabric();
+      }
+    };
+  }, [mounted]);
+
+  if (!mounted) return null;
+
+  return (
+    <div className="landing-theme">
+      <style id="enterprise-theme" dangerouslySetInnerHTML={{ __html: `
+        :root {
+            --bg-base: #0B0D0F;
+            --surface-secondary: #111315;
+            --surface-card: #171A1D;
+
+            --text-primary: #F5F7FA;
+            --text-secondary: #A1A8B3;
+            --text-muted: #6B7280;
+
+            --accent-purple: #7C3AED;
+            --accent-glow: rgba(124, 58, 237, 0.18);
+
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.15);
+
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+            --radius-card: 0px;
+            --radius-btn: 100px;
+        }
+
+        /* Base Resets for this page */
+        body {
+            background-color: var(--bg-base) !important;
+            color: var(--text-secondary) !important;
+            font-family: var(--font-main) !important;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .global-grid-bg {
+            display: none !important;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin: 0;
+        }
+
+        /* Typography Utilities */
+        .ent-h1 {
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 24px;
+        }
+
+        .ent-h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .ent-h3 {
+            font-size: 1.5rem;
+            line-height: 1.3;
+            margin-bottom: 12px;
+        }
+
+        .ent-p-large {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .ent-p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Layout & Spacing */
+        @keyframes drawVerticalLine {
+            from {
+                height: 0;
+                opacity: 0;
+            }
+
+            to {
+                height: 100vh;
+                opacity: 1;
+            }
+        }
+
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            width: 1px;
+            background: rgba(255, 255, 255, 0.05);
+            z-index: -1;
+            pointer-events: none;
+            height: 100vh;
+            animation: drawVerticalLine 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        body::before {
+            left: calc(50% - 640px);
+        }
+
+        body::after {
+            right: calc(50% - 640px);
+        }
+
+        .os-config-section {
+            position: relative;
+            padding-bottom: 0 !important;
+        }
+
+        .os-config-section::before,
+        .os-config-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 32px;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background-image: repeating-linear-gradient(45deg,
+                    rgba(255, 255, 255, 0.03) 0,
+                    rgba(255, 255, 255, 0.03) 1px,
+                    transparent 1px,
+                    transparent 10px);
+        }
+
+        .os-config-section::before {
+            left: calc(50% - 640px);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .os-config-section::after {
+            right: calc(50% - 640px);
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        @media (max-width: 1280px) {
+
+            body::before,
+            body::after,
+            .os-config-section::before,
+            .os-config-section::after {
+                display: none;
+            }
+        }
+
+        .ent-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        .ent-section {
+            padding: 120px 0;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Floating Enterprise Navbar */
+
+        .ent-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        padding: 6px 12px;
+        background: var(--surface-secondary);
+        border: 1px solid var(--border-subtle);
+        border-radius: 100px;
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 32px;
+        }
+
+        .ent-pill-accent {
+            color: var(--accent-purple);
+        }
+
+        .ent-btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(22, 20, 18, 0.78) 0%, rgba(14, 12, 11, 0.82) 100%) !important;
+            backdrop-filter: blur(20px) saturate(120%) !important;
+            -webkit-backdrop-filter: blur(20px) saturate(120%) !important;
+            color: #FAF5EB !important;
+            padding: 12px 24px;
+            border-radius: 100px !important;
+            font-weight: 500;
+            font-size: 1rem;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.32) !important;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 12px 1.5px rgba(255, 255, 255, 0.28) !important;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .ent-btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(22, 20, 18, 0.45) 0%, rgba(14, 12, 11, 0.5) 100%) !important;
+            backdrop-filter: blur(16px) saturate(120%) !important;
+            -webkit-backdrop-filter: blur(16px) saturate(120%) !important;
+            color: rgba(250, 245, 235, 0.8) !important;
+            padding: 12px 24px;
+            border-radius: 100px !important;
+            border: 1px solid rgba(255, 255, 255, 0.22) !important;
+            text-decoration: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px 1px rgba(255, 255, 255, 0.22) !important;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+
+        .ent-btn-primary:hover {
+            background: linear-gradient(135deg, rgba(28, 25, 23, 0.85) 0%, rgba(20, 18, 16, 0.9) 100%) !important;
+            border-color: rgba(255, 255, 255, 0.48) !important;
+            color: #ffffff !important;
+            transform: translateY(-2px) scale(1.02) !important;
+            box-shadow: inset 0 0 16px 2.5px rgba(255, 255, 255, 0.45) !important;
+        }
+
+        .ent-btn-secondary:hover {
+            background: linear-gradient(135deg, rgba(28, 25, 23, 0.6) 0%, rgba(20, 18, 16, 0.65) 100%) !important;
+            border-color: rgba(255, 255, 255, 0.38) !important;
+            color: #ffffff !important;
+            transform: translateY(-2px) scale(1.02) !important;
+            box-shadow: inset 0 0 14px 2px rgba(255, 255, 255, 0.35) !important;
+        }
+
+        /* Bento Grid System */
+        .ent-bento {
+            display: grid;
+            gap: 24px;
+            grid-auto-rows: minmax(300px, auto);
+            margin-top: 64px;
+        }
+
+        .ent-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-card);
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .ent-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Abstract Backgrounds */
+        .ent-bg-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(var(--border-subtle) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.5;
+            mask-image: radial-gradient(circle at 50% 0%, black 0%, transparent 70%);
+            -webkit-mask-image: radial-gradient(circle at 50% 0%, black 0%, transparent 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Architecture Timeline */
+        .ent-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 64px auto 0;
+        }
+
+        .ent-timeline-line {
+            position: absolute;
+            left: 40px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--border-subtle) 10%, var(--border-subtle) 90%, transparent);
+        }
+
+        .ent-layer {
+            position: relative;
+            padding-left: 100px;
+            margin-bottom: 48px;
+        }
+
+        .ent-layer-node {
+            position: absolute;
+            left: 36px;
+            /* 40px - 4px radius */
+            top: 24px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--surface-secondary);
+            border: 1px solid var(--border-hover);
+            z-index: 2;
+        }
+
+        .ent-layer-node.active {
+            background: var(--accent-purple);
+            box-shadow: 0 0 16px var(--accent-glow);
+            border-color: var(--accent-purple);
+        }
+
+        .ent-layer-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        /* Utility */
+        .text-center {
+            text-align: center;
+        }
+
+        .col-span-2 {
+            grid-column: span 2;
+        }
+
+        .row-span-2 {
+            grid-row: span 2;
+        }
+
+        @media (max-width: 900px) {
+
+            .col-span-2,
+            .row-span-2 {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            .ent-bento {
+                grid-template-columns: 1fr;
+            }
+
+            .ent-layer {
+                padding-left: 0;
+                margin-top: 32px;
+            }
+
+            .ent-timeline-line,
+            .ent-layer-node {
+                display: none;
+            }
+        }
+
+        /* Editorial Layout */
+        .editorial-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+            position: relative;
+        }
+
+        .sticky-col {
+            position: sticky;
+            top: 100px;
+            padding-bottom: 24px;
+        }
+
+        .staggered-col {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            padding-top: 80px;
+            padding-bottom: 120px;
+        }
+
+        /* Live Intelligence Modules */
+        .module-card {
+            background: #161718;
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 0px;
+            padding: 40px;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background 0.3s ease;
+        }
+
+        .module-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+
+        .module-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .module-status {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--text-muted);
+        }
+
+        .status-dot.active {
+            background: #10B981;
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+        }
+
+        .status-dot.error {
+            background: #EF4444;
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.4);
+        }
+
+        /* Atmospheric Background */
+        .atmospheric-bg {
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            right: -10%;
+            bottom: -10%;
+            background: radial-gradient(circle at 70% 50%, rgba(124, 58, 237, 0.03) 0%, transparent 50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* OS Configuration Panel */
+        .os-panel-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            align-items: stretch;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .os-nav-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 64px;
+        }
+
+        .os-nav-card {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 0px;
+            padding: 32px;
+            cursor: pointer;
+            transition: background 0.3s ease, border-color 0.3s ease;
+            overflow: hidden;
+        }
+
+        .os-nav-card.active {
+            background: #161718;
+        }
+
+        .os-nav-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .os-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .os-nav-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #fff;
+            margin: 0;
+            transition: margin 0.3s ease;
+        }
+
+        .os-item-icon {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            color: var(--text-muted);
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .os-nav-content {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1), margin 0.3s ease;
+        }
+
+        .os-nav-content>* {
+            opacity: 0;
+        }
+
+        .os-nav-card.active .os-nav-header {
+            margin-bottom: 16px;
+        }
+
+        .os-nav-card.active .os-nav-content {
+            max-height: 200px;
+            opacity: 1;
+        }
+
+        .os-nav-card.active .os-nav-content>* {
+            animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.1s;
+        }
+
+        .os-nav-card.active .os-item-icon {
+            transform: rotate(90deg);
+            color: var(--accent-purple);
+        }
+
+        .os-nav-text {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin: 0 0 24px 0;
+        }
+
+        .os-dashboard {
+            background: transparent;
+            border: none;
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 64px;
+            border-radius: 0px;
+            position: sticky;
+            top: 120px;
+            box-shadow: none;
+        }
+
+        .os-dash-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            margin-bottom: 32px;
+        }
+
+        .os-metric-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .os-metric-box {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .os-metric-value {
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .os-graph {
+            height: 180px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            position: relative;
+            overflow: hidden;
+            margin-top: 16px;
+        }
+
+        @keyframes sweepIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes drawLine {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .os-svg-graph {
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+
+        .graph-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+        }
+
+        .os-svg-graph.animate {
+            animation: sweepIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .os-svg-graph.animate .graph-line {
+            animation: drawLine 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.2s;
+        }
+
+        /* Integration Explorer Section CSS */
+        .explorer-panel-container {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 0;
+            align-items: stretch;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(17, 19, 21, 0.2);
+            margin-top: 40px;
+        }
+
+        .explorer-nav {
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(17, 19, 21, 0.4);
+        }
+
+        .explorer-row {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: transparent;
+            outline: none;
+            border-left: 2px solid transparent;
+        }
+
+        .explorer-row:last-child {
+            border-bottom: none;
+        }
+
+        .explorer-row:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .explorer-row:focus-visible {
+            background: rgba(255, 255, 255, 0.03);
+            border-left-color: rgba(124, 58, 237, 0.4);
+        }
+
+        .explorer-row.active {
+            background: rgba(124, 58, 237, 0.04);
+            border-left-color: var(--accent-purple);
+        }
+
+        .explorer-row-inner {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 20px;
+        }
+
+        .explorer-index {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            min-width: 28px;
+            transition: color 0.2s ease;
+        }
+
+        .explorer-row.active .explorer-index {
+            color: var(--accent-purple);
+        }
+
+        .explorer-row-text {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            white-space: normal;
+        }
+
+        .explorer-title {
+            font-family: var(--font-main);
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: color 0.2s ease;
+        }
+
+        .explorer-row.active .explorer-title {
+            color: #fff;
+        }
+
+        .explorer-desc {
+            font-family: var(--font-main);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .explorer-indicator {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: transparent;
+            transition: all 0.3s ease;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+
+        .explorer-row.active .explorer-indicator {
+            background: var(--accent-purple);
+            box-shadow: 0 0 8px var(--accent-purple), 0 0 16px var(--accent-purple);
+        }
+
+        .explorer-detail {
+            padding: 64px;
+            background: rgba(11, 13, 15, 0.1);
+            position: relative;
+            min-height: 580px;
+        }
+
+        .explorer-detail-content {
+            opacity: 1;
+            transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .explorer-detail-content.transitioning {
+            opacity: 0;
+            transition: opacity 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .explorer-detail-content>* {
+            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+                transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+                filter 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0px);
+            will-change: transform, opacity, filter;
+        }
+
+        .explorer-detail-content.transitioning>* {
+            opacity: 0;
+            transform: translateY(16px);
+            filter: blur(12px);
+            transition: none !important;
+        }
+
+        /* Staggered entry sequence for ultimate premium feel */
+        .explorer-detail-content:not(.transitioning) .explorer-meta {
+            transition-delay: 0ms;
+        }
+
+        .explorer-detail-content:not(.transitioning) .explorer-headline {
+            transition-delay: 40ms;
+        }
+
+        .explorer-detail-content:not(.transitioning) .explorer-description {
+            transition-delay: 80ms;
+        }
+
+        .explorer-detail-content:not(.transitioning) .explorer-sublabel:nth-of-type(1),
+        .explorer-detail-content:not(.transitioning) .explorer-tags-container {
+            transition-delay: 120ms;
+        }
+
+        .explorer-detail-content:not(.transitioning) .explorer-sublabel:nth-of-type(2),
+        .explorer-detail-content:not(.transitioning) .explorer-flows-grid {
+            transition-delay: 160ms;
+        }
+
+        .explorer-detail-content:not(.transitioning) .explorer-why-box {
+            transition-delay: 200ms;
+        }
+
+        .explorer-meta {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--accent-purple);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .explorer-headline {
+            font-size: 2.25rem;
+            font-weight: 600;
+            line-height: 1.15;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .explorer-description {
+            font-family: var(--font-main);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        .explorer-sublabel {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .explorer-tags-container {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .explorer-tag {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 5px 10px;
+            border-radius: 0px;
+            transition: all 0.2s ease;
+        }
+
+        .explorer-tag:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-primary);
+        }
+
+        .explorer-flows-grid {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 40px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 24px;
+        }
+
+        .explorer-flow-item {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.4;
+        }
+
+        .explorer-flow-bullet {
+            color: var(--accent-purple);
+            flex-shrink: 0;
+            user-select: none;
+        }
+
+        .explorer-why-box {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 32px;
+        }
+
+        .explorer-why-text {
+            font-family: var(--font-main);
+            font-size: 0.92rem;
+            line-height: 1.65;
+            color: var(--text-primary);
+            border-left: 2px solid var(--accent-purple);
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .keyboard-hint {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            padding: 16px 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 1024px) {
+            .explorer-panel-container {
+                grid-template-columns: 1fr;
+            }
+
+            .explorer-nav {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                flex-direction: row;
+                overflow-x: auto;
+                padding: 0;
+                white-space: nowrap;
+                scrollbar-width: none;
+            }
+
+            .explorer-nav::-webkit-scrollbar {
+                display: none;
+            }
+
+            .explorer-row {
+                border-bottom: none;
+                border-right: 1px solid rgba(255, 255, 255, 0.05);
+                padding: 16px 20px;
+                flex: 0 0 auto;
+                border-left: none;
+                border-bottom: 2px solid transparent;
+            }
+
+            .explorer-row:last-child {
+                border-right: none;
+            }
+
+            .explorer-row.active {
+                border-bottom-color: var(--accent-purple);
+                border-left-color: transparent;
+            }
+
+            .explorer-row-inner {
+                gap: 12px;
+            }
+
+            .explorer-indicator {
+                display: none;
+            }
+
+            .explorer-detail {
+                padding: 40px 24px;
+                min-height: auto;
+            }
+
+            .explorer-flows-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .keyboard-hint {
+                display: none;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .os-panel-container {
+                grid-template-columns: 1fr;
+            }
+
+            .os-dashboard {
+                position: relative;
+                top: 0;
+            }
+        }
+
+        /* SECTION 5: How It Works / Architecture Stack */
+
+        /* Tab Switcher */
+        .arch-tabs-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            border-bottom: 1px solid var(--border-subtle);
+            max-width: 500px;
+            margin: 0 auto 64px;
+            padding-bottom: 16px;
+        }
+
+        .arch-toggle-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 8px 16px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .arch-toggle-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .arch-toggle-btn.active {
+            color: var(--accent-purple);
+        }
+
+        
+
+        
+
+        /* Tab Contents wrapper */
+        .arch-tab-panel {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .arch-tab-panel.active {
+            display: block;
+            opacity: 1;
+        }
+
+        
+        /* Diagonal Edge Lines for Section 5 */
+        .arch-section-bg::before, .arch-section-bg::after {
+            content: ''; position: absolute; top: 320px; width: 32px; height: calc(100% - 320px);
+            z-index: 0; pointer-events: none;
+            background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 10px);
+        }
+        .arch-section-bg::before { left: calc(50% - 640px); border-right: 1px solid rgba(255,255,255,0.05); }
+        .arch-section-bg::after { right: calc(50% - 640px); border-left: 1px solid rgba(255,255,255,0.05); }
+
+
+
+        
+        /* Toggle Switch Pill (Pricing Style) */
+        .arch-toggle-container {
+            display: inline-flex;
+            background: rgba(20, 22, 25, 0.9);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 100px;
+            padding: 6px;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 1;
+        }
+        .arch-toggle-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 10px 28px;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+        }
+        .arch-toggle-btn:hover {
+            color: var(--text-primary);
+        }
+        .arch-toggle-btn.active {
+            background: rgba(255,255,255,0.12);
+            color: var(--text-primary);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+        }
+
+        
+        /* The Operational Intelligence Stack - Bento Grid */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-auto-rows: 360px;
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 64px 32px;
+        }
+
+        .bento-card {
+            background: rgba(14, 15, 17, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+        }
+
+        .bento-card:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+            background: rgba(20, 22, 25, 0.8);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+        }
+
+        /* Card Spans */
+        .bento-card.span-2 { grid-column: span 3; }
+        .bento-card.span-1 { grid-column: span 2; }
+
+        /* Bento Graphic Area */
+        .bento-graphic {
+            flex: 1;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at top right, rgba(255,255,255,0.02) 0%, transparent 60%);
+        }
+
+        /* Bento Content Area */
+        .bento-content {
+            padding: 24px 32px;
+            background: rgba(10, 10, 12, 0.4);
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .bento-layer-label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--accent-purple);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .bento-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 0 8px 0;
+            letter-spacing: -0.01em;
+        }
+
+        .bento-desc {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+        
+        @keyframes spinSlow { 100% { transform: rotate(360deg); } }
+
+        @media (max-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: auto;
+            }
+            .bento-card.span-2, .bento-card.span-1 {
+                grid-column: span 1;
+                min-height: 320px;
+            }
+        }
+    
+        /* Section 6: Operational Scenarios */
+        .scenarios-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 64px 32px;
+        }
+
+        .scenario-col {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .scenario-header {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            color: #f43f5e;
+            margin-bottom: 16px;
+            letter-spacing: 0.05em;
+        }
+
+        .scenario-event {
+            padding: 4px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .scenario-time {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .scenario-text {
+            font-size: 10px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+        }
+
+        .scenario-event.legacy {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px dashed rgba(244, 63, 94, 0.3);
+        }
+
+        .scenario-event.legacy .scenario-time {
+            color: #f43f5e;
+        }
+
+        .scenario-divider {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #10b981;
+            font-size: 16px;
+            font-family: var(--font-mono);
+        }
+
+        @media (max-width: 1024px) {
+            .scenarios-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    
+        /* SECTION 06: Scenarios (Integration in Action) */
+        /* scenario-tab CSS removed - now using os-nav-card styling */
+        
+        .term-time { color: #10b981; margin-bottom: 8px; display: block; font-weight: 500; }
+        .term-msg { background: rgba(255,255,255,0.05); padding: 12px 16px; border-radius: 8px; color: #e5e7eb; margin-bottom: 16px; line-height: 1.5; }
+        .term-corr { color: #fbbf24; margin-bottom: 12px; display: block; text-align: center; }
+        .term-flow { display: flex; flex-direction: column; align-items: center; gap: 8px; background: rgba(255,255,255,0.02); padding: 16px; border-radius: 8px; color: #e5e7eb; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
+        .term-arrow { color: #10b981; }
+
+        /* SECTION 07: Ripple Effect */
+        .ripple-section {
+            position: relative;
+            height: 80vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0f1012;
+            overflow: hidden;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .ripple-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            -webkit-mask-image: linear-gradient(to bottom, white, transparent);
+            mask-image: linear-gradient(to bottom, white, transparent);
+            user-select: none;
+        }
+
+        .ripple-circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid #fff; /* borderColor: var(--foreground) */
+            background: rgba(255, 255, 255, 0.25); /* bg-foreground/25 */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* shadow-xl */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            animation: animate-ripple 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes animate-ripple {
+            0% { transform: translate(-50%, -50%) scale(0.92); }
+            100% { transform: translate(-50%, -50%) scale(1.08); }
+        }
+
+        .ripple-c0 { width: 350px; height: 350px; opacity: 0.24; animation-delay: 0s; }
+        .ripple-c1 { width: 500px; height: 500px; opacity: 0.21; animation-delay: 0.06s; }
+        .ripple-c2 { width: 650px; height: 650px; opacity: 0.18; animation-delay: 0.12s; }
+        .ripple-c3 { width: 800px; height: 800px; opacity: 0.15; animation-delay: 0.18s; }
+        .ripple-c4 { width: 950px; height: 950px; opacity: 0.12; animation-delay: 0.24s; }
+        .ripple-c5 { width: 1100px; height: 1100px; opacity: 0.09; animation-delay: 0.30s; }
+        .ripple-c6 { width: 1250px; height: 1250px; opacity: 0.06; animation-delay: 0.36s; }
+        .ripple-c7 { width: 1400px; height: 1400px; opacity: 0.03; animation-delay: 0.42s; }
+
+        .ripple-text {
+            font-size: 4rem;
+            color: #fff;
+            z-index: 10;
+            font-weight: 500;
+            letter-spacing: -0.03em;
+            position: relative;
+        }
+
+      ` }} />
+
+      <div dangerouslySetInnerHTML={{ __html: `
+
+    <!-- Hero -->
+    <section class="ent-section" style="padding-top: 180px;">
+        <div class="ent-bg-grid"></div>
+        <div class="ent-container text-center" style="position: relative; z-index: 10;">
+            <div class="ent-pill">
+                <span class="ent-pill-accent">✦</span> Core Infrastructure
+            </div>
+
+            <h1 class="ent-h1">Every Security System.<br>One Operational Model.</h1>
+
+            <p class="ent-p-large"
+                style="font-size: 14px; max-width: 600px; margin: 0 auto 48px auto; color: var(--text-secondary); line-height: 1.6;">
+                Your cameras, access control, and visitor systems already generate data. Mithriv's Integration Fabric
+                connects them into a unified layer, without replacing what works.
+            </p>
+
+            <div style="display: flex; gap: 16px; justify-content: center; margin-bottom: 80px;">
+                <a href="#" class="ent-btn-primary">Request Assessment</a>
+                <a href="#" class="ent-btn-secondary">View Documentation</a>
+            </div>
+
+            <!-- Customer Logos -->
+            <div
+                style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; opacity: 0.4; filter: grayscale(100%);">
+                <span style="font-weight: 700; font-size: 1.2rem; color: #A1A8B3;">Genetec</span>
+                <span style="font-weight: 700; font-size: 1.2rem; color: #A1A8B3;">Milestone</span>
+                <span style="font-weight: 700; font-size: 1.2rem; color: #A1A8B3;">LenelS2</span>
+                <span style="font-weight: 700; font-size: 1.2rem; color: #A1A8B3;">Verkada</span>
+                <span style="font-weight: 700; font-size: 1.2rem; color: #A1A8B3;">Envoy</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Fragmentation Problem (Editorial Redesign) -->
+    <section class="ent-section">
+        <div class="atmospheric-bg"></div>
+        <div class="ent-container" style="position: relative; z-index: 10;">
+
+            <div class="editorial-layout">
+
+                <!-- Left: Sticky Editorial Text -->
+                <div class="sticky-col">
+                    <div class="ent-pill" style="margin-bottom: 32px;">The Fragmentation Tax</div>
+                    <h2 class="ent-h1" style="font-size: 48px; margin-bottom: 32px; line-height: 1.05;">
+                        Data everywhere.<br>Context nowhere.
+                    </h2>
+
+                    <div style="display: flex; flex-direction: column; gap: 24px; max-width: 560px;">
+                        <p class="ent-p" style="line-height: 1.7; color: var(--text-primary);">
+                            A campus processes thousands of badge events and terabytes of video daily. The problem isn’t
+                            a lack of signals.
+                        </p>
+
+                        <p class="ent-p" style="line-height: 1.7;">
+                            But when an incident occurs, teams investigate manually. Jumping across disconnected systems
+                            to cross-check logs, verify bookings, and rebuild context by hand.
+                        </p>
+
+                        <div style="padding-left: 24px; border-left: 2px solid var(--border-subtle); margin-top: 16px;">
+                            <p class="ent-p"
+                                style="color: var(--text-muted); font-family: var(--font-mono); line-height: 1.8;">
+                                > Four platforms.<br>
+                                > Multiple browser tabs.<br>
+                                > Minutes lost per alert.<br>
+                                > Massive operational cost.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Cascading Intelligence Modules -->
+                <div class="staggered-col">
+
+                    <!-- Module 1 -->
+                    <div class="module-card">
+                        <div class="module-header">
+                            <span class="module-label">SYS_ARCH / INFRASTRUCTURE</span>
+                            <div class="module-status">
+                                <div class="status-dot error"></div> FRAGMENTED
+                            </div>
+                        </div>
+                        <h3 class="ent-h3" style="font-size: 1rem; color: var(--text-primary); margin-bottom: 16px;">
+                            Disconnected Silos</h3>
+                        <p class="ent-p">Enterprises operate 8–12 independent security systems with zero contextual
+                            synchronization. Data is isolated by design.</p>
+                    </div>
+
+                    <!-- Module 2 -->
+                    <div class="module-card">
+                        <div class="module-header">
+                            <span class="module-label">OPS / WORKFLOW</span>
+                            <div class="module-status">
+                                <div class="status-dot"></div> MANUAL_MODE
+                            </div>
+                        </div>
+                        <h3 class="ent-h3" style="font-size: 1rem; color: var(--text-primary); margin-bottom: 16px;">
+                            Manual Correlation</h3>
+                        <p class="ent-p">Security teams reconstruct timelines by switching across platforms, matching
+                            timestamps and identities by eye.</p>
+                    </div>
+
+                    <!-- Module 3 -->
+                    <div class="module-card">
+                        <div class="module-header">
+                            <span class="module-label">PERF / RESPONSE</span>
+                            <div class="module-status">
+                                <div class="status-dot error"></div> LATENCY_HIGH
+                            </div>
+                        </div>
+                        <h3 class="ent-h3" style="font-size: 1rem; color: var(--text-primary); margin-bottom: 16px;">
+                            Slow Investigations</h3>
+                        <p class="ent-p">Critical incident response workflows stretch into hours because operators must
+                            piece together the narrative from scattered fragments.</p>
+                    </div>
+
+                    <!-- Module 4 -->
+                    <div class="module-card">
+                        <div class="module-header">
+                            <span class="module-label">DATA / INTEGRITY</span>
+                            <div class="module-status">
+                                <div class="status-dot error"></div> CONTEXT_LOST
+                            </div>
+                        </div>
+                        <h3 class="ent-h3" style="font-size: 1rem; color: var(--text-primary); margin-bottom: 16px;">
+                            Information Decay</h3>
+                        <p class="ent-p">Every system stores state independently. When an event happens, the true
+                            context is lost between the gaps of these separate databases.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OS Configuration Panel -->
+    <section class="ent-section os-config-section">
+        <!-- Atmospheric lighting for this section -->
+        <div
+            style="position: absolute; top: 20%; right: 10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(124, 58, 237, 0.04) 0%, transparent 60%); pointer-events: none; z-index: 0;">
+        </div>
+
+        <div class="ent-container" style="position: relative; z-index: 10;">
+            <div
+                style="display: flex; flex-direction: column; align-items: center; padding-bottom: 64px; max-width: 640px; margin: 0 auto;">
+                <div class="ent-pill" style="margin-bottom: 24px; border-radius: 100px;">What the Integration Fabric
+                    does?</div>
+                <h2 class="ent-h2" style="margin-bottom: 24px; text-align: center;">The System of Record for Physical
+                    Security</h2>
+                <p class="ent-p"
+                    style="margin: 0; text-align: center; line-height: 1.7; font-family: var(--font-mono); color: var(--text-muted); font-size: 0.85rem;">
+                    The Integration Fabric ingests events from every source, normalizes them into a common schema, and
+                    maintains a live operational model of your entire physical security environment.</p>
+            </div>
+            <div class="os-panel-container">
+
+                <!-- Left: Interactive Cards -->
+                <div class="os-nav-cards">
+
+                    <!-- Card 1 -->
+                    <div class="os-nav-card active">
+                        <div class="os-nav-header">
+                            <h3 class="os-nav-title">Access Control</h3>
+                            <span class="os-item-icon">→</span>
+                        </div>
+                        <div class="os-nav-content">
+                            <p class="os-nav-text">The foundation. Ingest badge events, door states, reader health, and
+                                dynamic access rules directly into the state model.</p>
+                            <div style="display: flex; gap: 12px;">
+                                <span
+                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px;">Genetec</span>
+                                <span
+                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px;">LenelS2</span>
+                                <span
+                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px;">Brivo</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="os-nav-card">
+                        <div class="os-nav-header">
+                            <h3 class="os-nav-title">Video Intelligence</h3>
+                            <span class="os-item-icon">→</span>
+                        </div>
+                        <div class="os-nav-content">
+                            <p class="os-nav-text">Video with context becomes evidence. Automatically link surveillance
+                                feeds directly to identity events and anomalies.</p>
+                            <div style="display: flex; gap: 12px;">
+                                <span
+                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px;">Milestone</span>
+                                <span
+                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px;">Verkada</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="os-nav-card">
+                        <div class="os-nav-header">
+                            <h3 class="os-nav-title">Visitor Management</h3>
+                            <span class="os-item-icon">→</span>
+                        </div>
+                        <div class="os-nav-content">
+                            <p class="os-nav-text">Manage the complete visitor lifecycle. Automate credential
+                                provisioning, host notifications, and access expiration globally.</p>
+                            <div style="display: flex; gap: 12px;">
+                                <span
+                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px;">Envoy</span>
+                                <span
+                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px;">Proxyclick</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="os-nav-card">
+                        <div class="os-nav-header">
+                            <h3 class="os-nav-title">Space Utilization</h3>
+                            <span class="os-item-icon">→</span>
+                        </div>
+                        <div class="os-nav-content">
+                            <p class="os-nav-text">Occupancy intelligence. Cross-reference actual access events with
+                                calendar bookings to identify shadow occupancy.</p>
+                            <div style="display: flex; gap: 12px;">
+                                <span
+                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px;">Microsoft
+                                    365</span>
+                                <span
+                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px;">Robin</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Live Intelligence Dashboard -->
+                <div class="os-dashboard">
+
+                    <div class="os-dash-header">
+                        <span
+                            style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-secondary);">SYS_INTEGRATION_BUS</span>
+                        <div class="module-status">
+                            <div class="status-dot active"></div> SYNC_ACTIVE
+                        </div>
+                    </div>
+
+                    <div class="os-metric-grid">
+                        <div class="os-metric-box">
+                            <span class="module-label">EVENTS_PROCESSED (24H)</span>
+                            <span class="os-metric-value os-counter" data-target="142894" data-suffix=""
+                                data-decimals="0">0</span>
+                        </div>
+                        <div class="os-metric-box">
+                            <span class="module-label">BUS_LATENCY</span>
+                            <span class="os-metric-value os-counter" data-target="12" data-suffix="ms" data-decimals="0"
+                                style="color: #10B981;">0ms</span>
+                        </div>
+                        <div class="os-metric-box">
+                            <span class="module-label">ACTIVE_NODES</span>
+                            <span class="os-metric-value os-counter" data-target="24" data-suffix=" / 24"
+                                data-decimals="0">0 / 24</span>
+                        </div>
+                        <div class="os-metric-box">
+                            <span class="module-label">DATA_INGEST_RATE</span>
+                            <span class="os-metric-value os-counter" data-target="4.2" data-suffix=" MB/s"
+                                data-decimals="1">0.0 MB/s</span>
+                        </div>
+                    </div>
+
+                    <span class="module-label" style="display: block; margin-bottom: 16px;">LIVE_EVENT_STREAM</span>
+                    <div class="os-graph">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" preserveAspectRatio="none"
+                            class="os-svg-graph os-chart">
+                            <defs>
+                                <linearGradient id="barFade" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="rgba(255, 255, 255, 0.0)" />
+                                    <stop offset="100%" stop-color="rgba(255, 255, 255, 0.3)" />
+                                </linearGradient>
+                            </defs>
+
+                            <!-- 5 thin vertical bars fading at the top -->
+                            <rect x="40" y="40" width="2" height="80" fill="url(#barFade)" rx="1" class="graph-bar" />
+                            <rect x="120" y="20" width="2" height="100" fill="url(#barFade)" rx="1" class="graph-bar" />
+                            <rect x="200" y="50" width="2" height="70" fill="url(#barFade)" rx="1" class="graph-bar" />
+                            <rect x="280" y="30" width="2" height="90" fill="url(#barFade)" rx="1" class="graph-bar" />
+                            <rect x="360" y="60" width="2" height="60" fill="url(#barFade)" rx="1" class="graph-bar" />
+                        </svg>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-top: 8px;">
+                        <span
+                            style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted);">-60s</span>
+                        <span
+                            style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted);">NOW</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Integration Explorer Section -->
+    <section class="ent-section" style="border-top: none;">
+        <!-- Subtle atmospheric glow -->
+        <div
+            style="position: absolute; top: -10%; left: -10%; right: -10%; bottom: -10%; background: radial-gradient(circle at 30% 40%, rgba(124, 58, 237, 0.02) 0%, transparent 60%); pointer-events: none; z-index: 0;">
+        </div>
+
+        <div class="ent-container" style="position: relative; z-index: 10;">
+            <div
+                style="display: flex; flex-direction: column; align-items: center; padding-bottom: 64px; max-width: 640px; margin: 0 auto;">
+                <div class="ent-pill" style="margin-bottom: 24px; border-radius: 100px;">Connectors & API Modules</div>
+                <h2 class="ent-h2" style="margin-bottom: 24px; text-align: center;">Interactive Integration Explorer
+                </h2>
+                <p class="ent-p"
+                    style="margin: 0; text-align: center; line-height: 1.7; font-family: var(--font-mono); color: var(--text-muted); font-size: 0.85rem;">
+                    Browse operational connections across access control, video systems, visitors, space utilization,
+                    parking management, cafeteria transactions, building systems, IT identity registries, and
+                    communication networks.</p>
+            </div>
+
+            <div class="explorer-panel-container">
+                <div class="explorer-nav" role="tablist">
+                    <div class="explorer-row active" data-category="access-control" tabindex="0" role="tab" aria-selected="true" aria-controls="explorer-detail-panel">
+                        <div class="explorer-row-inner">
+                            <span class="explorer-index">/01</span>
+                            <div class="explorer-row-text">
+                                <span class="explorer-title">Access Control Systems</span>
+                                <span class="explorer-desc">Core badge & reader telemetry</span>
+                            </div>
+                            <span class="explorer-indicator"></span>
+                        </div>
+                    </div>
+                    <div class="explorer-row" data-category="video-management" tabindex="0" role="tab" aria-selected="false" aria-controls="explorer-detail-panel">
+                        <div class="explorer-row-inner">
+                            <span class="explorer-index">/02</span>
+                            <div class="explorer-row-text">
+                                <span class="explorer-title">Video Management Systems</span>
+                                <span class="explorer-desc">Visual intelligence & clips</span>
+                            </div>
+                            <span class="explorer-indicator"></span>
+                        </div>
+                    </div>
+                    <div class="explorer-row" data-category="visitor-management" tabindex="0" role="tab" aria-selected="false" aria-controls="explorer-detail-panel">
+                        <div class="explorer-row-inner">
+                            <span class="explorer-index">/03</span>
+                            <div class="explorer-row-text">
+                                <span class="explorer-title">Visitor Management</span>
+                                <span class="explorer-desc">Check-in workflow orchestration</span>
+                            </div>
+                            <span class="explorer-indicator"></span>
+                        </div>
+                    </div>
+                    <div class="explorer-row" data-category="space-utilization" tabindex="0" role="tab" aria-selected="false" aria-controls="explorer-detail-panel">
+                        <div class="explorer-row-inner">
+                            <span class="explorer-index">/04</span>
+                            <div class="explorer-row-text">
+                                <span class="explorer-title">Meeting Room & Desk Booking</span>
+                                <span class="explorer-desc">Occupancy + workplace intelligence</span>
+                            </div>
+                            <span class="explorer-indicator"></span>
+                        </div>
+                    </div>
+                    <div class="explorer-row" data-category="parking-management" tabindex="0" role="tab" aria-selected="false" aria-controls="explorer-detail-panel">
+                        <div class="explorer-row-inner">
+                            <span class="explorer-index">/05</span>
+                            <div class="explorer-row-text">
+                                <span class="explorer-title">Parking Management</span>
+                                <span class="explorer-desc">Vehicle access + identity governance</span>
+                            </div>
+                            <span class="explorer-indicator"></span>
+                        </div>
+                    </div>
+                    <div class="explorer-row" data-category="cafeteria-retail" tabindex="0" role="tab" aria-selected="false" aria-controls="explorer-detail-panel">
+                        <div class="explorer-row-inner">
+                            <span class="explorer-index">/06</span>
+                            <div class="explorer-row-text">
+                                <span class="explorer-title">Cafeteria & Retail</span>
+                                <span class="explorer-desc">POS integration + presence patterns</span>
+                            </div>
+                            <span class="explorer-indicator"></span>
+                        </div>
+                    </div>
+                    <div class="explorer-row" data-category="building-management" tabindex="0" role="tab" aria-selected="false" aria-controls="explorer-detail-panel">
+                        <div class="explorer-row-inner">
+                            <span class="explorer-index">/07</span>
+                            <div class="explorer-row-text">
+                                <span class="explorer-title">Building Management Systems</span>
+                                <span class="explorer-desc">HVAC + elevator + environmental controls</span>
+                            </div>
+                            <span class="explorer-indicator"></span>
+                        </div>
+                    </div>
+                    <div class="explorer-row" data-category="identity-it" tabindex="0" role="tab" aria-selected="false" aria-controls="explorer-detail-panel">
+                        <div class="explorer-row-inner">
+                            <span class="explorer-index">/08</span>
+                            <div class="explorer-row-text">
+                                <span class="explorer-title">Identity & IT Systems</span>
+                                <span class="explorer-desc">Physical & logical security bridge</span>
+                            </div>
+                            <span class="explorer-indicator"></span>
+                        </div>
+                    </div>
+                    <div class="explorer-row" data-category="communication-alerting" tabindex="0" role="tab" aria-selected="false" aria-controls="explorer-detail-panel">
+                        <div class="explorer-row-inner">
+                            <span class="explorer-index">/09</span>
+                            <div class="explorer-row-text">
+                                <span class="explorer-title">Communication & Alerting</span>
+                                <span class="explorer-desc">Multi-channel response coordination</span>
+                            </div>
+                            <span class="explorer-indicator"></span>
+                        </div>
+                    </div>
+                    <div class="keyboard-hint">
+                        Press [1-9] or Arrow keys to browse
+                    </div>
+                </div>
+
+                <!-- Right Side: Contextual Detail Panel -->
+                <div class="explorer-detail" role="tabpanel" id="explorer-detail-panel">
+                    <div class="explorer-detail-content" id="explorer-detail-content">
+                        <!-- Initial Content: Access Control Systems -->
+                        <span class="explorer-meta">ACCESS_LAYER / CORE_INFRASTRUCTURE</span>
+                        <h3 class="explorer-headline">Access Control Systems</h3>
+                        <p class="explorer-description">The foundation. Badge events, door states, reader health, access rules, all normalized into the operational model.</p>
+
+                        <span class="explorer-sublabel">Pre-built Connectors</span>
+                        <div class="explorer-tags-container">
+                            <span class="explorer-tag">Genetec Synergis</span>
+                            <span class="explorer-tag">HID</span>
+                            <span class="explorer-tag">Lenel</span>
+                            <span class="explorer-tag">S2 NetBox</span>
+                            <span class="explorer-tag">Brivo</span>
+                            <span class="explorer-tag">AMAG</span>
+                            <span class="explorer-tag">Gallagher</span>
+                            <span class="explorer-tag">Paxton</span>
+                            <span class="explorer-tag">Honeywell Pro-Watch</span>
+                            <span class="explorer-tag">Software House</span>
+                            <span class="explorer-tag">Kantech</span>
+                            <span class="explorer-tag">Keri Systems</span>
+                            <span class="explorer-tag">PDK</span>
+                            <span class="explorer-tag">OpenPath</span>
+                            <span class="explorer-tag">Verkada Access Control</span>
+                        </div>
+
+                        <span class="explorer-sublabel">Telemetry Data Flows</span>
+                        <ul class="explorer-flows-grid">
+                            <li class="explorer-flow-item"><span class="explorer-flow-bullet">→</span> Real-time badge events with credential resolution</li>
+                            <li class="explorer-flow-item"><span class="explorer-flow-bullet">→</span> Door forced/held/propped alerts</li>
+                            <li class="explorer-flow-item"><span class="explorer-flow-bullet">→</span> Reader online/offline status</li>
+                            <li class="explorer-flow-item"><span class="explorer-flow-bullet">→</span> Access rule configurations</li>
+                            <li class="explorer-flow-item"><span class="explorer-flow-bullet">→</span> Credential lifecycle (provision/suspend/revoke)</li>
+                        </ul>
+
+                        <div class="explorer-why-box">
+                            <span class="explorer-sublabel">Why It Matters</span>
+                            <p class="explorer-why-text">Access events are the highest-confidence signal in physical security. A badge tap is a verified identity at a specific location at a precise time. The Integration Fabric makes this data queryable, correlatable, and actionable across your entire operation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 05: How It Works / Architecture Stack -->
+    <section class="ent-section" style="border-top: none; position: relative; overflow: visible;">
+        <!-- Delicate backdrop lighting -->
+        <div style="position: absolute; bottom: 10%; left: 15%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(124, 58, 237, 0.03) 0%, transparent 60%); pointer-events: none; z-index: 0;"></div>
+
+        <div class="ent-container" style="position: relative; z-index: 10;">
+
+            <!-- Metadata & Title Section -->
+            <div style="display: flex; flex-direction: column; align-items: center; padding-bottom: 64px; max-width: 680px; margin: 0 auto;">
+                <div class="ent-pill" style="margin-bottom: 24px; border-radius: 100px;">
+                    <span class="ent-pill-accent">✦</span> The Architecture Stack
+                </div>
+                <h2 class="ent-h2" style="margin-bottom: 24px; text-align: center;">The Operational Intelligence Stack</h2>
+                <p class="ent-p" style="margin: 0; text-align: center; line-height: 1.7; font-family: var(--font-mono); color: var(--text-muted); font-size: 0.85rem;">
+                    The Integration Fabric transforms fragmented systems into a continuously synchronized operational model through four architectural layers.
+                </p>
+            </div>
+
+            <!-- Pill Toggle Switch over Horizontal Guideline -->
+            <div style="position: relative; width: 100%; max-width: 1280px; margin: 0 auto 64px; display: flex; justify-content: center; align-items: center; box-sizing: border-box;">
+                <!-- Full-width Horizontal Guideline acting as the track behind the pill -->
+                <div style="position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: rgba(255,255,255,0.05); z-index: 0;"></div>
+
+                <!-- The Toggle Switch Pill -->
+                <div class="arch-toggle-container">
+                    <button class="arch-toggle-btn active" data-tab="stack">The Integration Stack</button>
+                    <button class="arch-toggle-btn" data-tab="deployment">Deployment Models</button>
+                </div>
+            </div>
+
+            <!-- Tab Panel 1: The Integration Stack -->
+            <div class="arch-tab-panel active" id="panel-stack">
+            <!-- The Operational Intelligence Stack -->
+            <div class="bento-grid" id="bento-stack">
+
+                <!-- [01] PROTOCOL LAYER (Span 2) -->
+                <div class="bento-card span-2">
+                    <div class="bento-graphic">
+                        <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 32px 32px; mask-image: linear-gradient(to bottom, black 20%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 100%);"></div>
+                        <div style="display: flex; gap: 12px; z-index: 1; align-items: center;">
+                            <div style="padding: 8px 16px; background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.5);">ONVIF</div>
+                            <div style="padding: 10px 20px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.8); box-shadow: 0 4px 12px rgba(0,0,0,0.2);">REST API</div>
+                            <div style="padding: 8px 16px; background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.5);">BACnet</div>
+                            <div style="padding: 8px 16px; background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.5);">OSDP v2</div>
+                        </div>
+                    </div>
+                    <div class="bento-content">
+                        <h3 class="bento-title">Universal Adapters</h3>
+                        <p class="bento-desc">Native support for security industry standards: ONVIF for video, OSDP v2 for access control, BACnet for building systems. REST APIs for modern cloud applications. Legacy protocol adapters for older systems.</p>
+                    </div>
+                </div>
+
+                <!-- [02] NORMALIZATION LAYER (Span 1) -->
+                <div class="bento-card span-1">
+                    <div class="bento-graphic" style="flex-direction: column;">
+                        <div style="width: 48px; height: 48px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.3);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2"><path d="M4 12v8M12 4v16M20 12v8M8 8v12M16 8v12"/></svg>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <div style="width: 32px; height: 32px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; display: flex; align-items: center; justify-content: center;"><div style="width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.3);"></div></div>
+                            <div style="width: 32px; height: 32px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; display: flex; align-items: center; justify-content: center;"><div style="width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.3);"></div></div>
+                            <div style="width: 32px; height: 32px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; display: flex; align-items: center; justify-content: center;"><div style="width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.3);"></div></div>
+                        </div>
+                    </div>
+                    <div class="bento-content">
+                        <h3 class="bento-title">Unified Schema</h3>
+                        <p class="bento-desc">Raw events from disparate systems transform into a unified schema. A "door forced" alert from Genetec and a "door held open" event from Lenel become comparable, queryable, actionable data.</p>
+                    </div>
+                </div>
+
+                <!-- [03] STATE LAYER (Span 1) -->
+                <div class="bento-card span-1">
+                    <div class="bento-graphic">
+                        <div style="width: 140px; height: 140px; border-radius: 50%; border: 1px dashed rgba(255,255,255,0.1); position: relative; display: flex; align-items: center; justify-content: center; animation: spinSlow 20s linear infinite;">
+                            <div style="width: 48px; height: 48px; background: rgba(20,184,166,0.1); border: 1px solid rgba(20,184,166,0.3); border-radius: 50%; position: absolute; display: flex; align-items: center; justify-content: center; animation: spinSlow 20s linear infinite reverse;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(20,184,166,0.8)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            </div>
+                            <div style="position: absolute; width: 10px; height: 10px; background: rgba(255,255,255,0.2); border-radius: 50%; top: -5px; left: 50%; transform: translateX(-50%);"></div>
+                            <div style="position: absolute; width: 6px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 50%; bottom: 15px; left: 5px;"></div>
+                            <div style="position: absolute; width: 8px; height: 8px; background: rgba(255,255,255,0.15); border-radius: 50%; bottom: 15px; right: 5px;"></div>
+                        </div>
+                    </div>
+                    <div class="bento-content">
+                        <h3 class="bento-title">Operational Context</h3>
+                        <p class="bento-desc">The operational model maintains current state across all systems. Live understanding of who is where, what credentials are active, and what zones are armed.</p>
+                    </div>
+                </div>
+
+                <!-- [04] ACTION LAYER (Span 2) -->
+                <div class="bento-card span-2">
+                    <div class="bento-graphic" style="align-items: flex-end; justify-content: flex-start; padding: 0 40px;">
+                        <div style="width: 100%; height: 85%; background: rgba(10,10,12,0.6); border: 1px solid rgba(255,255,255,0.06); border-bottom: none; border-radius: 12px 12px 0 0; padding: 20px; position: relative; overflow: hidden; box-shadow: 0 -4px 24px rgba(0,0,0,0.4);">
+                            <div style="display: flex; gap: 8px; margin-bottom: 24px;">
+                                <div style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.1);"></div>
+                                <div style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.1);"></div>
+                                <div style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.1);"></div>
+                            </div>
+                            <div style="font-family: var(--font-mono); font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.8;">
+                                <span style="color: rgba(255,255,255,0.2);">1</span> &nbsp;&nbsp;\$ orchestrate --layer action<br>
+                                <span style="color: rgba(255,255,255,0.2);">2</span> &nbsp;&nbsp;<span style="color: rgba(255,255,255,0.6);">> Executing global workflow...</span><br>
+                                <span style="color: rgba(255,255,255,0.2);">3</span> &nbsp;&nbsp;<span style="color: rgba(255,255,255,0.6);">> Synchronizing endpoints...</span><br>
+                                <span style="color: rgba(255,255,255,0.2);">4</span> &nbsp;&nbsp;<span style="color: #14b8a6;">[SUCCESS] All systems active.</span>
+                            </div>
+                            <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 60px; background: linear-gradient(to bottom, transparent, rgba(14,15,17,0.9));"></div>
+                        </div>
+                    </div>
+                    <div class="bento-content">
+                        <h3 class="bento-title">Automated Actions</h3>
+                        <p class="bento-desc">Intelligence flows back to source systems. Lock commands, credential updates, camera presets, elevator recalls—the Integration Fabric doesn't just observe, it orchestrates.</p>
+                    </div>
+                </div>
+
+            </div>
+            </div>
+            <!-- Tab Panel 2: Deployment Models --><!-- Tab Panel 2: Deployment Models -->
+            <div class="arch-tab-panel" id="panel-deployment">
+                <div class="deployment-grid">
+
+                    <!-- Card 1: Cloud-Native -->
+                    <div class="deployment-card">
+                        <span class="deployment-meta">MODEL 01 / FULL_CLOUD</span>
+                        <h3 class="deployment-title">Cloud-to-Cloud API Bridging</h3>
+                        <p class="deployment-desc">
+                            Direct, serverless cloud API integration. Ingests events and triggers actions directly across cloud-managed physical security platforms with zero local server presence.
+                        </p>
+                        <div class="deployment-tags">
+                            <span class="deployment-tag">Verkada API</span>
+                            <span class="deployment-tag">OpenPath Cloud</span>
+                            <span class="deployment-tag">Brivo OnAir</span>
+                            <span class="deployment-tag">Okta Identity</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Hybrid Edge Agent -->
+                    <div class="deployment-card">
+                        <span class="deployment-meta">MODEL 02 / HYBRID_EDGE</span>
+                        <h3 class="deployment-title">Secure Edge Gateway Agent</h3>
+                        <p class="deployment-desc">
+                            A lightweight, hardened on-premises Edge Broker that translates legacy local protocols (Milestone VMS, local Lenel controllers, local Modbus/BACnet endpoints) and streams them securely to the cloud.
+                        </p>
+                        <div class="deployment-tags">
+                            <span class="deployment-tag">BACnet IP</span>
+                            <span class="deployment-tag">Milestone SDK</span>
+                            <span class="deployment-tag">OSDP Serial</span>
+                            <span class="deployment-tag">Modbus Edge</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Air-Gapped Sovereign -->
+                    <div class="deployment-card">
+                        <span class="deployment-meta">MODEL 03 / PRIVATE_CLOUD</span>
+                        <h3 class="deployment-title">Air-Gapped Sovereign Cloud</h3>
+                        <p class="deployment-desc">
+                            Fully isolated private cloud deployments configured for high-compliance sectors, national defense, sovereign environments, or isolated air-gapped secure areas.
+                        </p>
+                        <div class="deployment-tags">
+                            <span class="deployment-tag">On-Premises Kubernetes</span>
+                            <span class="deployment-tag">High Compliance</span>
+                            <span class="deployment-tag">Isolated Network</span>
+                            <span class="deployment-tag">FedRAMP High</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            </div>
+
+        </div>
+        </div>
+    </section>
+
+    <!-- SECTION 06: Ripple Design -->
+    <section class="ent-section ripple-section">
+        <div class="ripple-container">
+            <div class="ripple-circle ripple-c0"></div>
+            <div class="ripple-circle ripple-c1"></div>
+            <div class="ripple-circle ripple-c2"></div>
+            <div class="ripple-circle ripple-c3"></div>
+            <div class="ripple-circle ripple-c4"></div>
+            <div class="ripple-circle ripple-c5"></div>
+            <div class="ripple-circle ripple-c6"></div>
+            <div class="ripple-circle ripple-c7"></div>
+        </div>
+        <div style="position: relative; z-index: 10; text-align: center; padding: 0 32px; max-width: 720px;">
+            <div class="ent-pill" style="margin-bottom: 32px; justify-content: center; display: inline-flex;">
+                <span class="ent-pill-accent">✦</span> Ready to Unify Your Stack
+            </div>
+            <h2 style="font-size: 48px; font-weight: 700; color: #F5F7FA; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 24px;">
+                Every Signal.<br>One Response.
+            </h2>
+            <p style="font-family: var(--font-mono); font-size: 14px; color: #6B7280; line-height: 1.7; max-width: 560px; margin: 0 auto 48px;">
+                One badge tap. One camera alert. One visitor check-in. The Integration Fabric turns isolated events into coordinated intelligence — across every system, in real time.
+            </p>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="#" class="ent-btn-primary">Request Assessment</a>
+                <a href="#" class="ent-btn-secondary">View Documentation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 07: Integration in Action (Scenarios) -->
+    <section class="ent-section" style="padding-top: 120px; padding-bottom: 120px; border-top: 1px solid rgba(255,255,255,0.05);">
+        <div class="ent-container">
+            <div style="display: flex; flex-direction: column; align-items: center; padding-bottom: 64px; max-width: 720px; margin: 0 auto; text-align: center;">
+                <div class="ent-pill" style="margin-bottom: 24px;">
+                    <span class="ent-pill-accent">✦</span> Operational Scenarios
+                </div>
+                <h2 class="ent-h2" style="margin-bottom: 24px;">Integration in Action</h2>
+                <p class="ent-p" style="margin: 0; line-height: 1.7; font-family: var(--font-mono); color: var(--text-muted); font-size: 0.95rem;">
+                    These scenarios demonstrate how unified data enables intelligent operations.
+                </p>
+            </div>
+
+            <div class="os-panel-container" style="grid-template-columns: 1fr 1fr; align-items: center;">
+                <!-- Left: Tabs -->
+                <div class="os-nav-cards">
+                    <div class="os-nav-card scenario-tab active" data-scenario="0">
+                        <div class="os-nav-header">
+                            <h3 class="os-nav-title">Unauthorized Access</h3>
+                            <span class="os-item-icon">→</span>
+                        </div>
+                        <div class="os-nav-content">
+                            <p class="os-nav-text">Cross-reference badge identity with active HR policies to instantly flag anomalies.</p>
+                        </div>
+                    </div>
+                    <div class="os-nav-card scenario-tab" data-scenario="1">
+                        <div class="os-nav-header">
+                            <h3 class="os-nav-title">Visitor Overstay</h3>
+                            <span class="os-item-icon">→</span>
+                        </div>
+                        <div class="os-nav-content">
+                            <p class="os-nav-text">Track visitor location against meeting schedule and automatically notify hosts.</p>
+                        </div>
+                    </div>
+                    <div class="os-nav-card scenario-tab" data-scenario="2">
+                        <div class="os-nav-header">
+                            <h3 class="os-nav-title">Emergency Mustering</h3>
+                            <span class="os-item-icon">→</span>
+                        </div>
+                        <div class="os-nav-content">
+                            <p class="os-nav-text">Instantly correlate building occupancy and remove false badge-out events during a crisis.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Phone/Terminal Box -->
+                <div class="os-dashboard scenario-terminal" style="display: flex; flex-direction: column; padding: 0; overflow: hidden; height: 580px; width: 100%; max-width: 340px; margin: 0 auto; border-radius: 36px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 32px 64px rgba(0,0,0,0.5);">
+                    <!-- Phone Header (Dynamic Notch / Status) -->
+                    <div style="padding: 16px 24px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4);">
+                        <div style="width: 60px; height: 6px; border-radius: 100px; background: rgba(255,255,255,0.1);"></div>
+                    </div>
+                    <div style="padding: 12px 24px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; background: rgba(10,11,13,0.8);">
+                        <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); font-weight: 500; letter-spacing: 0.05em;">MITHRIV_SECURE_COMMS</span>
+                    </div>
+                    <!-- Phone/Terminal Content -->
+                    <div id="scenario-content" style="padding: 24px; overflow-y: auto; flex: 1; font-family: var(--font-mono); font-size: 0.85rem; display: flex; flex-direction: column; gap: 16px; background: #0a0b0d;">
+                        <!-- dynamic content goes here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+      ` }} />
+    </div>
+  )
+}
