@@ -27,6 +27,7 @@ export default function Footer() {
                     <ul>
                         <li><Link href="/intelligence-engine">Intelligence Engine</Link></li>
                         <li><Link href="/communication-interface">Communication Interface</Link></li>
+                        <li><Link href="/communication-v2">Communication Interface v2</Link></li>
                         <li><Link href="/integration-fabric">Integration Fabric</Link></li>
                     </ul>
                 </div>
