@@ -3483,6 +3483,7 @@ export default function CommunicationV2Page() {
                 position: relative;
                 padding-left: 24px;
                 box-sizing: border-box;
+                cursor: pointer;
               }
               .outcomes-card-line {
                 position: absolute;
@@ -3497,12 +3498,17 @@ export default function CommunicationV2Page() {
                 position: absolute;
                 left: 0;
                 top: 50%;
-                margin-top: -24px;
-                width: 10px;
-                height: 48px;
+                margin-top: -14px;
+                width: 6px;
+                height: 28px;
                 background: #202022;
                 border-radius: 0 9999px 9999px 0;
                 transform-origin: left center;
+                transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease;
+              }
+              .outcomes-card:hover .outcomes-card-pill {
+                transform: scale(1, 1.5) !important;
+                background: #8B5CF6 !important;
               }
               @keyframes clock-spin {
                 from { transform: rotate(0deg); }
@@ -3603,10 +3609,10 @@ export default function CommunicationV2Page() {
               <div className="outcomes-grid-container">
                 {[
                   {
-                    icon: (color: string) => (
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
-                        <circle cx="12" cy="12" r="10" />
-                        <polyline points="12 6 12 12 16 12" className="anim-clock-hand" style={{ transformOrigin: '12px 12px' }} />
+                    icon: (baseColor: string, brandPurple: string, fillBg: string) => (
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
+                        <circle cx="12" cy="12" r="10" stroke={baseColor} fill={fillBg} />
+                        <polyline points="12 6 12 12 16 12" stroke={brandPurple} className="anim-clock-hand" style={{ transformOrigin: '12px 12px' }} />
                       </svg>
                     ),
                     title: "Check-in takes 90 seconds",
@@ -3614,13 +3620,13 @@ export default function CommunicationV2Page() {
                     metric: "90s avg vs 20 min manual"
                   },
                   {
-                    icon: (color: string) => (
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
-                        <rect x="3" y="3" width="18" height="18" rx="2" />
-                        <line x1="8" y1="9" x2="16" y2="9" />
-                        <line x1="8" y1="13" x2="16" y2="13" />
-                        <line x1="8" y1="17" x2="13" y2="17" />
-                        <circle cx="17" cy="17" r="2" fill={color} className="anim-pulse-dot" />
+                    icon: (baseColor: string, brandPurple: string, fillBg: string) => (
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
+                        <rect x="3" y="3" width="18" height="18" rx="2" stroke={baseColor} fill={fillBg} />
+                        <line x1="7" y1="8" x2="17" y2="8" stroke={baseColor} />
+                        <line x1="7" y1="12" x2="13" y2="12" stroke={baseColor} />
+                        <line x1="7" y1="16" x2="11" y2="16" stroke={baseColor} />
+                        <circle cx="16" cy="15" r="2.5" fill={brandPurple} stroke={brandPurple} className="anim-pulse-dot" />
                       </svg>
                     ),
                     title: "Guards document in real time",
@@ -3628,12 +3634,12 @@ export default function CommunicationV2Page() {
                     metric: "Documentation compliance 60% → 90%+"
                   },
                   {
-                    icon: (color: string) => (
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                        <circle cx="9" cy="10" r="1" fill={color} className="anim-chat-1" />
-                        <circle cx="12" cy="10" r="1" fill={color} className="anim-chat-2" />
-                        <circle cx="15" cy="10" r="1" fill={color} className="anim-chat-3" />
+                    icon: (baseColor: string, brandPurple: string, fillBg: string) => (
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke={baseColor} fill={fillBg} />
+                        <circle cx="9" cy="10" r="1.5" fill={brandPurple} stroke={brandPurple} className="anim-chat-1" />
+                        <circle cx="12" cy="10" r="1.5" fill={brandPurple} stroke={brandPurple} className="anim-chat-2" />
+                        <circle cx="15" cy="10" r="1.5" fill={brandPurple} stroke={brandPurple} className="anim-chat-3" />
                       </svg>
                     ),
                     title: "Employees stop calling help desk",
@@ -3641,11 +3647,11 @@ export default function CommunicationV2Page() {
                     metric: "40–60% ticket volume reduction"
                   },
                   {
-                    icon: (color: string) => (
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
-                        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-                        <rect x="8" y="2" width="8" height="4" rx="1" />
-                        <polyline points="9 14 11 16 15 12" className="anim-check-draw" />
+                    icon: (baseColor: string, brandPurple: string, fillBg: string) => (
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
+                        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" stroke={baseColor} fill={fillBg} />
+                        <rect x="8" y="2" width="8" height="4" rx="1" stroke={baseColor} fill={fillBg} />
+                        <polyline points="8 13 11 16 16 10" stroke={brandPurple} className="anim-check-draw" />
                       </svg>
                     ),
                     title: "Contractors arrive prepared",
@@ -3653,11 +3659,11 @@ export default function CommunicationV2Page() {
                     metric: "Escort coordination under 3 min"
                   },
                   {
-                    icon: (color: string) => (
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
-                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" opacity="0.2" />
-                        <circle cx="12" cy="12" r="3" fill={color} />
-                        <circle cx="12" cy="12" r="7" className="anim-radar" style={{ transformOrigin: '12px 12px' }} />
+                    icon: (baseColor: string, brandPurple: string, fillBg: string) => (
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
+                        <circle cx="12" cy="12" r="10" stroke={baseColor} fill={fillBg} />
+                        <circle cx="12" cy="12" r="3" fill={brandPurple} stroke={brandPurple} />
+                        <circle cx="12" cy="12" r="7" stroke={brandPurple} className="anim-radar" style={{ transformOrigin: '12px 12px' }} />
                       </svg>
                     ),
                     title: "Emergencies coordinate automatically",
@@ -3665,11 +3671,12 @@ export default function CommunicationV2Page() {
                     metric: "Muster accountability: hours → minutes"
                   },
                   {
-                    icon: (color: string) => (
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
-                        <line x1="18" y1="20" x2="18" y2="10" className="anim-exec-bar-1" style={{ transformOrigin: '18px 20px' }} />
-                        <line x1="12" y1="20" x2="12" y2="4" className="anim-exec-bar-2" style={{ transformOrigin: '12px 20px' }} />
-                        <line x1="6" y1="20" x2="6" y2="14" className="anim-exec-bar-3" style={{ transformOrigin: '6px 20px' }} />
+                    icon: (baseColor: string, brandPurple: string, fillBg: string) => (
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
+                        <line x1="18" y1="20" x2="18" y2="10" stroke={baseColor} className="anim-exec-bar-1" style={{ transformOrigin: '18px 20px' }} />
+                        <line x1="12" y1="20" x2="12" y2="4" stroke={brandPurple} className="anim-exec-bar-2" style={{ transformOrigin: '12px 20px' }} />
+                        <line x1="6" y1="20" x2="6" y2="14" stroke={baseColor} className="anim-exec-bar-3" style={{ transformOrigin: '6px 20px' }} />
+                        <line x1="3" y1="20" x2="21" y2="20" stroke={baseColor} />
                       </svg>
                     ),
                     title: "Executives get answers on demand",
@@ -3682,7 +3689,7 @@ export default function CommunicationV2Page() {
                     <div className="outcomes-card-pill" />
 
                     <div className="outcomes-card-content">
-                      {item.icon('#B6B6B7')}
+                      {item.icon('#3F3F46', '#8B5CF6', '#15171A')}
 
                       <h3 style={{
                         fontSize: '18px',
