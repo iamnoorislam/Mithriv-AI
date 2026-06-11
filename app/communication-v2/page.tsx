@@ -3082,7 +3082,7 @@ export default function CommunicationV2Page() {
                 }
               }
             `}</style>
-            
+
             <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
               <div style={{ display: 'flex', justifyContent: 'flex-start', width: '100%', marginBottom: '24px' }}>
                 <span className="ent-pill" style={{
@@ -3096,7 +3096,7 @@ export default function CommunicationV2Page() {
                   Honest Positioning
                 </span>
               </div>
-              
+
               <h2 style={{
                 fontSize: '48px',
                 marginBottom: '20px',
@@ -3108,7 +3108,7 @@ export default function CommunicationV2Page() {
               }}>
                 What it is. What it isn't.
               </h2>
-              
+
               <p style={{
                 maxWidth: '850px',
                 margin: '0 0 3rem',
@@ -3122,7 +3122,7 @@ export default function CommunicationV2Page() {
               </p>
 
               <div className="honest-grid-container">
-                
+
                 {/* Excels Column */}
                 <div className="honest-column honest-column-left">
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '28px' }}>
@@ -3323,7 +3323,7 @@ export default function CommunicationV2Page() {
                   fontWeight: 400,
                   color: '#B6B6B7',
                   lineHeight: '1.6',
-                  margin: '0 auto 80px',
+                  margin: '0 auto 40px',
                   maxWidth: '580px',
                   textAlign: 'center'
                 }}
