@@ -2875,14 +2875,13 @@ export default function CommunicationV2Page() {
               <div style={{ display: 'flex', justifyContent: 'flex-start', width: '100%', marginBottom: '24px' }}>
                 <span className="ent-pill" style={{
                   marginLeft: '0px',
-                  background: 'transparent',
-                  border: '1px solid rgba(15, 17, 21, 0.15)',
+                  marginBottom: '0px',
+                  background: 'rgba(15, 17, 21, 0.04)',
+                  border: '1px solid rgba(15, 17, 21, 0.12)',
                   color: '#0F1115',
-                  fontSize: '11px',
-                  fontFamily: 'var(--font-mono), monospace',
-                  borderRadius: '0px'
+                  fontFamily: "var(--font-mono), 'JetBrains Mono', monospace"
                 }}>
-                  [ 10. POSITIONING ]
+                  Honest Positioning
                 </span>
               </div>
               
@@ -2905,7 +2904,7 @@ export default function CommunicationV2Page() {
                 color: '#4B5563',
                 lineHeight: '1.6',
                 textAlign: 'left',
-                fontFamily: 'var(--font-main)'
+                fontFamily: "var(--font-mono), 'JetBrains Mono', monospace"
               }}>
                 We believe in clear expectations. Here's where the Communication Interface excels and where other approaches may be more appropriate.
               </p>
@@ -2927,7 +2926,7 @@ export default function CommunicationV2Page() {
                       EXCELS
                     </span>
                     <h3 style={{
-                      fontSize: '18px',
+                      fontSize: '16px',
                       fontWeight: 600,
                       color: '#0F1115',
                       fontFamily: 'var(--font-main)',
@@ -2956,7 +2955,7 @@ export default function CommunicationV2Page() {
                           [✓]
                         </span>
                         <span style={{
-                          fontSize: '14.5px',
+                          fontSize: '14px',
                           lineHeight: '1.5',
                           color: '#1F2937',
                           fontWeight: 500,
@@ -2984,7 +2983,7 @@ export default function CommunicationV2Page() {
                       ALTERNATIVES
                     </span>
                     <h3 style={{
-                      fontSize: '18px',
+                      fontSize: '16px',
                       fontWeight: 600,
                       color: '#0F1115',
                       fontFamily: 'var(--font-main)',
@@ -3011,7 +3010,7 @@ export default function CommunicationV2Page() {
                           [o]
                         </span>
                         <span style={{
-                          fontSize: '14.5px',
+                          fontSize: '14px',
                           lineHeight: '1.5',
                           color: '#4B5563',
                           fontWeight: 500,
