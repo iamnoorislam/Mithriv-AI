@@ -648,7 +648,7 @@ export default function CommunicationV2Page() {
         gsap.set(".outcomes-word", { yPercent: 100 });
         gsap.set(".outcomes-desc-word", { opacity: 0, y: 10 });
         gsap.set(lines, { scaleY: 0 });
-        gsap.set(pills, { scale: 0, opacity: 0 });
+        gsap.set(pills, { xPercent: -50, yPercent: -50, scale: 0, opacity: 0 });
         gsap.set(contents, { opacity: 0, y: 20 });
 
         ScrollTrigger.create({
@@ -3495,12 +3495,12 @@ export default function CommunicationV2Page() {
               }
               .outcomes-card-pill {
                 position: absolute;
-                left: -2px;
-                top: 8px;
-                width: 5px;
-                height: 24px;
-                background: rgba(255, 255, 255, 0.2);
-                border-radius: 4px;
+                left: 0;
+                top: 50%;
+                width: 12px;
+                height: 48px;
+                background: rgba(255, 255, 255, 0.08);
+                border-radius: 9999px;
                 transform-origin: center center;
               }
               @media (max-width: 991px) {
