@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import Script from 'next/script'
 import '../style.css'
+import IndustrySection from '@/components/IndustrySection'
 
 export default function CommunicationInterfacePage() {
   const [mounted, setMounted] = useState(false);
@@ -495,6 +496,11 @@ export default function CommunicationInterfacePage() {
             </div>
         </div>
     </section>
+      ` }} />
+
+      <IndustrySection />
+
+      <div dangerouslySetInnerHTML={{ __html: `
     <!-- Section 03: The Architecture -->
     <section class="section reveal-section">
         <div class="container">
