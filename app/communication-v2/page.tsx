@@ -3323,7 +3323,7 @@ export default function CommunicationV2Page() {
                   fontWeight: 400,
                   color: '#B6B6B7',
                   lineHeight: '1.6',
-                  margin: '0 auto 40px',
+                  margin: '0 auto 80px',
                   maxWidth: '580px',
                   textAlign: 'center'
                 }}
