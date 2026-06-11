@@ -3465,7 +3465,7 @@ export default function CommunicationV2Page() {
               color: '#FFFFFF',
               margin: '0 calc(-50vw + 50%)',
               width: '100vw',
-              padding: '120px 2rem',
+              padding: '160px 2rem',
               position: 'relative',
               zIndex: 10,
               boxSizing: 'border-box',
@@ -3475,9 +3475,9 @@ export default function CommunicationV2Page() {
             <style>{`
               .outcomes-grid-container {
                 display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 48px 40px;
-                margin-top: 64px;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 48px 64px;
+                margin-top: 80px;
               }
               .outcomes-card {
                 position: relative;
@@ -3504,12 +3504,56 @@ export default function CommunicationV2Page() {
                 border-radius: 0 9999px 9999px 0;
                 transform-origin: left center;
               }
-              @media (max-width: 991px) {
-                .outcomes-grid-container {
-                  grid-template-columns: repeat(2, 1fr) !important;
-                }
+              @keyframes clock-spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
               }
-              @media (max-width: 640px) {
+              .anim-clock-hand {
+                animation: clock-spin 10s linear infinite;
+              }
+
+              @keyframes pulse-dot {
+                0%, 100% { opacity: 0.3; }
+                50% { opacity: 1; }
+              }
+              .anim-pulse-dot {
+                animation: pulse-dot 1.5s ease-in-out infinite;
+              }
+
+              @keyframes chat-dots {
+                0%, 100% { opacity: 0.2; }
+                50% { opacity: 1; }
+              }
+              .anim-chat-1 { animation: chat-dots 1.2s infinite 0.1s; }
+              .anim-chat-2 { animation: chat-dots 1.2s infinite 0.4s; }
+              .anim-chat-3 { animation: chat-dots 1.2s infinite 0.7s; }
+
+              @keyframes scale-check {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.1); }
+              }
+              .anim-check-draw {
+                animation: scale-check 2s ease-in-out infinite;
+                transform-origin: 12px 14px;
+              }
+
+              @keyframes radar-ripple {
+                0% { transform: scale(0.6); opacity: 1; }
+                100% { transform: scale(1.4); opacity: 0; }
+              }
+              .anim-radar {
+                animation: radar-ripple 2.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+              }
+
+              @keyframes exec-bars {
+                0%, 100% { transform: scaleY(1); }
+                50% { transform: scaleY(0.6); }
+              }
+              .anim-exec-bar-1 { animation: exec-bars 1.5s ease-in-out infinite; }
+              .anim-exec-bar-2 { animation: exec-bars 1.5s ease-in-out infinite 0.3s; }
+              .anim-exec-bar-3 { animation: exec-bars 1.5s ease-in-out infinite 0.6s; }
+
+              @media (max-width: 767px) {
                 .outcomes-grid-container {
                   grid-template-columns: 1fr !important;
                   gap: 36px 0;
@@ -3518,7 +3562,7 @@ export default function CommunicationV2Page() {
             `}</style>
 
             <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
-              <div style={{ display: 'flex', justifyContent: 'flex-start', width: '100%', marginBottom: '24px' }}>
+              <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginBottom: '24px' }}>
                 <span className="ent-pill" style={{
                   marginLeft: '0px',
                   marginBottom: '0px',
@@ -3536,7 +3580,7 @@ export default function CommunicationV2Page() {
                 marginBottom: '20px',
                 letterSpacing: '-0.02em',
                 fontWeight: 600,
-                textAlign: 'left',
+                textAlign: 'center',
                 color: '#FFFFFF',
                 fontFamily: 'var(--font-main)',
                 lineHeight: 1.2
@@ -3546,11 +3590,11 @@ export default function CommunicationV2Page() {
 
               <p style={{
                 maxWidth: '750px',
-                margin: '0 0 3rem',
-                fontSize: '15px',
+                margin: '0 auto 4rem',
+                fontSize: '14px',
                 color: '#9CA3AF',
                 lineHeight: '1.6',
-                textAlign: 'left',
+                textAlign: 'center',
                 fontFamily: "var(--font-mono), 'JetBrains Mono', monospace"
               }}>
                 {splitWords("The gap between your security systems and your stakeholders closes. Every interaction becomes an opportunity for security intelligence.", "outcomes-desc-word")}
@@ -3559,37 +3603,75 @@ export default function CommunicationV2Page() {
               <div className="outcomes-grid-container">
                 {[
                   {
-                    num: "01",
+                    icon: (color: string) => (
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 12" className="anim-clock-hand" style={{ transformOrigin: '12px 12px' }} />
+                      </svg>
+                    ),
                     title: "Check-in takes 90 seconds",
                     desc: "Visitors self-serve from pre-registration to badge. Guards stay in the field where they belong. No lobby queues. No manual overrides.",
                     metric: "90s avg vs 20 min manual"
                   },
                   {
-                    num: "02",
+                    icon: (color: string) => (
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <line x1="8" y1="9" x2="16" y2="9" />
+                        <line x1="8" y1="13" x2="16" y2="13" />
+                        <line x1="8" y1="17" x2="13" y2="17" />
+                        <circle cx="17" cy="17" r="2" fill={color} className="anim-pulse-dot" />
+                      </svg>
+                    ),
                     title: "Guards document in real time",
                     desc: "Incidents logged during the event, not reconstructed afterward. Hands-free voice documentation means no memory gaps, no missed details.",
                     metric: "Documentation compliance 60% → 90%+"
                   },
                   {
-                    num: "03",
+                    icon: (color: string) => (
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                        <circle cx="9" cy="10" r="1" fill={color} className="anim-chat-1" />
+                        <circle cx="12" cy="10" r="1" fill={color} className="anim-chat-2" />
+                        <circle cx="15" cy="10" r="1" fill={color} className="anim-chat-3" />
+                      </svg>
+                    ),
                     title: "Employees stop calling help desk",
                     desc: "Credential requests, access questions, policy lookups — answered in seconds. Security becomes helpful, not obstructive. Tickets drop 40–60%.",
                     metric: "40–60% ticket volume reduction"
                   },
                   {
-                    num: "04",
+                    icon: (color: string) => (
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
+                        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                        <rect x="8" y="2" width="8" height="4" rx="1" />
+                        <polyline points="9 14 11 16 15 12" className="anim-check-draw" />
+                      </svg>
+                    ),
                     title: "Contractors arrive prepared",
                     desc: "Safety briefing delivered, NDA signed, escort assigned before they reach the gate. Access expires automatically at project end. Zero surprises.",
                     metric: "Escort coordination under 3 min"
                   },
                   {
-                    num: "05",
+                    icon: (color: string) => (
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" opacity="0.2" />
+                        <circle cx="12" cy="12" r="3" fill={color} />
+                        <circle cx="12" cy="12" r="7" className="anim-radar" style={{ transformOrigin: '12px 12px' }} />
+                      </svg>
+                    ),
                     title: "Emergencies coordinate automatically",
                     desc: "Every stakeholder notified simultaneously across every channel. From alarm to all-clear, every action documented. Accountability in minutes, not hours.",
                     metric: "Muster accountability: hours → minutes"
                   },
                   {
-                    num: "06",
+                    icon: (color: string) => (
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
+                        <line x1="18" y1="20" x2="18" y2="10" className="anim-exec-bar-1" style={{ transformOrigin: '18px 20px' }} />
+                        <line x1="12" y1="20" x2="12" y2="4" className="anim-exec-bar-2" style={{ transformOrigin: '12px 20px' }} />
+                        <line x1="6" y1="20" x2="6" y2="14" className="anim-exec-bar-3" style={{ transformOrigin: '6px 20px' }} />
+                      </svg>
+                    ),
                     title: "Executives get answers on demand",
                     desc: "Security posture, incident trends, compliance status — natural language, real-time data. No analyst intermediaries. Board-ready in seconds, not weeks.",
                     metric: "Zero analyst wait time"
@@ -3600,15 +3682,7 @@ export default function CommunicationV2Page() {
                     <div className="outcomes-card-pill" />
 
                     <div className="outcomes-card-content">
-                      <div style={{
-                        fontFamily: "var(--font-mono), 'JetBrains Mono', monospace",
-                        fontSize: '12px',
-                        color: '#9CA3AF',
-                        fontWeight: 'bold',
-                        marginBottom: '12px'
-                      }}>
-                        {item.num}
-                      </div>
+                      {item.icon('#B6B6B7')}
 
                       <h3 style={{
                         fontSize: '18px',
