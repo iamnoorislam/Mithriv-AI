@@ -3526,7 +3526,7 @@ export default function CommunicationV2Page() {
                   color: '#FFFFFF',
                   fontFamily: "var(--font-mono), 'JetBrains Mono', monospace"
                 }}>
-                  Operational Outcomes
+                  What Changes
                 </span>
               </div>
 
@@ -3540,7 +3540,7 @@ export default function CommunicationV2Page() {
                 fontFamily: 'var(--font-main)',
                 lineHeight: 1.2
               }}>
-                {splitWords("Measurable impact, automated.", "outcomes-word")}
+                {splitWords("When security can communicate.", "outcomes-word")}
               </h2>
 
               <p style={{
@@ -3552,7 +3552,7 @@ export default function CommunicationV2Page() {
                 textAlign: 'left',
                 fontFamily: "var(--font-mono), 'JetBrains Mono', monospace"
               }}>
-                {splitWords("How the Communication Interface transforms everyday security operations into automated, compliant, and queryable workflows.", "outcomes-desc-word")}
+                {splitWords("The gap between your security systems and your stakeholders closes. Every interaction becomes an opportunity for security intelligence.", "outcomes-desc-word")}
               </p>
 
               <div className="outcomes-grid-container">
