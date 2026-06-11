@@ -648,7 +648,7 @@ export default function CommunicationV2Page() {
         gsap.set(".outcomes-word", { yPercent: 100 });
         gsap.set(".outcomes-desc-word", { opacity: 0, y: 10 });
         gsap.set(lines, { scaleY: 0 });
-        gsap.set(pills, { xPercent: 0, yPercent: -50, scale: 0, opacity: 0 });
+        gsap.set(pills, { scale: 0, opacity: 0 });
         gsap.set(contents, { opacity: 0, y: 20 });
 
         ScrollTrigger.create({
@@ -3490,16 +3490,17 @@ export default function CommunicationV2Page() {
                 top: 0;
                 bottom: 0;
                 width: 1px;
-                background: rgba(255, 255, 255, 0.08);
+                background: #202022;
                 transform-origin: top center;
               }
               .outcomes-card-pill {
                 position: absolute;
                 left: 0;
                 top: 50%;
+                margin-top: -24px;
                 width: 10px;
                 height: 48px;
-                background: rgba(255, 255, 255, 0.1);
+                background: #202022;
                 border-radius: 0 9999px 9999px 0;
                 transform-origin: left center;
               }
@@ -3597,7 +3598,7 @@ export default function CommunicationV2Page() {
                   <div key={i} className="outcomes-card">
                     <div className="outcomes-card-line" />
                     <div className="outcomes-card-pill" />
-                    
+
                     <div className="outcomes-card-content">
                       <div style={{
                         fontFamily: "var(--font-mono), 'JetBrains Mono', monospace",
@@ -3608,7 +3609,7 @@ export default function CommunicationV2Page() {
                       }}>
                         {item.num}
                       </div>
-                      
+
                       <h3 style={{
                         fontSize: '18px',
                         fontWeight: 600,
@@ -3619,7 +3620,7 @@ export default function CommunicationV2Page() {
                       }}>
                         {item.title}
                       </h3>
-                      
+
                       <p style={{
                         fontSize: '14px',
                         lineHeight: '1.6',
