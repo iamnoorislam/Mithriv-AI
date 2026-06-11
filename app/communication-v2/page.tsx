@@ -173,10 +173,10 @@ export default function CommunicationV2Page() {
       const revealSec = document.getElementById('scroll-reveal-text');
       if (revealSec) {
         const chars = revealSec.querySelectorAll('.reveal-char');
-        const revealTitle = revealSec.querySelector('.reveal-title');
-        const targetO = revealSec.querySelector('.target-o');
-        const transitionBg = revealSec.querySelector('.zoom-transition-bg');
-        const transitionContent = revealSec.querySelector('.zoom-transition-content');
+        const revealTitle = revealSec.querySelector('.reveal-title') as HTMLElement | null;
+        const targetO = revealSec.querySelector('.target-o') as HTMLElement | null;
+        const transitionBg = revealSec.querySelector('.zoom-transition-bg') as HTMLElement | null;
+        const transitionContent = revealSec.querySelector('.zoom-transition-content') as HTMLElement | null;
 
         if (chars.length > 0 && revealTitle && targetO && transitionBg) {
           try {
