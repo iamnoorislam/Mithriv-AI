@@ -2831,76 +2831,103 @@ export default function CommunicationV2Page() {
             }}
           >
             <style>{`
+              .honest-grid-container {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                border: 1px solid rgba(15, 17, 21, 0.08);
+                background: #ffffff;
+                border-radius: 0px;
+                margin-top: 48px;
+              }
+              .honest-column {
+                padding: 48px;
+                box-sizing: border-box;
+              }
+              .honest-column-left {
+                border-right: 1px solid rgba(15, 17, 21, 0.08);
+                background: rgba(139, 92, 246, 0.015);
+              }
+              .honest-item-row {
+                display: flex;
+                align-items: flex-start;
+                gap: 16px;
+                padding: 20px 0;
+                border-bottom: 1px solid rgba(15, 17, 21, 0.06);
+              }
+              .honest-item-row:last-child {
+                border-bottom: none;
+              }
               @media (max-width: 991px) {
-                .honest-split-grid {
+                .honest-grid-container {
                   grid-template-columns: 1fr !important;
-                  gap: 40px !important;
                 }
-              }
-              .honest-card {
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-              }
-              .honest-card:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 4px 12px rgba(15, 17, 21, 0.04);
+                .honest-column-left {
+                  border-right: none !important;
+                  border-bottom: 1px solid rgba(15, 17, 21, 0.08);
+                }
+                .honest-column {
+                  padding: 36px 24px !important;
+                }
               }
             `}</style>
             
             <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
-              <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '24px' }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-start', width: '100%', marginBottom: '24px' }}>
                 <span className="ent-pill" style={{
-                  background: 'rgba(15, 17, 21, 0.05)',
-                  color: '#0F1115',
+                  marginLeft: '0px',
+                  background: 'transparent',
                   border: '1px solid rgba(15, 17, 21, 0.15)',
-                  fontFamily: 'var(--font-mono), monospace',
+                  color: '#0F1115',
                   fontSize: '11px',
-                  letterSpacing: '1.5px',
-                  padding: '4px 10px',
+                  fontFamily: 'var(--font-mono), monospace',
                   borderRadius: '0px'
                 }}>
-                  HONEST POSITIONING
+                  [ 10. POSITIONING ]
                 </span>
               </div>
               
               <h2 style={{
-                fontSize: 'clamp(32px, 4.5vw, 56px)',
+                fontSize: '48px',
+                marginBottom: '20px',
+                letterSpacing: '-0.02em',
                 fontWeight: 600,
-                letterSpacing: '-0.03em',
+                textAlign: 'left',
                 color: '#0F1115',
-                lineHeight: '1.15',
-                marginBottom: '60px',
-                textAlign: 'left'
+                fontFamily: 'var(--font-main)'
               }}>
                 What it is. What it isn't.
               </h2>
+              
+              <p style={{
+                maxWidth: '850px',
+                margin: '0 0 3rem',
+                fontSize: '15px',
+                color: '#4B5563',
+                lineHeight: '1.6',
+                textAlign: 'left',
+                fontFamily: 'var(--font-main)'
+              }}>
+                We believe in clear expectations. Here's where the Communication Interface excels and where other approaches may be more appropriate.
+              </p>
 
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: '1.1fr 0.9fr',
-                gap: '60px',
-                alignItems: 'start'
-              }} className="honest-split-grid">
+              <div className="honest-grid-container">
                 
                 {/* Excels Column */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div className="honest-column honest-column-left">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '28px' }}>
                     <span style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      width: '24px',
-                      height: '24px',
-                      borderRadius: '50%',
-                      background: 'rgba(16, 185, 129, 0.1)',
-                      color: '#10B981',
-                      flexShrink: 0
+                      fontFamily: 'var(--font-mono), monospace',
+                      fontSize: '11px',
+                      color: '#8B5CF6',
+                      fontWeight: 'bold',
+                      border: '1px solid rgba(139, 92, 246, 0.3)',
+                      padding: '2px 8px',
+                      background: 'rgba(139, 92, 246, 0.05)'
                     }}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
+                      EXCELS
                     </span>
                     <h3 style={{
-                      fontSize: '20px',
+                      fontSize: '18px',
                       fontWeight: 600,
                       color: '#0F1115',
                       fontFamily: 'var(--font-main)',
@@ -2910,7 +2937,7 @@ export default function CommunicationV2Page() {
                     </h3>
                   </div>
 
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
                     {[
                       'High-volume visitor environments',
                       'Multi-site operations requiring consistency',
@@ -2918,34 +2945,22 @@ export default function CommunicationV2Page() {
                       'Organizations coordinating guard forces',
                       'Facilities where communication failures have safety or compliance consequences'
                     ].map((item, i) => (
-                      <div
-                        key={i}
-                        className="honest-card"
-                        style={{
-                          background: '#ffffff',
-                          border: '1px solid rgba(15, 17, 21, 0.05)',
-                          borderRadius: '8px',
-                          padding: '20px 24px',
-                          display: 'flex',
-                          alignItems: 'flex-start',
-                          gap: '16px',
-                          boxShadow: '0 2px 8px rgba(15, 17, 21, 0.02)'
-                        }}
-                      >
+                      <div key={i} className="honest-item-row">
                         <span style={{
                           fontFamily: 'var(--font-mono), monospace',
                           fontSize: '13px',
                           color: '#8B5CF6',
-                          fontWeight: 600,
-                          paddingTop: '2px'
+                          fontWeight: 'bold',
+                          flexShrink: 0
                         }}>
-                          0{i + 1}
+                          [✓]
                         </span>
                         <span style={{
-                          fontSize: '15px',
+                          fontSize: '14.5px',
                           lineHeight: '1.5',
-                          color: '#374151',
-                          fontWeight: 500
+                          color: '#1F2937',
+                          fontWeight: 500,
+                          fontFamily: 'var(--font-main)'
                         }}>
                           {item}
                         </span>
@@ -2954,27 +2969,22 @@ export default function CommunicationV2Page() {
                   </div>
                 </div>
 
-                {/* Fit Better Column */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                {/* Alternatives Column */}
+                <div className="honest-column">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '28px' }}>
                     <span style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      width: '24px',
-                      height: '24px',
-                      borderRadius: '50%',
-                      background: 'rgba(245, 158, 11, 0.1)',
-                      color: '#F59E0B',
-                      flexShrink: 0
+                      fontFamily: 'var(--font-mono), monospace',
+                      fontSize: '11px',
+                      color: '#6B7280',
+                      fontWeight: 'bold',
+                      border: '1px solid rgba(15, 17, 21, 0.15)',
+                      padding: '2px 8px',
+                      background: 'rgba(15, 17, 21, 0.02)'
                     }}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="12" y1="5" x2="12" y2="19" />
-                        <line x1="5" y1="12" x2="19" y2="12" />
-                      </svg>
+                      ALTERNATIVES
                     </span>
                     <h3 style={{
-                      fontSize: '20px',
+                      fontSize: '18px',
                       fontWeight: 600,
                       color: '#0F1115',
                       fontFamily: 'var(--font-main)',
@@ -2984,39 +2994,28 @@ export default function CommunicationV2Page() {
                     </h3>
                   </div>
 
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
                     {[
                       'Single-site operations with minimal visitor traffic',
                       'Organizations without existing security systems to integrate',
                       'Environments where communication can remain purely human-mediated'
                     ].map((item, i) => (
-                      <div
-                        key={i}
-                        className="honest-card"
-                        style={{
-                          background: 'rgba(255, 255, 255, 0.5)',
-                          border: '1px dashed rgba(15, 17, 21, 0.1)',
-                          borderRadius: '8px',
-                          padding: '20px 24px',
-                          display: 'flex',
-                          alignItems: 'flex-start',
-                          gap: '16px'
-                        }}
-                      >
+                      <div key={i} className="honest-item-row">
                         <span style={{
                           fontFamily: 'var(--font-mono), monospace',
                           fontSize: '13px',
                           color: '#6B7280',
-                          fontWeight: 600,
-                          paddingTop: '2px'
+                          fontWeight: 'bold',
+                          flexShrink: 0
                         }}>
                           [o]
                         </span>
                         <span style={{
-                          fontSize: '15px',
+                          fontSize: '14.5px',
                           lineHeight: '1.5',
                           color: '#4B5563',
-                          fontWeight: 500
+                          fontWeight: 500,
+                          fontFamily: 'var(--font-main)'
                         }}>
                           {item}
                         </span>
@@ -3027,25 +3026,36 @@ export default function CommunicationV2Page() {
 
               </div>
 
-              {/* Quote Box */}
+              {/* The Honest Tradeoff Quote Box */}
               <div
                 style={{
-                  marginTop: '80px',
-                  borderLeft: '4px solid #8B5CF6',
-                  background: 'rgba(139, 92, 246, 0.03)',
-                  borderRadius: '0 8px 8px 0',
-                  padding: '32px 40px',
+                  marginTop: '64px',
+                  borderLeft: '4px solid #F43F5E',
+                  padding: '28px 36px',
+                  background: 'rgba(244, 63, 94, 0.02)',
+                  borderRadius: '0px',
                   textAlign: 'left',
                   boxSizing: 'border-box'
                 }}
               >
+                <h4 style={{
+                  fontFamily: 'var(--font-mono), monospace',
+                  fontSize: '12px',
+                  fontWeight: 'bold',
+                  color: '#E11D48',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1.5px',
+                  marginTop: 0,
+                  marginBottom: '12px'
+                }}>
+                  [ THE HONEST TRADEOFF ]
+                </h4>
                 <p style={{
                   fontFamily: 'var(--font-main)',
-                  fontSize: 'clamp(16px, 1.8vw, 20px)',
-                  lineHeight: '1.7',
-                  color: '#1F2937',
                   fontStyle: 'italic',
-                  fontWeight: 500,
+                  color: '#374151',
+                  fontSize: '15px',
+                  lineHeight: '1.7',
                   margin: 0
                 }}>
                   "Conversational AI amplifies your security team. It doesn't replace them. Organizations seeking to make their staff dramatically more effective will see significant returns."
