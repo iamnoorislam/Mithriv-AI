@@ -2816,6 +2816,245 @@ export default function CommunicationV2Page() {
             </div>
           </section>
 
+          <section
+            id="honest-positioning"
+            style={{
+              background: '#FAF5EB',
+              color: '#0F1115',
+              margin: '0 calc(-50vw + 50%)',
+              width: '100vw',
+              padding: '120px 2rem',
+              position: 'relative',
+              zIndex: 10,
+              boxSizing: 'border-box',
+              fontFamily: "var(--font-main), 'Inter', sans-serif"
+            }}
+          >
+            <style>{`
+              @media (max-width: 991px) {
+                .honest-split-grid {
+                  grid-template-columns: 1fr !important;
+                  gap: 40px !important;
+                }
+              }
+              .honest-card {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+              }
+              .honest-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 4px 12px rgba(15, 17, 21, 0.04);
+              }
+            `}</style>
+            
+            <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '24px' }}>
+                <span className="ent-pill" style={{
+                  background: 'rgba(15, 17, 21, 0.05)',
+                  color: '#0F1115',
+                  border: '1px solid rgba(15, 17, 21, 0.15)',
+                  fontFamily: 'var(--font-mono), monospace',
+                  fontSize: '11px',
+                  letterSpacing: '1.5px',
+                  padding: '4px 10px',
+                  borderRadius: '0px'
+                }}>
+                  HONEST POSITIONING
+                </span>
+              </div>
+              
+              <h2 style={{
+                fontSize: 'clamp(32px, 4.5vw, 56px)',
+                fontWeight: 600,
+                letterSpacing: '-0.03em',
+                color: '#0F1115',
+                lineHeight: '1.15',
+                marginBottom: '60px',
+                textAlign: 'left'
+              }}>
+                What it is. What it isn't.
+              </h2>
+
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: '1.1fr 0.9fr',
+                gap: '60px',
+                alignItems: 'start'
+              }} className="honest-split-grid">
+                
+                {/* Excels Column */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <span style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '24px',
+                      height: '24px',
+                      borderRadius: '50%',
+                      background: 'rgba(16, 185, 129, 0.1)',
+                      color: '#10B981',
+                      flexShrink: 0
+                    }}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    </span>
+                    <h3 style={{
+                      fontSize: '20px',
+                      fontWeight: 600,
+                      color: '#0F1115',
+                      fontFamily: 'var(--font-main)',
+                      margin: 0
+                    }}>
+                      Where it excels
+                    </h3>
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                    {[
+                      'High-volume visitor environments',
+                      'Multi-site operations requiring consistency',
+                      'Regulated industries with audit requirements',
+                      'Organizations coordinating guard forces',
+                      'Facilities where communication failures have safety or compliance consequences'
+                    ].map((item, i) => (
+                      <div
+                        key={i}
+                        className="honest-card"
+                        style={{
+                          background: '#ffffff',
+                          border: '1px solid rgba(15, 17, 21, 0.05)',
+                          borderRadius: '8px',
+                          padding: '20px 24px',
+                          display: 'flex',
+                          alignItems: 'flex-start',
+                          gap: '16px',
+                          boxShadow: '0 2px 8px rgba(15, 17, 21, 0.02)'
+                        }}
+                      >
+                        <span style={{
+                          fontFamily: 'var(--font-mono), monospace',
+                          fontSize: '13px',
+                          color: '#8B5CF6',
+                          fontWeight: 600,
+                          paddingTop: '2px'
+                        }}>
+                          0{i + 1}
+                        </span>
+                        <span style={{
+                          fontSize: '15px',
+                          lineHeight: '1.5',
+                          color: '#374151',
+                          fontWeight: 500
+                        }}>
+                          {item}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Fit Better Column */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <span style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '24px',
+                      height: '24px',
+                      borderRadius: '50%',
+                      background: 'rgba(245, 158, 11, 0.1)',
+                      color: '#F59E0B',
+                      flexShrink: 0
+                    }}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                      </svg>
+                    </span>
+                    <h3 style={{
+                      fontSize: '20px',
+                      fontWeight: 600,
+                      color: '#0F1115',
+                      fontFamily: 'var(--font-main)',
+                      margin: 0
+                    }}>
+                      Where other approaches fit better
+                    </h3>
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                    {[
+                      'Single-site operations with minimal visitor traffic',
+                      'Organizations without existing security systems to integrate',
+                      'Environments where communication can remain purely human-mediated'
+                    ].map((item, i) => (
+                      <div
+                        key={i}
+                        className="honest-card"
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.5)',
+                          border: '1px dashed rgba(15, 17, 21, 0.1)',
+                          borderRadius: '8px',
+                          padding: '20px 24px',
+                          display: 'flex',
+                          alignItems: 'flex-start',
+                          gap: '16px'
+                        }}
+                      >
+                        <span style={{
+                          fontFamily: 'var(--font-mono), monospace',
+                          fontSize: '13px',
+                          color: '#6B7280',
+                          fontWeight: 600,
+                          paddingTop: '2px'
+                        }}>
+                          [o]
+                        </span>
+                        <span style={{
+                          fontSize: '15px',
+                          lineHeight: '1.5',
+                          color: '#4B5563',
+                          fontWeight: 500
+                        }}>
+                          {item}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Quote Box */}
+              <div
+                style={{
+                  marginTop: '80px',
+                  borderLeft: '4px solid #8B5CF6',
+                  background: 'rgba(139, 92, 246, 0.03)',
+                  borderRadius: '0 8px 8px 0',
+                  padding: '32px 40px',
+                  textAlign: 'left',
+                  boxSizing: 'border-box'
+                }}
+              >
+                <p style={{
+                  fontFamily: 'var(--font-main)',
+                  fontSize: 'clamp(16px, 1.8vw, 20px)',
+                  lineHeight: '1.7',
+                  color: '#1F2937',
+                  fontStyle: 'italic',
+                  fontWeight: 500,
+                  margin: 0
+                }}>
+                  "Conversational AI amplifies your security team. It doesn't replace them. Organizations seeking to make their staff dramatically more effective will see significant returns."
+                </p>
+              </div>
+
+            </div>
+          </section>
+
         </div>
       </div>
     </div>
