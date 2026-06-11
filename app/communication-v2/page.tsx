@@ -565,6 +565,44 @@ export default function CommunicationV2Page() {
           tl.to({}, { duration: 0.2 });
         }
       }
+
+      // 9. Scroll Reveal for Honest Positioning Section
+      const honestSec = document.getElementById('honest-positioning');
+      if (honestSec) {
+        const tag = honestSec.querySelector('.ent-pill');
+        const heading = honestSec.querySelector('h2');
+        const desc = honestSec.querySelector('p');
+        const grid = honestSec.querySelector('.honest-grid-container');
+        const columns = honestSec.querySelectorAll('.honest-column');
+        const itemRows = honestSec.querySelectorAll('.honest-item-row');
+        const quoteBox = honestSec.querySelector('.honest-quote-box');
+
+        // Set initial states
+        gsap.set(tag, { y: 30, opacity: 0, filter: "blur(10px)" });
+        gsap.set(heading, { y: 40, opacity: 0, filter: "blur(15px)" });
+        gsap.set(desc, { y: 30, opacity: 0, filter: "blur(10px)" });
+        gsap.set(grid, { opacity: 0, scaleY: 0.95, transformOrigin: "top center" });
+        gsap.set(columns, { opacity: 0 });
+        gsap.set(itemRows, { y: 15, opacity: 0 });
+        gsap.set(quoteBox, { y: 40, opacity: 0, filter: "blur(8px)" });
+
+        ScrollTrigger.create({
+          id: "honest-positioning-reveal",
+          trigger: honestSec,
+          start: "top 80%",
+          once: true,
+          onEnter: () => {
+            const tl = gsap.timeline();
+            tl.to(tag, { y: 0, opacity: 1, filter: "blur(0px)", duration: 1.0, ease: "power3.out" })
+              .to(heading, { y: 0, opacity: 1, filter: "blur(0px)", duration: 1.2, ease: "power3.out" }, "-=0.8")
+              .to(desc, { y: 0, opacity: 1, filter: "blur(0px)", duration: 1.0, ease: "power3.out" }, "-=0.8")
+              .to(grid, { opacity: 1, scaleY: 1, duration: 1.2, ease: "power4.out" }, "-=0.6")
+              .to(columns, { opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.8")
+              .to(itemRows, { y: 0, opacity: 1, duration: 0.8, stagger: 0.08, ease: "power3.out" }, "-=0.4")
+              .to(quoteBox, { y: 0, opacity: 1, filter: "blur(0px)", duration: 1.0, ease: "back.out(1.2)" }, "-=0.6");
+          }
+        });
+      }
     };
 
     const init = () => {
@@ -3239,6 +3277,7 @@ export default function CommunicationV2Page() {
 
               {/* The Honest Tradeoff Quote Box */}
               <div
+                className="honest-quote-box"
                 style={{
                   marginTop: '64px',
                   borderLeft: '4px solid #F43F5E',
