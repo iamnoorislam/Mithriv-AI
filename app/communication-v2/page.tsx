@@ -633,6 +633,47 @@ export default function CommunicationV2Page() {
           }
         });
       }
+
+      // 10. Scroll Reveal for Operational Outcomes Section
+      const outcomesSec = document.getElementById('operational-outcomes');
+      if (outcomesSec) {
+        const tag = outcomesSec.querySelector('.ent-pill');
+        const cards = outcomesSec.querySelectorAll('.outcomes-card');
+        const lines = outcomesSec.querySelectorAll('.outcomes-card-line');
+        const pills = outcomesSec.querySelectorAll('.outcomes-card-pill');
+        const contents = outcomesSec.querySelectorAll('.outcomes-card-content');
+
+        // Set initial states
+        gsap.set(tag, { y: 15, opacity: 0, scale: 0.9 });
+        gsap.set(".outcomes-word", { yPercent: 100 });
+        gsap.set(".outcomes-desc-word", { opacity: 0, y: 10 });
+        gsap.set(lines, { scaleY: 0 });
+        gsap.set(pills, { scale: 0, opacity: 0 });
+        gsap.set(contents, { opacity: 0, y: 20 });
+
+        ScrollTrigger.create({
+          id: "operational-outcomes-reveal",
+          trigger: outcomesSec,
+          start: "top 75%",
+          once: true,
+          onEnter: () => {
+            const tl = gsap.timeline();
+            tl
+              // Step 1: Reveal tag
+              .to(tag, { y: 0, opacity: 1, scale: 1, duration: 0.6, ease: "power3.out" })
+              // Step 2: Reveal heading words (staggered clipping mask)
+              .to(".outcomes-word", { yPercent: 0, duration: 0.8, stagger: 0.05, ease: "power4.out" }, "-=0.4")
+              // Step 3: Reveal description words
+              .to(".outcomes-desc-word", { opacity: 1, y: 0, duration: 0.6, stagger: 0.02, ease: "power2.out" }, "-=0.5")
+              // Step 4: Draw cards vertical lines
+              .to(lines, { scaleY: 1, duration: 0.8, stagger: 0.08, ease: "power3.inOut" }, "-=0.4")
+              // Step 5: Pop indicator pills
+              .to(pills, { scale: 1, opacity: 1, duration: 0.5, stagger: 0.08, ease: "back.out(2)" }, "-=0.6")
+              // Step 6: Slide up card content
+              .to(contents, { opacity: 1, y: 0, duration: 0.8, stagger: 0.08, ease: "power3.out" }, "-=0.6");
+          }
+        });
+      }
     };
 
     const init = () => {
@@ -3414,6 +3455,198 @@ export default function CommunicationV2Page() {
                 </div>
               </div>
 
+            </div>
+          </section>
+
+          <section
+            id="operational-outcomes"
+            style={{
+              background: '#0B0D0F',
+              color: '#FFFFFF',
+              margin: '0 calc(-50vw + 50%)',
+              width: '100vw',
+              padding: '120px 2rem',
+              position: 'relative',
+              zIndex: 10,
+              boxSizing: 'border-box',
+              fontFamily: "var(--font-main), 'Inter', sans-serif"
+            }}
+          >
+            <style>{`
+              .outcomes-grid-container {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 48px 40px;
+                margin-top: 64px;
+              }
+              .outcomes-card {
+                position: relative;
+                padding-left: 24px;
+                box-sizing: border-box;
+              }
+              .outcomes-card-line {
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 1px;
+                background: rgba(255, 255, 255, 0.08);
+                transform-origin: top center;
+              }
+              .outcomes-card-pill {
+                position: absolute;
+                left: -2px;
+                top: 8px;
+                width: 5px;
+                height: 24px;
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 4px;
+                transform-origin: center center;
+              }
+              @media (max-width: 991px) {
+                .outcomes-grid-container {
+                  grid-template-columns: repeat(2, 1fr) !important;
+                }
+              }
+              @media (max-width: 640px) {
+                .outcomes-grid-container {
+                  grid-template-columns: 1fr !important;
+                  gap: 36px 0;
+                }
+              }
+            `}</style>
+
+            <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-start', width: '100%', marginBottom: '24px' }}>
+                <span className="ent-pill" style={{
+                  marginLeft: '0px',
+                  marginBottom: '0px',
+                  background: 'rgba(255, 255, 255, 0.04)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  color: '#FFFFFF',
+                  fontFamily: "var(--font-mono), 'JetBrains Mono', monospace"
+                }}>
+                  Operational Outcomes
+                </span>
+              </div>
+
+              <h2 style={{
+                fontSize: '48px',
+                marginBottom: '20px',
+                letterSpacing: '-0.02em',
+                fontWeight: 600,
+                textAlign: 'left',
+                color: '#FFFFFF',
+                fontFamily: 'var(--font-main)',
+                lineHeight: 1.2
+              }}>
+                {splitWords("Measurable impact, automated.", "outcomes-word")}
+              </h2>
+
+              <p style={{
+                maxWidth: '750px',
+                margin: '0 0 3rem',
+                fontSize: '15px',
+                color: '#9CA3AF',
+                lineHeight: '1.6',
+                textAlign: 'left',
+                fontFamily: "var(--font-mono), 'JetBrains Mono', monospace"
+              }}>
+                {splitWords("How the Communication Interface transforms everyday security operations into automated, compliant, and queryable workflows.", "outcomes-desc-word")}
+              </p>
+
+              <div className="outcomes-grid-container">
+                {[
+                  {
+                    num: "01",
+                    title: "Check-in takes 90 seconds",
+                    desc: "Visitors self-serve from pre-registration to badge. Guards stay in the field where they belong. No lobby queues. No manual overrides.",
+                    metric: "90s avg vs 20 min manual"
+                  },
+                  {
+                    num: "02",
+                    title: "Guards document in real time",
+                    desc: "Incidents logged during the event, not reconstructed afterward. Hands-free voice documentation means no memory gaps, no missed details.",
+                    metric: "Documentation compliance 60% → 90%+"
+                  },
+                  {
+                    num: "03",
+                    title: "Employees stop calling help desk",
+                    desc: "Credential requests, access questions, policy lookups — answered in seconds. Security becomes helpful, not obstructive. Tickets drop 40–60%.",
+                    metric: "40–60% ticket volume reduction"
+                  },
+                  {
+                    num: "04",
+                    title: "Contractors arrive prepared",
+                    desc: "Safety briefing delivered, NDA signed, escort assigned before they reach the gate. Access expires automatically at project end. Zero surprises.",
+                    metric: "Escort coordination under 3 min"
+                  },
+                  {
+                    num: "05",
+                    title: "Emergencies coordinate automatically",
+                    desc: "Every stakeholder notified simultaneously across every channel. From alarm to all-clear, every action documented. Accountability in minutes, not hours.",
+                    metric: "Muster accountability: hours → minutes"
+                  },
+                  {
+                    num: "06",
+                    title: "Executives get answers on demand",
+                    desc: "Security posture, incident trends, compliance status — natural language, real-time data. No analyst intermediaries. Board-ready in seconds, not weeks.",
+                    metric: "Zero analyst wait time"
+                  }
+                ].map((item, i) => (
+                  <div key={i} className="outcomes-card">
+                    <div className="outcomes-card-line" />
+                    <div className="outcomes-card-pill" />
+                    
+                    <div className="outcomes-card-content">
+                      <div style={{
+                        fontFamily: "var(--font-mono), 'JetBrains Mono', monospace",
+                        fontSize: '12px',
+                        color: '#9CA3AF',
+                        fontWeight: 'bold',
+                        marginBottom: '12px'
+                      }}>
+                        {item.num}
+                      </div>
+                      
+                      <h3 style={{
+                        fontSize: '18px',
+                        fontWeight: 600,
+                        color: '#FFFFFF',
+                        fontFamily: 'var(--font-main)',
+                        marginBottom: '12px',
+                        lineHeight: 1.3
+                      }}>
+                        {item.title}
+                      </h3>
+                      
+                      <p style={{
+                        fontSize: '14px',
+                        lineHeight: '1.6',
+                        color: '#9CA3AF',
+                        fontFamily: 'var(--font-main)',
+                        margin: 0
+                      }}>
+                        {item.desc}
+                      </p>
+
+                      <div style={{
+                        color: '#10B981',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        fontSize: '13px',
+                        fontWeight: 600,
+                        marginTop: '16px',
+                        fontFamily: "var(--font-mono), 'JetBrains Mono', monospace"
+                      }}>
+                        <span style={{ fontSize: '14px', lineHeight: 1 }}>•</span>
+                        <span>{item.metric}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
 
