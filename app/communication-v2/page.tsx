@@ -3047,7 +3047,7 @@ export default function CommunicationV2Page() {
                   marginTop: 0,
                   marginBottom: '12px'
                 }}>
-                  [ THE HONEST TRADEOFF ]
+                  THE HONEST TRADEOFF
                 </h4>
                 <p style={{
                   fontFamily: 'var(--font-main)',

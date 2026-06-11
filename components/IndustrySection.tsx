@@ -651,7 +651,7 @@ export default function IndustrySection({ isEmbedded = false }: { isEmbedded?: b
                               width: 'fit-content',
                             }}
                           >
-                            [ THE PROBLEM ]
+                            THE PROBLEM
                           </span>
 
                           <p
@@ -686,7 +686,7 @@ export default function IndustrySection({ isEmbedded = false }: { isEmbedded?: b
                               width: 'fit-content',
                             }}
                           >
-                            [ HOW IT ADDRESSES IT ]
+                            HOW IT ADDRESSES IT
                           </span>
 
                           {/* Three points */}
