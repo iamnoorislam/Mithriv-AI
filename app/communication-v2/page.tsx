@@ -3314,7 +3314,20 @@ export default function CommunicationV2Page() {
             />
             <div className="canvas-content" style={{ position: 'relative', zIndex: 2 }}>
               <h2 ref={revealTitleRef} className="canvas-title">Hire our security agents</h2>
-              <p ref={revealSubtitleRef} className="canvas-subtitle">
+              <p
+                ref={revealSubtitleRef}
+                className="canvas-subtitle"
+                style={{
+                  fontFamily: "var(--font-mono), 'JetBrains Mono', monospace",
+                  fontSize: '14px',
+                  fontWeight: 400,
+                  color: '#B6B6B7',
+                  lineHeight: '1.6',
+                  margin: '0 auto 40px',
+                  maxWidth: '580px',
+                  textAlign: 'center'
+                }}
+              >
                 Autonomous security that never blinks. AI agents that observe, decide, and act in real time.
               </p>
               <a ref={revealBtnRef} href="#" className="ent-btn-primary">Learn More</a>
