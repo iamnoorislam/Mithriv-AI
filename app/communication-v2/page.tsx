@@ -4,6 +4,16 @@ import React, { useEffect, useState, useRef } from 'react'
 import '../style.css'
 import IndustrySection from '@/components/IndustrySection'
 
+const splitWords = (text: string, className = "honest-word") => {
+  return text.split(' ').map((word, wordIdx) => (
+    <span key={wordIdx} style={{ display: 'inline-block', overflow: 'hidden', marginRight: '0.25em', verticalAlign: 'bottom' }}>
+      <span className={className} style={{ display: 'inline-block' }}>
+        {word}
+      </span>
+    </span>
+  ));
+};
+
 export default function CommunicationV2Page() {
   const [mounted, setMounted] = useState(false);
   const [activeSection, setActiveSection] = useState('problem');
@@ -570,36 +580,56 @@ export default function CommunicationV2Page() {
       const honestSec = document.getElementById('honest-positioning');
       if (honestSec) {
         const tag = honestSec.querySelector('.ent-pill');
-        const heading = honestSec.querySelector('h2');
-        const desc = honestSec.querySelector('p');
-        const grid = honestSec.querySelector('.honest-grid-container');
-        const columns = honestSec.querySelectorAll('.honest-column');
-        const itemRows = honestSec.querySelectorAll('.honest-item-row');
         const quoteBox = honestSec.querySelector('.honest-quote-box');
+        const quoteBorder = honestSec.querySelector('.honest-quote-border');
+        const quoteBg = honestSec.querySelector('.honest-quote-bg');
+        const quoteContent = honestSec.querySelector('.honest-quote-content');
 
         // Set initial states
-        gsap.set(tag, { y: 30, opacity: 0, filter: "blur(10px)" });
-        gsap.set(heading, { y: 40, opacity: 0, filter: "blur(15px)" });
-        gsap.set(desc, { y: 30, opacity: 0, filter: "blur(10px)" });
-        gsap.set(grid, { opacity: 0, scaleY: 0.95, transformOrigin: "top center" });
-        gsap.set(columns, { opacity: 0 });
-        gsap.set(itemRows, { y: 15, opacity: 0 });
-        gsap.set(quoteBox, { y: 40, opacity: 0, filter: "blur(8px)" });
+        gsap.set(tag, { y: 15, opacity: 0, scale: 0.9 });
+        gsap.set(".honest-word", { yPercent: 100 });
+        gsap.set(".honest-desc-word", { opacity: 0, y: 10 });
+        gsap.set([".honest-grid-line-top", ".honest-grid-line-bottom"], { scaleX: 0 });
+        gsap.set([".honest-grid-line-left", ".honest-grid-line-right"], { scaleY: 0 });
+        gsap.set(".honest-grid-line-middle", { scaleY: 0 });
+        gsap.set(".honest-grid-line-mobile-divider", { scaleX: 0 });
+        gsap.set(".honest-row-line", { scaleX: 0 });
+        gsap.set(".honest-row-bullet", { scale: 0, rotate: -30, opacity: 0 });
+        gsap.set(".honest-row-text", { opacity: 0, x: -10 });
+        gsap.set(quoteBorder, { scaleY: 0 });
+        gsap.set(quoteBg, { scaleX: 0 });
+        gsap.set(quoteContent, { opacity: 0, x: 15 });
 
         ScrollTrigger.create({
           id: "honest-positioning-reveal",
           trigger: honestSec,
-          start: "top 80%",
+          start: "top 75%",
           once: true,
           onEnter: () => {
             const tl = gsap.timeline();
-            tl.to(tag, { y: 0, opacity: 1, filter: "blur(0px)", duration: 1.0, ease: "power3.out" })
-              .to(heading, { y: 0, opacity: 1, filter: "blur(0px)", duration: 1.2, ease: "power3.out" }, "-=0.8")
-              .to(desc, { y: 0, opacity: 1, filter: "blur(0px)", duration: 1.0, ease: "power3.out" }, "-=0.8")
-              .to(grid, { opacity: 1, scaleY: 1, duration: 1.2, ease: "power4.out" }, "-=0.6")
-              .to(columns, { opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.8")
-              .to(itemRows, { y: 0, opacity: 1, duration: 0.8, stagger: 0.08, ease: "power3.out" }, "-=0.4")
-              .to(quoteBox, { y: 0, opacity: 1, filter: "blur(0px)", duration: 1.0, ease: "back.out(1.2)" }, "-=0.6");
+            tl
+              // Step 1: Reveal tag
+              .to(tag, { y: 0, opacity: 1, scale: 1, duration: 0.6, ease: "power3.out" })
+              // Step 2: Reveal heading words (staggered clipping mask)
+              .to(".honest-word", { yPercent: 0, duration: 0.8, stagger: 0.05, ease: "power4.out" }, "-=0.4")
+              // Step 3: Reveal description words
+              .to(".honest-desc-word", { opacity: 1, y: 0, duration: 0.6, stagger: 0.02, ease: "power2.out" }, "-=0.5")
+              // Step 4: Draw grid border lines (top/bottom and left/right drawing in pairs)
+              .to([".honest-grid-line-top", ".honest-grid-line-bottom"], { scaleX: 1, duration: 0.8, ease: "power3.inOut" }, "-=0.4")
+              .to([".honest-grid-line-left", ".honest-grid-line-right"], { scaleY: 1, duration: 0.8, ease: "power3.inOut" }, "-=0.6")
+              // Step 5: Draw middle vertical line (desktop) or mobile horizontal divider line (mobile)
+              .to([".honest-grid-line-middle", ".honest-grid-line-mobile-divider"], { scaleY: 1, scaleX: 1, duration: 0.8, ease: "power3.inOut" }, "-=0.5")
+              // Step 6: Draw row dividers
+              .to(".honest-row-line", { scaleX: 1, duration: 0.6, stagger: 0.06, ease: "power2.out" }, "-=0.4")
+              // Step 7: Pop bullets and slide texts
+              .to(".honest-row-bullet", { scale: 1, rotate: 0, opacity: 1, duration: 0.5, stagger: 0.05, ease: "back.out(2)" }, "-=0.5")
+              .to(".honest-row-text", { opacity: 1, x: 0, duration: 0.6, stagger: 0.05, ease: "power2.out" }, "-=0.5")
+              // Step 8: Draw quote box border
+              .to(quoteBorder, { scaleY: 1, duration: 0.5, ease: "power3.inOut" }, "-=0.3")
+              // Step 9: Wipe quote box bg
+              .to(quoteBg, { scaleX: 1, duration: 0.7, ease: "power3.out" }, "-=0.3")
+              // Step 10: Reveal quote content
+              .to(quoteContent, { opacity: 1, x: 0, duration: 0.8, ease: "power2.out" }, "-=0.5");
           }
         });
       }
@@ -3084,7 +3114,6 @@ export default function CommunicationV2Page() {
               .honest-grid-container {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
-                border: 1px solid rgba(15, 17, 21, 0.08);
                 background: #ffffff;
                 border-radius: 0px;
                 margin-top: 48px;
@@ -3094,7 +3123,6 @@ export default function CommunicationV2Page() {
                 box-sizing: border-box;
               }
               .honest-column-left {
-                border-right: 1px solid rgba(15, 17, 21, 0.08);
                 background: rgba(139, 92, 246, 0.015);
               }
               .honest-item-row {
@@ -3102,21 +3130,26 @@ export default function CommunicationV2Page() {
                 align-items: flex-start;
                 gap: 16px;
                 padding: 20px 0;
-                border-bottom: 1px solid rgba(15, 17, 21, 0.06);
+                position: relative;
               }
-              .honest-item-row:last-child {
-                border-bottom: none;
+              .honest-grid-line-mobile-divider {
+                display: none !important;
               }
               @media (max-width: 991px) {
                 .honest-grid-container {
                   grid-template-columns: 1fr !important;
                 }
                 .honest-column-left {
-                  border-right: none !important;
-                  border-bottom: 1px solid rgba(15, 17, 21, 0.08);
+                  background: rgba(139, 92, 246, 0.015);
                 }
                 .honest-column {
                   padding: 36px 24px !important;
+                }
+                .honest-grid-line-mobile-divider {
+                  display: block !important;
+                }
+                .honest-grid-line-middle {
+                  display: none !important;
                 }
               }
             `}</style>
@@ -3142,9 +3175,10 @@ export default function CommunicationV2Page() {
                 fontWeight: 600,
                 textAlign: 'left',
                 color: '#0F1115',
-                fontFamily: 'var(--font-main)'
+                fontFamily: 'var(--font-main)',
+                lineHeight: 1.2
               }}>
-                What it is. What it isn't.
+                {splitWords("What it is. What it isn't.", "honest-word")}
               </h2>
 
               <p style={{
@@ -3156,13 +3190,30 @@ export default function CommunicationV2Page() {
                 textAlign: 'left',
                 fontFamily: "var(--font-mono), 'JetBrains Mono', monospace"
               }}>
-                We believe in clear expectations. Here's where the Communication Interface excels and where other approaches may be more appropriate.
+                {splitWords("We believe in clear expectations. Here's where the Communication Interface excels and where other approaches may be more appropriate.", "honest-desc-word")}
               </p>
 
-              <div className="honest-grid-container">
+              <div className="honest-grid-container" style={{ position: 'relative' }}>
+                {/* Construction Lines */}
+                <div className="honest-grid-line-top" style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'rgba(15, 17, 21, 0.08)', transformOrigin: 'left center' }} />
+                <div className="honest-grid-line-bottom" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '1px', background: 'rgba(15, 17, 21, 0.08)', transformOrigin: 'right center' }} />
+                <div className="honest-grid-line-left" style={{ position: 'absolute', top: 0, bottom: 0, left: 0, width: '1px', background: 'rgba(15, 17, 21, 0.08)', transformOrigin: 'center top' }} />
+                <div className="honest-grid-line-right" style={{ position: 'absolute', top: 0, bottom: 0, right: 0, width: '1px', background: 'rgba(15, 17, 21, 0.08)', transformOrigin: 'center bottom' }} />
+                <div className="honest-grid-line-middle" style={{ position: 'absolute', top: 0, bottom: 0, left: '50%', width: '1px', background: 'rgba(15, 17, 21, 0.08)', transformOrigin: 'center top' }} />
 
                 {/* Excels Column */}
-                <div className="honest-column honest-column-left">
+                <div className="honest-column honest-column-left" style={{ position: 'relative' }}>
+                  {/* Mobile divider line at the bottom of the left column (only visible on mobile) */}
+                  <div className="honest-grid-line-mobile-divider" style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    height: '1px',
+                    background: 'rgba(15, 17, 21, 0.08)',
+                    transformOrigin: 'left center'
+                  }} />
+
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '28px' }}>
                     <span style={{
                       fontFamily: 'var(--font-mono), monospace',
@@ -3193,33 +3244,46 @@ export default function CommunicationV2Page() {
                       'Regulated industries with audit requirements',
                       'Organizations coordinating guard forces',
                       'Facilities where communication failures have safety or compliance consequences'
-                    ].map((item, i) => (
+                    ].map((item, i, arr) => (
                       <div key={i} className="honest-item-row">
-                        <span style={{
+                        <span className="honest-row-bullet" style={{
                           fontFamily: 'var(--font-mono), monospace',
-                          fontSize: '13px',
+                          fontSize: '14px',
                           color: '#8B5CF6',
                           fontWeight: 'bold',
-                          flexShrink: 0
+                          flexShrink: 0,
+                          display: 'inline-block'
                         }}>
-                          [✓]
+                          ✓
                         </span>
-                        <span style={{
+                        <span className="honest-row-text" style={{
                           fontSize: '14px',
                           lineHeight: '1.5',
                           color: '#1F2937',
                           fontWeight: 500,
-                          fontFamily: 'var(--font-main)'
+                          fontFamily: 'var(--font-main)',
+                          display: 'inline-block'
                         }}>
                           {item}
                         </span>
+                        {i < arr.length - 1 && (
+                          <div className="honest-row-line" style={{
+                            position: 'absolute',
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            height: '1px',
+                            background: 'rgba(15, 17, 21, 0.06)',
+                            transformOrigin: 'left center'
+                          }} />
+                        )}
                       </div>
                     ))}
                   </div>
                 </div>
 
                 {/* Alternatives Column */}
-                <div className="honest-column">
+                <div className="honest-column" style={{ position: 'relative' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '28px' }}>
                     <span style={{
                       fontFamily: 'var(--font-mono), monospace',
@@ -3248,26 +3312,39 @@ export default function CommunicationV2Page() {
                       'Single-site operations with minimal visitor traffic',
                       'Organizations without existing security systems to integrate',
                       'Environments where communication can remain purely human-mediated'
-                    ].map((item, i) => (
+                    ].map((item, i, arr) => (
                       <div key={i} className="honest-item-row">
-                        <span style={{
+                        <span className="honest-row-bullet" style={{
                           fontFamily: 'var(--font-mono), monospace',
-                          fontSize: '13px',
+                          fontSize: '14px',
                           color: '#6B7280',
                           fontWeight: 'bold',
-                          flexShrink: 0
+                          flexShrink: 0,
+                          display: 'inline-block'
                         }}>
-                          [o]
+                          ○
                         </span>
-                        <span style={{
+                        <span className="honest-row-text" style={{
                           fontSize: '14px',
                           lineHeight: '1.5',
                           color: '#4B5563',
                           fontWeight: 500,
-                          fontFamily: 'var(--font-main)'
+                          fontFamily: 'var(--font-main)',
+                          display: 'inline-block'
                         }}>
                           {item}
                         </span>
+                        {i < arr.length - 1 && (
+                          <div className="honest-row-line" style={{
+                            position: 'absolute',
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            height: '1px',
+                            background: 'rgba(15, 17, 21, 0.06)',
+                            transformOrigin: 'left center'
+                          }} />
+                        )}
                       </div>
                     ))}
                   </div>
@@ -3280,36 +3357,61 @@ export default function CommunicationV2Page() {
                 className="honest-quote-box"
                 style={{
                   marginTop: '64px',
-                  borderLeft: '4px solid #F43F5E',
+                  position: 'relative',
                   padding: '28px 36px',
-                  background: 'rgba(244, 63, 94, 0.02)',
                   borderRadius: '0px',
                   textAlign: 'left',
-                  boxSizing: 'border-box'
+                  boxSizing: 'border-box',
+                  overflow: 'hidden'
                 }}
               >
-                <h4 style={{
-                  fontFamily: 'var(--font-mono), monospace',
-                  fontSize: '12px',
-                  fontWeight: 'bold',
-                  color: '#E11D48',
-                  textTransform: 'uppercase',
-                  letterSpacing: '1.5px',
-                  marginTop: 0,
-                  marginBottom: '12px'
-                }}>
-                  THE HONEST TRADEOFF
-                </h4>
-                <p style={{
-                  fontFamily: 'var(--font-main)',
-                  fontStyle: 'italic',
-                  color: '#374151',
-                  fontSize: '15px',
-                  lineHeight: '1.7',
-                  margin: 0
-                }}>
-                  "Conversational AI amplifies your security team. It doesn't replace them. Organizations seeking to make their staff dramatically more effective will see significant returns."
-                </p>
+                {/* Absolute red border */}
+                <div className="honest-quote-border" style={{
+                  position: 'absolute',
+                  left: 0,
+                  top: 0,
+                  bottom: 0,
+                  width: '4px',
+                  background: '#F43F5E',
+                  transformOrigin: 'top center'
+                }} />
+
+                {/* Absolute background wipe */}
+                <div className="honest-quote-bg" style={{
+                  position: 'absolute',
+                  left: '4px',
+                  right: 0,
+                  top: 0,
+                  bottom: 0,
+                  background: 'rgba(244, 63, 94, 0.02)',
+                  transformOrigin: 'left center'
+                }} />
+
+                {/* Content wrapped */}
+                <div className="honest-quote-content" style={{ position: 'relative', zIndex: 1 }}>
+                  <h4 style={{
+                    fontFamily: 'var(--font-mono), monospace',
+                    fontSize: '12px',
+                    fontWeight: 'bold',
+                    color: '#E11D48',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1.5px',
+                    marginTop: 0,
+                    marginBottom: '12px'
+                  }}>
+                    THE HONEST TRADEOFF
+                  </h4>
+                  <p style={{
+                    fontFamily: 'var(--font-main)',
+                    fontStyle: 'italic',
+                    color: '#374151',
+                    fontSize: '15px',
+                    lineHeight: '1.7',
+                    margin: 0
+                  }}>
+                    "Conversational AI amplifies your security team. It doesn't replace them. Organizations seeking to make their staff dramatically more effective will see significant returns."
+                  </p>
+                </div>
               </div>
 
             </div>
