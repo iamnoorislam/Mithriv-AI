@@ -1571,7 +1571,9 @@ window.runDotCanvas02 = () => {
 
                             let drawX = cx;
                             let drawY = cy;
-                            let color = CFG.colors[cell.colorIdx] || CFG.colors[0];
+                            const isLight = document.body.classList.contains('light-mode');
+                            const baseColor = isLight ? [15, 17, 21] : [255, 255, 255];
+                            let color = baseColor;
 
                             if (dist < radius && mouseX > 0) {
                                 const force = (radius - dist) / radius;
@@ -1581,9 +1583,12 @@ window.runDotCanvas02 = () => {
 
                                 // Color blend to brand purple [139, 92, 246]
                                 const blend = force * 0.95;
-                                const r = Math.round(255 * (1 - blend) + 139 * blend);
-                                const g = Math.round(255 * (1 - blend) + 92 * blend);
-                                const b = Math.round(255 * (1 - blend) + 246 * blend);
+                                const targetR = isLight ? 124 : 139;
+                                const targetG = isLight ? 58 : 92;
+                                const targetB = isLight ? 237 : 246;
+                                const r = Math.round(baseColor[0] * (1 - blend) + targetR * blend);
+                                const g = Math.round(baseColor[1] * (1 - blend) + targetG * blend);
+                                const b = Math.round(baseColor[2] * (1 - blend) + targetB * blend);
                                 color = [r, g, b];
                             }
 

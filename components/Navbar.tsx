@@ -10,7 +10,34 @@ export default function Navbar() {
   const [hidden, setHidden] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark')
   const pathname = usePathname()
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme') as 'dark' | 'light' || 'dark';
+    setTheme(savedTheme);
+    if (savedTheme === 'light') {
+      document.body.classList.add('light-mode');
+      document.documentElement.classList.add('light-mode');
+    } else {
+      document.body.classList.remove('light-mode');
+      document.documentElement.classList.remove('light-mode');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(nextTheme);
+    localStorage.setItem('theme', nextTheme);
+    if (nextTheme === 'light') {
+      document.body.classList.add('light-mode');
+      document.documentElement.classList.add('light-mode');
+    } else {
+      document.body.classList.remove('light-mode');
+      document.documentElement.classList.remove('light-mode');
+    }
+    window.dispatchEvent(new Event('themechange'));
+  };
 
   useEffect(() => {
     setActiveDropdown(null)
@@ -139,6 +166,17 @@ export default function Navbar() {
                                         <p>The Decision Layer for Physical Security.</p>
                                     </div>
                                 </Link>
+                                <Link href="/intelligence-engine-v2" className="mega-item">
+                                    <div className="mega-icon">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" strokeWidth="2">
+                                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                                        </svg>
+                                    </div>
+                                    <div className="mega-content">
+                                        <h5>Intelligence Engine v2</h5>
+                                        <p>Conscious Physical Decision Engine.</p>
+                                    </div>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -224,6 +262,43 @@ export default function Navbar() {
                 <li><Link href="/#">Company</Link></li>
             </ul>
             <div style={{ display: 'flex', alignItems: 'center' }}>
+                <button
+                  onClick={toggleTheme}
+                  aria-label="Toggle Theme"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    borderRadius: '50%',
+                    width: '40px',
+                    height: '40px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    marginRight: '12px',
+                    color: 'currentColor',
+                    transition: 'all 0.3s ease'
+                  }}
+                  className="theme-toggle-btn"
+                >
+                  {theme === 'dark' ? (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="5" />
+                      <line x1="12" y1="1" x2="12" y2="3" />
+                      <line x1="12" y1="21" x2="12" y2="23" />
+                      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                      <line x1="1" y1="12" x2="3" y2="12" />
+                      <line x1="21" y1="12" x2="23" y2="12" />
+                      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                  ) : (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    </svg>
+                  )}
+                </button>
                 <Link href="/watch-in-action" id="watchDemoBtn" className="ent-btn-primary" style={{ padding: '12px 24px', display: 'inline-flex', fontSize: '14px' }}>Watch Demo</Link>
                 <button 
                   className="mobile-menu-btn" 

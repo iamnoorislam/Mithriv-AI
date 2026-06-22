@@ -14,6 +14,51 @@ const splitWords = (text: string, className = "honest-word") => {
   ));
 };
 
+const AGENTS_DATA = [
+  {
+    id: 0,
+    num: '01',
+    name: 'Visitor Agent',
+    desc: 'Complete visitor journey from pre-registration to departure. Kiosk, mobile, or lobby tablet. No training required.',
+    metrics: ['90-second check-in', 'Zero lobby queues']
+  },
+  {
+    id: 1,
+    num: '02',
+    name: 'Guard Agent',
+    desc: 'Hands-free operation for officers on patrol, at posts, in vehicles. Documentation during incidents, not after.',
+    metrics: ['Dispatch confirmed in seconds', 'Knowledge persists through turnover']
+  },
+  {
+    id: 2,
+    num: '03',
+    name: 'Employee Agent',
+    desc: 'Credential requests, access inquiries, policy questions — resolved without tickets or phone trees.',
+    metrics: ['Answers in seconds', 'Exceptions only, not routine']
+  },
+  {
+    id: 3,
+    num: '04',
+    name: 'Contractor Agent',
+    desc: 'Safety briefings, credentials, escort coordination — unified from onboarding through project completion.',
+    metrics: ['Contractors arrive prepared', 'Access expires automatically']
+  },
+  {
+    id: 4,
+    num: '05',
+    name: 'Emergency Agent',
+    desc: 'Crisis communication across all stakeholders simultaneously. Every channel. Documented completely.',
+    metrics: ['From alarm to all-clear', 'Accountability in minutes']
+  },
+  {
+    id: 5,
+    num: '06',
+    name: 'Executive Agent',
+    desc: 'Security intelligence on demand. Natural language. Real-time data. No analyst intermediaries.',
+    metrics: ['Questions answered, not estimated', 'Board-ready posture summaries']
+  }
+];
+
 export default function CommunicationV2Page() {
   const [mounted, setMounted] = useState(false);
   const [activeSection, setActiveSection] = useState('problem');
@@ -21,6 +66,11 @@ export default function CommunicationV2Page() {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [hoveredNode, setHoveredNode] = useState<string | null>(null);
+  const [visitorSeconds, setVisitorSeconds] = useState(47);
+  const [accountedPercent, setAccountedPercent] = useState(98.4);
+  const [unconfirmedCount, setUnconfirmedCount] = useState(23);
   const panelRef = useRef<HTMLDivElement>(null);
   const revealSectionRef = useRef<HTMLDivElement>(null);
   const revealCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -49,6 +99,59 @@ export default function CommunicationV2Page() {
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    let timeout: NodeJS.Timeout;
+    const runVisitorCycle = () => {
+      let sec = 0;
+      setVisitorSeconds(0);
+      interval = setInterval(() => {
+        sec += 1;
+        if (sec >= 47) {
+          setVisitorSeconds(47);
+          clearInterval(interval);
+          timeout = setTimeout(runVisitorCycle, 4000);
+        } else {
+          setVisitorSeconds(sec);
+        }
+      }, 30);
+    };
+    runVisitorCycle();
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
+  }, []);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    let timeout: NodeJS.Timeout;
+    const runEmergencyCycle = () => {
+      let pct = 0;
+      let unc = 120;
+      setAccountedPercent(0);
+      setUnconfirmedCount(120);
+      interval = setInterval(() => {
+        pct += 3.3;
+        unc -= 4;
+        if (pct >= 98.4) {
+          setAccountedPercent(98.4);
+          setUnconfirmedCount(23);
+          clearInterval(interval);
+          timeout = setTimeout(runEmergencyCycle, 4000);
+        } else {
+          setAccountedPercent(parseFloat(pct.toFixed(1)));
+          setUnconfirmedCount(Math.max(23, unc));
+        }
+      }, 40);
+    };
+    runEmergencyCycle();
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
   }, []);
 
 
@@ -204,7 +307,9 @@ export default function CommunicationV2Page() {
 
         let drawX = cx;
         let drawY = cy;
-        let color = CFG.colors[cell.colorIdx] || CFG.colors[0];
+        const isLight = document.body.classList.contains('light-mode');
+        const baseColor = isLight ? [15, 17, 21] : [255, 255, 255];
+        let color = baseColor;
 
         if (dist < radius && mouseX > 0) {
           const force = (radius - dist) / radius;
@@ -212,9 +317,12 @@ export default function CommunicationV2Page() {
           drawY = cy + (dy / dist) * force * 16;
 
           const blend = force * 0.95;
-          const r = Math.round(255 * (1 - blend) + 139 * blend);
-          const g = Math.round(255 * (1 - blend) + 92 * blend);
-          const b = Math.round(255 * (1 - blend) + 246 * blend);
+          const targetR = isLight ? 124 : 139;
+          const targetG = isLight ? 58 : 92;
+          const targetB = isLight ? 237 : 246;
+          const r = Math.round(baseColor[0] * (1 - blend) + targetR * blend);
+          const g = Math.round(baseColor[1] * (1 - blend) + targetG * blend);
+          const b = Math.round(baseColor[2] * (1 - blend) + targetB * blend);
           color = [r, g, b];
         }
 
@@ -232,68 +340,12 @@ export default function CommunicationV2Page() {
     resize();
     animId = requestAnimationFrame(draw);
 
-    let scrollTriggerInstance: any;
-
-    if (w.gsap && w.ScrollTrigger && revealSectionRef.current) {
-      const title = revealTitleRef.current;
-      const subtitle = revealSubtitleRef.current;
-      const btn = revealBtnRef.current;
-
-      w.gsap.set(title, { y: 80, opacity: 0, filter: "blur(20px)", skewY: 3, rotationX: 12, transformOrigin: "50% 50%" });
-      w.gsap.set(subtitle, { y: 40, opacity: 0, filter: "blur(12px)", skewY: 1.5 });
-      w.gsap.set(btn, { y: 20, scale: 0.92, opacity: 0, filter: "blur(6px)" });
-      w.gsap.set(canvas, { opacity: 0, scale: 1.05 });
-
-      scrollTriggerInstance = w.ScrollTrigger.create({
-        trigger: revealSectionRef.current,
-        start: "top 85%",
-        once: true,
-        onEnter: () => {
-          const tl = w.gsap.timeline();
-          tl.to(canvas, {
-            opacity: 1,
-            scale: 1,
-            duration: 2.5,
-            ease: "power3.out"
-          }, 0);
-          tl.to(title, {
-            y: 0,
-            opacity: 1,
-            filter: "blur(0px)",
-            skewY: 0,
-            rotationX: 0,
-            duration: 1.8,
-            ease: "power4.out"
-          }, 0.15);
-          tl.to(subtitle, {
-            y: 0,
-            opacity: 1,
-            filter: "blur(0px)",
-            skewY: 0,
-            duration: 1.4,
-            ease: "power3.out"
-          }, 0.4);
-          tl.to(btn, {
-            y: 0,
-            scale: 1,
-            opacity: 1,
-            filter: "blur(0px)",
-            duration: 0.9,
-            ease: "back.out(1.8)"
-          }, 0.7);
-        }
-      });
-    }
-
     return () => {
       if (animId) cancelAnimationFrame(animId);
       ro.disconnect();
       if (container) {
         container.removeEventListener('mousemove', onMouseMove);
         container.removeEventListener('mouseleave', onMouseLeave);
-      }
-      if (scrollTriggerInstance) {
-        scrollTriggerInstance.kill(true);
       }
     };
   }, [mounted]);
@@ -636,20 +688,14 @@ export default function CommunicationV2Page() {
 
       // 10. Scroll Reveal for Operational Outcomes Section
       const outcomesSec = document.getElementById('operational-outcomes');
-      if (outcomesSec) {
-        const tag = outcomesSec.querySelector('.ent-pill');
-        const cards = outcomesSec.querySelectorAll('.outcomes-card');
-        const lines = outcomesSec.querySelectorAll('.outcomes-card-line');
-        const pills = outcomesSec.querySelectorAll('.outcomes-card-pill');
-        const contents = outcomesSec.querySelectorAll('.outcomes-card-content');
+      if (outcomesSec && w.gsap && w.ScrollTrigger) {
+        const header = outcomesSec.querySelector('h2');
+        const desc = outcomesSec.querySelector('p');
+        const btn = outcomesSec.querySelector('a');
+        const cards = outcomesSec.querySelectorAll('.operational-grid-card');
 
-        // Set initial states
-        gsap.set(tag, { y: 15, opacity: 0, scale: 0.9 });
-        gsap.set(".outcomes-word", { yPercent: 100 });
-        gsap.set(".outcomes-desc-word", { opacity: 0, y: 10 });
-        gsap.set(lines, { scaleY: 0 });
-        gsap.set(pills, { scale: 0, opacity: 0 });
-        gsap.set(contents, { opacity: 0, y: 20 });
+        gsap.set([header, desc, btn], { y: 30, opacity: 0 });
+        gsap.set(cards, { y: 40, opacity: 0 });
 
         ScrollTrigger.create({
           id: "operational-outcomes-reveal",
@@ -658,19 +704,29 @@ export default function CommunicationV2Page() {
           once: true,
           onEnter: () => {
             const tl = gsap.timeline();
-            tl
-              // Step 1: Reveal tag
-              .to(tag, { y: 0, opacity: 1, scale: 1, duration: 0.6, ease: "power3.out" })
-              // Step 2: Reveal heading words (staggered clipping mask)
-              .to(".outcomes-word", { yPercent: 0, duration: 0.8, stagger: 0.05, ease: "power4.out" }, "-=0.4")
-              // Step 3: Reveal description words
-              .to(".outcomes-desc-word", { opacity: 1, y: 0, duration: 0.6, stagger: 0.02, ease: "power2.out" }, "-=0.5")
-              // Step 4: Draw cards vertical lines
-              .to(lines, { scaleY: 1, duration: 0.8, stagger: 0.08, ease: "power3.inOut" }, "-=0.4")
-              // Step 5: Pop indicator pills
-              .to(pills, { scale: 1, opacity: 1, duration: 0.5, stagger: 0.08, ease: "back.out(2)" }, "-=0.6")
-              // Step 6: Slide up card content
-              .to(contents, { opacity: 1, y: 0, duration: 0.8, stagger: 0.08, ease: "power3.out" }, "-=0.6");
+            tl.to([header, desc, btn], { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out" })
+              .to(cards, { y: 0, opacity: 1, duration: 1.0, stagger: 0.1, ease: "power3.out" }, "-=0.4");
+          }
+        });
+      }
+
+      // 11. Scroll Reveal for Canvas Reveal Section (Hire Agent)
+      const canvasRevealSecElement = revealSectionRef.current;
+      const revealCanvas = revealCanvasRef.current;
+      if (canvasRevealSecElement && revealCanvas) {
+        gsap.set(revealCanvas, { opacity: 0, scale: 1.05 });
+        ScrollTrigger.create({
+          id: "canvas-reveal-story",
+          trigger: canvasRevealSecElement,
+          start: "top 85%",
+          once: true,
+          onEnter: () => {
+            gsap.to(revealCanvas, {
+              opacity: 1,
+              scale: 1,
+              duration: 2.5,
+              ease: "power3.out"
+            });
           }
         });
       }
@@ -756,7 +812,7 @@ export default function CommunicationV2Page() {
 
         {/* Hero Content */}
         <div className="hero-content" style={{ position: 'relative', zIndex: 10, marginTop: '0' }}>
-          <div className="ent-pill">COMMUNICATION INTERFACE</div>
+          <div className="ent-pill">Communication Interface</div>
           <h1 className="main-heading">
             Security That Speaks.<br />Operations That Listen.
           </h1>
@@ -768,6 +824,14 @@ export default function CommunicationV2Page() {
       </main>
 
       <style>{`
+        .ent-pill {
+          letter-spacing: 0 !important;
+          text-transform: none !important;
+        }
+        .feature-col-item .fig-label {
+          letter-spacing: 0 !important;
+          text-transform: none !important;
+        }
         .problem-split-grid {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
@@ -873,40 +937,51 @@ export default function CommunicationV2Page() {
         /* Accordion grid for Agents section */
         .agents-accordion-grid {
           display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 48px;
+          grid-template-columns: 4fr 6fr;
+          gap: 0;
           align-items: stretch;
+          background: rgba(10, 11, 14, 0.4);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          overflow: hidden;
+        }
+        @media (max-width: 991px) {
+          .agents-accordion-grid {
+            grid-template-columns: 1fr;
+          }
         }
 
         .agents-accordion-left {
           display: flex;
           flex-direction: column;
-          gap: 16px;
+          border-right: 1px solid rgba(255, 255, 255, 0.08);
+          background: rgba(255, 255, 255, 0.01);
         }
 
         .agent-accordion-card {
           background: transparent;
-          border: 1px solid rgba(255, 255, 255, 0.05);
-          padding: 24px;
+          border: none;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          padding: 24px 32px;
           cursor: pointer;
-          transition: background 0.3s ease, border-color 0.3s ease;
-          overflow: hidden;
-          border-radius: 4px;
+          transition: all 0.2s ease;
+          outline: none;
+        }
+        
+        .agent-accordion-card:last-child {
+          border-bottom: none;
         }
 
         .agent-accordion-card:hover {
           background: rgba(255, 255, 255, 0.02);
-          border-color: rgba(255, 255, 255, 0.1);
         }
 
         .agent-accordion-card.active {
-          background: rgba(139, 92, 246, 0.03);
-          border-color: rgba(139, 92, 246, 0.25);
+          background: rgba(255, 255, 255, 0.03);
         }
 
         .agent-accordion-header {
           display: flex;
-          justify-content: space-between;
+          justify-content: flex-start;
           align-items: center;
         }
 
@@ -930,16 +1005,20 @@ export default function CommunicationV2Page() {
         }
 
         .agent-accordion-content {
-          max-height: 0;
+          display: grid;
+          grid-template-rows: 0fr;
           opacity: 0;
-          overflow: hidden;
-          transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+          transition: grid-template-rows 0.3s linear, opacity 0.3s linear, margin-top 0.3s linear;
         }
 
         .agent-accordion-card.active .agent-accordion-content {
-          max-height: 250px;
+          grid-template-rows: 1fr;
           opacity: 1;
-          margin-top: 16px;
+          margin-top: 24px;
+        }
+
+        .agent-accordion-content-inner {
+          overflow: hidden;
         }
 
         .agent-accordion-desc {
@@ -972,10 +1051,9 @@ export default function CommunicationV2Page() {
         }
 
         .agents-dashboard-panel {
-          background: rgba(10, 11, 14, 0.4);
-          border: 1px solid rgba(255, 255, 255, 0.05);
-          border-radius: 8px;
-          padding: 24px;
+          background: transparent;
+          border: none;
+          padding: 32px;
           height: 100%;
           display: flex;
           flex-direction: column;
@@ -989,7 +1067,7 @@ export default function CommunicationV2Page() {
           display: flex;
           align-items: center;
           justify-content: center;
-          min-height: 320px;
+          min-height: 480px;
           position: relative;
         }
 
@@ -1328,40 +1406,53 @@ export default function CommunicationV2Page() {
                 </g>
 
                 {/* ACTIVE CONNECTIONS: 3D PATH RUNS (DARK BASES) */}
-                <path d="M205,84 L205,100 L185,111.6 L185,145" stroke="rgba(255, 255, 255, 0.03)" strokeWidth="1.2" strokeLinecap="round" />
-                <path d="M270,124 L270,140 L200,180.4 L200,150" stroke="rgba(255, 255, 255, 0.03)" strokeWidth="1.2" strokeLinecap="round" />
-                <path d="M335,164 L335,180 L215,249.2 L215,150" stroke="rgba(255, 255, 255, 0.03)" strokeWidth="1.2" strokeLinecap="round" />
+                {/* ACTIVE CONNECTIONS: 3D PATH RUNS (DARK BASES) */}
+                <path d="M205,84 L205,100 L185,111.6 L185,145" stroke="rgba(255, 255, 255, 0.03)" strokeWidth="1.2" strokeLinecap="round" style={{ transition: 'opacity 0.3s', opacity: hoveredNode && hoveredNode !== 'access' && hoveredNode !== 'core' ? 0.2 : 1 }} />
+                <path d="M270,124 L270,140 L200,180.4 L200,150" stroke="rgba(255, 255, 255, 0.03)" strokeWidth="1.2" strokeLinecap="round" style={{ transition: 'opacity 0.3s', opacity: hoveredNode && hoveredNode !== 'video' && hoveredNode !== 'core' ? 0.2 : 1 }} />
+                <path d="M335,164 L335,180 L215,249.2 L215,150" stroke="rgba(255, 255, 255, 0.03)" strokeWidth="1.2" strokeLinecap="round" style={{ transition: 'opacity 0.3s', opacity: hoveredNode && hoveredNode !== 'threat' && hoveredNode !== 'core' ? 0.2 : 1 }} />
 
                 {/* ACTIVE CONNECTIONS: 3D PATH RUNS (GLOWING LASERS) */}
-                <path d="M205,84 L205,100 L185,111.6 L185,145" stroke="url(#laser-grad)" strokeWidth="1.2" className="laser-path-left" strokeLinecap="round" />
-                <path d="M270,124 L270,140 L200,180.4 L200,150" stroke="url(#laser-grad)" strokeWidth="1.2" className="laser-path-center" strokeLinecap="round" />
-                <path d="M335,164 L335,180 L215,249.2 L215,150" stroke="url(#laser-grad)" strokeWidth="1.2" className="laser-path-right" strokeLinecap="round" />
+                <path d="M205,84 L205,100 L185,111.6 L185,145" stroke="url(#laser-grad)" strokeWidth={hoveredNode === 'access' || hoveredNode === 'core' ? 2.2 : 1.2} className="laser-path-left" strokeLinecap="round" style={{ transition: 'stroke-width 0.3s, opacity 0.3s', opacity: hoveredNode && hoveredNode !== 'access' && hoveredNode !== 'core' ? 0.15 : 1 }} />
+                <path d="M270,124 L270,140 L200,180.4 L200,150" stroke="url(#laser-grad)" strokeWidth={hoveredNode === 'video' || hoveredNode === 'core' ? 2.2 : 1.2} className="laser-path-center" strokeLinecap="round" style={{ transition: 'stroke-width 0.3s, opacity 0.3s', opacity: hoveredNode && hoveredNode !== 'video' && hoveredNode !== 'core' ? 0.15 : 1 }} />
+                <path d="M335,164 L335,180 L215,249.2 L215,150" stroke="url(#laser-grad)" strokeWidth={hoveredNode === 'threat' || hoveredNode === 'core' ? 2.2 : 1.2} className="laser-path-right" strokeLinecap="round" style={{ transition: 'stroke-width 0.3s, opacity 0.3s', opacity: hoveredNode && hoveredNode !== 'threat' && hoveredNode !== 'core' ? 0.15 : 1 }} />
 
                 {/* BROKEN DISCONNECTED WIRES (DARK BASES) */}
-                <path d="M185,170 L60,242 L60,225" stroke="rgba(239, 68, 68, 0.05)" strokeWidth="1" strokeDasharray="3, 3" strokeLinecap="round" />
-                <path d="M185,170 L125,205 L125,255" stroke="rgba(239, 68, 68, 0.05)" strokeWidth="1" strokeDasharray="3, 3" strokeLinecap="round" />
-                <path d="M185,170 L190,173 L190,285" stroke="rgba(239, 68, 68, 0.05)" strokeWidth="1" strokeDasharray="3, 3" strokeLinecap="round" />
+                <path d="M185,170 L60,242 L60,225" stroke="rgba(239, 68, 68, 0.05)" strokeWidth="1" strokeDasharray="3, 3" strokeLinecap="round" style={{ transition: 'opacity 0.3s', opacity: hoveredNode && hoveredNode !== 'guards' ? 0.2 : 1 }} />
+                <path d="M185,170 L125,205 L125,255" stroke="rgba(239, 68, 68, 0.05)" strokeWidth="1" strokeDasharray="3, 3" strokeLinecap="round" style={{ transition: 'opacity 0.3s', opacity: hoveredNode && hoveredNode !== 'visitors' ? 0.2 : 1 }} />
+                <path d="M185,170 L190,173 L190,285" stroke="rgba(239, 68, 68, 0.05)" strokeWidth="1" strokeDasharray="3, 3" strokeLinecap="round" style={{ transition: 'opacity 0.3s', opacity: hoveredNode && hoveredNode !== 'execs' ? 0.2 : 1 }} />
 
                 {/* BROKEN DISCONNECTED WIRES (DECAYING GLOWS) */}
-                <path d="M185,170 L60,242 L60,225" stroke="url(#red-laser-grad)" strokeWidth="1" className="red-laser-path-left" strokeLinecap="round" />
-                <path d="M185,170 L125,205 L125,255" stroke="url(#red-laser-grad)" strokeWidth="1" className="red-laser-path-center" strokeLinecap="round" />
-                <path d="M185,170 L190,173 L190,285" stroke="url(#red-laser-grad)" strokeWidth="1" className="red-laser-path-right" strokeLinecap="round" />
+                <path d="M185,170 L60,242 L60,225" stroke="url(#red-laser-grad)" strokeWidth={hoveredNode === 'guards' ? 2 : 1} className="red-laser-path-left" strokeLinecap="round" style={{ transition: 'stroke-width 0.3s, opacity 0.3s', opacity: hoveredNode && hoveredNode !== 'guards' ? 0.15 : 1 }} />
+                <path d="M185,170 L125,205 L125,255" stroke="url(#red-laser-grad)" strokeWidth={hoveredNode === 'visitors' ? 2 : 1} className="red-laser-path-center" strokeLinecap="round" style={{ transition: 'stroke-width 0.3s, opacity 0.3s', opacity: hoveredNode && hoveredNode !== 'visitors' ? 0.15 : 1 }} />
+                <path d="M185,170 L190,173 L190,285" stroke="url(#red-laser-grad)" strokeWidth={hoveredNode === 'execs' ? 2 : 1} className="red-laser-path-right" strokeLinecap="round" style={{ transition: 'stroke-width 0.3s, opacity 0.3s', opacity: hoveredNode && hoveredNode !== 'execs' ? 0.15 : 1 }} />
 
                 {/* RADIATING RED ERROR SHOCKWAVES ON GRID FLOOR */}
                 <ellipse cx="8" cy="225" rx="5" ry="2.5" stroke="rgba(239, 68, 68, 0.2)" strokeWidth="0.8" fill="none" />
-                <ellipse cx="8" cy="225" rx="5" ry="2.5" stroke="#ef4444" strokeWidth="0.6" fill="none" className="pulse-ring-err" style={{ transformOrigin: '8px 225px', animationDelay: '0s' }} />
+                <ellipse cx="8" cy="225" rx="5" ry="2.5" stroke="#ef4444" strokeWidth="0.6" fill="none" className="pulse-ring-err" style={{ transformOrigin: '8px 225px', animationDelay: '0s', display: hoveredNode && hoveredNode !== 'guards' ? 'none' : 'block' }} />
 
                 <ellipse cx="73" cy="255" rx="5" ry="2.5" stroke="rgba(239, 68, 68, 0.2)" strokeWidth="0.8" fill="none" />
-                <ellipse cx="73" cy="255" rx="5" ry="2.5" stroke="#ef4444" strokeWidth="0.6" fill="none" className="pulse-ring-err" style={{ transformOrigin: '73px 255px', animationDelay: '0.5s' }} />
+                <ellipse cx="73" cy="255" rx="5" ry="2.5" stroke="#ef4444" strokeWidth="0.6" fill="none" className="pulse-ring-err" style={{ transformOrigin: '73px 255px', animationDelay: '0.5s', display: hoveredNode && hoveredNode !== 'visitors' ? 'none' : 'block' }} />
 
                 <ellipse cx="138" cy="285" rx="5" ry="2.5" stroke="rgba(239, 68, 68, 0.2)" strokeWidth="0.8" fill="none" />
-                <ellipse cx="138" cy="285" rx="5" ry="2.5" stroke="#ef4444" strokeWidth="0.6" fill="none" className="pulse-ring-err" style={{ transformOrigin: '138px 285px', animationDelay: '1s' }} />
+                <ellipse cx="138" cy="285" rx="5" ry="2.5" stroke="#ef4444" strokeWidth="0.6" fill="none" className="pulse-ring-err" style={{ transformOrigin: '138px 285px', animationDelay: '1s', display: hoveredNode && hoveredNode !== 'execs' ? 'none' : 'block' }} />
 
                 {/* ACTIVE NODES (TOP-RIGHT SLEEK & EXTRA-WIDE 3D BLOCKS, SHIFTED LEFT/UP TO AVOID CLIPPING) */}
                 {/* Access AI Block */}
-                <g style={{ transformOrigin: '205px 40px', animation: 'float-node 4s infinite ease-in-out', animationDelay: '0s' }}>
+                <g
+                  onMouseEnter={() => setHoveredNode('access')}
+                  onMouseLeave={() => setHoveredNode(null)}
+                  style={{
+                    cursor: 'pointer',
+                    transformOrigin: '205px 40px',
+                    animation: hoveredNode === 'access' ? 'none' : 'float-node 4s infinite ease-in-out',
+                    animationDelay: '0s',
+                    transform: hoveredNode === 'access' ? 'scale(1.08) translateY(-2px)' : 'scale(1)',
+                    transition: 'transform 0.3s ease, filter 0.3s ease',
+                    filter: hoveredNode === 'access' ? 'drop-shadow(0px 0px 8px rgba(139, 143, 255, 0.6))' : 'none'
+                  }}
+                >
                   {/* Top Face */}
-                  <polygon points="205,68 156.5,40 205,12 253.5,40" fill="rgba(20, 20, 28, 0.96)" stroke="rgba(139, 143, 255, 0.35)" strokeWidth="0.8" />
+                  <polygon points="205,68 156.5,40 205,12 253.5,40" fill={hoveredNode === 'access' ? 'rgba(139, 143, 255, 0.12)' : 'rgba(20, 20, 28, 0.96)'} stroke={hoveredNode === 'access' ? '#8B8FFF' : 'rgba(139, 143, 255, 0.35)'} strokeWidth="0.8" style={{ transition: 'fill 0.3s, stroke 0.3s' }} />
                   {/* Left Face */}
                   <polygon points="205,68 156.5,40 156.5,56 205,84" fill="#0F0F16" stroke="rgba(139, 143, 255, 0.08)" strokeWidth="0.5" />
                   {/* Right Face */}
@@ -1374,9 +1465,21 @@ export default function CommunicationV2Page() {
                 </g>
 
                 {/* Video AI Block */}
-                <g style={{ transformOrigin: '270px 80px', animation: 'float-node 4s infinite ease-in-out', animationDelay: '1s' }}>
+                <g
+                  onMouseEnter={() => setHoveredNode('video')}
+                  onMouseLeave={() => setHoveredNode(null)}
+                  style={{
+                    cursor: 'pointer',
+                    transformOrigin: '270px 80px',
+                    animation: hoveredNode === 'video' ? 'none' : 'float-node 4s infinite ease-in-out',
+                    animationDelay: '1s',
+                    transform: hoveredNode === 'video' ? 'scale(1.08) translateY(-2px)' : 'scale(1)',
+                    transition: 'transform 0.3s ease, filter 0.3s ease',
+                    filter: hoveredNode === 'video' ? 'drop-shadow(0px 0px 8px rgba(139, 143, 255, 0.6))' : 'none'
+                  }}
+                >
                   {/* Top Face */}
-                  <polygon points="270,108 221.5,80 270,52 318.5,80" fill="rgba(20, 20, 28, 0.96)" stroke="rgba(139, 143, 255, 0.35)" strokeWidth="0.8" />
+                  <polygon points="270,108 221.5,80 270,52 318.5,80" fill={hoveredNode === 'video' ? 'rgba(139, 143, 255, 0.12)' : 'rgba(20, 20, 28, 0.96)'} stroke={hoveredNode === 'video' ? '#8B8FFF' : 'rgba(139, 143, 255, 0.35)'} strokeWidth="0.8" style={{ transition: 'fill 0.3s, stroke 0.3s' }} />
                   {/* Left Face */}
                   <polygon points="270,108 221.5,80 221.5,96 270,124" fill="#0F0F16" stroke="rgba(139, 143, 255, 0.08)" strokeWidth="0.5" />
                   {/* Right Face */}
@@ -1389,9 +1492,21 @@ export default function CommunicationV2Page() {
                 </g>
 
                 {/* Threat AI Block */}
-                <g style={{ transformOrigin: '335px 120px', animation: 'float-node 4s infinite ease-in-out', animationDelay: '2s' }}>
+                <g
+                  onMouseEnter={() => setHoveredNode('threat')}
+                  onMouseLeave={() => setHoveredNode(null)}
+                  style={{
+                    cursor: 'pointer',
+                    transformOrigin: '335px 120px',
+                    animation: hoveredNode === 'threat' ? 'none' : 'float-node 4s infinite ease-in-out',
+                    animationDelay: '2s',
+                    transform: hoveredNode === 'threat' ? 'scale(1.08) translateY(-2px)' : 'scale(1)',
+                    transition: 'transform 0.3s ease, filter 0.3s ease',
+                    filter: hoveredNode === 'threat' ? 'drop-shadow(0px 0px 8px rgba(139, 143, 255, 0.6))' : 'none'
+                  }}
+                >
                   {/* Top Face */}
-                  <polygon points="335,148 286.5,120 335,92 383.5,120" fill="rgba(20, 20, 28, 0.96)" stroke="rgba(139, 143, 255, 0.35)" strokeWidth="0.8" />
+                  <polygon points="335,148 286.5,120 335,92 383.5,120" fill={hoveredNode === 'threat' ? 'rgba(139, 143, 255, 0.12)' : 'rgba(20, 20, 28, 0.96)'} stroke={hoveredNode === 'threat' ? '#8B8FFF' : 'rgba(139, 143, 255, 0.35)'} strokeWidth="0.8" style={{ transition: 'fill 0.3s, stroke 0.3s' }} />
                   {/* Left Face */}
                   <polygon points="335,148 286.5,120 286.5,136 335,164" fill="#0F0F16" stroke="rgba(139, 143, 255, 0.08)" strokeWidth="0.5" />
                   {/* Right Face */}
@@ -1415,9 +1530,20 @@ export default function CommunicationV2Page() {
                 <polygon points="185,187 185,191 220,171 220,167" fill="#0A0A0F" stroke="rgba(255,255,255,0.04)" strokeWidth="0.5" />
 
                 {/* Top Slab with Float Animation */}
-                <g style={{ transformOrigin: '185px 150px', animation: 'float-core 4s infinite ease-in-out' }}>
+                <g
+                  onMouseEnter={() => setHoveredNode('core')}
+                  onMouseLeave={() => setHoveredNode(null)}
+                  style={{
+                    cursor: 'pointer',
+                    transformOrigin: '185px 150px',
+                    animation: hoveredNode === 'core' ? 'none' : 'float-core 4s infinite ease-in-out',
+                    transform: hoveredNode === 'core' ? 'scale(1.1)' : 'scale(1)',
+                    transition: 'transform 0.3s ease, filter 0.3s ease',
+                    filter: hoveredNode === 'core' ? 'drop-shadow(0px 0px 12px rgba(139, 143, 255, 0.8))' : 'none'
+                  }}
+                >
                   {/* Top Face */}
-                  <polygon points="185,165 155,147 185,129 215,147" fill="rgba(26, 26, 38, 0.98)" stroke="#8B8FFF" strokeWidth="1.2" style={{ filter: 'url(#glow-purple)' }} />
+                  <polygon points="185,165 155,147 185,129 215,147" fill={hoveredNode === 'core' ? 'rgba(139, 143, 255, 0.15)' : 'rgba(26, 26, 38, 0.98)'} stroke={hoveredNode === 'core' ? '#c084fc' : '#8B8FFF'} strokeWidth="1.2" style={{ filter: 'url(#glow-purple)', transition: 'fill 0.3s, stroke 0.3s' }} />
                   {/* Left Face */}
                   <polygon points="185,165 155,147 155,151 185,169" fill="#14141F" stroke="rgba(255,255,255,0.08)" strokeWidth="0.5" />
                   {/* Right Face */}
@@ -1436,49 +1562,106 @@ export default function CommunicationV2Page() {
                 </g>
 
                 {/* HORIZONTAL CRISIS LABEL BELOW CHIP (TRACKING) */}
-                <text x="185" y="222" fontFamily="var(--font-mono), monospace" fontSize="8" fill="#ef4444" textAnchor="middle" fontWeight="bold" style={{ letterSpacing: '3px', animation: 'text-blink 1.2s infinite' }}>COMMS_VOID_GAP</text>
+                <text
+                  x="185"
+                  y="222"
+                  fontFamily="var(--font-mono), monospace"
+                  fontSize="8"
+                  fill={hoveredNode && !['guards', 'visitors', 'execs'].includes(hoveredNode) ? '#10B981' : '#ef4444'}
+                  textAnchor="middle"
+                  fontWeight="bold"
+                  style={{
+                    letterSpacing: '2px',
+                    transition: 'fill 0.3s'
+                  }}
+                >
+                  {!hoveredNode && "COMMS_VOID_GAP"}
+                  {hoveredNode === 'access' && "ACCESS_AI > ACTIVE_FLOW"}
+                  {hoveredNode === 'video' && "VIDEO_AI > ACTIVE_FLOW"}
+                  {hoveredNode === 'threat' && "THREAT_AI > ACTIVE_FLOW"}
+                  {hoveredNode === 'core' && "MITHRIV_CORE > ONLINE"}
+                  {hoveredNode === 'guards' && "GUARDS > DISCONNECTED"}
+                  {hoveredNode === 'visitors' && "VISITORS > DISCONNECTED"}
+                  {hoveredNode === 'execs' && "EXECS > DISCONNECTED"}
+                </text>
 
                 {/* STAKEHOLDERS (BOTTOM-LEFT FLAT BADGES WITH 3D GLASS EDGES) */}
                 {/* GUARDS CARD */}
-                {/* Bottom Edge */}
-                <g transform="matrix(0.866, 0.5, -0.866, 0.5, 60, 228)">
-                  <rect x="-40" y="-12" width="80" height="24" rx="4" fill="#08080C" stroke="rgba(255, 255, 255, 0.03)" strokeWidth="1" />
-                </g>
-                {/* Top Face */}
-                <g transform="matrix(0.866, 0.5, -0.866, 0.5, 60, 225)">
-                  <rect x="-40" y="-12" width="80" height="24" rx="4" fill="rgba(16, 16, 24, 0.95)" stroke="rgba(255, 255, 255, 0.12)" strokeWidth="0.8" />
-                  <line x1="-39" y1="-12" x2="-39" y2="12" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
-                  <path d="M-28,-3 L-23,-3 L-23,4 L-28,4 Z M-25.5,-3 L-25.5,-6 M-24.5,-1 L-24.5,1" stroke="rgba(255, 255, 255, 0.7)" strokeWidth="0.8" fill="none" />
-                  <text x="-16" y="2" fontFamily="system-ui, -apple-system, sans-serif" fontSize="7.5" fill="#ffffff" fontWeight="bold">GUARDS</text>
-                  <circle cx="30" cy="0" r="1.5" fill="#ef4444" className="blink-led" />
+                <g
+                  onMouseEnter={() => setHoveredNode('guards')}
+                  onMouseLeave={() => setHoveredNode(null)}
+                  style={{
+                    cursor: 'pointer',
+                    transformOrigin: '60px 225px',
+                    transform: hoveredNode === 'guards' ? 'scale(1.08) translateY(-2px)' : 'scale(1)',
+                    transition: 'transform 0.3s ease, filter 0.3s ease',
+                    filter: hoveredNode === 'guards' ? 'drop-shadow(0px 0px 8px rgba(239, 68, 68, 0.6))' : 'none'
+                  }}
+                >
+                  {/* Bottom Edge */}
+                  <g transform="matrix(0.866, 0.5, -0.866, 0.5, 60, 228)">
+                    <rect x="-40" y="-12" width="80" height="24" rx="4" fill="#08080C" stroke="rgba(255, 255, 255, 0.03)" strokeWidth="1" />
+                  </g>
+                  {/* Top Face */}
+                  <g transform="matrix(0.866, 0.5, -0.866, 0.5, 60, 225)">
+                    <rect x="-40" y="-12" width="80" height="24" rx="4" fill="rgba(16, 16, 24, 0.95)" stroke="rgba(255, 255, 255, 0.12)" strokeWidth="0.8" />
+                    <line x1="-39" y1="-12" x2="-39" y2="12" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                    <path d="M-28,-3 L-23,-3 L-23,4 L-28,4 Z M-25.5,-3 L-25.5,-6 M-24.5,-1 L-24.5,1" stroke="rgba(255, 255, 255, 0.7)" strokeWidth="0.8" fill="none" />
+                    <text x="-16" y="2" fontFamily="system-ui, -apple-system, sans-serif" fontSize="7.5" fill="#ffffff" fontWeight="bold">GUARDS</text>
+                    <circle cx="30" cy="0" r="1.5" fill="#ef4444" className="blink-led" />
+                  </g>
                 </g>
 
                 {/* VISITORS CARD */}
-                {/* Bottom Edge */}
-                <g transform="matrix(0.866, 0.5, -0.866, 0.5, 125, 258)">
-                  <rect x="-40" y="-12" width="80" height="24" rx="4" fill="#08080C" stroke="rgba(255, 255, 255, 0.03)" strokeWidth="1" />
-                </g>
-                {/* Top Face */}
-                <g transform="matrix(0.866, 0.5, -0.866, 0.5, 125, 255)">
-                  <rect x="-40" y="-12" width="80" height="24" rx="4" fill="rgba(16, 16, 24, 0.95)" stroke="rgba(255, 255, 255, 0.12)" strokeWidth="0.8" />
-                  <line x1="-39" y1="-12" x2="-39" y2="12" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
-                  <path d="M-28,-3 L-23,-3 L-23,4 L-28,4 Z M-26,0 L-25,0 M-26,2 L-25,2" stroke="rgba(255, 255, 255, 0.7)" strokeWidth="0.8" fill="none" />
-                  <text x="-16" y="2" fontFamily="system-ui, -apple-system, sans-serif" fontSize="7.5" fill="#ffffff" fontWeight="bold">VISITORS</text>
-                  <circle cx="30" cy="0" r="1.5" fill="#ef4444" className="blink-led" style={{ animationDelay: '0.3s' }} />
+                <g
+                  onMouseEnter={() => setHoveredNode('visitors')}
+                  onMouseLeave={() => setHoveredNode(null)}
+                  style={{
+                    cursor: 'pointer',
+                    transformOrigin: '125px 255px',
+                    transform: hoveredNode === 'visitors' ? 'scale(1.08) translateY(-2px)' : 'scale(1)',
+                    transition: 'transform 0.3s ease, filter 0.3s ease',
+                    filter: hoveredNode === 'visitors' ? 'drop-shadow(0px 0px 8px rgba(239, 68, 68, 0.6))' : 'none'
+                  }}
+                >
+                  {/* Bottom Edge */}
+                  <g transform="matrix(0.866, 0.5, -0.866, 0.5, 125, 258)">
+                    <rect x="-40" y="-12" width="80" height="24" rx="4" fill="#08080C" stroke="rgba(255, 255, 255, 0.03)" strokeWidth="1" />
+                  </g>
+                  {/* Top Face */}
+                  <g transform="matrix(0.866, 0.5, -0.866, 0.5, 125, 255)">
+                    <rect x="-40" y="-12" width="80" height="24" rx="4" fill="rgba(16, 16, 24, 0.95)" stroke="rgba(255, 255, 255, 0.12)" strokeWidth="0.8" />
+                    <line x1="-39" y1="-12" x2="-39" y2="12" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                    <path d="M-28,-3 L-23,-3 L-23,4 L-28,4 Z M-26,0 L-25,0 M-26,2 L-25,2" stroke="rgba(255, 255, 255, 0.7)" strokeWidth="0.8" fill="none" />
+                    <text x="-16" y="2" fontFamily="system-ui, -apple-system, sans-serif" fontSize="7.5" fill="#ffffff" fontWeight="bold">VISITORS</text>
+                    <circle cx="30" cy="0" r="1.5" fill="#ef4444" className="blink-led" style={{ animationDelay: '0.3s' }} />
+                  </g>
                 </g>
 
                 {/* EXECUTIVES CARD */}
-                {/* Bottom Edge */}
-                <g transform="matrix(0.866, 0.5, -0.866, 0.5, 190, 288)">
-                  <rect x="-40" y="-12" width="80" height="24" rx="4" fill="#08080C" stroke="rgba(255, 255, 255, 0.03)" strokeWidth="1" />
-                </g>
-                {/* Top Face */}
-                <g transform="matrix(0.866, 0.5, -0.866, 0.5, 190, 285)">
-                  <rect x="-40" y="-12" width="80" height="24" rx="4" fill="rgba(16, 16, 24, 0.95)" stroke="rgba(255, 255, 255, 0.12)" strokeWidth="0.8" />
-                  <line x1="-39" y1="-12" x2="-39" y2="12" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
-                  <path d="M-28,-2 L-23,-2 L-23,4 L-28,4 Z M-26.5,-2 L-26.5,-4 L-24.5,-4 L-24.5,-2" stroke="rgba(255, 255, 255, 0.7)" strokeWidth="0.8" fill="none" />
-                  <text x="-16" y="2" fontFamily="system-ui, -apple-system, sans-serif" fontSize="7.5" fill="#ffffff" fontWeight="bold">EXECS</text>
-                  <circle cx="30" cy="0" r="1.5" fill="#ef4444" className="blink-led" style={{ animationDelay: '0.6s' }} />
+                <g
+                  onMouseEnter={() => setHoveredNode('execs')}
+                  onMouseLeave={() => setHoveredNode(null)}
+                  style={{
+                    cursor: 'pointer',
+                    transformOrigin: '190px 285px',
+                    transform: hoveredNode === 'execs' ? 'scale(1.08) translateY(-2px)' : 'scale(1)',
+                    transition: 'transform 0.3s ease, filter 0.3s ease',
+                    filter: hoveredNode === 'execs' ? 'drop-shadow(0px 0px 8px rgba(239, 68, 68, 0.6))' : 'none'
+                  }}
+                >
+                  {/* Bottom Edge */}
+                  <g transform="matrix(0.866, 0.5, -0.866, 0.5, 190, 288)">
+                    <rect x="-40" y="-12" width="80" height="24" rx="4" fill="#08080C" stroke="rgba(255, 255, 255, 0.03)" strokeWidth="1" />
+                  </g>
+                  {/* Top Face */}
+                  <g transform="matrix(0.866, 0.5, -0.866, 0.5, 190, 285)">
+                    <rect x="-40" y="-12" width="80" height="24" rx="4" fill="rgba(16, 16, 24, 0.95)" stroke="rgba(255, 255, 255, 0.12)" strokeWidth="0.8" />
+                    <line x1="-39" y1="-12" x2="-39" y2="12" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                    <path d="M-28,-2 L-23,-2 L-23,4 L-28,4 Z M-26.5,-2 L-26.5,-4 L-24.5,-4 L-24.5,-2" stroke="rgba(255, 255, 255, 0.7)" strokeWidth="0.8" fill="none" />
+                    <text x="-16" y="2" fontFamily="system-ui, -apple-system, sans-serif" fontSize="7.5" fill="#ffffff" fontWeight="bold">EXECS</text>
+                    <circle cx="30" cy="0" r="1.5" fill="#ef4444" className="blink-led" style={{ animationDelay: '0.6s' }} />
+                  </g>
                 </g>
               </svg>
             </div>
@@ -1492,7 +1675,7 @@ export default function CommunicationV2Page() {
 
             {/* Feature 1 */}
             <div className="feature-col-item">
-              <span className="fig-label">FIG 0.1</span>
+              <span className="fig-label">Fig 0.1</span>
               <div className="fig-svg-wrap">
                 <svg viewBox="0 0 200 160" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <style>{`
@@ -1534,7 +1717,7 @@ export default function CommunicationV2Page() {
 
             {/* Feature 2 */}
             <div className="feature-col-item">
-              <span className="fig-label">FIG 0.2</span>
+              <span className="fig-label">Fig 0.2</span>
               <div className="fig-svg-wrap">
                 <svg viewBox="0 0 200 160" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <style>{`
@@ -1573,7 +1756,7 @@ export default function CommunicationV2Page() {
 
             {/* Feature 3 */}
             <div className="feature-col-item">
-              <span className="fig-label">FIG 0.3</span>
+              <span className="fig-label">Fig 0.3</span>
               <div className="fig-svg-wrap">
                 <svg viewBox="0 0 200 160" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <style>{`
@@ -1617,7 +1800,7 @@ export default function CommunicationV2Page() {
 
             {/* Feature 4 */}
             <div className="feature-col-item">
-              <span className="fig-label">FIG 0.4</span>
+              <span className="fig-label">Fig 0.4</span>
               <div className="fig-svg-wrap">
                 <svg viewBox="0 0 200 160" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <style>{`
@@ -1731,7 +1914,7 @@ export default function CommunicationV2Page() {
           {/* SECTION 3: Conversational Agents */}
           <section className="section reveal-section" id="agents" style={{ padding: '80px 0', background: 'transparent' }}>
             <div style={{ display: 'flex', justifyContent: 'flex-start', width: '100%', marginBottom: '12px' }}>
-              <span className="ent-pill" style={{ marginLeft: '0px' }}>CONVERSATIONAL AGENTS</span>
+              <span className="ent-pill" style={{ marginLeft: '0px' }}>Conversational Agents</span>
             </div>
             <h2 className="std-section-h2" style={{ fontSize: '48px', marginTop: '0px', marginBottom: '16px', letterSpacing: '-0.02em', fontWeight: 600, textAlign: 'left', lineHeight: '1.2' }}>
               One agent for every stakeholder.<br />Zero gaps between them.
@@ -1743,71 +1926,128 @@ export default function CommunicationV2Page() {
             <div className="agents-accordion-grid">
               {/* Left side: Accordion list */}
               <div className="agents-accordion-left">
-                {[
-                  {
-                    id: 0,
-                    num: '01',
-                    name: 'Visitor Agent',
-                    desc: 'Complete visitor journey from pre-registration to departure. Kiosk, mobile, or lobby tablet. No training required.',
-                    metrics: ['90-second check-in', 'Zero lobby queues']
-                  },
-                  {
-                    id: 1,
-                    num: '02',
-                    name: 'Guard Agent',
-                    desc: 'Hands-free operation for officers on patrol, at posts, in vehicles. Documentation during incidents, not after.',
-                    metrics: ['Dispatch confirmed in seconds', 'Knowledge persists through turnover']
-                  },
-                  {
-                    id: 2,
-                    num: '03',
-                    name: 'Employee Agent',
-                    desc: 'Credential requests, access inquiries, policy questions — resolved without tickets or phone trees.',
-                    metrics: ['Answers in seconds', 'Exceptions only, not routine']
-                  },
-                  {
-                    id: 3,
-                    num: '04',
-                    name: 'Contractor Agent',
-                    desc: 'Safety briefings, credentials, escort coordination — unified from onboarding through project completion.',
-                    metrics: ['Contractors arrive prepared', 'Access expires automatically']
-                  },
-                  {
-                    id: 4,
-                    num: '05',
-                    name: 'Emergency Agent',
-                    desc: 'Crisis communication across all stakeholders simultaneously. Every channel. Documented completely.',
-                    metrics: ['From alarm to all-clear', 'Accountability in minutes']
-                  },
-                  {
-                    id: 5,
-                    num: '06',
-                    name: 'Executive Agent',
-                    desc: 'Security intelligence on demand. Natural language. Real-time data. No analyst intermediaries.',
-                    metrics: ['Questions answered, not estimated', 'Board-ready posture summaries']
-                  }
-                ].map((agent) => (
+                {AGENTS_DATA.map((agent) => (
                   <div
                     key={agent.id}
                     className={`agent-accordion-card ${activeAgent === agent.id ? 'active' : ''}`}
                     onClick={() => setActiveAgent(agent.id)}
                   >
                     <div className="agent-accordion-header">
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                        <span style={{ fontSize: '0.85rem', fontFamily: 'var(--font-mono), monospace', color: activeAgent === agent.id ? '#8B5CF6' : 'rgba(255,255,255,0.3)' }}>{agent.num}</span>
-                        <h3 className="agent-accordion-title">{agent.name}</h3>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <span style={{ fontSize: '14px', fontFamily: 'var(--font-mono), monospace', color: activeAgent === agent.id ? '#8B5CF6' : 'rgba(255,255,255,0.3)', fontWeight: 600 }}>{agent.num}</span>
+                        <h3 className="agent-accordion-title" style={{ fontSize: '14px', fontFamily: 'var(--font-mono), monospace', fontWeight: activeAgent === agent.id ? 600 : 400, color: activeAgent === agent.id ? '#ffffff' : 'rgba(255,255,255,0.4)', margin: 0 }}>{agent.name}</h3>
                       </div>
-                      <span className="agent-accordion-icon">{activeAgent === agent.id ? '↓' : '→'}</span>
                     </div>
+                    
                     <div className="agent-accordion-content">
-                      <p className="agent-accordion-desc">{agent.desc}</p>
-                      <div className="agent-accordion-metrics">
-                        {agent.metrics.map((metric, i) => (
-                          <div key={i} className="agent-accordion-metric-item">
-                            <span style={{ color: '#10B981' }}>✓</span>
-                            <span>{metric}</span>
+                      <div className="agent-accordion-content-inner">
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', paddingBottom: '8px' }}>
+                        
+                        {/* Agent Scope Block */}
+                        <div>
+                          <span
+                            style={{
+                              fontFamily: 'var(--font-mono)',
+                              fontSize: '10px',
+                              fontWeight: 700,
+                              color: 'rgba(239,68,68,0.85)',
+                              letterSpacing: '2px',
+                              textTransform: 'uppercase',
+                              display: 'block',
+                              marginBottom: '10px',
+                              border: '1px solid rgba(239,68,68,0.2)',
+                              padding: '2px 6px',
+                              width: 'fit-content',
+                            }}
+                          >
+                            AGENT SCOPE
+                          </span>
+
+                          <p
+                            style={{
+                              fontSize: 'clamp(14px, 1.4vw, 15px)',
+                              fontWeight: 400,
+                              color: 'rgba(255,255,255,0.75)',
+                              lineHeight: '1.5',
+                              margin: 0,
+                              fontFamily: 'var(--font-main)',
+                              letterSpacing: '-0.01em',
+                            }}
+                          >
+                            {agent.desc}
+                          </p>
+                        </div>
+
+                        {/* Key Capabilities Block */}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0px' }}>
+                          <span
+                            style={{
+                              fontFamily: 'var(--font-mono)',
+                              fontSize: '10px',
+                              fontWeight: 700,
+                              color: 'rgba(139,92,246,0.85)',
+                              letterSpacing: '2px',
+                              textTransform: 'uppercase',
+                              display: 'block',
+                              marginBottom: '10px',
+                              border: '1px solid rgba(139,92,246,0.2)',
+                              padding: '2px 6px',
+                              width: 'fit-content',
+                            }}
+                          >
+                            KEY CAPABILITIES
+                          </span>
+
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '0px' }}>
+                            {agent.metrics.map((metric, i) => (
+                              <div
+                                key={i}
+                                style={{
+                                  display: 'flex',
+                                  alignItems: 'flex-start',
+                                  gap: '12px',
+                                  padding: '10px 0',
+                                  borderBottom: 'none',
+                                  position: 'relative',
+                                }}
+                              >
+                                <svg
+                                  width="14"
+                                  height="14"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="#8B5CF6"
+                                  strokeWidth="3"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  style={{
+                                    marginTop: '3px',
+                                    flexShrink: 0,
+                                    opacity: 1,
+                                    transform: 'scale(1)',
+                                    transition: 'all 0.3s linear',
+                                    transitionDelay: `${i * 0.12}s`,
+                                  }}
+                                >
+                                  <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <p
+                                  style={{
+                                    fontSize: '13px',
+                                    color: 'rgba(255,255,255,0.7)',
+                                    lineHeight: '1.5',
+                                    margin: 0,
+                                    fontFamily: 'var(--font-main)',
+                                  }}
+                                >
+                                  {metric}
+                                </p>
+                              </div>
+                            ))}
                           </div>
-                        ))}
+                        </div>
+
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1818,15 +2058,7 @@ export default function CommunicationV2Page() {
               <div className="agents-accordion-right">
                 <div className="agents-dashboard-panel">
 
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '16px', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', marginBottom: '24px', position: 'relative', zIndex: 10 }}>
-                    <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '0.85rem', color: '#B6B6B7', letterSpacing: '1px' }}>
-                      [ AGENT_0{activeAgent + 1} // DIAGNOSTIC_DASHBOARD ]
-                    </span>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: '#ffffff' }}>
-                      <span className="status-dot active" style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981', boxShadow: '0 0 8px rgba(16, 185, 129, 0.4)' }}></span>
-                      ONLINE
-                    </div>
-                  </div>
+                  {/* Active content is now inside the left tabs */}
 
                   <div className="agents-dashboard-panel-inner">
                     {activeAgent === 0 && (
@@ -1961,215 +2193,98 @@ export default function CommunicationV2Page() {
                     {activeAgent === 1 && (
                       <>
                         <svg width="100%" height="100%" viewBox="0 0 513 386" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <rect x="38.7969" y="23.8008" width="436" height="308" rx="9.5" fill="url(#paint0_linear_agent2)" stroke="url(#paint1_linear_agent2)" />
-                          <line x1="37.2969" y1="74.8008" x2="475.297" y2="74.8008" stroke="#262728" />
+                          {/* Base Terminal Box */}
+                          <rect x="38.7969" y="23.8008" width="436" height="308" fill="#0A0B0E" stroke="#262728" strokeWidth="1"/>
+                          
+                          {/* Header */}
+                          <line x1="38.7969" y1="53.8008" x2="474.7969" y2="53.8008" stroke="#262728" />
+                          <circle cx="56" cy="38" r="4" fill="#10B981" className="blink-led-active" />
+                          <text x="70" y="42" fontFamily="'Inter', var(--font-mono), monospace" fontSize="10" fill="#10B981" fontWeight="600" letterSpacing="1.5">PATROL_HUD_ONLINE</text>
+                          <text x="456" y="42" fontFamily="'Inter', var(--font-mono), monospace" fontSize="10" fill="#53585C" letterSpacing="1" textAnchor="end">SEC: LVL_4</text>
+                          
+                          {/* Top Right Corner Decoration */}
+                          <path d="M 474.7969 23.8008 L 474.7969 33.8008 L 464.7969 23.8008 Z" fill="#262728" />
+                          
+                          {/* Main Camera/Map Feed */}
+                          <rect x="58.7969" y="73.8008" width="270" height="238" fill="#060709" stroke="#1A1C20" />
+                          
+                          <g style={{ clipPath: 'url(#guard_clip_main)' }}>
+                            <rect x="58.7969" y="73.8008" width="270" height="238" fill="url(#guard_grid_v2)" opacity="0.5" />
+                            
+                            {/* Crosshairs */}
+                            <path d="M 193 192 L 193 182 M 193 192 L 183 192 M 193 192 L 203 192 M 193 192 L 193 202" stroke="#53585C" strokeWidth="1" />
+                            
+                            {/* Radar Rings centered around Agent */}
+                            <circle cx="150" cy="150" r="30" stroke="#8B5CF6" strokeWidth="1" strokeOpacity="0.4" fill="none" strokeDasharray="2 4" className="sweep-radar-arm" style={{ animationDuration: '6s' }} />
+                            <circle cx="150" cy="150" r="60" stroke="#8B5CF6" strokeWidth="1" strokeOpacity="0.2" fill="none" />
+                            <circle cx="150" cy="150" r="3" fill="#8B5CF6" />
+                            <text x="150" y="135" fontFamily="'Inter', var(--font-mono), monospace" fontSize="9" fill="#FFFFFF" textAnchor="middle">UNIT-42</text>
+                            
+                            {/* Incident Location */}
+                            <path d="M 240 220 L 260 220 M 250 210 L 250 230" stroke="#EF4444" strokeWidth="1" opacity="0.5" />
+                            <circle cx="250" cy="220" r="8" stroke="#EF4444" strokeWidth="1" fill="rgba(239, 68, 68, 0.2)" className="blink-warning-1" />
+                            <text x="250" y="240" fontFamily="'Inter', var(--font-mono), monospace" fontSize="9" fill="#EF4444" textAnchor="middle" fontWeight="bold">INCIDENT</text>
 
-                          {/* HEADER TITLE */}
-                          <text x="256" y="52" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" fontWeight="bold" letterSpacing="2" textAnchor="middle">DISPATCH TERMINAL</text>
-
-                          {/* MAIN CARD SCREEN */}
-                          <g filter="url(#filter0_d_agent2)">
-                            <rect x="73.2969" y="135.301" width="356" height="129" rx="10" fill="#141516" />
-                            <rect x="73.7969" y="135.801" width="355" height="128" rx="9.5" stroke="#262728" />
+                            {/* Connecting Line */}
+                            <line x1="150" y1="150" x2="250" y2="220" stroke="#10B981" strokeWidth="1" strokeDasharray="3 3" strokeOpacity="0.8" />
+                            <text x="200" y="180" fontFamily="'Inter', var(--font-mono), monospace" fontSize="8" fill="#10B981" transform="rotate(35 200 180)">ROUTING...</text>
                           </g>
 
-                          {/* RADAR SCAN BACKGROUND PATTERN */}
-                          <g style={{ clipPath: 'url(#card-screen-clip_agent2)' }}>
-                            <rect x="73.2969" y="135.301" width="356" height="129" fill="url(#guard_grid_agent2)" opacity="0.4" />
-                          </g>
-
-                          {/* TERMINAL CONTENT: RADAR & AUDIO WAVE */}
-                          <g style={{ clipPath: 'url(#card-screen-clip_agent2)' }}>
-                            {/* Left side: Radar */}
-                            <g>
-                              <circle cx="145" cy="200" r="45" stroke="rgba(16, 185, 129, 0.15)" strokeWidth="1" strokeDasharray="2, 4" />
-                              <circle cx="145" cy="200" r="30" stroke="rgba(16, 185, 129, 0.25)" strokeWidth="1" />
-                              <circle cx="145" cy="200" r="15" stroke="rgba(16, 185, 129, 0.4)" strokeWidth="1" />
-
-                              {/* Rotating Sweep Line */}
-                              <g transform="translate(145, 200)">
-                                <g className="sweep-radar-arm" style={{ transformOrigin: '0px 0px' }}>
-                                  <line x1="0" y1="0" x2="35" y2="-25" stroke="#10B981" strokeWidth="1.5" />
-                                  <polygon points="0,0 35,-25 35,-10" fill="url(#radarSweepGrad_agent2)" />
-                                </g>
-                              </g>
-
-                              {/* Blinking alert nodes */}
-                              <circle cx="120" cy="180" r="3" fill="#10B981" className="blink-led-active" />
-                              <circle cx="170" cy="215" r="3.5" fill="#8B5CF6" className="blink-led-active" style={{ animationDelay: '0.4s' }} />
-                              <text x="145" y="250" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#10B981" fontWeight="bold" textAnchor="middle">RADAR SYNCED</text>
-                            </g>
-
-                            {/* Right side: Vocal bars and transcript */}
-                            <g>
-                              <rect x="255" y="145" width="160" height="110" rx="6" fill="rgba(255,255,255,0.01)" stroke="rgba(139, 92, 246, 0.15)" strokeWidth="1" />
-                              <text x="335" y="162" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" fontWeight="bold" textAnchor="middle">VOICE PANEL</text>
-
-                              {/* Vocal Bars Equalizer */}
-                              <g transform="translate(270, 185)">
-                                <rect x="0" y="0" width="4" height="20" rx="1" fill="#8B5CF6" className="vocal-bar-pulse" style={{ animationDelay: '0s' }} />
-                                <rect x="8" y="0" width="4" height="20" rx="1" fill="#8B5CF6" className="vocal-bar-pulse" style={{ animationDelay: '0.2s' }} />
-                                <rect x="16" y="0" width="4" height="20" rx="1" fill="#8B5CF6" className="vocal-bar-pulse" style={{ animationDelay: '0.4s' }} />
-                                <rect x="24" y="0" width="4" height="20" rx="1" fill="#8B5CF6" className="vocal-bar-pulse" style={{ animationDelay: '0.1s' }} />
-                                <rect x="32" y="0" width="4" height="20" rx="1" fill="#8B5CF6" className="vocal-bar-pulse" style={{ animationDelay: '0.3s' }} />
-                                <rect x="40" y="0" width="4" height="20" rx="1" fill="#8B5CF6" className="vocal-bar-pulse" style={{ animationDelay: '0.5s' }} />
-                              </g>
-
-                              {/* Transcript Text */}
-                              <text x="335" y="215" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#CFD6E1" textAnchor="middle">"Gate 4 perimeter secure."</text>
-
-                              {/* Dispatch confirmed */}
-                              <text x="335" y="244" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#10B981" fontWeight="bold" textAnchor="middle">DISPATCH CONFIRMED ✓</text>
+                          {/* Float: Auto Documentation Logger */}
+                          <g filter="url(#drop_shadow_guard)">
+                            <rect x="70" y="240" width="248" height="60" fill="#0A0B0E" stroke="#262728" />
+                            <rect x="70" y="240" width="248" height="20" fill="#1A1C20" />
+                            <circle cx="82" cy="250" r="3" fill="#10B981" className="blink-led-active" />
+                            <text x="92" y="253" fontFamily="'Inter', var(--font-mono), monospace" fontSize="9" fill="#10B981" fontWeight="600">AUTO-DOC: LISTENING</text>
+                            
+                            <text x="80" y="275" fontFamily="'Inter', var(--font-mono), monospace" fontSize="9" fill="#CFD6E1">"Suspicious package near Gate B.</text>
+                            <text x="80" y="288" fontFamily="'Inter', var(--font-mono), monospace" fontSize="9" fill="#CFD6E1"> Requesting immediate backup."</text>
+                            
+                            {/* Audio Bars */}
+                            <g transform="translate(265, 246)">
+                              {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+                                <rect key={i} x={i * 5} y="0" width="2" height="8" fill="#10B981" className="vocal-bar-pulse" style={{ animationDelay: `${i * 0.15}s` }} />
+                              ))}
                             </g>
                           </g>
 
-                          {/* SCANLINE SWEET */}
-                          <g style={{ clipPath: 'url(#card-screen-clip_agent2)' }}>
-                            <line x1="74" y1="136" x2="428" y2="136" stroke="#10B981" strokeWidth="1.5" strokeOpacity="0.4" className="scanline-kiosk-laser" />
-                          </g>
-
-                          {/* PIP STEP 1: Voice Sync */}
-                          <g filter="url(#filter1_d_agent2)">
-                            <rect x="73.2969" y="316.301" width="84" height="28" rx="6" fill="#141516" shapeRendering="crispEdges" />
-                            <rect x="73.7969" y="316.801" width="83" height="27" rx="5.5" stroke="#262728" shapeRendering="crispEdges" />
-                            <text x="115.3" y="334" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#CFD6E1" textAnchor="middle">Voice Sync</text>
-                          </g>
-
-                          {/* CONNECTING FLOW ARROW 1 */}
-                          <path d="M207.297 330.301L202.297 327.414L202.297 333.188L207.297 330.301ZM157.297 330.301L157.297 330.801L202.797 330.801L202.797 330.301L202.797 329.801L157.297 329.801L157.297 330.301Z" fill="#262728" className="flow-pulse-line-1" />
-
-                          {/* PIP STEP 2: Analyzing */}
-                          <g filter="url(#filter2_d_agent2)">
-                            <rect x="207.297" y="316.301" width="84" height="28" rx="6" fill="#141516" shapeRendering="crispEdges" />
-                            <rect x="207.797" y="316.801" width="83" height="27" rx="5.5" stroke="#262728" shapeRendering="crispEdges" />
-                            <text x="249.3" y="334" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#CFD6E1" textAnchor="middle">Analyzing</text>
-                          </g>
-
-                          {/* CONNECTING FLOW ARROW 2 */}
-                          <path d="M336.297 330.301L331.297 327.414V333.188L336.297 330.301ZM291.297 330.301V330.801H331.797V330.301V329.801H291.297V330.301Z" fill="#262728" className="flow-pulse-line-2" />
-
-                          {/* PIP STEP 3: Dispatched */}
-                          <g filter="url(#filter3_d_agent2)">
-                            <rect x="336.297" y="316.301" width="104" height="28" rx="6" fill="#141516" shapeRendering="crispEdges" />
-                            <rect x="336.797" y="316.801" width="103" height="27" rx="5.5" stroke="#262728" shapeRendering="crispEdges" />
-                            <text x="388.3" y="334" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#CFD6E1" textAnchor="middle">Dispatched</text>
-                          </g>
-
-                          {/* CARD 4: FIELD DISPATCH (BOTTOM RIGHT) */}
-                          <g className="float-badge-box" style={{ animationDelay: "0.8s" }}>
-                            <foreignObject x="335.997" y="263.001" width="181.6" height="127.6">
-                              <div style={{ backdropFilter: "blur(8.15px)", clipPath: "url(#bgblur_0_agent2_clip_path)", height: "100%", width: "100%" }}></div>
-                            </foreignObject>
-                            <g filter="url(#filter4_d_agent2)">
-                              <rect x="367.297" y="294.301" width="134" height="80" rx="10" fill="#141516" fillOpacity="1" shapeRendering="crispEdges" />
-                              <rect x="367.797" y="294.801" width="133" height="79" rx="9.5" stroke="#262728" shapeRendering="crispEdges" />
-                            </g>
-                            <text x="434.3" y="326" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" fontWeight="bold" textAnchor="middle">Field Dispatch</text>
-                            <text x="434.3" y="354" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="14" fill="#8B5CF6" fontWeight="bold" textAnchor="middle">GPS Linked</text>
-                          </g>
-
-                          {/* CARD 5: GPS TRACKING (TOP LEFT) */}
-                          <g className="float-badge-box" style={{ animationDelay: "0.4s" }}>
-                            <foreignObject x="-5.00312" y="-4.99922" width="181.6" height="127.6">
-                              <div style={{ backdropFilter: "blur(8.15px)", clipPath: "url(#bgblur_1_agent2_clip_path)", height: "100%", width: "100%" }}></div>
-                            </foreignObject>
-                            <g filter="url(#filter5_d_agent2)">
-                              <rect x="11.2969" y="11.3008" width="134" height="80" rx="10" fill="#141516" fillOpacity="1" shapeRendering="crispEdges" />
-                              <rect x="11.7969" y="11.8008" width="133" height="79" rx="9.5" stroke="#262728" shapeRendering="crispEdges" />
-                            </g>
-                            <text x="78.3" y="44" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" fontWeight="bold" textAnchor="middle">GPS Tracking</text>
-                            <text x="78.3" y="70" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="14" fill="#10B981" fontWeight="bold" textAnchor="middle">Locked Active</text>
-                          </g>
+                          {/* Right Side Panel */}
+                          <rect x="340" y="73.8008" width="114" height="238" fill="#060709" stroke="#1A1C20" />
+                          <text x="350" y="92" fontFamily="'Inter', var(--font-mono), monospace" fontSize="9" fill="#53585C" letterSpacing="1">TELEMETRY</text>
+                          <line x1="340" y1="102" x2="454" y2="102" stroke="#1A1C20" />
+                          
+                          {/* Biometrics */}
+                          <rect x="350" y="112" width="94" height="40" fill="#0A0B0E" stroke="#1A1C20" />
+                          <circle cx="360" cy="122" r="3" fill="#8B5CF6" />
+                          <text x="370" y="125" fontFamily="'Inter', var(--font-mono), monospace" fontSize="8" fill="#CFD6E1">BIOMETRICS</text>
+                          <text x="360" y="142" fontFamily="'Inter', var(--font-mono), monospace" fontSize="13" fill="#FFFFFF" fontWeight="bold">92 <tspan fontSize="8" fill="#53585C">BPM</tspan></text>
+                          
+                          {/* Connection */}
+                          <rect x="350" y="162" width="94" height="40" fill="#0A0B0E" stroke="#1A1C20" />
+                          <circle cx="360" cy="172" r="3" fill="#10B981" />
+                          <text x="370" y="175" fontFamily="'Inter', var(--font-mono), monospace" fontSize="8" fill="#CFD6E1">GPS LINK</text>
+                          <text x="360" y="192" fontFamily="'Inter', var(--font-mono), monospace" fontSize="13" fill="#10B981" fontWeight="bold">STABLE</text>
+                          
+                          {/* Dispatch Alert */}
+                          <rect x="350" y="212" width="94" height="88" fill="rgba(239, 68, 68, 0.05)" stroke="rgba(239, 68, 68, 0.2)" />
+                          <text x="360" y="228" fontFamily="'Inter', var(--font-mono), monospace" fontSize="9" fill="#EF4444" fontWeight="bold">DISPATCH</text>
+                          <text x="360" y="245" fontFamily="'Inter', var(--font-mono), monospace" fontSize="8" fill="#CFD6E1">TARGET:</text>
+                          <text x="360" y="258" fontFamily="'Inter', var(--font-mono), monospace" fontSize="10" fill="#FFFFFF" fontWeight="bold">GATE B</text>
+                          
+                          <rect x="360" y="272" width="74" height="18" fill="rgba(239, 68, 68, 0.15)" stroke="rgba(239, 68, 68, 0.3)" />
+                          <text x="397" y="284" fontFamily="'Inter', var(--font-mono), monospace" fontSize="8" fill="#EF4444" fontWeight="bold" textAnchor="middle">DEPLOY UNIT</text>
 
                           <defs>
-                            <clipPath id="card-screen-clip_agent2">
-                              <rect x="73.2969" y="135.301" width="356" height="129" rx="10" />
+                            <clipPath id="guard_clip_main">
+                              <rect x="58.7969" y="73.8008" width="270" height="238" />
                             </clipPath>
-                            <pattern id="guard_grid_agent2" width="20" height="20" patternUnits="userSpaceOnUse">
-                              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="0.5" />
+                            <pattern id="guard_grid_v2" width="20" height="20" patternUnits="userSpaceOnUse">
+                              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255, 255, 255, 0.04)" strokeWidth="1" />
+                              <circle cx="20" cy="20" r="1" fill="rgba(255, 255, 255, 0.1)" />
                             </pattern>
-                            <linearGradient id="radarSweepGrad_agent2" x1="0" y1="0" x2="1" y2="0">
-                              <stop offset="0%" stopColor="rgba(16, 185, 129, 0)" />
-                              <stop offset="100%" stopColor="rgba(16, 185, 129, 0.15)" />
-                            </linearGradient>
-                            <filter id="filter0_d_agent2" x="58.7969" y="132.801" width="385" height="158" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feMorphology radius="23" operator="erode" in="SourceAlpha" result="effect1_dropShadow_agent2" />
-                              <feOffset dy="12" />
-                              <feGaussianBlur stdDeviation="18.75" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.000456116 0 0 0 0 0.000233453 0 0 0 0 0.000901442 0 0 0 0.13 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent2" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent2" result="shape" />
+                            <filter id="drop_shadow_guard" x="50" y="230" width="300" height="100" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                              <feDropShadow dx="0" dy="10" stdDeviation="15" floodOpacity="0.2" floodColor="#000000" />
                             </filter>
-                            <filter id="filter1_d_agent2" x="58.7969" y="313.801" width="113" height="57" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feMorphology radius="23" operator="erode" in="SourceAlpha" result="effect1_dropShadow_agent2" />
-                              <feOffset dy="12" />
-                              <feGaussianBlur stdDeviation="18.75" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.000456116 0 0 0 0 0.000233453 0 0 0 0 0.000901442 0 0 0 0.13 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent2" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent2" result="shape" />
-                            </filter>
-                            <filter id="filter2_d_agent2" x="192.797" y="313.801" width="113" height="57" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feMorphology radius="23" operator="erode" in="SourceAlpha" result="effect1_dropShadow_agent2" />
-                              <feOffset dy="12" />
-                              <feGaussianBlur stdDeviation="18.75" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.000456116 0 0 0 0 0.000233453 0 0 0 0 0.000901442 0 0 0 0.13 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent2" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent2" result="shape" />
-                            </filter>
-                            <filter id="filter3_d_agent2" x="321.797" y="313.801" width="121" height="57" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feMorphology radius="23" operator="erode" in="SourceAlpha" result="effect1_dropShadow_agent2" />
-                              <feOffset dy="12" />
-                              <feGaussianBlur stdDeviation="18.75" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.000456116 0 0 0 0 0.000233453 0 0 0 0 0.000901442 0 0 0 0.13 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent2" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent2" result="shape" />
-                            </filter>
-                            <filter id="filter4_d_agent2" x="335.997" y="263.001" width="181.6" height="127.6" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feOffset dx="-10" dy="-10" />
-                              <feGaussianBlur stdDeviation="10.65" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.04218 0 0 0 0 0.04218 0 0 0 0 0.04218 0 0 0 0.73 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent2" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent2" result="shape" />
-                            </filter>
-                            <clipPath id="bgblur_0_agent2_clip_path" transform="translate(-335.997 -263.001)">
-                              <rect x="367.297" y="294.301" width="134" height="80" rx="10" />
-                            </clipPath>
-                            <filter id="filter5_d_agent2" x="-5.00312" y="-4.99922" width="181.6" height="127.6" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feOffset dx="10" dy="10" />
-                              <feGaussianBlur stdDeviation="10.65" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.04218 0 0 0 0 0.04218 0 0 0 0 0.04218 0 0 0 0.73 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent2" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent2" result="shape" />
-                            </filter>
-                            <clipPath id="bgblur_1_agent2_clip_path" transform="translate(5.00312 4.99922)">
-                              <rect x="11.2969" y="11.3008" width="134" height="80" rx="10" />
-                            </clipPath>
-                            <linearGradient id="paint0_linear_agent2" x1="256.797" y1="23.3008" x2="256.797" y2="332.301" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#0F1112" />
-                              <stop offset="1" stopColor="#0C0D0F" />
-                            </linearGradient>
-                            <linearGradient id="paint1_linear_agent2" x1="256.797" y1="23.3008" x2="256.797" y2="332.301" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#262728" />
-                              <stop offset="1" stopColor="#0C0D0F" />
-                            </linearGradient>
                           </defs>
                         </svg>
                       </>
@@ -3461,283 +3576,660 @@ export default function CommunicationV2Page() {
           <section
             id="operational-outcomes"
             style={{
-              background: '#0B0D0F',
+              background: '#0b0c0e',
               color: '#FFFFFF',
               margin: '0 calc(-50vw + 50%)',
               width: '100vw',
-              padding: '160px 2rem',
+              padding: '100px 40px',
               position: 'relative',
               zIndex: 10,
               boxSizing: 'border-box',
               fontFamily: "var(--font-main), 'Inter', sans-serif"
             }}
           >
-            <style>{`
-              .outcomes-grid-container {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 48px 64px;
-                margin-top: 80px;
-              }
-              .outcomes-card {
-                position: relative;
-                padding-left: 24px;
-                box-sizing: border-box;
-                cursor: pointer;
-              }
-              .outcomes-card-line {
-                position: absolute;
-                left: 0;
-                top: 0;
-                bottom: 0;
-                width: 1px;
-                background: #202022;
-                transform-origin: top center;
-              }
-              .outcomes-card-pill {
-                position: absolute;
-                left: 0;
-                top: 50%;
-                margin-top: -14px;
-                width: 6px;
-                height: 28px;
-                background: #202022;
-                border-radius: 0 9999px 9999px 0;
-                transform-origin: left center;
-                transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease;
-              }
-              .outcomes-card:hover .outcomes-card-pill {
-                transform: scale(1, 1.5) !important;
-                background: #8B5CF6 !important;
-              }
-              @keyframes clock-spin {
-                from { transform: rotate(0deg); }
-                to { transform: rotate(360deg); }
-              }
-              .anim-clock-hand {
-                animation: clock-spin 10s linear infinite;
-              }
+            <div style={{ maxWidth: '1140px', margin: '0 auto' }}>
 
-              @keyframes pulse-dot {
-                0%, 100% { opacity: 0.3; }
-                50% { opacity: 1; }
-              }
-              .anim-pulse-dot {
-                animation: pulse-dot 1.5s ease-in-out infinite;
-              }
+              {/* ── TOP HEADER (CENTERED) ── */}
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center',
+                maxWidth: '800px',
+                margin: '0 auto 80px'
+              }}>
+                {/* Tag Pill */}
+                <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginBottom: '12px' }}>
+                  <span className="ent-pill" style={{
+                    margin: 0,
+                    background: 'rgba(255, 255, 255, 0.04)',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    color: '#FFFFFF',
+                    fontFamily: "var(--font-mono), 'JetBrains Mono', monospace"
+                  }}>
+                    What Changes
+                  </span>
+                </div>
 
-              @keyframes chat-dots {
-                0%, 100% { opacity: 0.2; }
-                50% { opacity: 1; }
-              }
-              .anim-chat-1 { animation: chat-dots 1.2s infinite 0.1s; }
-              .anim-chat-2 { animation: chat-dots 1.2s infinite 0.4s; }
-              .anim-chat-3 { animation: chat-dots 1.2s infinite 0.7s; }
-
-              @keyframes scale-check {
-                0%, 100% { transform: scale(1); }
-                50% { transform: scale(1.1); }
-              }
-              .anim-check-draw {
-                animation: scale-check 2s ease-in-out infinite;
-                transform-origin: 12px 14px;
-              }
-
-              @keyframes radar-ripple {
-                0% { transform: scale(0.6); opacity: 1; }
-                100% { transform: scale(1.4); opacity: 0; }
-              }
-              .anim-radar {
-                animation: radar-ripple 2.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-              }
-
-              @keyframes exec-bars {
-                0%, 100% { transform: scaleY(1); }
-                50% { transform: scaleY(0.6); }
-              }
-              .anim-exec-bar-1 { animation: exec-bars 1.5s ease-in-out infinite; }
-              .anim-exec-bar-2 { animation: exec-bars 1.5s ease-in-out infinite 0.3s; }
-              .anim-exec-bar-3 { animation: exec-bars 1.5s ease-in-out infinite 0.6s; }
-
-              @media (max-width: 767px) {
-                .outcomes-grid-container {
-                  grid-template-columns: 1fr !important;
-                  gap: 36px 0;
-                }
-              }
-            `}</style>
-
-            <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
-              <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginBottom: '24px' }}>
-                <span className="ent-pill" style={{
-                  marginLeft: '0px',
-                  marginBottom: '0px',
-                  background: 'rgba(255, 255, 255, 0.04)',
-                  border: '1px solid rgba(255, 255, 255, 0.12)',
-                  color: '#FFFFFF',
-                  fontFamily: "var(--font-mono), 'JetBrains Mono', monospace"
+                {/* Heading */}
+                <h2 className="std-section-h2 text-center" style={{
+                  fontSize: '48px',
+                  fontWeight: 600,
+                  letterSpacing: '-0.02em',
+                  textAlign: 'center',
+                  lineHeight: '1.2',
+                  marginTop: '0px',
+                  marginBottom: '24px'
                 }}>
-                  What Changes
-                </span>
+                  When security can communicate.
+                </h2>
+
+                {/* Subheading */}
+                <p className="std-section-subheading text-center" style={{
+                  fontSize: '14px',
+                  color: 'rgba(255,255,255,0.45)',
+                  lineHeight: 1.7,
+                  fontFamily: 'var(--font-mono), JetBrains Mono, monospace',
+                  maxWidth: '650px',
+                  margin: '0 auto 48px',
+                  textAlign: 'center'
+                }}>
+                  The gap between your security systems and your stakeholders closes. Every interaction becomes an opportunity for security intelligence.
+                </p>
+
+                {/* Button */}
+                <a href="#" className="ent-btn-primary" style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '12px 24px',
+                  fontSize: '0.95rem',
+                  transform: 'translateZ(0)',
+                  position: 'relative',
+                  width: 'fit-content'
+                }}>
+                  Request Assessment &rarr;
+                </a>
               </div>
 
-              <h2 style={{
-                fontSize: '48px',
-                marginBottom: '20px',
-                letterSpacing: '-0.02em',
-                fontWeight: 600,
-                textAlign: 'center',
-                color: '#FFFFFF',
-                fontFamily: 'var(--font-main)',
-                lineHeight: 1.2
-              }}>
-                {splitWords("When security can communicate.", "outcomes-word")}
-              </h2>
+              {/* ── 3x2 GRID ── */}
+              <div className="operational-outcomes-grid">
 
-              <p style={{
-                maxWidth: '750px',
-                margin: '0 auto 4rem',
-                fontSize: '14px',
-                color: '#9CA3AF',
-                lineHeight: '1.6',
-                textAlign: 'center',
-                fontFamily: "var(--font-mono), 'JetBrains Mono', monospace"
-              }}>
-                {splitWords("The gap between your security systems and your stakeholders closes. Every interaction becomes an opportunity for security intelligence.", "outcomes-desc-word")}
-              </p>
-
-              <div className="outcomes-grid-container">
-                {[
-                  {
-                    icon: (baseColor: string, brandPurple: string, fillBg: string) => (
-                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
-                        <circle cx="12" cy="12" r="10" stroke={baseColor} fill={fillBg} />
-                        <polyline points="12 6 12 12 16 12" stroke={brandPurple} className="anim-clock-hand" style={{ transformOrigin: '12px 12px' }} />
-                      </svg>
-                    ),
-                    title: "Check-in takes 90 seconds",
-                    desc: "Visitors self-serve from pre-registration to badge. Guards stay in the field where they belong. No lobby queues. No manual overrides.",
-                    metric: "90s avg vs 20 min manual"
-                  },
-                  {
-                    icon: (baseColor: string, brandPurple: string, fillBg: string) => (
-                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
-                        <rect x="3" y="3" width="18" height="18" rx="2" stroke={baseColor} fill={fillBg} />
-                        <line x1="7" y1="8" x2="17" y2="8" stroke={baseColor} />
-                        <line x1="7" y1="12" x2="13" y2="12" stroke={baseColor} />
-                        <line x1="7" y1="16" x2="11" y2="16" stroke={baseColor} />
-                        <circle cx="16" cy="15" r="2.5" fill={brandPurple} stroke={brandPurple} className="anim-pulse-dot" />
-                      </svg>
-                    ),
-                    title: "Guards document in real time",
-                    desc: "Incidents logged during the event, not reconstructed afterward. Hands-free voice documentation means no memory gaps, no missed details.",
-                    metric: "Documentation compliance 60% → 90%+"
-                  },
-                  {
-                    icon: (baseColor: string, brandPurple: string, fillBg: string) => (
-                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke={baseColor} fill={fillBg} />
-                        <circle cx="9" cy="10" r="1.5" fill={brandPurple} stroke={brandPurple} className="anim-chat-1" />
-                        <circle cx="12" cy="10" r="1.5" fill={brandPurple} stroke={brandPurple} className="anim-chat-2" />
-                        <circle cx="15" cy="10" r="1.5" fill={brandPurple} stroke={brandPurple} className="anim-chat-3" />
-                      </svg>
-                    ),
-                    title: "Employees stop calling help desk",
-                    desc: "Credential requests, access questions, policy lookups — answered in seconds. Security becomes helpful, not obstructive. Tickets drop 40–60%.",
-                    metric: "40–60% ticket volume reduction"
-                  },
-                  {
-                    icon: (baseColor: string, brandPurple: string, fillBg: string) => (
-                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
-                        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" stroke={baseColor} fill={fillBg} />
-                        <rect x="8" y="2" width="8" height="4" rx="1" stroke={baseColor} fill={fillBg} />
-                        <polyline points="8 13 11 16 16 10" stroke={brandPurple} className="anim-check-draw" />
-                      </svg>
-                    ),
-                    title: "Contractors arrive prepared",
-                    desc: "Safety briefing delivered, NDA signed, escort assigned before they reach the gate. Access expires automatically at project end. Zero surprises.",
-                    metric: "Escort coordination under 3 min"
-                  },
-                  {
-                    icon: (baseColor: string, brandPurple: string, fillBg: string) => (
-                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
-                        <circle cx="12" cy="12" r="10" stroke={baseColor} fill={fillBg} />
-                        <circle cx="12" cy="12" r="3" fill={brandPurple} stroke={brandPurple} />
-                        <circle cx="12" cy="12" r="7" stroke={brandPurple} className="anim-radar" style={{ transformOrigin: '12px 12px' }} />
-                      </svg>
-                    ),
-                    title: "Emergencies coordinate automatically",
-                    desc: "Every stakeholder notified simultaneously across every channel. From alarm to all-clear, every action documented. Accountability in minutes, not hours.",
-                    metric: "Muster accountability: hours → minutes"
-                  },
-                  {
-                    icon: (baseColor: string, brandPurple: string, fillBg: string) => (
-                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px' }}>
-                        <line x1="18" y1="20" x2="18" y2="10" stroke={baseColor} className="anim-exec-bar-1" style={{ transformOrigin: '18px 20px' }} />
-                        <line x1="12" y1="20" x2="12" y2="4" stroke={brandPurple} className="anim-exec-bar-2" style={{ transformOrigin: '12px 20px' }} />
-                        <line x1="6" y1="20" x2="6" y2="14" stroke={baseColor} className="anim-exec-bar-3" style={{ transformOrigin: '6px 20px' }} />
-                        <line x1="3" y1="20" x2="21" y2="20" stroke={baseColor} />
-                      </svg>
-                    ),
-                    title: "Executives get answers on demand",
-                    desc: "Security posture, incident trends, compliance status — natural language, real-time data. No analyst intermediaries. Board-ready in seconds, not weeks.",
-                    metric: "Zero analyst wait time"
-                  }
-                ].map((item, i) => (
-                  <div key={i} className="outcomes-card">
-                    <div className="outcomes-card-line" />
-                    <div className="outcomes-card-pill" />
-
-                    <div className="outcomes-card-content">
-                      {item.icon('#3F3F46', '#8B5CF6', '#15171A')}
-
-                      <h3 style={{
-                        fontSize: '18px',
-                        fontWeight: 600,
-                        color: '#FFFFFF',
-                        fontFamily: 'var(--font-main)',
-                        marginBottom: '12px',
-                        lineHeight: 1.3
-                      }}>
-                        {item.title}
-                      </h3>
-
-                      <p style={{
-                        fontSize: '14px',
-                        lineHeight: '1.6',
-                        color: '#9CA3AF',
-                        fontFamily: 'var(--font-main)',
-                        margin: 0
-                      }}>
-                        {item.desc}
-                      </p>
-
-                      <div style={{
-                        color: '#10B981',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        fontSize: '13px',
-                        fontWeight: 600,
-                        marginTop: '16px',
-                        fontFamily: "var(--font-mono), 'JetBrains Mono', monospace"
-                      }}>
-                        <span style={{ fontSize: '14px', lineHeight: 1 }}>•</span>
-                        <span>{item.metric}</span>
+                {/* ── CARD 01 — VISITOR ── */}
+                <div
+                  className="operational-grid-card"
+                  style={{
+                    background: '#0f1012',
+                    padding: '32px 28px 28px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    overflow: 'hidden',
+                    minHeight: '420px'
+                  }}
+                >
+                  <span style={{ fontSize: '14px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(255,255,255,0.3)', letterSpacing: '0', marginBottom: '14px' }}>Visitor Agent</span>
+                  <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.25, marginBottom: '10px' }}>Check-in takes 90 seconds.</h3>
+                  <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.65, marginBottom: '28px', flexShrink: 0 }}>Visitors self-serve from pre-registration to badge. Guards stay in the field. No queues. No overrides.</p>
+                  <div style={{ flex: 1, borderRadius: '8px', overflow: 'hidden' }}>
+                    <div style={{ background: '#141518', padding: '20px', height: '100%', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      {[
+                        { initials: 'JL', name: 'James Liu', role: 'VISITOR · PRE-REGISTERED', badge: 'APPROVED', badgeBg: 'rgba(16,185,129,0.15)', badgeColor: '#10b981', badgeBorder: 'rgba(16,185,129,0.25)', avatarBg: 'rgba(139,92,246,0.3)', avatarBorder: 'rgba(139,92,246,0.4)', avatarColor: '#a78bfa' },
+                        { initials: 'SR', name: 'Sarah Rahman', role: 'CONTRACTOR · APEX SEC', badge: 'ESCORTED', badgeBg: 'rgba(139,92,246,0.15)', badgeColor: '#a78bfa', badgeBorder: 'rgba(139,92,246,0.25)', avatarBg: 'rgba(96,165,250,0.2)', avatarBorder: 'rgba(96,165,250,0.3)', avatarColor: '#60a5fa' },
+                        { initials: 'MK', name: 'Mark Kim', role: 'WALK-IN · PENDING', badge: 'CHECKING', badgeBg: 'rgba(251,191,36,0.12)', badgeColor: '#fbbf24', badgeBorder: 'rgba(251,191,36,0.2)', avatarBg: 'rgba(251,191,36,0.15)', avatarBorder: 'rgba(251,191,36,0.3)', avatarColor: '#fbbf24' }
+                      ].map((v, i) => (
+                        <div
+                          key={i}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '10px',
+                            background: 'rgba(255,255,255,0.04)',
+                            border: '1px solid #202022',
+                            borderRadius: '8px',
+                            padding: '12px 14px',
+                            animation: 'visitor-row-cycle 6s infinite',
+                            animationDelay: `${i * 150}ms`
+                          }}
+                        >
+                          <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: v.avatarBg, border: `1px solid ${v.avatarBorder}`, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', fontWeight: 600, color: v.avatarColor }}>{v.initials}</div>
+                          <div style={{ flex: 1 }}>
+                            <div style={{ fontSize: '12px', fontWeight: 600, color: '#fff' }}>{v.name}</div>
+                            <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-mono), monospace' }}>{v.role}</div>
+                          </div>
+                          <div style={{ fontSize: '9px', fontFamily: 'var(--font-mono), monospace', padding: '3px 8px', borderRadius: '100px', background: v.badgeBg, color: v.badgeColor, border: `1px solid ${v.badgeBorder}`, flexShrink: 0 }}>{v.badge}</div>
+                        </div>
+                      ))}
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          padding: '10px 14px',
+                          background: 'rgba(16,185,129,0.06)',
+                          border: '1px solid rgba(16,185,129,0.15)',
+                          borderRadius: '8px',
+                          animation: 'visitor-row-cycle 6s infinite',
+                          animationDelay: '600ms'
+                        }}
+                      >
+                        <span style={{ fontSize: '10px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(255,255,255,0.4)' }}>AVG CHECK-IN TIME</span>
+                        <span style={{ fontSize: '18px', fontWeight: 700, color: '#10b981', fontFamily: 'var(--font-mono), monospace' }}>
+                          0:{visitorSeconds < 10 ? '0' + visitorSeconds : visitorSeconds}
+                        </span>
                       </div>
                     </div>
                   </div>
-                ))}
+                </div>
+
+                {/* ── CARD 02 — GUARD ── */}
+                <div
+                  className="operational-grid-card"
+                  style={{ background: '#0f1012', padding: '32px 28px 28px', display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: '420px' }}
+                >
+                  <span style={{ fontSize: '14px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(255,255,255,0.3)', letterSpacing: '0', marginBottom: '14px' }}>Guard Agent</span>
+                  <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.25, marginBottom: '10px' }}>Guards document in real time.</h3>
+                  <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.65, marginBottom: '28px', flexShrink: 0 }}>Incidents logged during the event, not reconstructed after. Hands-free voice. No memory gaps.</p>
+                  <div style={{ flex: 1, borderRadius: '8px', overflow: 'hidden' }}>
+                    <div style={{ background: '#0c0d0f', padding: '16px', height: '100%', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px' }}>
+                        {['#ef4444', '#fbbf24', '#10b981'].map((c, i) => <div key={i} style={{ width: '7px', height: '7px', borderRadius: '50%', background: c }} />)}
+                      </div>
+                      {[
+                        { tag: '[ GUARD_07 ]', tagColor: '#10b981', text: 'on patrol · Gate 4' },
+                        { tag: 'VOICE_INPUT:', tagColor: '#a78bfa', text: '"Suspicious vehicle, north lot"' },
+                        { tag: 'LOGGED', tagColor: '#10b981', text: '22:14:33 · GPS confirmed' },
+                        { tag: 'DISPATCH', tagColor: '#10b981', text: 'Unit 3 en route · ETA 4min' },
+                        { tag: 'EVIDENCE:', tagColor: '#a78bfa', text: 'photo attached · plate captured' },
+                        { tag: 'INCIDENT_ID:', tagColor: '#10b981', text: 'INC-2847' },
+                      ].map((line, i) => (
+                        <div
+                          key={i}
+                          style={{
+                            fontSize: '11px',
+                            fontFamily: 'var(--font-mono), monospace',
+                            color: 'rgba(255,255,255,0.25)',
+                            lineHeight: 1.6,
+                            overflow: 'hidden',
+                            whiteSpace: 'nowrap'
+                          }}
+                        >
+                          <div style={{
+                            display: 'inline-block',
+                            overflow: 'hidden',
+                            whiteSpace: 'nowrap',
+                            animation: `typing-line-${i} 8s steps(30, end) infinite`
+                          }}>
+                            <span style={{ color: line.tagColor }}>{line.tag}</span>{' '}
+                            <span style={{ color: 'rgba(255,255,255,0.7)' }}>{line.text}</span>
+                          </div>
+                        </div>
+                      ))}
+                      <div
+                        style={{
+                          fontSize: '11px',
+                          fontFamily: 'var(--font-mono), monospace',
+                          marginTop: '4px',
+                          overflow: 'hidden',
+                          whiteSpace: 'nowrap'
+                        }}
+                      >
+                        <div style={{
+                          display: 'inline-block',
+                          overflow: 'hidden',
+                          whiteSpace: 'nowrap',
+                          animation: 'typing-line-6 8s steps(30, end) infinite'
+                        }}>
+                          <span style={{ color: '#a78bfa' }}>MITHRIV &gt;</span>{' '}
+                          <span style={{ color: 'rgba(255,255,255,0.7)' }}>awaiting update</span>
+                          <span style={{
+                            display: 'inline-block', width: '7px', height: '14px',
+                            background: '#a78bfa', verticalAlign: 'middle', marginLeft: '2px',
+                            animation: 'terminal-blink 0.8s step-end infinite'
+                          }} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* ── CARD 03 — EMPLOYEE ── */}
+                <div
+                  className="operational-grid-card"
+                  style={{ background: '#0f1012', padding: '32px 28px 28px', display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: '420px' }}
+                >
+                  <span style={{ fontSize: '14px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(255,255,255,0.3)', letterSpacing: '0', marginBottom: '14px' }}>Employee Agent</span>
+                  <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.25, marginBottom: '10px' }}>Employees stop calling help desk.</h3>
+                  <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.65, marginBottom: '28px', flexShrink: 0 }}>Credential requests, access questions answered in seconds. Tickets drop 40–60%.</p>
+                  <div style={{ flex: 1, borderRadius: '8px', overflow: 'hidden' }}>
+                    <div style={{ background: '#141518', padding: '16px', height: '100%', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      <div
+                        style={{
+                          background: 'rgba(255,255,255,0.06)',
+                          color: 'rgba(255,255,255,0.7)',
+                          borderRadius: '8px',
+                          padding: '10px 12px',
+                          fontSize: '12px',
+                          lineHeight: 1.5,
+                          maxWidth: '85%',
+                          animation: 'employee-bubble-1-cycle 7s infinite'
+                        }}
+                      >
+                        Can I get access to the server room for Saturday maintenance?
+                        <div style={{ fontSize: '9px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(255,255,255,0.2)', marginTop: '4px' }}>elena.p · 09:14</div>
+                      </div>
+                      <div
+                        style={{
+                          background: 'rgba(139,92,246,0.15)',
+                          border: '1px solid rgba(139,92,246,0.2)',
+                          color: '#e0d4ff',
+                          borderRadius: '8px',
+                          padding: '10px 12px',
+                          fontSize: '12px',
+                          lineHeight: 1.5,
+                          maxWidth: '85%',
+                          alignSelf: 'flex-end',
+                          animation: 'employee-bubble-2-cycle 7s infinite'
+                        }}
+                      >
+                        Access approved for Saturday 08:00–18:00. Badge updated. Escort not required for your clearance level.
+                        <div style={{ fontSize: '9px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(139,92,246,0.5)', marginTop: '4px' }}>MITHRIV AI · 09:14</div>
+                      </div>
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          padding: '8px 12px',
+                          background: 'rgba(16,185,129,0.08)',
+                          border: '1px solid rgba(16,185,129,0.2)',
+                          borderRadius: '8px',
+                          fontSize: '11px',
+                          fontFamily: 'var(--font-mono), monospace',
+                          color: '#10b981',
+                          animation: 'employee-badge-cycle 7s infinite'
+                        }}
+                      >
+                        ✓ RESOLVED IN 4 SECONDS
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* ── CARD 04 — CONTRACTOR ── */}
+                <div
+                  className="operational-grid-card"
+                  style={{ background: '#0f1012', padding: '32px 28px 28px', display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: '420px' }}
+                >
+                  <span style={{ fontSize: '14px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(255,255,255,0.3)', letterSpacing: '0', marginBottom: '14px' }}>Contractor Agent</span>
+                  <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.25, marginBottom: '10px' }}>Contractors arrive prepared.</h3>
+                  <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.65, marginBottom: '28px', flexShrink: 0 }}>Safety briefing, NDA, escort assigned before the gate. Access expires automatically.</p>
+                  <div style={{ flex: 1, borderRadius: '8px', overflow: 'hidden' }}>
+                    <div style={{ background: '#141518', padding: '18px', height: '100%', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      <div style={{ fontSize: '10px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(255,255,255,0.3)', letterSpacing: '1.5px', marginBottom: '4px' }}>ONBOARDING · MARK STEVENS · APEX</div>
+                      {[
+                        { text: 'Safety briefing delivered', done: true, tag: 'DONE' },
+                        { text: 'NDA signed & timestamped', done: true, tag: 'DONE' },
+                        { text: 'Credentials verified', done: true, tag: 'DONE' },
+                        { text: 'Escort assigned', done: false, tag: '2 MIN' },
+                      ].map((item, i) => (
+                        <div
+                          key={i}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '10px',
+                            padding: '10px 12px',
+                            background: 'rgba(255,255,255,0.03)',
+                            border: '1px solid #202022',
+                            borderRadius: '6px',
+                            animation: 'contractor-item-cycle 6s infinite',
+                            animationDelay: `${i * 150}ms`
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: '16px',
+                              height: '16px',
+                              borderRadius: '4px',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              flexShrink: 0,
+                              animation: item.done
+                                ? `contractor-check-done-cycle 6s infinite`
+                                : `contractor-check-pending-cycle 6s infinite`,
+                              animationDelay: `${i * 150}ms`
+                            }}
+                          >
+                            {item.done
+                              ? <svg
+                                width="10"
+                                height="10"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#10b981"
+                                strokeWidth="3"
+                                style={{
+                                  animation: `contractor-svg-done-cycle 6s infinite`,
+                                  animationDelay: `${i * 150}ms`
+                                }}
+                              >
+                                <polyline points="20 6 9 17 4 12" />
+                              </svg>
+                              : <div
+                                style={{
+                                  width: '6px',
+                                  height: '6px',
+                                  borderRadius: '50%',
+                                  background: '#fbbf24',
+                                  animation: `contractor-dot-pending-cycle 6s infinite`,
+                                  animationDelay: `${i * 150}ms`
+                                }}
+                              />
+                            }
+                          </div>
+                          <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.65)', flex: 1 }}>{item.text}</span>
+                          <span style={{ fontSize: '9px', fontFamily: 'var(--font-mono), monospace', color: item.done ? '#10b981' : '#fbbf24', marginLeft: 'auto' }}>{item.tag}</span>
+                        </div>
+                      ))}
+                      <div
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          padding: '10px 12px',
+                          background: 'rgba(139,92,246,0.08)',
+                          border: '1px solid rgba(139,92,246,0.15)',
+                          borderRadius: '6px',
+                          marginTop: '4px',
+                          animation: 'contractor-item-cycle 6s infinite',
+                          animationDelay: '600ms'
+                        }}
+                      >
+                        <span style={{ fontSize: '10px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(255,255,255,0.3)' }}>ACCESS EXPIRES</span>
+                        <span style={{ fontSize: '14px', fontWeight: 700, color: '#a78bfa', fontFamily: 'var(--font-mono), monospace' }}>18:42:00</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* ── CARD 05 — EMERGENCY ── */}
+                <div
+                  className="operational-grid-card"
+                  style={{ background: '#0f1012', padding: '32px 28px 28px', display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: '420px' }}
+                >
+                  <span style={{ fontSize: '14px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(255,255,255,0.3)', letterSpacing: '0', marginBottom: '14px' }}>Emergency Agent</span>
+                  <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.25, marginBottom: '10px' }}>Emergencies coordinate automatically.</h3>
+                  <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.65, marginBottom: '28px', flexShrink: 0 }}>Every stakeholder notified simultaneously. From alarm to all-clear. Accountability in minutes.</p>
+                  <div style={{ flex: 1, borderRadius: '8px', overflow: 'hidden' }}>
+                    <div style={{ background: '#0c0d0f', padding: '16px', height: '100%', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.25)', borderRadius: '6px' }}>
+                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ef4444', animation: 'terminal-pulse 1.2s ease-in-out infinite', flexShrink: 0 }} />
+                        <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono), monospace', color: '#ef4444', fontWeight: 600, letterSpacing: '1px' }}>EMERGENCY · MUSTER ACTIVE</span>
+                      </div>
+                      {[
+                        { name: 'SMS', status: '1,402 SENT', color: '#10b981' },
+                        { name: 'TEAMS / SLACK', status: 'ALL CHANNELS', color: '#10b981' },
+                        { name: 'VOICE', status: 'BROADCAST', color: '#10b981' },
+                        { name: 'RADIO', status: 'TRANSMITTING', color: '#fbbf24' },
+                      ].map((ch, i) => (
+                        <div
+                          key={i}
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            padding: '8px 12px',
+                            background: 'rgba(255,255,255,0.03)',
+                            border: '1px solid #202022',
+                            borderRadius: '6px',
+                            animation: 'emergency-channel-cycle 7s infinite',
+                            animationDelay: `${i * 150}ms`
+                          }}
+                        >
+                          <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(255,255,255,0.5)' }}>{ch.name}</span>
+                          <span style={{ fontSize: '10px', fontFamily: 'var(--font-mono), monospace', color: ch.color }}>{ch.status}</span>
+                        </div>
+                      ))}
+                      <div
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          padding: '10px 12px',
+                          background: 'rgba(239,68,68,0.06)',
+                          border: '1px solid rgba(239,68,68,0.12)',
+                          borderRadius: '6px',
+                          marginTop: '2px',
+                          animation: 'emergency-counters-cycle 7s infinite',
+                          animationDelay: '600ms'
+                        }}
+                      >
+                        {[{ val: `${accountedPercent}%`, label: 'ACCOUNTED' }, { val: `${unconfirmedCount}`, label: 'UNCONFIRMED' }, { val: '4:12', label: 'ELAPSED' }].map((s, i) => (
+                          <div key={i} style={{ textAlign: 'center' }}>
+                            <div style={{ fontSize: '18px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-mono), monospace' }}>{s.val}</div>
+                            <div style={{ fontSize: '9px', color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-mono), monospace', letterSpacing: '1px', marginTop: '2px' }}>{s.label}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* ── CARD 06 — EXECUTIVE ── */}
+                <div
+                  className="operational-grid-card"
+                  style={{ background: '#0f1012', padding: '32px 28px 28px', display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: '420px' }}
+                >
+                  <span style={{ fontSize: '14px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(255,255,255,0.3)', letterSpacing: '0', marginBottom: '14px' }}>Executive Agent</span>
+                  <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.25, marginBottom: '10px' }}>Executives get answers on demand.</h3>
+                  <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.65, marginBottom: '28px', flexShrink: 0 }}>Security posture, compliance status, incident trends. Natural language. No analyst wait.</p>
+                  <div style={{ flex: 1, borderRadius: '8px', overflow: 'hidden' }}>
+                    <div style={{ background: '#141518', padding: '16px', height: '100%', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', background: '#0c0d0f', border: '1px solid rgba(139,92,246,0.2)', borderRadius: '6px' }}>
+                        <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#a78bfa', flexShrink: 0 }} />
+                        <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(255,255,255,0.6)' }}>"Compliance trend this quarter?"</span>
+                      </div>
+                      <div style={{ flex: 1, display: 'flex', alignItems: 'flex-end', gap: '6px', padding: '10px 12px', background: 'rgba(255,255,255,0.02)', border: '1px solid #202022', borderRadius: '6px' }}>
+                        {[
+                          { h: '45%', hi: false }, { h: '55%', hi: false }, { h: '50%', hi: false },
+                          { h: '65%', hi: false }, { h: '72%', hi: false }, { h: '68%', hi: false },
+                          { h: '80%', hi: false }, { h: '94%', hi: true }
+                        ].map((bar, i) => (
+                          <div
+                            key={i}
+                            style={{
+                              flex: 1,
+                              height: bar.h,
+                              borderRadius: '3px 3px 0 0',
+                              background: bar.hi ? 'rgba(16,185,129,0.4)' : 'rgba(139,92,246,0.3)',
+                              border: `1px solid ${bar.hi ? 'rgba(16,185,129,0.5)' : 'rgba(139,92,246,0.4)'}`,
+                              transformOrigin: 'bottom',
+                              animation: 'executive-bar-scale-cycle 6s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite',
+                              animationDelay: `${i * 50}ms`
+                            }}
+                          />
+                        ))}
+                      </div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        {[{ val: '99.1%', label: 'COMPLIANCE' }, { val: 'A+', label: 'SEC INDEX' }, { val: '0', label: 'CRITICAL' }].map((k, i) => (
+                          <div
+                            key={i}
+                            style={{
+                              textAlign: 'center',
+                              animation: 'executive-metrics-cycle 6s infinite',
+                              animationDelay: `${i * 150 + 400}ms`
+                            }}
+                          >
+                            <div style={{ fontSize: '16px', fontWeight: 700, color: '#fff', fontFamily: 'var(--font-mono), monospace' }}>{k.val}</div>
+                            <div style={{ fontSize: '9px', color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-mono), monospace', letterSpacing: '0.5px', marginTop: '2px' }}>{k.label}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
+
+            <style>{`
+              #operational-outcomes .std-section-subheading {
+                margin-bottom: 48px !important;
+              }
+              @keyframes terminal-blink { 50% { opacity: 0; } }
+              @keyframes terminal-pulse { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.15); } }
+              
+              @keyframes visitor-row-cycle {
+                0%, 10% { opacity: 0.3; transform: translateY(12px); }
+                20%, 80% { opacity: 1; transform: translateY(0); }
+                90%, 100% { opacity: 0.3; transform: translateY(12px); }
+              }
+              
+              @keyframes typing-line-0 {
+                0% { width: 0; }
+                6.25%, 85% { width: 100%; }
+                92.5%, 100% { width: 0; }
+              }
+              @keyframes typing-line-1 {
+                0%, 7.5% { width: 0; }
+                13.75%, 85% { width: 100%; }
+                92.5%, 100% { width: 0; }
+              }
+              @keyframes typing-line-2 {
+                0%, 15% { width: 0; }
+                21.25%, 85% { width: 100%; }
+                92.5%, 100% { width: 0; }
+              }
+              @keyframes typing-line-3 {
+                0%, 22.5% { width: 0; }
+                28.75%, 85% { width: 100%; }
+                92.5%, 100% { width: 0; }
+              }
+              @keyframes typing-line-4 {
+                0%, 30% { width: 0; }
+                36.25%, 85% { width: 100%; }
+                92.5%, 100% { width: 0; }
+              }
+              @keyframes typing-line-5 {
+                0%, 37.5% { width: 0; }
+                43.75%, 85% { width: 100%; }
+                92.5%, 100% { width: 0; }
+              }
+              @keyframes typing-line-6 {
+                0%, 45% { width: 0; }
+                56.25%, 85% { width: 100%; }
+                92.5%, 100% { width: 0; }
+              }
+              
+              @keyframes employee-bubble-1-cycle {
+                0%, 5% { opacity: 0.3; transform: translateY(15px); }
+                15%, 85% { opacity: 1; transform: translateY(0); }
+                95%, 100% { opacity: 0.3; transform: translateY(15px); }
+              }
+              
+              @keyframes employee-bubble-2-cycle {
+                0%, 20% { opacity: 0; transform: translateY(15px); }
+                30%, 85% { opacity: 1; transform: translateY(0); }
+                95%, 100% { opacity: 0; transform: translateY(15px); }
+              }
+              
+              @keyframes employee-badge-cycle {
+                0%, 45% { opacity: 0; transform: scale(0.8) translateY(12px); }
+                55%, 85% { opacity: 1; transform: scale(1) translateY(0); }
+                95%, 100% { opacity: 0; transform: scale(0.8) translateY(12px); }
+              }
+              
+              @keyframes contractor-item-cycle {
+                0%, 10% { opacity: 0.3; transform: translateY(8px); }
+                20%, 85% { opacity: 1; transform: translateY(0); }
+                95%, 100% { opacity: 0.3; transform: translateY(8px); }
+              }
+              
+              @keyframes contractor-check-done-cycle {
+                0%, 15% { background: rgba(255,255,255,0.04); border-color: #202022; }
+                25%, 85% { background: rgba(16,185,129,0.2); border-color: rgba(16,185,129,0.4); }
+                95%, 100% { background: rgba(255,255,255,0.04); border-color: #202022; }
+              }
+              
+              @keyframes contractor-svg-done-cycle {
+                0%, 15% { transform: scale(0); }
+                25%, 85% { transform: scale(1); }
+                95%, 100% { transform: scale(0); }
+              }
+              
+              @keyframes contractor-check-pending-cycle {
+                0%, 25% { background: rgba(255,255,255,0.04); border-color: #202022; }
+                35%, 85% { background: rgba(251,191,36,0.1); border-color: rgba(251,191,36,0.25); }
+                95%, 100% { background: rgba(255,255,255,0.04); border-color: #202022; }
+              }
+              
+              @keyframes contractor-dot-pending-cycle {
+                0%, 25% { transform: scale(0); }
+                35%, 85% { transform: scale(1); }
+                95%, 100% { transform: scale(0); }
+              }
+              
+              @keyframes emergency-channel-cycle {
+                0%, 10% { opacity: 0.3; transform: translateY(8px); }
+                20%, 85% { opacity: 1; transform: translateY(0); }
+                95%, 100% { opacity: 0.3; transform: translateY(8px); }
+              }
+              
+              @keyframes emergency-counters-cycle {
+                0%, 25% { opacity: 0.2; transform: translateY(12px); }
+                35%, 85% { opacity: 1; transform: translateY(0); }
+                95%, 100% { opacity: 0.2; transform: translateY(12px); }
+              }
+              
+              @keyframes executive-bar-scale-cycle {
+                0%, 10% { transform: scaleY(0.1); }
+                20%, 85% { transform: scaleY(1); }
+                95%, 100% { transform: scaleY(0.1); }
+              }
+              
+              @keyframes executive-metrics-cycle {
+                0%, 25% { opacity: 0.2; transform: translateY(12px); }
+                35%, 85% { opacity: 1; transform: translateY(0); }
+                95%, 100% { opacity: 0.2; transform: translateY(12px); }
+              }
+            `}</style>
           </section>
 
           {/* Canvas Reveal Section */}
+          {/* Close/CTA Section */}
           <section
             ref={revealSectionRef}
-            className="canvas-reveal-section"
-            style={{ position: 'relative', overflow: 'hidden' }}
+            className="close-cta-section"
           >
+            {/* CSS Dot Grid Background */}
+            <div
+              className="close-cta-dot-grid"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)',
+                backgroundSize: '28px 28px',
+                pointerEvents: 'none',
+                zIndex: 0
+              }}
+            />
+
+            {/* Purple radial glow centered behind headline */}
+            <div
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: '600px',
+                height: '400px',
+                background: 'radial-gradient(ellipse, rgba(124,60,208,0.12) 0%, transparent 70%)',
+                pointerEvents: 'none',
+                zIndex: 0
+              }}
+            />
+
+            {/* Animated Canvas Dot Grid */}
             <canvas
               ref={revealCanvasRef}
               style={{
@@ -3750,45 +4242,215 @@ export default function CommunicationV2Page() {
                 left: 0,
                 right: 0,
                 zIndex: 0,
-                pointerEvents: 'none'
-              }}
-            />
-            <div
-              style={{
-                position: 'absolute',
-                inset: 0,
-                width: '100%',
-                height: '100%',
-                maxWidth: '1200px',
-                margin: '0 auto',
-                left: 0,
-                right: 0,
-                background: 'radial-gradient(ellipse 60% 70% at center, rgba(11,13,15,0.92) 0%, rgba(11,13,15,0.75) 40%, rgba(11,13,15,0.2) 100%)',
                 pointerEvents: 'none',
-                zIndex: 1
+                opacity: 0
               }}
             />
-            <div className="canvas-content" style={{ position: 'relative', zIndex: 2 }}>
-              <h2 ref={revealTitleRef} className="canvas-title">Hire our security agents</h2>
-              <p
-                ref={revealSubtitleRef}
-                className="canvas-subtitle"
-                style={{
-                  fontFamily: "var(--font-mono), 'JetBrains Mono', monospace",
-                  fontSize: '14px',
-                  fontWeight: 400,
-                  color: '#B6B6B7',
-                  lineHeight: '1.6',
-                  margin: '0 auto 40px',
-                  maxWidth: '580px',
-                  textAlign: 'center'
-                }}
-              >
-                Autonomous security that never blinks. AI agents that observe, decide, and act in real time.
+
+            <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              {/* Eyebrow Pill */}
+              <div className="ent-pill" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+                <span className="pulsing-green-dot">●</span>
+                Communication Interface
+              </div>
+
+              {/* Headline */}
+              <h2 className="std-section-h2 text-center" style={{
+                fontSize: '48px',
+                fontWeight: 600,
+                letterSpacing: '-0.02em',
+                lineHeight: '1.2',
+                marginBottom: '24px',
+                textAlign: 'center'
+              }}>
+                The layer your security stack <span style={{ color: 'rgba(255,255,255,0.35)' }}>is missing.</span>
+              </h2>
+
+              {/* Subhead */}
+              <p style={{
+                fontSize: '15px',
+                color: '#B6B6B7',
+                lineHeight: '1.7',
+                fontFamily: "var(--font-mono), 'JetBrains Mono', monospace",
+                maxWidth: '700px',
+                margin: '0 auto 48px',
+                textAlign: 'center'
+              }}>
+                Your video has AI. Your access control has AI. Your communication has been running on manual processes and fragmented channels. That changes here.
               </p>
-              <a ref={revealBtnRef} href="#" className="ent-btn-primary">Learn More</a>
+
+              {/* Buttons side by side */}
+              <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
+                <a href="#" className="ent-btn-primary" style={{
+                  padding: '12px 24px',
+                  fontSize: '0.95rem',
+                  display: 'inline-flex',
+                  transform: 'translateZ(0)',
+                  position: 'relative',
+                  zIndex: 20
+                }}>
+                  Request Communication Assessment
+                </a>
+                <a href="#" className="ent-btn-secondary" style={{
+                  padding: '12px 24px',
+                  fontSize: '0.95rem',
+                  display: 'inline-flex',
+                  transform: 'translateZ(0)',
+                  position: 'relative',
+                  zIndex: 20
+                }}>
+                  Download Technical Brief
+                </a>
+              </div>
+
+              {/* Stats bar */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '32px',
+                marginTop: '48px',
+                flexWrap: 'wrap'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(255,255,255,0.15)' }}></div>
+                  <span style={{
+                    fontSize: '11px',
+                    fontFamily: "var(--font-mono), 'JetBrains Mono', monospace",
+                    color: 'rgba(255,255,255,0.25)',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase'
+                  }}>
+                    3,000+ Sites
+                  </span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(255,255,255,0.15)' }}></div>
+                  <span style={{
+                    fontSize: '11px',
+                    fontFamily: "var(--font-mono), 'JetBrains Mono', monospace",
+                    color: 'rgba(255,255,255,0.25)',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase'
+                  }}>
+                    22 Countries
+                  </span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(255,255,255,0.15)' }}></div>
+                  <span style={{
+                    fontSize: '11px',
+                    fontFamily: "var(--font-mono), 'JetBrains Mono', monospace",
+                    color: 'rgba(255,255,255,0.25)',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase'
+                  }}>
+                    240+ Languages
+                  </span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(255,255,255,0.15)' }}></div>
+                  <span style={{
+                    fontSize: '11px',
+                    fontFamily: "var(--font-mono), 'JetBrains Mono', monospace",
+                    color: 'rgba(255,255,255,0.25)',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase'
+                  }}>
+                    99.99% Uptime
+                  </span>
+                </div>
+              </div>
             </div>
           </section>
+
+          {/* Scrolling Ticker Component */}
+          <div className="ticker">
+            <div className="ticker-track">
+              {/* Item 1 */}
+              <div className="ticker-item">
+                <span>&gt; <span className="ticker-tag-green">[SYS_OK]</span> Perimeter Secure</span>
+                <span className="ticker-separator">|</span>
+              </div>
+              {/* Item 2 */}
+              <div className="ticker-item">
+                <span>&gt; <span className="ticker-tag-purple">[NET]</span> Latency: 12ms</span>
+                <span className="ticker-separator">|</span>
+              </div>
+              {/* Item 3 */}
+              <div className="ticker-item">
+                <span>&gt; <span className="ticker-tag-purple">[AI_CORE]</span> 0 Missed Alerts</span>
+                <span className="ticker-separator">|</span>
+              </div>
+              {/* Item 4 */}
+              <div className="ticker-item">
+                <span>&gt; <span className="ticker-tag-purple">[AGENT_04]</span> Executing Protocols</span>
+                <span className="ticker-separator">|</span>
+              </div>
+              {/* Item 5 */}
+              <div className="ticker-item">
+                <span>&gt; <span className="ticker-tag-green">[NODE_9]</span> 100% Uptime</span>
+                <span className="ticker-separator">|</span>
+              </div>
+              {/* Item 6 */}
+              <div className="ticker-item">
+                <span>&gt; <span className="ticker-tag-purple">[VISITOR]</span> Check-in: 90s avg</span>
+                <span className="ticker-separator">|</span>
+              </div>
+              {/* Item 7 */}
+              <div className="ticker-item">
+                <span>&gt; <span className="ticker-tag-green">[COMMS]</span> All Channels Active</span>
+                <span className="ticker-separator">|</span>
+              </div>
+              {/* Item 8 */}
+              <div className="ticker-item">
+                <span>&gt; <span className="ticker-tag-purple">[AUDIT]</span> 847 Interactions Logged</span>
+                <span className="ticker-separator">|</span>
+              </div>
+
+              {/* Duplicate items x8 for seamless loop */}
+              {/* Item 1 */}
+              <div className="ticker-item">
+                <span>&gt; <span className="ticker-tag-green">[SYS_OK]</span> Perimeter Secure</span>
+                <span className="ticker-separator">|</span>
+              </div>
+              {/* Item 2 */}
+              <div className="ticker-item">
+                <span>&gt; <span className="ticker-tag-purple">[NET]</span> Latency: 12ms</span>
+                <span className="ticker-separator">|</span>
+              </div>
+              {/* Item 3 */}
+              <div className="ticker-item">
+                <span>&gt; <span className="ticker-tag-purple">[AI_CORE]</span> 0 Missed Alerts</span>
+                <span className="ticker-separator">|</span>
+              </div>
+              {/* Item 4 */}
+              <div className="ticker-item">
+                <span>&gt; <span className="ticker-tag-purple">[AGENT_04]</span> Executing Protocols</span>
+                <span className="ticker-separator">|</span>
+              </div>
+              {/* Item 5 */}
+              <div className="ticker-item">
+                <span>&gt; <span className="ticker-tag-green">[NODE_9]</span> 100% Uptime</span>
+                <span className="ticker-separator">|</span>
+              </div>
+              {/* Item 6 */}
+              <div className="ticker-item">
+                <span>&gt; <span className="ticker-tag-purple">[VISITOR]</span> Check-in: 90s avg</span>
+                <span className="ticker-separator">|</span>
+              </div>
+              {/* Item 7 */}
+              <div className="ticker-item">
+                <span>&gt; <span className="ticker-tag-green">[COMMS]</span> All Channels Active</span>
+                <span className="ticker-separator">|</span>
+              </div>
+              {/* Item 8 */}
+              <div className="ticker-item">
+                <span>&gt; <span className="ticker-tag-purple">[AUDIT]</span> 847 Interactions Logged</span>
+                <span className="ticker-separator">|</span>
+              </div>
+            </div>
+          </div>
 
         </div>
       </div>

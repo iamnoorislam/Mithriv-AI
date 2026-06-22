@@ -595,7 +595,7 @@ export default function IndustrySection({ isEmbedded = false }: { isEmbedded?: b
                     transition: 'all 0.2s ease',
                     outline: 'none',
                   }}
-                  className="unkey-tab-btn"
+                  className={`unkey-tab-btn ${active === idx ? 'active' : ''}`}
                 >
                   {ind.label}
                 </button>
