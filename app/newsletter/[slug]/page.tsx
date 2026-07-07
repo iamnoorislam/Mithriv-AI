@@ -31,8 +31,8 @@ export default async function NewsletterDetailPage({ params }: Props) {
   }
 
   return (
-    <article className="min-h-screen bg-[#0C0D10] text-white pb-32 font-sans relative">
-      <header className="relative w-full pt-40 pb-16 overflow-hidden bg-[#0C0D10]">
+    <article className="min-h-screen bg-[#131416] text-white pb-32 font-sans relative">
+      <header className="relative w-full pt-40 pb-16 overflow-hidden bg-[#131416]">
         <div className="relative max-w-[800px] mx-auto px-6">
           
           <div className="font-mono text-[14px] font-semibold tracking-widest text-slate-400 uppercase mb-8 flex items-center space-x-3">
@@ -59,7 +59,7 @@ export default async function NewsletterDetailPage({ params }: Props) {
       {/* Featured Image */}
       {newsletter.imageUrl && (
         <div className="max-w-[1000px] mx-auto px-6 mb-16 relative z-10">
-          <div className="w-full bg-[#1a1b1e] overflow-hidden aspect-[21/9] rounded-2xl border border-white/5">
+          <div className="w-full bg-[#1a1b1e] overflow-hidden aspect-[21/9] rounded-2xl border border-[#1A1C1E]">
             <img 
               src={newsletter.imageUrl} 
               alt={newsletter.title} 

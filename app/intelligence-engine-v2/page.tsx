@@ -1,7 +1,9 @@
 'use client'
 
 import React, { useEffect, useState, useRef } from 'react'
+import { Aperture, Command, Eclipse, Hexagon, Zap, Triangle, Activity } from 'lucide-react'
 import IndustrySectionIntelligence from '@/components/IndustrySectionIntelligence'
+import HonestPositioning from '@/components/HonestPositioning'
 import IntelligencePhoneChat from '@/components/IntelligencePhoneChat'
 import '../style.css'
 
@@ -133,6 +135,8 @@ export default function IntelligenceEnginePage() {
     analystTime: 0
   });
 
+  const dotCanvasRef = useRef<HTMLCanvasElement>(null);
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -175,40 +179,221 @@ export default function IntelligenceEnginePage() {
     }, 600);
   };
 
-  // Three.js 3D Security Data Correlation Graph Background
+  // Interactive Repelling Dot-Grid Matrix Background
+  useEffect(() => {
+    if (!mounted) return;
+    const canvas = dotCanvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const CFG = {
+      totalSize: 12,
+      dotSize: 1.5,
+      animSpeed: 0.5,
+      blinkFreq: 5.0,
+      fps: 60,
+      colors: [[255, 255, 255], [255, 255, 255]],
+      opacities: [0.3, 0.3, 0.3, 0.5, 0.5, 0.5, 0.8, 0.8, 0.8, 1.0]
+    };
+    let W: number, H: number, startTime = performance.now();
+    let cells: any[] = [];
+    const PHI = 1.61803398874989484820459;
+    const fract = (x: number) => x - Math.floor(x);
+    const rand2 = (x: number, y: number) => {
+      const ax = x * PHI, ay = y * PHI;
+      const d = Math.sqrt((ax - x) ** 2 + (ay - y) ** 2);
+      return Math.abs(fract(Math.tan(d * 0.5) * x));
+    };
+    const blinkAlpha = (col: number, row: number, t: number, showOffset: number) => {
+      const freq = CFG.blinkFreq;
+      const phase = Math.floor(t / freq + showOffset + freq);
+      const r = rand2((col + 1) * phase * 0.1 + 1, (row + 1) * phase * 0.1 + 1);
+      return CFG.opacities[Math.floor(r * CFG.opacities.length)];
+    };
+    const buildCells = () => {
+      cells = [];
+      const ts = CFG.totalSize;
+      const cols = Math.ceil(W / ts) + 1;
+      // Increase row count to account for the 0.866 vertical hex compression
+      const rows = Math.ceil(H / (ts * 0.866)) + 2;
+      const cx = cols / 2;
+      const cy = rows / 2;
+      const maxD = Math.sqrt(cx * cx + cy * cy);
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const s = rand2(col + 1, row + 1);
+          const rngB = rand2(col + 42, row + 42);
+          const dist = Math.sqrt((cx - col) ** 2 + (cy - row) ** 2);
+          cells.push({
+            col,
+            row,
+            showOffset: s,
+            introOffset: dist * 0.01 + s * 0.15,
+            outroOffset: (maxD - dist) * 0.02 + rngB * 0.2,
+            colorIdx: Math.floor(s * CFG.colors.length)
+          });
+        }
+      }
+    };
+    const resize = () => {
+      const parent = canvas.parentElement;
+      if (parent) {
+        const rect = parent.getBoundingClientRect();
+        W = canvas.width = rect.width;
+        H = canvas.height = rect.height;
+        buildCells();
+      }
+    };
+
+    let mouseX = -1000, mouseY = -1000;
+    const container = canvas.parentElement;
+    const onMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouseX = e.clientX - rect.left;
+      mouseY = e.clientY - rect.top;
+    };
+    const onMouseLeave = () => {
+      mouseX = -1000;
+      mouseY = -1000;
+    };
+    if (container) {
+      container.addEventListener('mousemove', onMouseMove);
+      container.addEventListener('mouseleave', onMouseLeave);
+    }
+
+    let lastFrame = 0;
+    let animId: number;
+    const draw = (ts: number) => {
+      animId = requestAnimationFrame(draw);
+      if (ts - lastFrame < 1000 / CFG.fps) return;
+      lastFrame = ts;
+      const elapsed = (ts - startTime) / 1000;
+      const t = elapsed * CFG.animSpeed;
+      ctx.clearRect(0, 0, W, H);
+      const sz = CFG.totalSize;
+      const ds = CFG.dotSize;
+      const offX = Math.abs(Math.floor(((W % sz) - ds) * 0.5));
+      const offY = Math.abs(Math.floor(((H % sz) - ds) * 0.5));
+
+      for (const cell of cells) {
+        // Shift odd rows to create a Hexagonal (Isometric) grid pattern
+        // This gives a completely different organic/interlocking texture compared to the square grid.
+        const rowOffset = (cell.row % 2 !== 0) ? (sz * 0.5) : 0;
+        const px = cell.col * sz - offX + rowOffset;
+
+        // Compact the Y axis slightly for perfect hexagon proportions (sqrt(3)/2)
+        const py = cell.row * (sz * 0.866) - offY;
+
+        if (px + ds < 0 || py + ds < 0 || px - ds > W || py - ds > H) continue;
+        if (t < cell.introOffset) continue;
+        const alpha = blinkAlpha(cell.col, cell.row, elapsed, cell.showOffset);
+        if (alpha <= 0) continue;
+
+        const cx = px + ds;
+        const cy = py + ds;
+
+        // --- High-Tech Data Chart (Analytics Dashboard) ---
+        // A literal live data graph to physically look like "data".
+        const scrollX = elapsed * 12.0;
+        const virtualX = cell.col + scrollX;
+
+        // Multi-frequency sine waves to simulate active data/analytics graph
+        const wave1 = Math.sin(virtualX * 0.04) * 6;
+        const wave2 = Math.sin(virtualX * 0.1) * 3;
+        const wave3 = Math.sin(virtualX * 0.3) * 1.5;
+        const totalWave = wave1 + wave2 + wave3;
+
+        // Base line position (50% down the screen, perfectly centered)
+        const baselineRow = (H / sz) * 0.50;
+        const graphRow = baselineRow - totalWave;
+
+        const distFromGraph = cell.row - graphRow;
+
+        // Hide everything above the line to create a stark dashboard shape
+        if (distFromGraph < -0.8) {
+          continue;
+        }
+
+        let dataMultiplier = 0.0;
+
+        if (Math.abs(distFromGraph) <= 1.2) {
+          // The solid graph line itself (Bright)
+          dataMultiplier = 2.5;
+        } else {
+          // The area under the graph (Subtle fade, remains highly visible)
+          const fade = Math.max(0.4, 1.0 - (distFromGraph / 70.0));
+          if (cell.row % 2 === 0) {
+            dataMultiplier = 1.0 * fade;
+          } else {
+            dataMultiplier = 0.6 * fade;
+          }
+        }
+
+        // Overlay vertical dashboard grid lines
+        if (cell.col % 16 === 0 && distFromGraph >= 0) {
+          const gridFade = Math.max(0.5, 1.0 - (distFromGraph / 70.0));
+          dataMultiplier = Math.max(dataMultiplier, 1.2 * gridFade);
+        }
+
+        const finalAlpha = Math.min(1.0, alpha * dataMultiplier);
+
+        if (finalAlpha <= 0.01) continue;
+
+        const dx = cx - mouseX;
+        const dy = cy - mouseY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const radius = 160;
+
+        let drawX = cx;
+        let drawY = cy;
+        const isLight = document.body.classList.contains('light-mode');
+        const baseColor = isLight ? [15, 17, 21] : [255, 255, 255];
+        let color = baseColor;
+
+        if (dist < radius && mouseX > 0) {
+          const force = (radius - dist) / radius;
+          drawX = cx + (dx / dist) * force * 16;
+          drawY = cy + (dy / dist) * force * 16;
+
+          const blend = force * 0.95;
+          const targetR = isLight ? 124 : 139;
+          const targetG = isLight ? 58 : 92;
+          const targetB = isLight ? 237 : 246;
+          const r = Math.round(baseColor[0] * (1 - blend) + targetR * blend);
+          const g = Math.round(baseColor[1] * (1 - blend) + targetG * blend);
+          const b = Math.round(baseColor[2] * (1 - blend) + targetB * blend);
+          color = [r, g, b];
+        }
+
+        ctx.fillStyle = `rgba(${color[0]},${color[1]},${color[2]},${finalAlpha})`;
+        ctx.beginPath();
+        ctx.arc(drawX, drawY, ds, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    };
+
+    const ro = new ResizeObserver(resize);
+    if (canvas.parentElement) {
+      ro.observe(canvas.parentElement);
+    }
+    resize();
+    animId = requestAnimationFrame(draw);
+
+    return () => {
+      if (animId) cancelAnimationFrame(animId);
+      ro.disconnect();
+      if (container) {
+        container.removeEventListener('mousemove', onMouseMove);
+        container.removeEventListener('mouseleave', onMouseLeave);
+      }
+    };
+  }, [mounted]);
+
   useEffect(() => {
     if (!mounted) return;
     let timer: NodeJS.Timeout;
-    let deferTimer: NodeJS.Timeout;
     let refreshTimers: NodeJS.Timeout[] = [];
-
-    const init = () => {
-      const w = window as any;
-      if (w.runDottedSurface && w.THREE && w.gsap && w.ScrollTrigger) {
-        deferTimer = setTimeout(() => {
-          try {
-            w.runDottedSurface();
-          } catch (e) {
-            console.error("Error in runDottedSurface:", e);
-          }
-
-          try {
-            initScrollStory();
-          } catch (e) {
-            console.error("Error in initScrollStory:", e);
-          }
-
-          if (w.ScrollTrigger) {
-            refreshTimers.push(setTimeout(() => w.ScrollTrigger.refresh(), 100));
-            refreshTimers.push(setTimeout(() => w.ScrollTrigger.refresh(), 500));
-            refreshTimers.push(setTimeout(() => w.ScrollTrigger.refresh(), 1000));
-          }
-        }, 100);
-      } else {
-        timer = setTimeout(init, 50);
-      }
-    };
-    init();
 
     const initScrollStory = () => {
       const w = window as any;
@@ -306,27 +491,31 @@ export default function IntelligenceEnginePage() {
 
     };
 
+    const init = () => {
+      const w = window as any;
+      if (w.gsap && w.ScrollTrigger) {
+        initScrollStory();
+        refreshTimers.push(setTimeout(() => w.ScrollTrigger.refresh(), 100));
+        refreshTimers.push(setTimeout(() => w.ScrollTrigger.refresh(), 500));
+        refreshTimers.push(setTimeout(() => w.ScrollTrigger.refresh(), 1000));
+      } else {
+        timer = setTimeout(init, 50);
+      }
+    };
+    init();
+
     return () => {
       clearTimeout(timer);
-      clearTimeout(deferTimer);
       refreshTimers.forEach(t => clearTimeout(t));
 
       const w = window as any;
       if (w.gsap && w.ScrollTrigger) {
         w.ScrollTrigger.getAll().forEach((t: any) => t.kill(true));
       }
-      if (w.cancelDottedSurfaceAnim) {
-        w.cancelDottedSurfaceAnim();
-      }
-      if (w.dottedSurfaceResizeObserver) {
-        w.dottedSurfaceResizeObserver.disconnect();
-        w.dottedSurfaceResizeObserver = null;
-      }
     };
   }, [mounted]);
 
   if (!mounted) return null;
-
   return (
     <div className="landing-theme">
       {/* Global Texture overlays */}
@@ -334,40 +523,99 @@ export default function IntelligenceEnginePage() {
       <div className="grain-overlay"></div>
 
       {/* HERO SECTION */}
-      <main className="hero-section hero-module" id="hero" style={{ position: 'relative', width: '100%', height: '1080px', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: '180px', marginBottom: '160px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
-        {/* Three.js Dotted Surface Background */}
-        <div id="dotted-surface-container" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'none', WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)', maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)' }}></div>
+      <main className="hero-section" id="hero" style={{ paddingTop: '200px', paddingBottom: '120px' }}>
 
-        <div className="hero-content" style={{ position: 'relative', zIndex: 10, marginTop: '0', maxWidth: '1250px' }}>
-          <div className="ent-pill" style={{ marginBottom: '12px' }}>Intelligence Engine</div>
-          <h1
-            className="main-heading"
-            style={{ fontSize: 'clamp(40px, 4.5vw, 68px)', maxWidth: '1200px', margin: '0 auto 1.5rem', lineHeight: 1.15, cursor: 'default' }}
-          >
-            Your data knows.<br />Now you will too.
-          </h1>
-          <p className="body-text" style={{ maxWidth: '680px', margin: '0 auto 2.5rem', fontSize: '15px', lineHeight: '1.6', color: '#B6B6B7', fontFamily: 'var(--font-mono)' }}>
+        {/* Interactive Repelling Dot-Grid Matrix Background with Radial Fade-out Mask */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          zIndex: 0,
+          pointerEvents: 'none',
+          WebkitMaskImage: 'radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.15) 45%, black 85%), linear-gradient(to bottom, black 0%, black 85%, transparent 100%)',
+          maskImage: 'radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.15) 45%, black 85%), linear-gradient(to bottom, black 0%, black 85%, transparent 100%)',
+          WebkitMaskComposite: 'source-in',
+          maskComposite: 'intersect'
+        }}>
+          <canvas ref={dotCanvasRef} style={{ width: '100%', height: '100%', display: 'block' }}></canvas>
+        </div>
+
+        {/* Hero Content */}
+        <div className="hero-content" style={{ position: 'relative', zIndex: 10, marginTop: '0' }}>
+          <div className="ent-pill award-pill">Intelligence Engine</div>
+          <h1 className="main-heading" style={{ fontSize: 'clamp(40px, 4.2vw, 64px)', margin: '0 0 1.5rem', lineHeight: 1.15, cursor: 'default' }}>
+        <span className="word-mask"><span className="word-inner w1">Your</span></span>
+        <span className="word-mask"><span className="word-inner w2">security</span></span>
+        <span className="word-mask"><span className="word-inner w3">data</span></span><br />
+        <span className="word-mask"><span className="word-inner w4">has</span></span>
+        <span className="word-mask"><span className="word-inner w5">the</span></span>
+        <span className="word-mask"><span className="word-inner w6">answer</span></span>
+      </h1>
+          <p className="body-text award-fade-up delay-p" style={{ maxWidth: '650px', margin: '0 auto 2.5rem', fontSize: '15px', lineHeight: '1.6', color: '#B6B6B7', fontFamily: 'var(--font-mono)' }}>
             Every camera. Every access event. Every interaction. Every incident. The Intelligence Engine processes it all in real time — and turns raw security data into decisions your team can act on immediately.
           </p>
 
-          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', marginBottom: '40px' }}>
-            <a href="#" className="ent-btn-primary" style={{ padding: '12px 24px', fontSize: '0.95rem', display: 'inline-flex' }}>Request Intelligence Assessment</a>
-            <a href="#" className="ent-btn-secondary" style={{ padding: '12px 24px', fontSize: '0.95rem', display: 'inline-flex' }}>Download Technical Brief</a>
+          <div style={{ display: 'flex', gap: '16px', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <a href="#" className="ent-btn-primary award-fade-up delay-btn" style={{ padding: '12px 24px', fontSize: '0.95rem', display: 'inline-flex', backdropFilter: 'none', WebkitBackdropFilter: 'none', transform: 'translateZ(0)', position: 'relative', zIndex: 20 }}>Request Intelligence Assessment <svg className="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path className="arrow-stem" d="M3 12h12" /><path className="arrow-head" d="m9 18 6-6-6-6"/></svg></a>
+            <a href="#" className="ent-btn-secondary award-fade-up delay-btn" style={{ padding: '12px 24px', fontSize: '0.95rem', display: 'inline-flex', backdropFilter: 'none', WebkitBackdropFilter: 'none', transform: 'translateZ(0)', position: 'relative', zIndex: 20 }}>
+              Download Technical Brief
+            </a>
+          </div>
+        </div>
+
+        {/* Trusted By Strip */}
+        <div className="relative w-full max-w-[1280px] mx-auto px-6 z-10 award-fade-up delay-strip" style={{ paddingTop: '180px', paddingBottom: '40px', marginTop: 'auto' }}>
+          <style dangerouslySetInnerHTML={{
+            __html: `
+            @keyframes custom-marquee {
+              0% { transform: translateX(0%); }
+              100% { transform: translateX(-100%); }
+            }
+          `}} />
+          <div className="text-center mb-12">
+            <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em' }}>Trusted by these companies</h2>
           </div>
 
-          {/* Stats Bar */}
-          <div className="stats-bar" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '32px', flexWrap: 'wrap', maxWidth: '900px', margin: '0 auto' }}>
-            {[
-              { num: '47M+', label: 'Events Daily' },
-              { num: '99.7%', label: 'Accuracy' },
-              { num: '<500ms', label: 'Response Time' },
-              { num: 'Zero', label: 'Analyst Dependency' }
-            ].map((stat, idx) => (
-              <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ fontSize: '16px', fontWeight: 600, color: 'var(--primary-purple)', fontFamily: 'var(--font-main)' }}>{stat.num}</span>
-                <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: '#B6B6B7', letterSpacing: '0.5px' }}>{stat.label}</span>
-              </div>
-            ))}
+          <div className="relative flex overflow-hidden w-full group">
+            {/* Blurs */}
+            <div className="absolute left-0 top-0 bottom-0 w-48 z-20" style={{ background: 'linear-gradient(to right, #131416, transparent)' }}></div>
+            <div className="absolute right-0 top-0 bottom-0 w-48 z-20" style={{ background: 'linear-gradient(to left, #131416, transparent)' }}></div>
+
+            <div className="flex overflow-hidden relative w-full">
+              {[0, 1].map((marqueeIdx) => (
+                <div key={marqueeIdx} className="flex shrink-0 items-center justify-start w-max" style={{ gap: '3.5rem', minWidth: '100%', paddingRight: '3.5rem', animation: 'custom-marquee 15s linear infinite' }}>
+                  {[0, 1].map((repeatIdx) => (
+                    <React.Fragment key={repeatIdx}>
+                      <div className="text-[#fff] font-bold text-2xl whitespace-nowrap flex-shrink-0 flex items-center opacity-70 hover:opacity-100 transition-opacity">
+                        <span style={{ letterSpacing: '-0.05em' }}>NEXT<span className="text-[#888]">.</span></span>
+                      </div>
+                      <div className="text-[#fff] font-semibold text-xl whitespace-nowrap flex-shrink-0 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+                        <svg width="28" height="28" viewBox="-11.5 -10.23174 23 20.46348" fill="#61DAFB"><circle cx="0" cy="0" r="2.05" fill="#61DAFB" /><g stroke="#61DAFB" strokeWidth="1" fill="none"><ellipse rx="11" ry="4.2" /><ellipse rx="11" ry="4.2" transform="rotate(60)" /><ellipse rx="11" ry="4.2" transform="rotate(120)" /></g></svg>
+                        React
+                      </div>
+                      <div className="text-[#fff] font-semibold text-xl whitespace-nowrap flex-shrink-0 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'rotate(45deg)' }}><line x1="5" y1="12" x2="19" y2="12"></line><line x1="12" y1="5" x2="12" y2="19"></line></svg>
+                        shadcn/ui
+                      </div>
+                      <div className="text-[#fff] font-semibold text-xl whitespace-nowrap flex-shrink-0 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="#3ECF8E"><path d="M12 2L2 12h10v10l10-10H12V2z" /></svg>
+                        supabase
+                      </div>
+                      <div className="text-[#fff] font-semibold text-xl whitespace-nowrap flex-shrink-0 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 14c2 0 3-2 5-2s3 2 5 2 3-2 5-2"></path><path d="M4 20c2 0 3-2 5-2s3 2 5 2 3-2 5-2"></path></svg>
+                        tailwindcss
+                      </div>
+                      <div className="text-[#fff] font-semibold text-xl whitespace-nowrap flex-shrink-0 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L24 22H0L12 2Z" /></svg>
+                        Vercel
+                      </div>
+                    </React.Fragment>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </main>
@@ -385,39 +633,73 @@ export default function IntelligenceEnginePage() {
           zIndex: 10
         }}
       >
-        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
+        <div className="container" style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 32px' }}>
           <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginBottom: '24px' }}>
             <span className="ent-pill" style={{ marginBottom: '0px' }}>THE PROBLEM</span>
           </div>
           <h2 className="problem-heading">
-            Your Security Operation Is Drowning in Data. And Making Decisions Blind.
+            Your security operation<br />is drowning in data
           </h2>
           <p className="problem-subheading">
-            You are generating more security data than any team can manually process. The result is not too little information — it is too much, in too many places, arriving too late to act on.
+            You are generating more security data than any team can manually process. The result is not<br />
+            too little information — it is too much, in too many places, arriving too late to act on.
           </p>
 
-          <div className="features-scroll-grid">
-            {/* Vertical Dividers */}
-            <div className="feature-col-divider feature-col-divider-1"></div>
-            <div className="feature-col-divider feature-col-divider-2"></div>
-            <div className="feature-col-divider feature-col-divider-3"></div>
+          <style>{`
+            .ent-grid-wrapper {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                border: 1px solid #212326; /* Full outer box */
+                text-align: left;
+                width: 100%;
+            }
+            .ent-grid-cell {
+                padding: 40px !important;
+                display: flex;
+                flex-direction: column;
+                min-height: 400px;
+                position: relative;
+                transition: background 0.3s;
+            }
+            .ent-grid-cell .fig-svg-wrap {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+            }
+            /* Inner cross borders */
+            .ent-grid-cell:nth-child(1) { border-right: 1px solid #212326; border-bottom: 1px solid #212326; }
+            .ent-grid-cell:nth-child(2) { border-bottom: 1px solid #212326; }
+            .ent-grid-cell:nth-child(3) { border-right: 1px solid #212326; }
+            
+            .ent-grid-cell:hover {
+                background: rgba(255, 255, 255, 0.02);
+            }
+            @media (max-width: 768px) {
+                .ent-grid-wrapper { grid-template-columns: 1fr; border-radius: 8px; }
+                .ent-grid-cell { min-height: 300px; padding: 24px; border-right: none !important; }
+                .ent-grid-cell:nth-child(1), .ent-grid-cell:nth-child(2), .ent-grid-cell:nth-child(3) { border-bottom: 1px solid #212326; }
+            }
+          `}</style>
+          <div className="ent-grid-wrapper">
 
             {/* Feature 1 */}
-            <div className="feature-col-item" style={{ opacity: 0 }}>
+            <div className="feature-col-item ent-grid-cell" style={{ opacity: 0 }}>
               <span className="fig-label">Fig 0.1</span>
               <div className="fig-svg-wrap">
                 <svg viewBox="0 0 360 200" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <defs>
                     <linearGradient id="purpleGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="rgba(139, 92, 246, 0.05)" />
-                      <stop offset="100%" stopColor="rgba(139, 92, 246, 0.3)" />
+                      <stop offset="0%" stopColor="rgba(119, 0, 255, 0.05)" />
+                      <stop offset="100%" stopColor="rgba(119, 0, 255, 0.3)" />
                     </linearGradient>
                     <linearGradient id="purpleGradVertical1" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="rgba(139, 92, 246, 0.2)" />
-                      <stop offset="100%" stopColor="rgba(139, 92, 246, 0.02)" />
+                      <stop offset="0%" stopColor="rgba(119, 0, 255, 0.2)" />
+                      <stop offset="100%" stopColor="rgba(119, 0, 255, 0.02)" />
                     </linearGradient>
                     <linearGradient id="boxGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="rgba(255, 255, 255, 0.08)" />
+                      <stop offset="0%" stopColor="#212326" />
                       <stop offset="100%" stopColor="rgba(255, 255, 255, 0.02)" />
                     </linearGradient>
                     <filter id="glow1" x="-20%" y="-20%" width="140%" height="140%">
@@ -430,45 +712,45 @@ export default function IntelligenceEnginePage() {
                     </filter>
                   </defs>
 
-                  <g transform="translate(180, 100)">
+                  <g transform="translate(180, 100) scale(1.2)">
                     {/* Base Architectural Grid */}
-                    <g stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" strokeDasharray="3,3">
+                    <g stroke="#1A1C1E" strokeWidth="0.5" strokeDasharray="3,3">
                       <path d="M-150,-80 L150,-80 M-150,-40 L150,-40 M-150,0 L150,0 M-150,40 L150,40 M-150,80 L150,80" />
                       <path d="M-120,-100 L-120,100 M-80,-100 L-80,100 M-40,-100 L-40,100 M0,-100 L0,100 M40,-100 L40,100 M80,-100 L80,100 M120,-100 L120,100" />
                     </g>
 
                     {/* Data Influx Streams */}
-                    <path d="M-140,-50 L-60,-50 M-140,-30 L-60,-30 M-140,-10 L-60,-10 M-140,10 L-60,10 M-140,30 L-60,30 M-140,50 L-60,50" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                    <path d="M-140,-50 L-60,-50 M-140,-30 L-60,-30 M-140,-10 L-60,-10 M-140,10 L-60,10 M-140,30 L-60,30 M-140,50 L-60,50" stroke="#1A1C1E" strokeWidth="1" />
                     <g fill="#ffffff" filter="url(#glowSubtle1)">
                       <circle cx="-130" cy="-50" r="1.5" /> <circle cx="-110" cy="-30" r="1.5" /> <circle cx="-90" cy="-10" r="1.5" />
                       <circle cx="-120" cy="10" r="1.5" /> <circle cx="-100" cy="30" r="1.5" /> <circle cx="-80" cy="50" r="1.5" />
                     </g>
-                    <rect x="-150" y="-60" width="30" height="14" rx="2" fill="url(#boxGrad1)" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+                    <rect x="-150" y="-60" width="30" height="14" rx="2" fill="url(#boxGrad1)" stroke="#1A1C1E" strokeWidth="1" />
                     <text x="-135" y="-51" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#A1A1AA" textAnchor="middle">47M/DAY</text>
 
                     {/* Aggregator Node */}
-                    <path d="M-60,-60 L-30,-20 L-30,20 L-60,60 Z" fill="url(#purpleGrad1)" stroke="#8B5CF6" strokeWidth="1" opacity="0.9" />
-                    <path d="M-50,-40 L-40,-25 M-50,40 L-40,25" stroke="rgba(255,255,255,0.2)" strokeWidth="1" strokeDasharray="2,2" />
+                    <path d="M-60,-60 L-30,-20 L-30,20 L-60,60 Z" fill="url(#purpleGrad1)" stroke="#7700FF" strokeWidth="1" opacity="0.9" />
+                    <path d="M-50,-40 L-40,-25 M-50,40 L-40,25" stroke="#1A1C1E" strokeWidth="1" strokeDasharray="2,2" />
 
                     {/* Core Processor Bottleneck */}
-                    <rect x="-30" y="-20" width="30" height="40" fill="#0C0D10" stroke="#8B5CF6" strokeWidth="1" />
-                    <line x1="-20" y1="-10" x2="-10" y2="-10" stroke="#8B5CF6" strokeWidth="1.5" style={{ animation: 'blink-warning-1 1s infinite' }} filter="url(#glowSubtle1)" />
-                    <line x1="-20" y1="0" x2="-10" y2="0" stroke="#8B5CF6" strokeWidth="1.5" style={{ animation: 'blink-warning-1 1s infinite', animationDelay: '0.2s' }} filter="url(#glowSubtle1)" />
-                    <line x1="-20" y1="10" x2="-10" y2="10" stroke="#8B5CF6" strokeWidth="1.5" style={{ animation: 'blink-warning-1 1s infinite', animationDelay: '0.4s' }} filter="url(#glowSubtle1)" />
+                    <rect x="-30" y="-20" width="30" height="40" fill="#131416" stroke="#7700FF" strokeWidth="1" />
+                    <line x1="-20" y1="-10" x2="-10" y2="-10" stroke="#7700FF" strokeWidth="1.5" style={{ animation: 'blink-warning-1 1s infinite' }} filter="url(#glowSubtle1)" />
+                    <line x1="-20" y1="0" x2="-10" y2="0" stroke="#7700FF" strokeWidth="1.5" style={{ animation: 'blink-warning-1 1s infinite', animationDelay: '0.2s' }} filter="url(#glowSubtle1)" />
+                    <line x1="-20" y1="10" x2="-10" y2="10" stroke="#7700FF" strokeWidth="1.5" style={{ animation: 'blink-warning-1 1s infinite', animationDelay: '0.4s' }} filter="url(#glowSubtle1)" />
 
                     {/* Filtered Output (Small) */}
-                    <path d="M0,-5 L100,-5 M0,5 L100,5" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+                    <path d="M0,-5 L100,-5 M0,5 L100,5" stroke="#1A1C1E" strokeWidth="1" />
                     <circle cx="100" cy="-5" r="2" fill="#ffffff" filter="url(#glowSubtle1)" />
                     <circle cx="100" cy="5" r="2" fill="#ffffff" filter="url(#glowSubtle1)" />
-                    <rect x="70" y="-25" width="40" height="14" rx="2" fill="url(#boxGrad1)" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+                    <rect x="70" y="-25" width="40" height="14" rx="2" fill="url(#boxGrad1)" stroke="#1A1C1E" strokeWidth="1" />
                     <text x="90" y="-16" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#ffffff" textAnchor="middle">REVIEWED</text>
 
                     {/* Dropped Output (Massive) */}
-                    <path d="M-15,20 L-15,60 L20,60 M-5,20 L-5,70 L20,70 M5,20 L5,80 L20,80" stroke="#8B5CF6" strokeWidth="1" strokeDasharray="2,2" opacity="0.6" />
+                    <path d="M-15,20 L-15,60 L20,60 M-5,20 L-5,70 L20,70 M5,20 L5,80 L20,80" stroke="#7700FF" strokeWidth="1" strokeDasharray="2,2" opacity="0.6" />
 
                     {/* Unreviewed Repository */}
-                    <path d="M20,50 L110,50 L110,90 L20,90 Z" fill="url(#purpleGradVertical1)" stroke="#8B5CF6" strokeWidth="1" />
-                    <g fill="#8B5CF6" opacity="0.5">
+                    <path d="M20,50 L110,50 L110,90 L20,90 Z" fill="url(#purpleGradVertical1)" stroke="#7700FF" strokeWidth="1" />
+                    <g fill="#7700FF" opacity="0.5">
                       <rect x="25" y="55" width="8" height="8" /> <rect x="35" y="55" width="8" height="8" /> <rect x="45" y="55" width="8" height="8" /> <rect x="55" y="55" width="8" height="8" />
                       <rect x="25" y="65" width="8" height="8" /> <rect x="35" y="65" width="8" height="8" /> <rect x="45" y="65" width="8" height="8" /> <rect x="55" y="65" width="8" height="8" />
                       <rect x="25" y="75" width="8" height="8" /> <rect x="35" y="75" width="8" height="8" /> <rect x="45" y="75" width="8" height="8" /> <rect x="55" y="75" width="8" height="8" />
@@ -482,13 +764,13 @@ export default function IntelligenceEnginePage() {
             </div>
 
             {/* Feature 2 */}
-            <div className="feature-col-item" style={{ opacity: 0 }}>
+            <div className="feature-col-item ent-grid-cell" style={{ opacity: 0 }}>
               <span className="fig-label">Fig 0.2</span>
               <div className="fig-svg-wrap">
                 <svg viewBox="0 0 360 200" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <defs>
                     <linearGradient id="boxGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="rgba(255, 255, 255, 0.08)" />
+                      <stop offset="0%" stopColor="#212326" />
                       <stop offset="100%" stopColor="rgba(255, 255, 255, 0.02)" />
                     </linearGradient>
                     <filter id="glow2" x="-20%" y="-20%" width="140%" height="140%">
@@ -501,17 +783,17 @@ export default function IntelligenceEnginePage() {
                     </filter>
                   </defs>
 
-                  <g transform="translate(180, 100)">
+                  <g transform="translate(180, 105) scale(1.1)">
                     {/* Base Architectural Grid */}
-                    <g stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" strokeDasharray="3,3">
+                    <g stroke="#1A1C1E" strokeWidth="0.5" strokeDasharray="3,3">
                       <path d="M-150,-80 L150,-80 M-150,-40 L150,-40 M-150,0 L150,0 M-150,40 L150,40 M-150,80 L150,80" />
                       <path d="M-120,-100 L-120,100 M-80,-100 L-80,100 M-40,-100 L-40,100 M0,-100 L0,100 M40,-100 L40,100 M80,-100 L80,100 M120,-100 L120,100" />
                     </g>
 
                     {/* Sequence Layers */}
-                    <path d="M-120,-60 L120,-60" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-                    <path d="M-120,0 L120,0" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-                    <path d="M-120,60 L120,60" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+                    <path d="M-120,-60 L120,-60" stroke="#1A1C1E" strokeWidth="1" />
+                    <path d="M-120,0 L120,0" stroke="#1A1C1E" strokeWidth="1" />
+                    <path d="M-120,60 L120,60" stroke="#1A1C1E" strokeWidth="1" />
 
                     <text x="-140" y="-57" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#A1A1AA" textAnchor="end">SYSTEM</text>
                     <text x="-140" y="3" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#A1A1AA" textAnchor="end">ANALYST</text>
@@ -519,31 +801,31 @@ export default function IntelligenceEnginePage() {
 
                     {/* Nodes & Flow */}
                     {/* Trigger */}
-                    <circle cx="-100" cy="-60" r="6" fill="#8B5CF6" filter="url(#glowSubtle2)" />
+                    <circle cx="-100" cy="-60" r="6" fill="#7700FF" filter="url(#glowSubtle2)" />
                     <text x="-100" y="-75" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#ffffff" textAnchor="middle">ANOMALY DETECTED</text>
                     <text x="-100" y="-45" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#A1A1AA" textAnchor="middle">02:14:00</text>
 
                     {/* Propagation */}
-                    <path d="M-100,-60 L-60,0" stroke="rgba(139, 92, 246, 0.4)" strokeWidth="1.5" strokeDasharray="4,2" />
-                    <circle cx="-60" cy="0" r="6" fill="url(#boxGrad2)" stroke="#8B5CF6" strokeWidth="1.5" />
+                    <path d="M-100,-60 L-60,0" stroke="rgba(119, 0, 255, 0.4)" strokeWidth="1.5" strokeDasharray="4,2" />
+                    <circle cx="-60" cy="0" r="6" fill="url(#boxGrad2)" stroke="#7700FF" strokeWidth="1.5" />
                     <text x="-60" y="-15" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#ffffff" textAnchor="middle">TICKET CREATED</text>
                     <text x="-60" y="15" fontFamily="var(--font-mono), monospace" fontSize="6" fill="rgba(255,255,255,0.4)" textAnchor="middle">+15m</text>
 
-                    <path d="M-60,0 L20,0" stroke="rgba(139, 92, 246, 0.4)" strokeWidth="1.5" strokeDasharray="4,2" />
-                    <rect x="0" y="-12" width="20" height="24" rx="2" fill="url(#boxGrad2)" stroke="#8B5CF6" strokeWidth="1" />
+                    <path d="M-60,0 L20,0" stroke="rgba(119, 0, 255, 0.4)" strokeWidth="1.5" strokeDasharray="4,2" />
+                    <rect x="0" y="-12" width="20" height="24" rx="2" fill="url(#boxGrad2)" stroke="#7700FF" strokeWidth="1" />
                     <text x="10" y="-18" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#ffffff" textAnchor="middle">MANUAL REVIEW</text>
                     <text x="10" y="22" fontFamily="var(--font-mono), monospace" fontSize="6" fill="rgba(255,255,255,0.4)" textAnchor="middle">+45m</text>
 
-                    <path d="M20,0 L100,60" stroke="#8B5CF6" strokeWidth="1.5" strokeDasharray="4,2" />
-                    <circle cx="100" cy="60" r="8" fill="rgba(139,92,246,0.1)" stroke="#8B5CF6" strokeWidth="2" filter="url(#glow2)" style={{ animation: 'blink-warning-1 1.5s infinite' }} />
-                    <text x="100" y="45" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#8B5CF6" textAnchor="middle">ACTION TAKEN</text>
-                    <text x="100" y="78" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#8B5CF6" textAnchor="middle">+75m</text>
+                    <path d="M20,0 L100,60" stroke="#7700FF" strokeWidth="1.5" strokeDasharray="4,2" />
+                    <circle cx="100" cy="60" r="8" fill="rgba(119,0,255,0.1)" stroke="#7700FF" strokeWidth="2" filter="url(#glow2)" style={{ animation: 'blink-warning-1 1.5s infinite' }} />
+                    <text x="100" y="45" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#7700FF" textAnchor="middle">ACTION TAKEN</text>
+                    <text x="100" y="78" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#7700FF" textAnchor="middle">+75m</text>
 
                     {/* Critical Delay Marker */}
-                    <path d="M-100,-85 L100,-85" stroke="#8B5CF6" strokeWidth="1" opacity="0.6" />
-                    <path d="M-100,-90 L-100,-80 M100,-90 L100,-80" stroke="#8B5CF6" strokeWidth="1" opacity="0.6" />
-                    <rect x="-30" y="-92" width="60" height="14" rx="2" fill="#0C0D10" stroke="#8B5CF6" strokeWidth="1" />
-                    <text x="0" y="-83" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#8B5CF6" filter="url(#glowSubtle2)" textAnchor="middle" style={{ animation: 'blink-warning-1 1.5s infinite' }}>75 MINUTE EXPOSURE</text>
+                    <path d="M-100,-85 L100,-85" stroke="#7700FF" strokeWidth="1" opacity="0.6" />
+                    <path d="M-100,-90 L-100,-80 M100,-90 L100,-80" stroke="#7700FF" strokeWidth="1" opacity="0.6" />
+                    <rect x="-30" y="-92" width="60" height="14" rx="2" fill="#131416" stroke="#7700FF" strokeWidth="1" />
+                    <text x="0" y="-83" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#7700FF" filter="url(#glowSubtle2)" textAnchor="middle" style={{ animation: 'blink-warning-1 1.5s infinite' }}>75 MINUTE EXPOSURE</text>
                   </g>
                 </svg>
               </div>
@@ -552,17 +834,17 @@ export default function IntelligenceEnginePage() {
             </div>
 
             {/* Feature 3 */}
-            <div className="feature-col-item" style={{ opacity: 0 }}>
+            <div className="feature-col-item ent-grid-cell" style={{ opacity: 0 }}>
               <span className="fig-label">Fig 0.3</span>
               <div className="fig-svg-wrap">
                 <svg viewBox="0 0 360 200" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <defs>
                     <linearGradient id="purpleGradVertical3" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="rgba(139, 92, 246, 0.2)" />
-                      <stop offset="100%" stopColor="rgba(139, 92, 246, 0.02)" />
+                      <stop offset="0%" stopColor="rgba(119, 0, 255, 0.2)" />
+                      <stop offset="100%" stopColor="rgba(119, 0, 255, 0.02)" />
                     </linearGradient>
                     <linearGradient id="boxGrad3" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="rgba(255, 255, 255, 0.08)" />
+                      <stop offset="0%" stopColor="#212326" />
                       <stop offset="100%" stopColor="rgba(255, 255, 255, 0.02)" />
                     </linearGradient>
                     <filter id="glow3" x="-20%" y="-20%" width="140%" height="140%">
@@ -575,9 +857,9 @@ export default function IntelligenceEnginePage() {
                     </filter>
                   </defs>
 
-                  <g transform="translate(180, 100)">
+                  <g transform="translate(180, 100) scale(1.2)">
                     {/* Base Architectural Grid */}
-                    <g stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" strokeDasharray="3,3">
+                    <g stroke="#1A1C1E" strokeWidth="0.5" strokeDasharray="3,3">
                       <path d="M-150,-80 L150,-80 M-150,-40 L150,-40 M-150,0 L150,0 M-150,40 L150,40 M-150,80 L150,80" />
                       <path d="M-120,-100 L-120,100 M-80,-100 L-80,100 M-40,-100 L-40,100 M0,-100 L0,100 M40,-100 L40,100 M80,-100 L80,100 M120,-100 L120,100" />
                     </g>
@@ -585,53 +867,53 @@ export default function IntelligenceEnginePage() {
                     {/* Three Large Silos */}
                     {/* VMS Silo */}
                     <g transform="translate(-100, 0)">
-                      <path d="M-25,-50 L25,-50 L35,-40 L35,50 L-25,50 Z" fill="url(#boxGrad3)" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" />
-                      <path d="M25,-50 L25,50" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-                      <path d="M25,-50 L35,-40" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+                      <path d="M-25,-50 L25,-50 L35,-40 L35,50 L-25,50 Z" fill="url(#boxGrad3)" stroke="#1A1C1E" strokeWidth="1.5" />
+                      <path d="M25,-50 L25,50" stroke="#1A1C1E" strokeWidth="1" />
+                      <path d="M25,-50 L35,-40" stroke="#1A1C1E" strokeWidth="1" />
                       <text x="0" y="-20" fontFamily="var(--font-mono), monospace" fontSize="8" fontWeight="bold" fill="#ffffff" textAnchor="middle">VMS</text>
                       {/* Data Fragments */}
-                      <rect x="-15" y="0" width="20" height="4" fill="#8B5CF6" />
-                      <rect x="-15" y="10" width="12" height="4" fill="rgba(139, 92, 246, 0.4)" />
-                      <rect x="-15" y="20" width="25" height="4" fill="rgba(139, 92, 246, 0.4)" />
+                      <rect x="-15" y="0" width="20" height="4" fill="#7700FF" />
+                      <rect x="-15" y="10" width="12" height="4" fill="rgba(119, 0, 255, 0.4)" />
+                      <rect x="-15" y="20" width="25" height="4" fill="rgba(119, 0, 255, 0.4)" />
                     </g>
 
                     {/* ACS Silo */}
                     <g transform="translate(0, 0)">
-                      <path d="M-25,-50 L25,-50 L35,-40 L35,50 L-25,50 Z" fill="url(#boxGrad3)" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" />
-                      <path d="M25,-50 L25,50" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-                      <path d="M25,-50 L35,-40" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+                      <path d="M-25,-50 L25,-50 L35,-40 L35,50 L-25,50 Z" fill="url(#boxGrad3)" stroke="#1A1C1E" strokeWidth="1.5" />
+                      <path d="M25,-50 L25,50" stroke="#1A1C1E" strokeWidth="1" />
+                      <path d="M25,-50 L35,-40" stroke="#1A1C1E" strokeWidth="1" />
                       <text x="0" y="-20" fontFamily="var(--font-mono), monospace" fontSize="8" fontWeight="bold" fill="#ffffff" textAnchor="middle">ACS</text>
                       {/* Data Fragments */}
-                      <rect x="-15" y="0" width="22" height="4" fill="#8B5CF6" />
-                      <rect x="-15" y="10" width="18" height="4" fill="rgba(139, 92, 246, 0.4)" />
-                      <rect x="-15" y="20" width="14" height="4" fill="rgba(139, 92, 246, 0.4)" />
+                      <rect x="-15" y="0" width="22" height="4" fill="#7700FF" />
+                      <rect x="-15" y="10" width="18" height="4" fill="rgba(119, 0, 255, 0.4)" />
+                      <rect x="-15" y="20" width="14" height="4" fill="rgba(119, 0, 255, 0.4)" />
                     </g>
 
                     {/* DIR Silo */}
                     <g transform="translate(100, 0)">
-                      <path d="M-25,-50 L25,-50 L35,-40 L35,50 L-25,50 Z" fill="url(#boxGrad3)" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" />
-                      <path d="M25,-50 L25,50" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-                      <path d="M25,-50 L35,-40" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+                      <path d="M-25,-50 L25,-50 L35,-40 L35,50 L-25,50 Z" fill="url(#boxGrad3)" stroke="#1A1C1E" strokeWidth="1.5" />
+                      <path d="M25,-50 L25,50" stroke="#1A1C1E" strokeWidth="1" />
+                      <path d="M25,-50 L35,-40" stroke="#1A1C1E" strokeWidth="1" />
                       <text x="0" y="-20" fontFamily="var(--font-mono), monospace" fontSize="8" fontWeight="bold" fill="#ffffff" textAnchor="middle">DIR</text>
                       {/* Data Fragments */}
-                      <rect x="-15" y="0" width="16" height="4" fill="#8B5CF6" />
-                      <rect x="-15" y="10" width="24" height="4" fill="rgba(139, 92, 246, 0.4)" />
-                      <rect x="-15" y="20" width="10" height="4" fill="rgba(139, 92, 246, 0.4)" />
+                      <rect x="-15" y="0" width="16" height="4" fill="#7700FF" />
+                      <rect x="-15" y="10" width="24" height="4" fill="rgba(119, 0, 255, 0.4)" />
+                      <rect x="-15" y="20" width="10" height="4" fill="rgba(119, 0, 255, 0.4)" />
                     </g>
 
                     {/* Broken Connectors */}
-                    <path d="M-65,10 L-25,10" stroke="#8B5CF6" strokeWidth="2" strokeDasharray="4,4" opacity="0.5" />
-                    <g stroke="#8B5CF6" strokeWidth="2" transform="translate(-45, 10)" filter="url(#glowSubtle3)">
+                    <path d="M-65,10 L-25,10" stroke="#7700FF" strokeWidth="2" strokeDasharray="4,4" opacity="0.5" />
+                    <g stroke="#7700FF" strokeWidth="2" transform="translate(-45, 10)" filter="url(#glowSubtle3)">
                       <line x1="-4" y1="-4" x2="4" y2="4" /> <line x1="4" y1="-4" x2="-4" y2="4" />
                     </g>
 
-                    <path d="M35,10 L75,10" stroke="#8B5CF6" strokeWidth="2" strokeDasharray="4,4" opacity="0.5" />
-                    <g stroke="#8B5CF6" strokeWidth="2" transform="translate(55, 10)" filter="url(#glowSubtle3)">
+                    <path d="M35,10 L75,10" stroke="#7700FF" strokeWidth="2" strokeDasharray="4,4" opacity="0.5" />
+                    <g stroke="#7700FF" strokeWidth="2" transform="translate(55, 10)" filter="url(#glowSubtle3)">
                       <line x1="-4" y1="-4" x2="4" y2="4" /> <line x1="4" y1="-4" x2="-4" y2="4" />
                     </g>
 
                     {/* Status Bar */}
-                    <rect x="-70" y="70" width="140" height="18" rx="2" fill="url(#purpleGradVertical3)" stroke="#8B5CF6" strokeWidth="1" />
+                    <rect x="-70" y="70" width="140" height="18" rx="2" fill="url(#purpleGradVertical3)" stroke="#7700FF" strokeWidth="1" />
                     <text x="0" y="82" fontFamily="var(--font-mono), monospace" fontSize="8" fill="#ffffff" filter="url(#glowSubtle3)" textAnchor="middle" style={{ animation: 'blink-warning-1 1.5s infinite' }}>[ ZERO CROSS-SYSTEM CONTEXT ]</text>
                   </g>
                 </svg>
@@ -641,13 +923,13 @@ export default function IntelligenceEnginePage() {
             </div>
 
             {/* Feature 4 */}
-            <div className="feature-col-item" style={{ opacity: 0 }}>
+            <div className="feature-col-item ent-grid-cell" style={{ opacity: 0 }}>
               <span className="fig-label">Fig 0.4</span>
               <div className="fig-svg-wrap">
                 <svg viewBox="0 0 360 200" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <defs>
                     <linearGradient id="boxGrad4" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="rgba(255, 255, 255, 0.08)" />
+                      <stop offset="0%" stopColor="#212326" />
                       <stop offset="100%" stopColor="rgba(255, 255, 255, 0.02)" />
                     </linearGradient>
                     <filter id="glow4" x="-20%" y="-20%" width="140%" height="140%">
@@ -660,75 +942,85 @@ export default function IntelligenceEnginePage() {
                     </filter>
                   </defs>
 
-                  <g transform="translate(180, 100)">
+                  <g transform="translate(180, 100) scale(1.2)">
                     {/* Base Architectural Grid */}
-                    <g stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" strokeDasharray="3,3">
+                    <g stroke="#1A1C1E" strokeWidth="0.5" strokeDasharray="3,3">
                       <path d="M-150,-80 L150,-80 M-150,-40 L150,-40 M-150,0 L150,0 M-150,40 L150,40 M-150,80 L150,80" />
                       <path d="M-120,-100 L-120,100 M-80,-100 L-80,100 M-40,-100 L-40,100 M0,-100 L0,100 M40,-100 L40,100 M80,-100 L80,100 M120,-100 L120,100" />
                     </g>
 
                     {/* Disparate Data Sources */}
                     <g transform="translate(-120, -50)">
-                      <rect x="-20" y="-15" width="40" height="30" fill="url(#boxGrad4)" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                      <rect x="-20" y="-15" width="40" height="30" fill="url(#boxGrad4)" stroke="#1A1C1E" strokeWidth="1" />
                       <text x="0" y="3" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#A1A1AA" textAnchor="middle">LOG EXPORTS</text>
                     </g>
                     <g transform="translate(-120, 0)">
-                      <rect x="-20" y="-15" width="40" height="30" fill="url(#boxGrad4)" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                      <rect x="-20" y="-15" width="40" height="30" fill="url(#boxGrad4)" stroke="#1A1C1E" strokeWidth="1" />
                       <text x="0" y="3" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#A1A1AA" textAnchor="middle">ACCESS DB</text>
                     </g>
                     <g transform="translate(-120, 50)">
-                      <rect x="-20" y="-15" width="40" height="30" fill="url(#boxGrad4)" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                      <rect x="-20" y="-15" width="40" height="30" fill="url(#boxGrad4)" stroke="#1A1C1E" strokeWidth="1" />
                       <text x="0" y="3" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#A1A1AA" textAnchor="middle">VIDEO ARCHIVE</text>
                     </g>
 
                     {/* Manual Extraction Paths */}
-                    <path d="M-100,-50 L-30,-20" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" strokeDasharray="4,4" />
-                    <path d="M-100,0 L-30,0" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" strokeDasharray="4,4" />
-                    <path d="M-100,50 L-30,20" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" strokeDasharray="4,4" />
+                    <path d="M-100,-50 L-30,-20" stroke="#1A1C1E" strokeWidth="1.5" strokeDasharray="4,4" />
+                    <path d="M-100,0 L-30,0" stroke="#1A1C1E" strokeWidth="1.5" strokeDasharray="4,4" />
+                    <path d="M-100,50 L-30,20" stroke="#1A1C1E" strokeWidth="1.5" strokeDasharray="4,4" />
 
                     {/* Human Analyst Bottleneck */}
-                    <circle cx="-30" cy="0" r="25" fill="#0C0D10" stroke="#8B5CF6" strokeWidth="1.5" />
-                    <circle cx="-30" cy="0" r="18" fill="rgba(139,92,246,0.1)" stroke="#8B5CF6" strokeWidth="1" filter="url(#glowSubtle4)" />
+                    <circle cx="-30" cy="0" r="25" fill="#131416" stroke="#7700FF" strokeWidth="1.5" />
+                    <circle cx="-30" cy="0" r="18" fill="rgba(119,0,255,0.1)" stroke="#7700FF" strokeWidth="1" filter="url(#glowSubtle4)" />
                     <text x="-30" y="3" fontFamily="var(--font-mono), monospace" fontSize="8" fill="#ffffff" textAnchor="middle">HUMAN</text>
-                    <rect x="-50" y="35" width="40" height="12" rx="2" fill="url(#boxGrad4)" stroke="#8B5CF6" strokeWidth="1" />
-                    <text x="-30" y="43" fontFamily="var(--font-mono), monospace" fontSize="5" fill="#8B5CF6" textAnchor="middle" filter="url(#glowSubtle4)" style={{ animation: 'blink-warning-1 1.5s infinite' }}>BOTTLENECK</text>
+                    <rect x="-50" y="35" width="40" height="12" rx="2" fill="url(#boxGrad4)" stroke="#7700FF" strokeWidth="1" />
+                    <text x="-30" y="43" fontFamily="var(--font-mono), monospace" fontSize="5" fill="#7700FF" textAnchor="middle" filter="url(#glowSubtle4)" style={{ animation: 'blink-warning-1 1.5s infinite' }}>BOTTLENECK</text>
 
                     {/* Slow Processing Path */}
-                    <path d="M-5,0 L60,0" stroke="rgba(255,255,255,0.2)" strokeWidth="1" strokeDasharray="2,2" />
+                    <path d="M-5,0 L60,0" stroke="#1A1C1E" strokeWidth="1" strokeDasharray="2,2" />
                     <polygon points="56,-4 62,0 56,4" fill="rgba(255,255,255,0.2)" />
 
                     {/* Compliance Document */}
                     <g transform="translate(90, 0)">
-                      <path d="M-25,-35 L15,-35 L25,-25 L25,35 L-25,35 Z" fill="url(#boxGrad4)" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" />
-                      <path d="M15,-35 L15,-25 L25,-25" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" />
-                      <line x1="-15" y1="-10" x2="15" y2="-10" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-                      <line x1="-15" y1="0" x2="15" y2="0" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-                      <line x1="-15" y1="10" x2="5" y2="10" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+                      <path d="M-25,-35 L15,-35 L25,-25 L25,35 L-25,35 Z" fill="url(#boxGrad4)" stroke="#1A1C1E" strokeWidth="1.5" />
+                      <path d="M15,-35 L15,-25 L25,-25" fill="none" stroke="#1A1C1E" strokeWidth="1.5" />
+                      <line x1="-15" y1="-10" x2="15" y2="-10" stroke="#1A1C1E" strokeWidth="1" />
+                      <line x1="-15" y1="0" x2="15" y2="0" stroke="#1A1C1E" strokeWidth="1" />
+                      <line x1="-15" y1="10" x2="5" y2="10" stroke="#1A1C1E" strokeWidth="1" />
                       <text x="0" y="25" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#ffffff" textAnchor="middle">COMPLIANCE REPORT</text>
                     </g>
 
                     {/* Cost Alert */}
-                    <rect x="50" y="-70" width="80" height="20" rx="2" fill="#0C0D10" stroke="#8B5CF6" strokeWidth="1" />
-                    <text x="90" y="-57" fontFamily="var(--font-mono), monospace" fontSize="7" fill="#8B5CF6" filter="url(#glowSubtle4)" textAnchor="middle" style={{ animation: 'blink-warning-1 1.5s infinite' }}>[ 240H OVERHEAD ]</text>
+                    <rect x="50" y="-70" width="80" height="20" rx="2" fill="#131416" stroke="#7700FF" strokeWidth="1" />
+                    <text x="90" y="-57" fontFamily="var(--font-mono), monospace" fontSize="7" fill="#7700FF" filter="url(#glowSubtle4)" textAnchor="middle" style={{ animation: 'blink-warning-1 1.5s infinite' }}>[ 240H OVERHEAD ]</text>
                   </g>
                 </svg>
               </div>
               <h3>Compliance Built by Hand</h3>
               <p className="card-desc">One quarterly compliance report. Three analysts. Two weeks. 240 hours of pulling data from six disconnected systems to produce documentation that should generate itself automatically.</p>
             </div>
-          </div>
+            </div>
 
+
+          {/* Diagonal connecting bridge */}
+          <div style={{
+            width: '100%',
+            height: '60px',
+            borderLeft: '1px solid #212326',
+            borderRight: '1px solid #212326',
+            borderBottom: '1px solid #212326',
+            backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 6px, #212326 6px, #212326 7px)'
+          }} />
 
           {/* Metrics Section */}
-          <div className="metrics-row-wrap" style={{ width: '100%', marginTop: '60px' }}>
-            <div className="metrics-horizontal-row-4col" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(20,21,24,0.45)', borderRadius: '0', overflow: 'hidden' }}>
+          <div className="metrics-row-wrap" style={{ width: '100%', marginTop: '0px' }}>
+            <div className="metrics-horizontal-row-4col" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', border: '1px solid #212326', borderTop: 'none', background: 'rgba(20,21,24,0.45)', borderRadius: '0', overflow: 'hidden' }}>
               {[
                 { num: '340%', desc: 'average increase in security data volume over 5 years' },
                 { num: '67%', desc: 'of security decisions made without real-time data' },
                 { num: '4.2hrs', desc: 'average manual detection time for access anomalies' },
                 { num: '89%', desc: 'of compliance reports still assembled manually' }
               ].map((metric, idx) => (
-                <div key={idx} className="metric-col" style={{ padding: '24px', textAlign: 'center', borderRight: idx !== 3 ? '1px solid rgba(255,255,255,0.06)' : 'none' }}>
+                <div key={idx} className="metric-col" style={{ padding: '40px 24px', textAlign: 'center', borderRight: idx !== 3 ? '1px solid #212326' : 'none' }}>
                   <div className="metric-col-number" style={{ fontSize: '36px', fontWeight: 'bold', color: 'var(--primary-purple)', marginBottom: '8px', fontFamily: 'var(--font-mono)' }}>
                     {metric.num}
                   </div>
@@ -748,6 +1040,7 @@ export default function IntelligenceEnginePage() {
 
       {/* SECTION 3.5: Premium CTA Statement */}
       <section
+        className="intel-cta-section"
         style={{
           background: 'transparent',
           color: '#ffffff',
@@ -756,54 +1049,23 @@ export default function IntelligenceEnginePage() {
           zIndex: 10,
         }}
       >
+        <style>{`
+          @keyframes moveDiagonalsIntel {
+              0% { background-position: 0 0; }
+              100% { background-position: 120px 0; }
+          }
+          .intel-cta-section:hover .intel-cta-bg {
+              animation: moveDiagonalsIntel 3s linear infinite;
+          }
+        `}</style>
         {/* Horizontal Top (Full width) */}
-        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'rgba(255,255,255,0.05)', zIndex: 0 }} />
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: '#212326', zIndex: 0 }} />
         {/* Horizontal Bottom (Full width) */}
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '1px', background: 'rgba(255,255,255,0.05)', zIndex: 0 }} />
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '1px', background: '#212326', zIndex: 0 }} />
 
-        {/* Stars Background (Outer Wings Only) */}
-        <div className="hide-on-mobile" style={{
-          position: 'absolute',
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: 0,
-          zIndex: -1,
-          pointerEvents: 'none',
-          // Mask out the central 1152px content area so the effect only shows on the far left and right
-          maskImage: 'linear-gradient(to right, black 0, black calc(50% - 576px), transparent calc(50% - 576px), transparent calc(50% + 576px), black calc(50% + 576px), black 100%)',
-          WebkitMaskImage: 'linear-gradient(to right, black 0, black calc(50% - 576px), transparent calc(50% - 576px), transparent calc(50% + 576px), black calc(50% + 576px), black 100%)'
-        }}>
-          <style>
-            {`
-              @keyframes driftStars {
-                0% { background-position: 0px 0px; }
-                100% { background-position: 200px 200px; }
-              }
-              @keyframes twinkleStars {
-                0%, 100% { opacity: 0.4; }
-                50% { opacity: 0.8; }
-              }
-              @keyframes bottomBreathing {
-                0%, 100% { transform: scaleY(1); opacity: 1; }
-                50% { transform: scaleY(0.7); opacity: 0.5; }
-              }
-            `}
-          </style>
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            opacity: 0.6,
-            backgroundImage: 'radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)), radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.5), rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 90px 40px, #ffffff, rgba(0,0,0,0)), radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.5), rgba(0,0,0,0)), radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.8), rgba(0,0,0,0))',
-            backgroundSize: '200px 200px',
-            maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)',
-            WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)',
-            animation: 'driftStars 30s linear infinite, twinkleStars 4s ease-in-out infinite'
-          }} />
-        </div>
-
+        {/* Stars Background (Outer Wings Only) - Removed as per request */}
         {/* Central constrained column */}
-        <div className="container" style={{ position: 'relative', height: '100%', maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
+        <div className="container" style={{ position: 'relative', height: '100%', maxWidth: '1280px', margin: '0 auto', padding: '0 32px' }}>
 
           {/* Box with vertical borders, diagonal background, and breathing bottom glow */}
           <div style={{
@@ -812,12 +1074,12 @@ export default function IntelligenceEnginePage() {
             bottom: 0,
             left: '24px',
             right: '24px',
-            borderLeft: '1px solid rgba(255,255,255,0.05)',
-            borderRight: '1px solid rgba(255,255,255,0.05)',
-            backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(255,255,255,0.05) 8px, rgba(255,255,255,0.05) 9px)',
+            borderLeft: '1px solid #212326',
+            borderRight: '1px solid #212326',
+            backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 6px, #212326 6px, #212326 7px)',
             overflow: 'hidden',
             zIndex: -1
-          }} className="hide-on-mobile">
+          }} className="hide-on-mobile intel-cta-bg">
 
             {/* Inner Bottom Gradient (Breathing Up and Down) */}
             <div style={{
@@ -826,7 +1088,7 @@ export default function IntelligenceEnginePage() {
               left: 0,
               right: 0,
               height: '70%',
-              background: 'radial-gradient(ellipse 80% 100% at 50% 100%, rgba(139, 92, 246, 0.25) 0%, transparent 100%)',
+              background: 'radial-gradient(ellipse 80% 100% at 50% 100%, rgba(119, 0, 255, 0.25) 0%, transparent 100%)',
               animation: 'bottomBreathing 5s ease-in-out infinite',
               transformOrigin: 'bottom center',
               pointerEvents: 'none',
@@ -835,7 +1097,7 @@ export default function IntelligenceEnginePage() {
 
           </div>
 
-          <div style={{ maxWidth: '800px', width: '100%', padding: '80px 0', margin: '0 auto', position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+          <div style={{ maxWidth: '900px', width: '100%', padding: '80px 0', margin: '0 auto', position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
             <h2 style={{
               fontSize: '48px',
               fontWeight: 600,
@@ -845,8 +1107,8 @@ export default function IntelligenceEnginePage() {
               marginBottom: '32px',
               fontFamily: 'var(--font-main)'
             }}>
-              Stop responding to security.<br />
-              Start anticipating it.
+              Security intelligence that acts before<br />
+              the analyst gets back to you
             </h2>
             <p style={{
               fontSize: '14px',
@@ -854,7 +1116,7 @@ export default function IntelligenceEnginePage() {
               lineHeight: 1.6,
               fontFamily: 'var(--font-mono)',
               marginBottom: '48px',
-              maxWidth: '640px',
+              maxWidth: '700px',
               margin: '0 auto 48px auto'
             }}>
               Your security stack is generating more intelligence than any team can manually process. The Intelligence Engine connects it, correlates it, and delivers decisions — before the window closes.
@@ -867,9 +1129,7 @@ export default function IntelligenceEnginePage() {
               padding: '16px 32px',
               fontSize: '15px',
               textDecoration: 'none',
-            }}>
-              Request Intelligence Assessment
-            </a>
+            }}>Request Intelligence Assessment <svg className="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path className="arrow-stem" d="M3 12h12" /><path className="arrow-head" d="m9 18 6-6-6-6"/></svg></a>
           </div>
         </div>
       </section>
@@ -879,18 +1139,20 @@ export default function IntelligenceEnginePage() {
 
       {/* SECTION: CAPABILITY FRAMEWORK */}
       {/* SECTION: CAPABILITIES — INTELLIGENCE ENGINE */}
-      <section id="capabilities" style={{ padding: '0', background: 'transparent', position: 'relative', zIndex: 10, width: '100%' }}>
-        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', maxWidth: '800px', margin: '0 0 60px' }}>
-            <div style={{ display: 'flex', justifyContent: 'flex-start', width: '100%', marginBottom: '12px' }}>
-              <span className="ent-pill" style={{ marginLeft: 0 }}>INTELLIGENCE CAPABILITIES</span>
-            </div>
-            <h2 className="std-section-h2" style={{ fontSize: '48px', fontWeight: 600, letterSpacing: '-0.02em', margin: '0 0 20px', textAlign: 'left', lineHeight: 1.2 }}>
-              Six capabilities.<br />Zero analyst bottlenecks.
+      <section id="capabilities" style={{ padding: '0 0 160px 0', background: 'transparent', position: 'relative', zIndex: 10, width: '100%' }}>
+        <div className="container" style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 32px' }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-start', width: '100%', marginBottom: '16px' }}>
+            <span className="ent-pill" style={{ marginLeft: 0 }}>INTELLIGENCE CAPABILITIES</span>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', width: '100%', margin: '0 0 60px', flexWrap: 'wrap', gap: '28px' }}>
+            <h2 className="std-section-h2" style={{ maxWidth: '700px', fontSize: '52px', fontWeight: 600, letterSpacing: '-0.02em', margin: '0', textAlign: 'left', lineHeight: 1.2 }}>
+              Six capabilities with zero analyst bottlenecks
             </h2>
-            <p className="std-section-subheading" style={{ fontSize: '15px', color: '#B6B6B7', lineHeight: 1.6, textAlign: 'left', margin: '0' }}>
-              Purpose-built intelligence for every function in your security operation. From the guard floor to the boardroom.
-            </p>
+            <div style={{ maxWidth: '400px', marginBottom: '22px' }}>
+              <p style={{ fontSize: '15px', color: '#B6B6B7', lineHeight: 1.6, textAlign: 'left', margin: '0' }}>
+                Purpose-built intelligence for every function in your security operation. From the guard floor to the boardroom.
+              </p>
+            </div>
           </div>
 
           <div className="agents-accordion-grid">
@@ -904,7 +1166,7 @@ export default function IntelligenceEnginePage() {
                 >
                   <div className="agent-accordion-header">
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                      <span style={{ fontSize: '14px', fontFamily: 'var(--font-mono), monospace', color: activeCapability === cap.id ? '#8B5CF6' : 'rgba(255,255,255,0.3)', fontWeight: 600 }}>{cap.num}</span>
+                      <span style={{ fontSize: '14px', fontFamily: 'var(--font-mono), monospace', color: activeCapability === cap.id ? '#7700FF' : 'rgba(255,255,255,0.3)', fontWeight: 600 }}>{cap.num}</span>
                       <h3 className="agent-accordion-title" style={{ fontSize: '14px', fontFamily: 'var(--font-mono), monospace', fontWeight: activeCapability === cap.id ? 600 : 400, color: activeCapability === cap.id ? '#ffffff' : 'rgba(255,255,255,0.4)', margin: 0 }}>{cap.name}</h3>
                     </div>
                   </div>
@@ -925,13 +1187,13 @@ export default function IntelligenceEnginePage() {
 
                         {/* Metrics Block */}
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0px' }}>
-                          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', fontWeight: 700, color: 'rgba(139,92,246,0.85)', letterSpacing: '2px', textTransform: 'uppercase', display: 'block', marginBottom: '10px', border: '1px solid rgba(139,92,246,0.2)', padding: '2px 6px', width: 'fit-content' }}>
+                          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', fontWeight: 700, color: 'rgba(119,0,255,0.85)', letterSpacing: '2px', textTransform: 'uppercase', display: 'block', marginBottom: '10px', border: '1px solid rgba(119,0,255,0.2)', padding: '2px 6px', width: 'fit-content' }}>
                             KEY OUTCOMES
                           </span>
                           <div style={{ display: 'flex', flexDirection: 'column', gap: '0px' }}>
                             {cap.metrics.map((metric, i) => (
                               <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '8px 0', borderBottom: 'none', position: 'relative' }}>
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: '3px', flexShrink: 0 }}>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7700FF" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: '3px', flexShrink: 0 }}>
                                   <polyline points="20 6 9 17 4 12" />
                                 </svg>
                                 <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)', lineHeight: '1.5', margin: 0, fontFamily: 'var(--font-main)' }}>
@@ -975,7 +1237,7 @@ export default function IntelligenceEnginePage() {
                           inset: 0,
                           borderRadius: '8px',
                           padding: '1px',
-                          background: 'linear-gradient(135deg, #8B5CF6 0%, rgba(139, 92, 246, 0) 50%)',
+                          background: 'linear-gradient(135deg, #7700FF 0%, rgba(119, 0, 255, 0) 50%)',
                           WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
                           WebkitMaskComposite: 'xor',
                           maskComposite: 'exclude',
@@ -986,7 +1248,7 @@ export default function IntelligenceEnginePage() {
                           <defs>
                             {/* Subtle dot grid for the Trigger.dev tech vibe */}
                             <pattern id="triggerGrid" width="20" height="20" patternUnits="userSpaceOnUse">
-                              <circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.05)" />
+                              <circle cx="2" cy="2" r="1" fill="#212326" />
                             </pattern>
 
                             {/* Glowing drop shadow for nodes */}
@@ -1007,7 +1269,7 @@ export default function IntelligenceEnginePage() {
 
                             {/* Gradient for the main correlation core */}
                             <linearGradient id="coreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                              <stop offset="0%" stopColor="#8B5CF6" />
+                              <stop offset="0%" stopColor="#7700FF" />
                               <stop offset="100%" stopColor="#A855F7" />
                             </linearGradient>
                           </defs>
@@ -1016,18 +1278,27 @@ export default function IntelligenceEnginePage() {
                           <rect width="100%" height="100%" fill="url(#triggerGrid)" />
 
                           {/* Background decorative circles */}
-                          <circle cx="200" cy="125" r="80" fill="none" stroke="rgba(139, 92, 246, 0.05)" strokeWidth="1" />
-                          <circle cx="200" cy="125" r="120" fill="none" stroke="rgba(139, 92, 246, 0.03)" strokeWidth="1" strokeDasharray="4 4" />
+                          <circle cx="200" cy="125" r="80" fill="none" stroke="rgba(119, 0, 255, 0.05)" strokeWidth="1" />
+                          <circle cx="200" cy="125" r="120" fill="none" stroke="rgba(119, 0, 255, 0.03)" strokeWidth="1" strokeDasharray="4 4" />
 
                           {/* --- CONNECTIONS --- */}
 
                           {/* Normal data streams (Green) */}
-                          <path d="M 60 60 Q 130 60 200 125" fill="none" stroke="#10B981" strokeWidth="1.5" strokeOpacity="0.3" />
-                          <path d="M 60 190 Q 130 190 200 125" fill="none" stroke="#10B981" strokeWidth="1.5" strokeOpacity="0.3" />
+                          <path d="M 60 60 Q 130 60 200 125" fill="none" stroke="#10B981" strokeWidth="1.5" strokeOpacity="0.4" strokeDasharray="4 4">
+                            <animate attributeName="stroke-dashoffset" from="100" to="0" dur="4s" repeatCount="indefinite" />
+                          </path>
+                          <path d="M 60 190 Q 130 190 200 125" fill="none" stroke="#10B981" strokeWidth="1.5" strokeOpacity="0.4" strokeDasharray="4 4">
+                            <animate attributeName="stroke-dashoffset" from="100" to="0" dur="4s" repeatCount="indefinite" />
+                          </path>
+
 
                           {/* High-priority threat paths (Pink/Purple) */}
-                          <path d="M 340 60 Q 270 60 200 125" fill="none" stroke="#EC4899" strokeWidth="1.5" strokeDasharray="4 4" style={{ animation: 'dashLine 20s linear infinite reverse' }} />
-                          <path d="M 340 190 Q 270 190 200 125" fill="none" stroke="#8B5CF6" strokeWidth="1.5" strokeDasharray="4 4" style={{ animation: 'dashLine 20s linear infinite reverse' }} />
+                          <path d="M 340 60 Q 270 60 200 125" fill="none" stroke="#EC4899" strokeWidth="1.5" strokeDasharray="4 4">
+                            <animate attributeName="stroke-dashoffset" from="0" to="100" dur="4s" repeatCount="indefinite" />
+                          </path>
+                          <path d="M 340 190 Q 270 190 200 125" fill="none" stroke="#7700FF" strokeWidth="1.5" strokeDasharray="4 4">
+                            <animate attributeName="stroke-dashoffset" from="0" to="100" dur="4s" repeatCount="indefinite" />
+                          </path>
 
                           {/* Animated data packets traveling along paths */}
                           <circle cx="0" cy="0" r="2" fill="#10B981">
@@ -1039,7 +1310,7 @@ export default function IntelligenceEnginePage() {
                           <circle cx="0" cy="0" r="3" fill="#EC4899" filter="url(#glowPink)">
                             <animateMotion path="M 340 60 Q 270 60 200 125" dur="2s" repeatCount="indefinite" />
                           </circle>
-                          <circle cx="0" cy="0" r="2.5" fill="#8B5CF6" filter="url(#glowPurple)">
+                          <circle cx="0" cy="0" r="2.5" fill="#7700FF" filter="url(#glowPurple)">
                             <animateMotion path="M 340 190 Q 270 190 200 125" dur="2.5s" repeatCount="indefinite" />
                           </circle>
 
@@ -1068,19 +1339,19 @@ export default function IntelligenceEnginePage() {
 
                           {/* Threat Node 2 (Purple) */}
                           <g transform="translate(340, 190)">
-                            <circle r="14" fill="rgba(139, 92, 246, 0.1)" stroke="rgba(139, 92, 246, 0.4)" />
-                            <circle r="4.5" fill="#8B5CF6" filter="url(#glowPurple)" />
-                            <text x="-20" y="24" fill="#8B5CF6" fontSize="9" fontFamily="var(--font-mono)">EXTERNAL</text>
+                            <circle r="14" fill="rgba(119, 0, 255, 0.1)" stroke="rgba(119, 0, 255, 0.4)" />
+                            <circle r="4.5" fill="#7700FF" filter="url(#glowPurple)" />
+                            <text x="-20" y="24" fill="#7700FF" fontSize="9" fontFamily="var(--font-mono)">EXTERNAL</text>
                           </g>
 
                           {/* --- CENTER CORRELATION ENGINE --- */}
                           <g transform="translate(200, 125)">
                             {/* Pulsing rings */}
-                            <circle r="30" fill="none" stroke="rgba(139, 92, 246, 0.2)" strokeWidth="1" style={{ animation: 'pulse 2s infinite' }} />
-                            <circle r="40" fill="none" stroke="rgba(139, 92, 246, 0.1)" strokeWidth="1" style={{ animation: 'pulse 2s infinite 0.5s' }} />
+                            <circle r="30" fill="none" stroke="rgba(119, 0, 255, 0.2)" strokeWidth="1" style={{ animation: 'pulse 2s infinite' }} />
+                            <circle r="40" fill="none" stroke="rgba(119, 0, 255, 0.1)" strokeWidth="1" style={{ animation: 'pulse 2s infinite 0.5s' }} />
 
                             {/* Core Hexagon */}
-                            <path d="M 0 -22 L 19 -11 L 19 11 L 0 22 L -19 11 L -19 -11 Z" fill="rgba(139, 92, 246, 0.1)" stroke="#8B5CF6" strokeWidth="1.5" filter="url(#glowPurple)" />
+                            <path d="M 0 -22 L 19 -11 L 19 11 L 0 22 L -19 11 L -19 -11 Z" fill="rgba(119, 0, 255, 0.1)" stroke="#7700FF" strokeWidth="1.5" filter="url(#glowPurple)" />
 
                             {/* Inner Core */}
                             <circle r="8" fill="url(#coreGradient)" />
@@ -1091,14 +1362,14 @@ export default function IntelligenceEnginePage() {
 
                           {/* --- FLOATING UI OVERLAY (Trigger.dev style) --- */}
                           <g transform="translate(145, 175)">
-                            <rect width="110" height="40" rx="4" fill="#0B0D12" stroke="rgba(255,255,255,0.1)" />
+                            <rect width="110" height="40" rx="4" fill="#0B0D12" stroke="#1A1C1E" />
 
                             {/* Executing Spinner */}
-                            <circle cx="15" cy="20" r="4" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="1.5" />
-                            <circle cx="15" cy="20" r="4" fill="none" stroke="#8B5CF6" strokeWidth="1.5" strokeDasharray="6 20" style={{ transformOrigin: '15px 20px', animation: 'spin 1s linear infinite' }} />
+                            <circle cx="15" cy="20" r="4" fill="none" stroke="#1A1C1E" strokeWidth="1.5" />
+                            <circle cx="15" cy="20" r="4" fill="none" stroke="#7700FF" strokeWidth="1.5" strokeDasharray="6 20" style={{ transformOrigin: '15px 20px', animation: 'spin 1s linear infinite' }} />
 
                             <text x="26" y="18" fill="#E4E4E7" fontSize="8" fontFamily="var(--font-mono)">Correlating...</text>
-                            <text x="26" y="28" fill="#8B5CF6" fontSize="7" fontFamily="var(--font-mono)">+14 Data points</text>
+                            <text x="26" y="28" fill="#7700FF" fontSize="7" fontFamily="var(--font-mono)">+14 Data points</text>
 
                             {/* Small Badge */}
                             <rect x="75" y="14" width="25" height="12" rx="2" fill="rgba(236,72,153,0.1)" stroke="rgba(236,72,153,0.3)" />
@@ -1125,7 +1396,7 @@ export default function IntelligenceEnginePage() {
                           inset: 0,
                           borderRadius: '8px',
                           padding: '1px',
-                          background: 'linear-gradient(135deg, #8B5CF6 0%, rgba(139, 92, 246, 0) 50%)',
+                          background: 'linear-gradient(135deg, #7700FF 0%, rgba(119, 0, 255, 0) 50%)',
                           WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
                           WebkitMaskComposite: 'xor',
                           maskComposite: 'exclude',
@@ -1135,7 +1406,7 @@ export default function IntelligenceEnginePage() {
                         <svg width="100%" height="100%" viewBox="0 0 400 250" style={{ position: 'relative', zIndex: 1 }}>
                           <defs>
                             <pattern id="nlTriggerGrid" width="20" height="20" patternUnits="userSpaceOnUse">
-                              <circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.05)" />
+                              <circle cx="2" cy="2" r="1" fill="#212326" />
                             </pattern>
                             <filter id="nlGlowPurple" x="-20%" y="-20%" width="140%" height="140%">
                               <feGaussianBlur stdDeviation="4" result="blur" />
@@ -1146,7 +1417,7 @@ export default function IntelligenceEnginePage() {
                               <feComposite in="SourceGraphic" in2="blur" operator="over" />
                             </filter>
                             <linearGradient id="queryGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-                              <stop offset="0%" stopColor="#8B5CF6" />
+                              <stop offset="0%" stopColor="#7700FF" />
                               <stop offset="100%" stopColor="transparent" />
                             </linearGradient>
                           </defs>
@@ -1155,11 +1426,11 @@ export default function IntelligenceEnginePage() {
                           <rect width="100%" height="100%" fill="url(#nlTriggerGrid)" />
 
                           {/* Connections / Processing Lines */}
-                          <path d="M 200 110 Q 200 170 120 180" fill="none" stroke="#8B5CF6" strokeWidth="1.5" strokeDasharray="4 4" style={{ animation: 'dashLine 15s linear infinite reverse' }} />
+                          <path d="M 200 110 Q 200 170 120 180" fill="none" stroke="#7700FF" strokeWidth="1.5" strokeDasharray="4 4" style={{ animation: 'dashLine 15s linear infinite reverse' }} />
                           <path d="M 200 110 Q 200 170 280 180" fill="none" stroke="#EC4899" strokeWidth="1.5" strokeDasharray="4 4" style={{ animation: 'dashLine 15s linear infinite reverse' }} />
 
                           {/* Moving Particles */}
-                          <circle cx="0" cy="0" r="3" fill="#8B5CF6" filter="url(#nlGlowPurple)">
+                          <circle cx="0" cy="0" r="3" fill="#7700FF" filter="url(#nlGlowPurple)">
                             <animateMotion path="M 200 110 Q 200 170 120 180" dur="2s" repeatCount="indefinite" />
                           </circle>
                           <circle cx="0" cy="0" r="3" fill="#EC4899" filter="url(#nlGlowPink)">
@@ -1168,34 +1439,34 @@ export default function IntelligenceEnginePage() {
 
                           {/* Center: Processing Node */}
                           <g transform="translate(200, 110)">
-                            <circle r="15" fill="rgba(139, 92, 246, 0.1)" stroke="#8B5CF6" strokeWidth="1" filter="url(#nlGlowPurple)" />
-                            <circle r="4" fill="#8B5CF6" />
+                            <circle r="15" fill="rgba(119, 0, 255, 0.1)" stroke="#7700FF" strokeWidth="1" filter="url(#nlGlowPurple)" />
+                            <circle r="4" fill="#7700FF" />
                           </g>
 
                           {/* Top: Query Input Panel */}
                           <g transform="translate(60, 40)">
                             {/* Glassmorphic Panel */}
-                            <rect width="280" height="60" rx="8" fill="#0B0D12" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+                            <rect width="280" height="60" rx="8" fill="#0B0D12" stroke="#1A1C1E" strokeWidth="1" />
                             <rect width="280" height="60" rx="8" fill="url(#queryGlow)" opacity="0.15" />
 
                             {/* Glowing top-left border accent */}
-                            <path d="M 0 8 Q 0 0 8 0 L 100 0" fill="none" stroke="#8B5CF6" strokeWidth="1.5" />
-                            <path d="M 0 40 L 0 8 Q 0 0 8 0" fill="none" stroke="#8B5CF6" strokeWidth="1.5" />
+                            <path d="M 0 8 Q 0 0 8 0 L 100 0" fill="none" stroke="#7700FF" strokeWidth="1.5" />
+                            <path d="M 0 40 L 0 8 Q 0 0 8 0" fill="none" stroke="#7700FF" strokeWidth="1.5" />
 
                             <text x="20" y="25" fill="#E4E4E7" fontSize="11" fontFamily="var(--font-mono)">
                               &gt; Show me all lateral movement
                             </text>
                             <text x="20" y="45" fill="rgba(255,255,255,0.4)" fontSize="11" fontFamily="var(--font-mono)">
-                              from <tspan fill="#8B5CF6">Site 7</tspan> in the last <tspan fill="#EC4899">48 hours</tspan>
+                              from <tspan fill="#7700FF">Site 7</tspan> in the last <tspan fill="#EC4899">48 hours</tspan>
                             </text>
-                            <rect x="235" y="35" width="6" height="12" fill="#8B5CF6" style={{ animation: 'blink 1s step-end infinite' }} />
+                            <rect x="235" y="35" width="6" height="12" fill="#7700FF" style={{ animation: 'blink 1s step-end infinite' }} />
                           </g>
 
                           {/* Result Node 1 (Purple) */}
                           <g transform="translate(120, 180)">
-                            <circle r="25" fill="none" stroke="rgba(139, 92, 246, 0.2)" strokeWidth="1" style={{ animation: 'pulse 2s infinite' }} />
-                            <rect x="-45" y="-15" width="90" height="30" rx="15" fill="#0B0D12" stroke="rgba(139, 92, 246, 0.3)" />
-                            <circle cx="-30" cy="0" r="4" fill="#8B5CF6" filter="url(#nlGlowPurple)" />
+                            <circle r="25" fill="none" stroke="rgba(119, 0, 255, 0.2)" strokeWidth="1" style={{ animation: 'pulse 2s infinite' }} />
+                            <rect x="-45" y="-15" width="90" height="30" rx="15" fill="#0B0D12" stroke="rgba(119, 0, 255, 0.3)" />
+                            <circle cx="-30" cy="0" r="4" fill="#7700FF" filter="url(#nlGlowPurple)" />
                             <text x="-15" y="3" fill="#E4E4E7" fontSize="9" fontFamily="var(--font-mono)">14 EVENTS</text>
                           </g>
 
@@ -1209,7 +1480,7 @@ export default function IntelligenceEnginePage() {
 
                           {/* Floating Status UI */}
                           <g transform="translate(240, 25)">
-                            <rect width="90" height="24" rx="4" fill="#0B0D12" stroke="rgba(255,255,255,0.05)" />
+                            <rect width="90" height="24" rx="4" fill="#0B0D12" stroke="#1A1C1E" />
                             <circle cx="12" cy="12" r="3" fill="none" stroke="#10B981" strokeWidth="1.5" strokeDasharray="4 10" style={{ animation: 'spin 1s linear infinite' }} />
                             <text x="22" y="15" fill="#10B981" fontSize="7" fontFamily="var(--font-mono)">Querying DB...</text>
                           </g>
@@ -1233,7 +1504,7 @@ export default function IntelligenceEnginePage() {
                           inset: 0,
                           borderRadius: '8px',
                           padding: '1px',
-                          background: 'linear-gradient(135deg, #8B5CF6 0%, rgba(139, 92, 246, 0) 50%)',
+                          background: 'linear-gradient(135deg, #7700FF 0%, rgba(119, 0, 255, 0) 50%)',
                           WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
                           WebkitMaskComposite: 'xor',
                           maskComposite: 'exclude',
@@ -1243,7 +1514,7 @@ export default function IntelligenceEnginePage() {
                         <svg width="100%" height="100%" viewBox="0 0 400 250" style={{ position: 'relative', zIndex: 1 }}>
                           <defs>
                             <pattern id="repTriggerGrid" width="20" height="20" patternUnits="userSpaceOnUse">
-                              <circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.05)" />
+                              <circle cx="2" cy="2" r="1" fill="#212326" />
                             </pattern>
                             <filter id="repGlowGreen" x="-20%" y="-20%" width="140%" height="140%">
                               <feGaussianBlur stdDeviation="4" result="blur" />
@@ -1280,7 +1551,7 @@ export default function IntelligenceEnginePage() {
 
                           {/* Report Node 1 */}
                           <g transform="translate(30, 170)">
-                            <rect width="140" height="40" rx="6" fill="#0B0D12" stroke="rgba(255,255,255,0.05)" />
+                            <rect width="140" height="40" rx="6" fill="#0B0D12" stroke="#1A1C1E" />
                             <rect width="140" height="40" rx="6" fill="url(#compGrad)" opacity="0.2" />
                             <circle cx="15" cy="20" r="4" fill="#10B981" filter="url(#repGlowGreen)" />
                             <text x="28" y="18" fill="#E4E4E7" fontSize="9" fontFamily="var(--font-mono)">HIPAA AUDIT</text>
@@ -1289,7 +1560,7 @@ export default function IntelligenceEnginePage() {
 
                           {/* Report Node 2 */}
                           <g transform="translate(230, 170)">
-                            <rect width="140" height="40" rx="6" fill="#0B0D12" stroke="rgba(255,255,255,0.05)" />
+                            <rect width="140" height="40" rx="6" fill="#0B0D12" stroke="#1A1C1E" />
                             <rect width="140" height="40" rx="6" fill="url(#compGrad)" opacity="0.2" />
                             <circle cx="15" cy="20" r="4" fill="#10B981" filter="url(#repGlowGreen)" />
                             <text x="28" y="18" fill="#E4E4E7" fontSize="9" fontFamily="var(--font-mono)">SOC 2 REPORT</text>
@@ -1315,7 +1586,7 @@ export default function IntelligenceEnginePage() {
                           inset: 0,
                           borderRadius: '8px',
                           padding: '1px',
-                          background: 'linear-gradient(135deg, #8B5CF6 0%, rgba(139, 92, 246, 0) 50%)',
+                          background: 'linear-gradient(135deg, #7700FF 0%, rgba(119, 0, 255, 0) 50%)',
                           WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
                           WebkitMaskComposite: 'xor',
                           maskComposite: 'exclude',
@@ -1325,7 +1596,7 @@ export default function IntelligenceEnginePage() {
                         <svg width="100%" height="100%" viewBox="0 0 400 250" style={{ position: 'relative', zIndex: 1 }}>
                           <defs>
                             <pattern id="predTriggerGrid" width="20" height="20" patternUnits="userSpaceOnUse">
-                              <circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.05)" />
+                              <circle cx="2" cy="2" r="1" fill="#212326" />
                             </pattern>
                             <filter id="predGlowRed" x="-20%" y="-20%" width="140%" height="140%">
                               <feGaussianBlur stdDeviation="4" result="blur" />
@@ -1340,7 +1611,7 @@ export default function IntelligenceEnginePage() {
                           <rect width="100%" height="100%" fill="url(#predTriggerGrid)" />
 
                           {/* Predictive Network Graph */}
-                          <path d="M 80 60 L 200 120 L 320 80" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+                          <path d="M 80 60 L 200 120 L 320 80" fill="none" stroke="#1A1C1E" strokeWidth="1" />
                           <path d="M 80 180 L 200 120 L 320 200" fill="none" stroke="rgba(239,68,68,0.3)" strokeWidth="1.5" strokeDasharray="4 4" style={{ animation: 'dashLine 10s linear infinite reverse' }} />
 
                           {/* Safe Nodes */}
@@ -1393,7 +1664,7 @@ export default function IntelligenceEnginePage() {
                           inset: 0,
                           borderRadius: '8px',
                           padding: '1px',
-                          background: 'linear-gradient(135deg, #8B5CF6 0%, rgba(139, 92, 246, 0) 50%)',
+                          background: 'linear-gradient(135deg, #7700FF 0%, rgba(119, 0, 255, 0) 50%)',
                           WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
                           WebkitMaskComposite: 'xor',
                           maskComposite: 'exclude',
@@ -1403,7 +1674,7 @@ export default function IntelligenceEnginePage() {
                         <svg width="100%" height="100%" viewBox="0 0 400 250" style={{ position: 'relative', zIndex: 1 }}>
                           <defs>
                             <pattern id="riskTriggerGrid" width="20" height="20" patternUnits="userSpaceOnUse">
-                              <circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.05)" />
+                              <circle cx="2" cy="2" r="1" fill="#212326" />
                             </pattern>
                             <filter id="riskGlowOrange" x="-20%" y="-20%" width="140%" height="140%">
                               <feGaussianBlur stdDeviation="4" result="blur" />
@@ -1433,17 +1704,17 @@ export default function IntelligenceEnginePage() {
 
                             {/* Medium Risk Item */}
                             <g transform="translate(0, 50)">
-                              <rect x="0" y="0" width="340" height="30" fill="#0B0D12" stroke="rgba(255,255,255,0.05)" rx="4" />
-                              <circle cx="20" cy="15" r="3" fill="#8B5CF6" />
+                              <rect x="0" y="0" width="340" height="30" fill="#0B0D12" stroke="#1A1C1E" rx="4" />
+                              <circle cx="20" cy="15" r="3" fill="#7700FF" />
                               <text x="40" y="19" fill="#E4E4E7" fontSize="10" fontFamily="var(--font-mono)">SITE 12</text>
                               <rect x="150" y="13" width="140" height="4" fill="rgba(255,255,255,0.1)" rx="2" />
-                              <rect x="150" y="13" width="40" height="4" fill="#8B5CF6" rx="2" />
-                              <text x="300" y="19" fill="#8B5CF6" fontSize="10" fontFamily="var(--font-mono)">0.21</text>
+                              <rect x="150" y="13" width="40" height="4" fill="#7700FF" rx="2" />
+                              <text x="300" y="19" fill="#7700FF" fontSize="10" fontFamily="var(--font-mono)">0.21</text>
                             </g>
 
                             {/* Low Risk Item */}
                             <g transform="translate(0, 90)">
-                              <rect x="0" y="0" width="340" height="30" fill="#0B0D12" stroke="rgba(255,255,255,0.05)" rx="4" />
+                              <rect x="0" y="0" width="340" height="30" fill="#0B0D12" stroke="#1A1C1E" rx="4" />
                               <circle cx="20" cy="15" r="3" fill="#10B981" />
                               <text x="40" y="19" fill="#E4E4E7" fontSize="10" fontFamily="var(--font-mono)">SITE 3</text>
                               <rect x="150" y="13" width="140" height="4" fill="rgba(255,255,255,0.1)" rx="2" />
@@ -1455,10 +1726,10 @@ export default function IntelligenceEnginePage() {
                           {/* Dynamic Trend Overlay */}
                           <g transform="translate(30, 160)">
                             {/* Axis and background */}
-                            <rect x="0" y="0" width="340" height="70" fill="#0B0D12" stroke="rgba(255,255,255,0.05)" rx="6" />
+                            <rect x="0" y="0" width="340" height="70" fill="#0B0D12" stroke="#1A1C1E" rx="6" />
 
                             {/* Grid Lines */}
-                            <path d="M 0 17 L 340 17 M 0 35 L 340 35 M 0 53 L 340 53" fill="none" stroke="rgba(255,255,255,0.02)" strokeWidth="1" strokeDasharray="2 2" />
+                            <path d="M 0 17 L 340 17 M 0 35 L 340 35 M 0 53 L 340 53" fill="none" stroke="#1A1C1E" strokeWidth="1" strokeDasharray="2 2" />
 
                             {/* Gradient Fill under Curve */}
                             <linearGradient id="areaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -1507,7 +1778,7 @@ export default function IntelligenceEnginePage() {
                           inset: 0,
                           borderRadius: '8px',
                           padding: '1px',
-                          background: 'linear-gradient(135deg, #8B5CF6 0%, rgba(139, 92, 246, 0) 50%)',
+                          background: 'linear-gradient(135deg, #7700FF 0%, rgba(119, 0, 255, 0) 50%)',
                           WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
                           WebkitMaskComposite: 'xor',
                           maskComposite: 'exclude',
@@ -1517,14 +1788,14 @@ export default function IntelligenceEnginePage() {
                         <svg width="100%" height="100%" viewBox="0 0 400 250" style={{ position: 'relative', zIndex: 1 }}>
                           <defs>
                             <pattern id="hubTriggerGrid" width="20" height="20" patternUnits="userSpaceOnUse">
-                              <circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.05)" />
+                              <circle cx="2" cy="2" r="1" fill="#212326" />
                             </pattern>
                             <filter id="hubGlowPurple" x="-20%" y="-20%" width="140%" height="140%">
                               <feGaussianBlur stdDeviation="6" result="blur" />
                               <feComposite in="SourceGraphic" in2="blur" operator="over" />
                             </filter>
                             <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
-                              <stop offset="0%" stopColor="rgba(139,92,246,0.2)" />
+                              <stop offset="0%" stopColor="rgba(119,0,255,0.2)" />
                               <stop offset="100%" stopColor="transparent" />
                             </radialGradient>
                           </defs>
@@ -1534,16 +1805,16 @@ export default function IntelligenceEnginePage() {
                           {/* Central Radar Hub */}
                           <g transform="translate(200, 110)">
                             <circle r="90" fill="url(#hubGlow)" />
-                            <circle r="40" fill="rgba(139,92,246,0.05)" stroke="rgba(139,92,246,0.3)" strokeWidth="1" strokeDasharray="4 4" style={{ animation: 'spin 10s linear infinite reverse' }} />
-                            <circle r="70" fill="none" stroke="rgba(139,92,246,0.2)" strokeWidth="1" style={{ animation: 'pulse 4s infinite' }} />
-                            <circle r="6" fill="#8B5CF6" filter="url(#hubGlowPurple)" />
+                            <circle r="40" fill="rgba(119,0,255,0.05)" stroke="rgba(119,0,255,0.3)" strokeWidth="1" strokeDasharray="4 4" style={{ animation: 'spin 10s linear infinite reverse' }} />
+                            <circle r="70" fill="none" stroke="rgba(119,0,255,0.2)" strokeWidth="1" style={{ animation: 'pulse 4s infinite' }} />
+                            <circle r="6" fill="#7700FF" filter="url(#hubGlowPurple)" />
                             <text x="0" y="4" textAnchor="middle" fill="#fff" fontSize="12" fontFamily="var(--font-mono)" fontWeight="bold">A+</text>
-                            <text x="0" y="25" textAnchor="middle" fill="#8B5CF6" fontSize="8" fontFamily="var(--font-mono)">POSTURE SCORE</text>
+                            <text x="0" y="25" textAnchor="middle" fill="#7700FF" fontSize="8" fontFamily="var(--font-mono)">POSTURE SCORE</text>
                           </g>
 
                           {/* Top Left Stat */}
                           <g transform="translate(20, 20)">
-                            <rect width="100" height="40" rx="6" fill="#0B0D12" stroke="rgba(255,255,255,0.05)" />
+                            <rect width="100" height="40" rx="6" fill="#0B0D12" stroke="#1A1C1E" />
                             <text x="50" y="16" textAnchor="middle" fill="rgba(255,255,255,0.4)" fontSize="7" fontFamily="var(--font-mono)">ACTIVE THREATS</text>
                             <text x="50" y="32" textAnchor="middle" fill="#fff" fontSize="14" fontFamily="var(--font-mono)" fontWeight="bold">0</text>
                             <circle cx="10" cy="10" r="3" fill="#10B981" />
@@ -1551,7 +1822,7 @@ export default function IntelligenceEnginePage() {
 
                           {/* Top Right Stat */}
                           <g transform="translate(280, 20)">
-                            <rect width="100" height="40" rx="6" fill="#0B0D12" stroke="rgba(255,255,255,0.05)" />
+                            <rect width="100" height="40" rx="6" fill="#0B0D12" stroke="#1A1C1E" />
                             <text x="50" y="16" textAnchor="middle" fill="rgba(255,255,255,0.4)" fontSize="7" fontFamily="var(--font-mono)">SITES SECURE</text>
                             <text x="50" y="32" textAnchor="middle" fill="#10B981" fontSize="14" fontFamily="var(--font-mono)" fontWeight="bold">14/14</text>
                             <circle cx="10" cy="10" r="3" fill="#10B981" />
@@ -1559,8 +1830,8 @@ export default function IntelligenceEnginePage() {
 
                           {/* Executive Summary Panel */}
                           <g transform="translate(20, 190)">
-                            <rect width="360" height="40" rx="6" fill="#0B0D12" stroke="rgba(139,92,246,0.3)" />
-                            <rect width="360" height="40" rx="6" fill="rgba(139,92,246,0.05)" />
+                            <rect width="360" height="40" rx="6" fill="#0B0D12" stroke="rgba(119,0,255,0.3)" />
+                            <rect width="360" height="40" rx="6" fill="rgba(119,0,255,0.05)" />
                             <text x="16" y="16" fill="#E4E4E7" fontSize="9" fontFamily="var(--font-mono)">"Global security posture is nominal. All agents operational.</text>
                             <text x="16" y="28" fill="#E4E4E7" fontSize="9" fontFamily="var(--font-mono)">No immediate anomalies detected in the last 24 hours."</text>
                           </g>
@@ -1579,6 +1850,11 @@ export default function IntelligenceEnginePage() {
       <IntelligencePhoneChat />
       <IndustrySectionIntelligence />
 
+      {/* 160px blank div spacing before Honest Positioning */}
+      <div style={{ height: '160px', width: '100%', flexShrink: 0 }} />
+
+      <HonestPositioning />
+
       <style>{`
         /* Accordion grid for Capabilities section */
         .agents-accordion-grid {
@@ -1587,7 +1863,7 @@ export default function IntelligenceEnginePage() {
           gap: 0;
           align-items: stretch;
           background: rgba(10, 11, 14, 0.4);
-          border: 1px solid rgba(255, 255, 255, 0.08);
+          border: 1px solid #212326;
           overflow: hidden;
         }
         @media (max-width: 991px) {
@@ -1599,14 +1875,14 @@ export default function IntelligenceEnginePage() {
         .agents-accordion-left {
           display: flex;
           flex-direction: column;
-          border-right: 1px solid rgba(255, 255, 255, 0.08);
+          border-right: 1px solid #212326;
           background: rgba(255, 255, 255, 0.01);
         }
 
         .agent-accordion-card {
           background: transparent;
           border: none;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          border-bottom: 1px solid #212326;
           padding: 24px 32px;
           cursor: pointer;
           transition: all 0.2s ease;
@@ -1714,7 +1990,7 @@ export default function IntelligenceEnginePage() {
         .fig-svg-wrap {
           position: relative;
           background: #0b0c0e;
-          border: 1px solid rgba(255, 255, 255, 0.08);
+          border: 1px solid #212326;
           border-radius: 12px;
           padding-top: 56px !important;
           padding-left: 24px;
@@ -1735,7 +2011,7 @@ export default function IntelligenceEnginePage() {
           left: 0;
           right: 0;
           height: 40px;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          border-bottom: 1px solid #212326;
           background-image: 
             radial-gradient(circle at 20px 20px, #EF4444 5px, transparent 5.5px),
             radial-gradient(circle at 40px 20px, #F59E0B 5px, transparent 5.5px),
@@ -1762,11 +2038,11 @@ export default function IntelligenceEnginePage() {
 
         .problem-heading {
           font-size: 48px;
-          font-weight: 600;
+          font-weight: 700 !important;
           letter-spacing: -0.02em;
           text-align: center;
           margin: 0 0 20px;
-          font-family: var(--font-main);
+          font-family: 'Satoshi', var(--font-main), sans-serif !important;
           color: var(--text-primary) !important;
           line-height: 1.2;
         }
@@ -1774,10 +2050,11 @@ export default function IntelligenceEnginePage() {
         .problem-subheading {
           max-width: 750px;
           margin: 0 auto 3rem;
-          font-size: 14px;
+          font-size: 14px !important;
+          font-weight: 500 !important;
           line-height: 1.6;
           color: var(--text-secondary) !important;
-          font-family: var(--font-mono);
+          font-family: 'Satoshi', var(--font-main), sans-serif !important;
           text-align: center;
         }
 
@@ -1794,7 +2071,7 @@ export default function IntelligenceEnginePage() {
           --fig-stroke-med: rgba(255, 255, 255, 0.3);
           --fig-stroke-high: rgba(255, 255, 255, 0.5);
           --fig-fill-base: rgba(255, 255, 255, 0.02);
-          --fig-fill-med: rgba(255, 255, 255, 0.08);
+          --fig-fill-med: #212326;
           --fig-accent: #8B8FFF;
           --fig-text: rgba(255, 255, 255, 0.4);
           --fig-guide: rgba(255, 255, 255, 0.03);
@@ -1813,16 +2090,14 @@ export default function IntelligenceEnginePage() {
         }
 
         #problem .feature-col-item {
-          border: none !important;
-          background: transparent !important;
-          padding: 1rem 2rem;
+          padding: 40px !important;
           opacity: 0;
           transform: translateY(40px);
           transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
         }
 
         #problem .feature-col-item:hover {
-          background: transparent !important;
+          
         }
 
         #problem .feature-col-item:nth-child(1) {
@@ -1843,17 +2118,18 @@ export default function IntelligenceEnginePage() {
 
         #problem .feature-col-item h3 {
           font-size: 16px !important;
-          font-weight: 600 !important;
+          font-weight: 700 !important;
           color: #FFF !important;
           margin: 0 0 12px 0 !important;
-          font-family: var(--font-main) !important;
+          font-family: 'Satoshi', var(--font-main), sans-serif !important;
         }
 
         #problem .feature-col-item .card-desc {
           font-size: 14px !important;
+          font-weight: 500 !important;
           line-height: 1.6 !important;
           color: rgba(255, 255, 255, 0.6) !important;
-          font-family: var(--font-main) !important;
+          font-family: 'Satoshi', var(--font-main), sans-serif !important;
           margin: 0 !important;
         }
 
@@ -1884,7 +2160,7 @@ export default function IntelligenceEnginePage() {
         }
 
         body.light-mode #problem .feature-col-item:hover {
-          background: rgba(139, 92, 246, 0.03) !important;
+          background: rgba(119, 0, 255, 0.03) !important;
         }
 
         body.light-mode #problem .feature-col-item h3 {
@@ -2041,21 +2317,18 @@ export default function IntelligenceEnginePage() {
           }
         }
 
-        .ent-pill {
-          letter-spacing: 0 !important;
-          text-transform: none !important;
-        }
+
         
         .autonomy-card:hover {
           transform: translateY(-8px);
           border-top-width: 5px !important;
-          box-shadow: 0 16px 40px -4px rgba(139,92,246,0.12) !important;
+          box-shadow: 0 16px 40px -4px rgba(119,0,255,0.12) !important;
           background: rgba(20,21,24,0.65) !important;
         }
 
         .reveal-card:hover {
           transform: translateY(-6px);
-          border-color: rgba(139,92,246,0.2) !important;
+          border-color: rgba(119,0,255,0.2) !important;
           box-shadow: 0 12px 32px rgba(15,17,21,0.25) !important;
           background: rgba(20,21,24,0.7) !important;
         }
@@ -2085,7 +2358,7 @@ export default function IntelligenceEnginePage() {
           transform: translate(-50%, -120%);
           padding: 4px 8px;
           background: rgba(7, 8, 10, 0.85);
-          border: 1px solid rgba(139, 92, 246, 0.35);
+          border: 1px solid rgba(119, 0, 255, 0.35);
           border-radius: 4px;
           color: #FFFFFF;
           font-family: var(--font-mono);
@@ -2178,8 +2451,8 @@ export default function IntelligenceEnginePage() {
           transition: stroke 0.3s ease;
         }
         .svg-pill-purple {
-          fill: rgba(139, 92, 246, 0.06);
-          stroke: rgba(139, 92, 246, 0.25);
+          fill: rgba(119, 0, 255, 0.06);
+          stroke: rgba(119, 0, 255, 0.25);
           stroke-width: 1px;
         }
         .svg-pill-pink {

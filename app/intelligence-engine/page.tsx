@@ -62,8 +62,15 @@ export default function IntelligenceEnginePage() {
     <section class="hero-section hero-module" style="height: auto; min-height: 0; padding-bottom: 0; z-index: 10;">
         <div class="hero-content">
             <span class="section-tag" style="color: var(--primary-purple);">MITHRIV INTELLIGENCE ENGINE</span>
-            <h1 class="main-heading">The Decision Layer<br>for Physical Security</h1>
-            <p class="body-text" style="max-width: 800px; margin: 0 auto 1rem;">
+            <h1 class="main-heading">
+        <span class="word-mask"><span class="word-inner w1">The</span></span>
+        <span class="word-mask"><span class="word-inner w2">Decision</span></span>
+        <span class="word-mask"><span class="word-inner w3">Layer</span></span><br>
+        <span class="word-mask"><span class="word-inner w4">for</span></span>
+        <span class="word-mask"><span class="word-inner w5">Physical</span></span>
+        <span class="word-mask"><span class="word-inner w6">Security</span></span>
+      </h1>
+            <p class="body-text award-fade-up delay-p" style="max-width: 800px; margin: 0 auto 1rem;">
                 The Intelligence Engine correlates events across every system, applies your operational doctrine, and
                 executes responses in milliseconds, while keeping humans in command.
             </p>
@@ -76,7 +83,7 @@ export default function IntelligenceEnginePage() {
                 <span>genpact</span>
             </div>
 
-            <button class="pixel-btn" style="margin-top: 1rem;">Request Intelligence Assessment</button>
+            <button class="ent-btn-primary" style="margin-top: 1rem;">Request Intelligence Assessment <svg class="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow-stem" d="M3 12h12" /><path class="arrow-head" d="m9 18 6-6-6-6"/></svg></button>
 
             <div class="comm-stats">
                 <div class="stat-item">
@@ -554,8 +561,7 @@ export default function IntelligenceEnginePage() {
                     <p class="card-desc" style="margin-bottom: 1rem; margin-top: 0;">A board member arrives unannounced
                         at headquarters. The CEO's assistant calls security 90 seconds before arrival. No
                         pre-registration. Executive parking full.</p>
-                    <button class="cta-nav" style="background: transparent; padding: 0.4rem 1rem;">View Response
-                        Pattern</button>
+                    <button class="ent-btn-primary" style="padding: 0.4rem 1rem;">View Response Pattern <svg class="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow-stem" d="M3 12h12" /><path class="arrow-head" d="m9 18 6-6-6-6"/></svg></button>
                 </div>
                 <div class="agent-card">
                     <h3 style="margin-bottom: 0.5rem; font-size: 1.1rem; color: #fff;">2. Credential Lifecycle
@@ -563,8 +569,7 @@ export default function IntelligenceEnginePage() {
                     <p class="card-desc" style="margin-bottom: 1rem; margin-top: 0;">A client arriving for a sensitive
                         meeting. No lobby exposure acceptable. Requires orchestrated path clearance from garage to
                         boardroom.</p>
-                    <button class="cta-nav" style="background: transparent; padding: 0.4rem 1rem;">View Response
-                        Pattern</button>
+                    <button class="ent-btn-primary" style="padding: 0.4rem 1rem;">View Response Pattern <svg class="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow-stem" d="M3 12h12" /><path class="arrow-head" d="m9 18 6-6-6-6"/></svg></button>
                 </div>
                 <div class="agent-card">
                     <h3 style="margin-bottom: 0.5rem; font-size: 1.1rem; color: #fff;">3. Video Analytics Correlation
@@ -572,15 +577,13 @@ export default function IntelligenceEnginePage() {
                     <p class="card-desc" style="margin-bottom: 1rem; margin-top: 0;">Analytics detect a person loitering
                         near your loading dock at 2 AM. The analytics engine generates an alert. The Intelligence Engine
                         determines what it means.</p>
-                    <button class="cta-nav" style="background: transparent; padding: 0.4rem 1rem;">View Response
-                        Pattern</button>
+                    <button class="ent-btn-primary" style="padding: 0.4rem 1rem;">View Response Pattern <svg class="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow-stem" d="M3 12h12" /><path class="arrow-head" d="m9 18 6-6-6-6"/></svg></button>
                 </div>
                 <div class="agent-card">
                     <h3 style="margin-bottom: 0.5rem; font-size: 1.1rem; color: #fff;">4. Multi-System Emergency</h3>
                     <p class="card-desc" style="margin-bottom: 1rem; margin-top: 0;">A visitor arriving at a behavioral
                         health unit with heightened security requirements triggers a cross-system lockdown protocol.</p>
-                    <button class="cta-nav" style="background: transparent; padding: 0.4rem 1rem;">View Response
-                        Pattern</button>
+                    <button class="ent-btn-primary" style="padding: 0.4rem 1rem;">View Response Pattern <svg class="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow-stem" d="M3 12h12" /><path class="arrow-head" d="m9 18 6-6-6-6"/></svg></button>
                 </div>
             </div>
         </div>

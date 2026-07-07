@@ -8,44 +8,44 @@ const industries = [
     label: '01 Critical Infrastructure',
     problem: 'NERC CIP mandates 15-minute alert response and 90-day log retention across every critical asset. Manual processes cannot meet these standards consistently. One missed alert, one incomplete log — and the consequences are regulatory, operational, and reputational.',
     points: [
-      'Cross-site threat correlation detects anomalies across your entire grid simultaneously — no alert goes unconnected',
-      'Compliance documentation generated automatically from live operational data — audit-ready within minutes not months',
-      'Predictive risk scoring identifies vulnerable zones before incidents occur — proactive not reactive',
+      'Cross-site anomaly detection in under 500ms',
+      'NERC CIP documentation auto-generated',
+      'Risk scoring flags vulnerable zones proactively',
     ],
-    outcome: 'Compliance audit preparation reduced from 240 hours to under 4.',
+    outcome: '240hrs → 4hrs audit preparation time',
   },
   {
     id: 'health',
     label: '02 Healthcare',
     problem: 'HIPAA requires complete audit trails. Workplace violence statistics demand behavioral prediction. Patient safety requires instant incident response. Three separate compliance and safety mandates — each requiring data from systems that do not talk to each other.',
     points: [
-      'Behavioral intelligence flags escalating patterns before incidents reach staff — violence prevention not just response',
-      'HIPAA audit documentation generated continuously from live operational data — always current, never assembled by hand',
-      'Natural language query gives security leadership instant answers on any incident, any patient area, any staff member',
+      'Behavioral patterns flagged before incidents escalate',
+      'HIPAA documentation generated continuously',
+      'Any incident query answered instantly',
     ],
-    outcome: 'Incident response time reduced 78%. Compliance documentation fully automated.',
+    outcome: '78% reduction in incident response time',
   },
   {
     id: 'finance',
     label: '03 Financial Services',
     problem: 'Insider threat, credential misuse, and tailgating are the three leading causes of financial sector security breaches. None are detectable by perimeter systems alone. None generate obvious alerts. They only become visible when you connect the dots across systems — which no human team has time to do manually.',
     points: [
-      'Behavioral baseline modeling detects credential anomalies across every access point — deviations flagged before they become breaches',
-      'Cross-system correlation links access events with identity data and communication logs — the full picture, not isolated alerts',
-      'Risk scoring prioritizes which employees, contractors, and visitors require immediate attention — no needle lost in the haystack',
+      'Credential anomalies detected before they become breaches',
+      'Access, identity, and comms correlated into one picture',
+      'Risk scoring prioritizes people and zones automatically',
     ],
-    outcome: 'Insider threat detection rate increased 340% vs. perimeter-only systems.',
+    outcome: '340% increase in insider threat detection',
   },
   {
     id: 'ports',
     label: '04 Ports & Airports',
     problem: 'TSA, CBP, Coast Guard, and port authority each generate separate intelligence streams in separate systems on separate timelines. Coordinating them manually creates the exact gaps that threat actors exploit. The intelligence exists across all four agencies. Nobody has a unified view of it.',
     points: [
-      'Unified intelligence layer ingests all agency data streams simultaneously — one view across every authority',
-      'TWIC credential verification correlated with behavioral and access data in real time — not just credential validity but behavioral context',
-      'Multi-agency incident coordination driven by a single intelligence source — no crossed wires, no missed handoffs',
+      'All agency data streams unified into one layer',
+      'TWIC verification correlated with behavioral context',
+      'Multi-agency coordination from a single source',
     ],
-    outcome: 'Inter-agency response coordination time reduced from hours to minutes.',
+    outcome: 'Hours → Minutes inter-agency response time',
   },
 ]
 
@@ -62,8 +62,8 @@ export default function IndustrySectionIntelligence({ isEmbedded = false }: { is
 
       const rect = el.getBoundingClientRect()
       const elementTop = rect.top + window.scrollY
-      // Pinning starts when the sticky wrapper top hits 50px (top padding is 40px)
-      const startScroll = elementTop + 40 - 50
+      // Pinning starts when the sticky wrapper top (elementTop + 160px padding) hits 50px
+      const startScroll = elementTop + 160 - 50
       const scrollDistance = 1200 // Scroll length for transitioning all tabs
 
       const currentScroll = window.scrollY
@@ -166,7 +166,7 @@ export default function IndustrySectionIntelligence({ isEmbedded = false }: { is
       if (isEmbedded) {
         // Handle embedded scrolling using lenis or standard if needed
         const elementPosition = el.getBoundingClientRect().top + window.scrollY
-        const startScroll = elementPosition + 40 - 50
+        const startScroll = elementPosition + 160 - 50
         const targetScroll = startScroll + idx * 400
 
         if (w.lenis) {
@@ -180,7 +180,7 @@ export default function IndustrySectionIntelligence({ isEmbedded = false }: { is
       } else {
         // On desktop, scroll the page scrollbar so that the scroll listener translates to the target card
         const elementPosition = el.getBoundingClientRect().top + window.scrollY
-        const startScroll = elementPosition + 40 - 50 // trigger starts when top of section is 50px from top
+        const startScroll = elementPosition + 160 - 50 // trigger starts when top of section is 50px from top
         const targetScroll = startScroll + idx * 400
 
         if (w.lenis) {
@@ -248,7 +248,7 @@ export default function IndustrySectionIntelligence({ isEmbedded = false }: { is
                   color: '#ffffff',
                 }}
               >
-                Intelligence built for environments where a wrong decision costs more than money.
+                Built for industries where intelligence gaps cost lives.
               </h2>
 
               {/* Right Side: Subheading */}
@@ -334,7 +334,7 @@ export default function IndustrySectionIntelligence({ isEmbedded = false }: { is
                       className="industry-grid"
                       style={{
                         display: 'grid',
-                        gridTemplateColumns: '1fr 1fr',
+                        gridTemplateColumns: '37.5% 62.5%',
                         alignItems: 'stretch',
                         height: '500px'
                       }}
@@ -342,7 +342,7 @@ export default function IndustrySectionIntelligence({ isEmbedded = false }: { is
                       {/* LEFT COLUMN — Problem */}
                       <div
                         style={{
-                          padding: '48px 48px 48px 0',
+                          padding: '48px',
                           borderRight: '1px solid rgba(255,255,255,0.08)',
                           display: 'flex',
                           flexDirection: 'column',
@@ -385,24 +385,24 @@ export default function IndustrySectionIntelligence({ isEmbedded = false }: { is
                       {/* RIGHT COLUMN — Solutions & Outcome */}
                       <div
                         style={{
-                          padding: '48px 0 48px 48px',
+                          padding: '12px 0 12px 48px',
                           display: 'flex',
                           flexDirection: 'column',
                           justifyContent: 'center',
-                          gap: '32px'
+                          gap: '12px'
                         }}
                       >
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                           <span
                             style={{
                               fontFamily: 'var(--font-mono)',
                               fontSize: '10px',
                               fontWeight: 700,
-                              color: 'rgba(139,92,246,0.85)',
+                              color: 'rgba(119,0,255,0.85)',
                               letterSpacing: '2px',
                               textTransform: 'uppercase',
                               display: 'block',
-                              border: '1px solid rgba(139,92,246,0.2)',
+                              border: '1px solid rgba(119,0,255,0.2)',
                               padding: '4px 8px',
                               width: 'fit-content',
                             }}
@@ -410,81 +410,162 @@ export default function IndustrySectionIntelligence({ isEmbedded = false }: { is
                             HOW IT ADDRESSES IT
                           </span>
 
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                            {ind.points.map((point, i) => (
-                              <div
-                                key={i}
-                                style={{
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  padding: '12px 16px',
-                                  background: 'rgba(255,255,255,0.02)',
-                                  border: '1px solid rgba(255,255,255,0.04)',
-                                  borderRadius: '8px',
-                                  position: 'relative',
-                                  overflow: 'hidden'
-                                }}
-                              >
-                                {/* Growing purple left border */}
-                                <div style={{
-                                  position: 'absolute',
-                                  left: 0,
-                                  top: 0,
-                                  bottom: 0,
-                                  width: '3px',
-                                  background: 'var(--primary-purple)',
-                                  transform: isTabActive ? 'scaleY(1)' : 'scaleY(0)',
-                                  transformOrigin: 'top',
-                                  transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-                                  transitionDelay: `${0.1 + (i * 0.15)}s`
-                                }} />
-                                
-                                <span style={{ color: 'var(--primary-purple)', marginRight: '12px', flexShrink: 0, fontWeight: 'bold' }}>→</span>
-                                <p
-                                  style={{
-                                    fontSize: '14px',
-                                    color: 'rgba(255,255,255,0.85)',
-                                    lineHeight: '1.5',
-                                    margin: 0,
-                                    fontFamily: 'var(--font-main)',
+                          <div style={{ position: 'relative', width: '100%', maxWidth: '640px', height: '400px', margin: '0 auto', marginTop: '16px' }}>
+                            {/* Single SVG for all connections */}
+                            <svg 
+                              width="100%" 
+                              height="100%" 
+                              viewBox="0 0 640 400" 
+                              style={{ position: 'absolute', top: 0, left: 0, zIndex: 1, pointerEvents: 'none' }}
+                            >
+                              {/* Connector 1: Box 1 -> Box 2 */}
+                              <g style={{ opacity: isTabActive ? 1 : 0, transition: 'opacity 0.2s', transitionDelay: '0.4s' }}>
+                                <path 
+                                  d="M 230 50 L 515 50 Q 525 50 525 60 L 525 95" 
+                                  stroke="rgba(119,0,255,0.8)" 
+                                  strokeWidth="1" 
+                                  fill="none" 
+                                  pathLength="100"
+                                  style={{ 
+                                    strokeDasharray: 100,
+                                    strokeDashoffset: 100,
+                                    animation: isTabActive ? 'drawConnectorJourney 0.6s ease-out 0.4s forwards' : 'none' 
                                   }}
-                                >
-                                  {point}
-                                </p>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
+                                />
+                                <path d="M 521 91 L 525 95 L 529 91" stroke="rgba(119,0,255,0.8)" strokeWidth="1" fill="none" style={{ animation: isTabActive ? 'fadeSlideInJourney 0.2s ease-out 0.9s forwards' : 'none', opacity: 0 }} />
+                              </g>
 
-                        {/* Outcome Box */}
-                        <div
-                          className="industry-outcome-box"
-                          style={{
-                            opacity: isTabActive ? 1 : 0,
-                            transform: isTabActive ? 'translateY(0)' : 'translateY(10px)',
-                            transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
-                            transitionDelay: '0.6s',
-                            background: 'rgba(16, 185, 129, 0.05)',
-                            border: '1px solid rgba(16, 185, 129, 0.2)',
-                            padding: '16px',
-                            borderRadius: '8px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '12px'
-                          }}
-                        >
-                          <span style={{ color: '#10B981', fontSize: '16px', flexShrink: 0, fontWeight: 'bold' }}>✓</span>
-                          <span
-                            style={{
-                              fontFamily: 'var(--font-mono)',
-                              fontSize: '13px',
-                              color: '#10B981',
-                              letterSpacing: '0.3px',
-                              lineHeight: '1.4',
-                            }}
-                          >
-                            {ind.outcome}
-                          </span>
+                              {/* Connector 2: Box 2 -> Box 3 */}
+                              <g style={{ opacity: isTabActive ? 1 : 0, transition: 'opacity 0.2s', transitionDelay: '1.2s' }}>
+                                <path 
+                                  d="M 410 150 L 185 150 Q 175 150 175 160 L 175 195" 
+                                  stroke="rgba(119,0,255,0.8)" 
+                                  strokeWidth="1" 
+                                  fill="none" 
+                                  pathLength="100"
+                                  style={{ 
+                                    strokeDasharray: 100,
+                                    strokeDashoffset: 100,
+                                    animation: isTabActive ? 'drawConnectorJourney 0.6s ease-out 1.2s forwards' : 'none' 
+                                  }}
+                                />
+                                <path d="M 171 191 L 175 195 L 179 191" stroke="rgba(119,0,255,0.8)" strokeWidth="1" fill="none" style={{ animation: isTabActive ? 'fadeSlideInJourney 0.2s ease-out 1.7s forwards' : 'none', opacity: 0 }} />
+                              </g>
+
+                              {/* Connector 3: Box 3 -> Outcome */}
+                              <g style={{ opacity: isTabActive ? 1 : 0, transition: 'opacity 0.2s', transitionDelay: '2.0s' }}>
+                                <path 
+                                  d="M 175 300 L 175 340 Q 175 350 185 350 L 298 350" 
+                                  stroke="rgba(119,0,255,0.8)" 
+                                  strokeWidth="1" 
+                                  fill="none" 
+                                  pathLength="100"
+                                  style={{ 
+                                    strokeDasharray: 100,
+                                    strokeDashoffset: 100,
+                                    animation: isTabActive ? 'drawConnectorJourney 0.6s ease-out 2.0s forwards' : 'none' 
+                                  }}
+                                />
+                                <path d="M 294 346 L 298 350 L 294 354" stroke="rgba(119,0,255,0.8)" strokeWidth="1" fill="none" style={{ animation: isTabActive ? 'fadeSlideInJourney 0.2s ease-out 2.5s forwards' : 'none', opacity: 0 }} />
+                              </g>
+                            </svg>
+
+                            {ind.points.map((point, i) => {
+                              const boxDelay = i * 0.8;
+                              const isLeft = i === 0 || i === 2;
+                              const slideAnim = isLeft ? 'slideInLeftSmooth' : 'slideInRightSmooth';
+                              
+                              return (
+                                <div key={i} style={{
+                                  position: 'absolute',
+                                  left: i === 0 ? 0 : i === 2 ? '60px' : 'auto',
+                                  right: i === 1 ? 0 : 'auto',
+                                  top: `${i * 25}%`,
+                                  width: '230px',
+                                  background: 'linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)',
+                                  backdropFilter: 'blur(10px)',
+                                  border: '1px solid rgba(255,255,255,0.06)',
+                                  borderRadius: '12px',
+                                  padding: '16px 20px',
+                                  opacity: 0,
+                                  transform: isLeft ? 'translate(-30px, 15px)' : 'translate(30px, 15px)',
+                                  animation: isTabActive ? `${slideAnim} 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) ${boxDelay}s forwards` : 'none',
+                                  zIndex: 2,
+                                }}>
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+                                    <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#7700FF', boxShadow: '0 0 10px rgba(119,0,255,0.6)' }} />
+                                    <span style={{
+                                      fontFamily: 'var(--font-mono)',
+                                      fontSize: '10px',
+                                      color: 'rgba(119,0,255,0.8)',
+                                      textTransform: 'uppercase',
+                                      letterSpacing: '1px'
+                                    }}>
+                                      Step 0{i + 1}
+                                    </span>
+                                  </div>
+                                  <div style={{ opacity: 0, animation: isTabActive ? `textFadeWipe 1s cubic-bezier(0.16, 1, 0.3, 1) ${boxDelay + 0.3}s forwards` : 'none' }}>
+                                    <p style={{
+                                      fontSize: '14px',
+                                      color: 'rgba(255,255,255,0.85)',
+                                      lineHeight: '1.6',
+                                      margin: 0,
+                                      fontFamily: 'var(--font-main)',
+                                      clipPath: 'inset(0 100% 0 0)',
+                                      animation: isTabActive ? `textWipeSmooth 1.2s cubic-bezier(0.25, 1, 0.5, 1) ${boxDelay + 0.3}s forwards` : 'none',
+                                    }}>
+                                      {point}
+                                    </p>
+                                  </div>
+                                </div>
+                              )
+                            })}
+
+                            {/* Final Outcome Node */}
+                            <div style={{
+                              position: 'absolute',
+                              left: 'auto',
+                              right: 0,
+                              top: '75%',
+                              width: '340px',
+                              background: 'linear-gradient(145deg, rgba(16,185,129,0.05) 0%, rgba(16,185,129,0.02) 100%)',
+                              border: '1px solid rgba(16,185,129,0.15)',
+                              borderRadius: '12px',
+                              padding: '16px 20px',
+                              opacity: 0,
+                              transform: 'translate(30px, 15px)',
+                              animation: isTabActive ? `slideInRightSmooth 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) 2.4s forwards` : 'none',
+                              display: 'flex',
+                              alignItems: 'flex-start',
+                              gap: '12px',
+                              zIndex: 2,
+                            }}>
+                              <span style={{ color: '#10B981', fontSize: '16px', flexShrink: 0, fontWeight: 'bold', marginTop: '-2px' }}>✓</span>
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', opacity: 0, animation: isTabActive ? `textFadeWipe 1s cubic-bezier(0.16, 1, 0.3, 1) 2.7s forwards` : 'none' }}>
+                                <span style={{
+                                  fontFamily: 'var(--font-mono)',
+                                  fontSize: '9px',
+                                  color: 'rgba(16,185,129,0.8)',
+                                  textTransform: 'uppercase',
+                                  letterSpacing: '1px'
+                                }}>
+                                  Verified Outcome
+                                </span>
+                                <span style={{
+                                  fontFamily: 'var(--font-main)',
+                                  fontSize: '14px',
+                                  color: '#10B981',
+                                  lineHeight: '1.5',
+                                  fontWeight: 500,
+                                  whiteSpace: 'nowrap',
+                                  clipPath: 'inset(0 100% 0 0)',
+                                  animation: isTabActive ? `textWipeSmooth 1.2s cubic-bezier(0.25, 1, 0.5, 1) 2.7s forwards` : 'none',
+                                }}>
+                                  {ind.outcome}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -496,6 +577,177 @@ export default function IndustrySectionIntelligence({ isEmbedded = false }: { is
           </div>
         </div>
       </div>
+      {/* Embedded Animations and Styles */}
+      <style>{`
+        #industries-intelligence button:focus { outline: none; }
+        #industries-intelligence ::-webkit-scrollbar { display: none; }
+
+        .unkey-tab-btn {
+          position: relative;
+        }
+        .unkey-tab-btn:hover {
+          color: #ffffff !important;
+          background: rgba(255, 255, 255, 0.01) !important;
+        }
+
+        @keyframes scanUpDown {
+          0% { top: 0%; opacity: 0; }
+          15% { opacity: 1; }
+          85% { opacity: 1; }
+          100% { top: 100%; opacity: 0; }
+        }
+        
+        @keyframes fadeSlideInJourney {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes slideInLeftSmooth {
+          from { opacity: 0; transform: translate(-40px, 10px); filter: blur(8px); }
+          to { opacity: 1; transform: translate(0, 0); filter: blur(0px); }
+        }
+        
+        @keyframes slideInRightSmooth {
+          from { opacity: 0; transform: translate(40px, 10px); filter: blur(8px); }
+          to { opacity: 1; transform: translate(0, 0); filter: blur(0px); }
+        }
+        
+        @keyframes textWipeSmooth {
+          from { clip-path: inset(0 100% 0 0); }
+          to { clip-path: inset(0 -10% 0 0); }
+        }
+        
+        @keyframes textFadeWipe {
+          from { opacity: 0; transform: translateX(-5px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes drawConnectorJourney {
+          from {
+            stroke-dashoffset: 100;
+          }
+          to {
+            stroke-dashoffset: 0;
+          }
+        }
+
+        /* Fixed Window Box Desktop Layout */
+        .features-window-box {
+          height: 500px;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-top: none;
+          border-radius: 0px;
+          overflow: hidden;
+          position: relative;
+          width: 100%;
+          box-shadow: none;
+        }
+
+        .features-scroll-track-intel {
+          display: flex;
+          flex-direction: column;
+          height: 2144px;
+          will-change: transform;
+        }
+
+        .industry-grid {
+          height: 500px;
+          min-height: 500px;
+        }
+
+        .feature-divider {
+          height: 48px;
+          min-height: 48px;
+          border-top: 1px solid #212326;
+          border-bottom: 1px solid #212326;
+          background-image: repeating-linear-gradient(
+            45deg,
+            transparent 0px,
+            transparent 6px,
+            #212326 6px,
+            #212326 7px
+          );
+          background-color: transparent;
+          width: 100%;
+        }
+
+        .header-split-grid {
+          display: grid;
+          grid-template-columns: 55fr 45fr;
+          gap: 48px;
+          align-items: start;
+          margin-bottom: 24px;
+        }
+
+        #industries-intelligence.is-embedded {
+          height: auto !important;
+          padding: 0 !important;
+        }
+        #industries-intelligence.is-embedded .industries-sticky-wrapper {
+          position: relative !important;
+          top: 0 !important;
+          background: transparent !important;
+        }
+
+        /* Native Sticky scroll support */
+        @media (min-width: 992px) {
+          #industries-intelligence {
+            height: 2150px;
+            position: relative;
+            padding: 160px 0 100px 0 !important;
+          }
+          .industries-sticky-wrapper {
+            position: sticky;
+            top: 50px;
+            height: auto;
+            z-index: 10;
+            background: #0C0D10;
+          }
+        }
+        @media (max-width: 991px) {
+          #industries-intelligence {
+            height: auto !important;
+            padding: 40px 0 !important;
+          }
+          .industries-sticky-wrapper {
+            position: relative;
+            top: 0 !important;
+            height: auto !important;
+          }
+        }
+
+        /* Responsive styling */
+        @media (max-width: 991px) {
+          .header-split-grid {
+            grid-template-columns: 1fr !important;
+            gap: 20px !important;
+            margin-bottom: 24px !important;
+          }
+          #industries-intelligence .industry-grid {
+            grid-template-columns: 1fr !important;
+            height: auto !important;
+            min-height: auto !important;
+          }
+          #industries-intelligence div[style*="gridTemplateColumns: repeat(4, 1fr)"] {
+            grid-template-columns: repeat(2, 1fr) !important;
+            position: relative !important;
+            top: 0 !important;
+          }
+          .features-window-box {
+            height: auto !important;
+            overflow: visible !important;
+            border: none !important;
+            background: transparent !important;
+            box-shadow: none !important;
+          }
+          .features-scroll-track-intel {
+            transform: none !important;
+            height: auto !important;
+          }
+        }
+      `}</style>
     </section>
   )
 }

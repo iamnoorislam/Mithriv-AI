@@ -3,6 +3,37 @@
 import React, { useEffect, useState } from 'react'
 import Script from 'next/script'
 import './style.css'
+import { createRoot } from 'react-dom/client'
+import { AnimatedIncidentIcon, AnimatedCredentialIcon, AnimatedVisitorIcon, AnimatedSafetyIcon, AnimatedGuardIcon, AnimatedVehicleIcon, AnimatedBlogIcon, AnimatedBotIcon, AnimatedBrainIcon, AnimatedCaseStudiesIcon, AnimatedNetworkIcon, AnimatedUsersIcon, AnimatedBriefcaseIcon, AnimatedMessageIcon, AnimatedLayersIcon, AnimatedZapIcon, AnimatedMonitorIcon, AnimatedEbookIcon, AnimatedFileCodeIcon, AnimatedRadarIcon, AnimatedCheckSquareIcon, AnimatedPresentationIcon } from '../components/AnimatedIcons'
+
+function TimelineIcon({ IconComponent, color }: { IconComponent: any, color: string }) {
+  const [isHovered, setIsHovered] = React.useState(false);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  
+  React.useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    let parent = el.closest('.timeline-item, .isometric-point-item, .k-feature-card, .k-console-panel');
+    if (!parent) return;
+    
+    const handleEnter = () => setIsHovered(true);
+    const handleLeave = () => setIsHovered(false);
+    
+    parent.addEventListener('mouseenter', handleEnter);
+    parent.addEventListener('mouseleave', handleLeave);
+    
+    return () => {
+      parent.removeEventListener('mouseenter', handleEnter);
+      parent.removeEventListener('mouseleave', handleLeave);
+    };
+  }, []);
+
+  return (
+    <div ref={containerRef} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+      <IconComponent color={color} size={20} isHovered={isHovered} />
+    </div>
+  );
+}
 
 export default function HomePage() {
   const [mounted, setMounted] = useState(false);
@@ -10,6 +41,45 @@ export default function HomePage() {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+    const containers = document.querySelectorAll('.react-timeline-icon');
+    containers.forEach(container => {
+      if (container.hasAttribute('data-rendered')) return;
+      container.setAttribute('data-rendered', 'true');
+      
+      const iconName = container.getAttribute('data-icon');
+      const color = container.getAttribute('data-color') || 'currentColor';
+      let Icon = null;
+      if (iconName === 'network') Icon = AnimatedIncidentIcon;
+      if (iconName === 'case') Icon = AnimatedCredentialIcon;
+      if (iconName === 'bot') Icon = AnimatedVisitorIcon;
+      if (iconName === 'brain') Icon = AnimatedSafetyIcon;
+      if (iconName === 'podcast') Icon = AnimatedGuardIcon;
+      if (iconName === 'ebook') Icon = AnimatedVehicleIcon;
+      if (iconName === 'icon-brain') Icon = AnimatedBrainIcon;
+      if (iconName === 'icon-network') Icon = AnimatedNetworkIcon;
+      if (iconName === 'icon-eye') Icon = AnimatedSafetyIcon;
+      if (iconName === 'icon-shield') Icon = AnimatedGuardIcon;
+      if (iconName === 'icon-bot') Icon = AnimatedBotIcon;
+      if (iconName === 'icon-users') Icon = AnimatedUsersIcon;
+      if (iconName === 'icon-briefcase') Icon = AnimatedBriefcaseIcon;
+      if (iconName === 'icon-message') Icon = AnimatedMessageIcon;
+      if (iconName === 'icon-layers') Icon = AnimatedLayersIcon;
+      if (iconName === 'icon-zap') Icon = AnimatedZapIcon;
+      if (iconName === 'icon-monitor') Icon = AnimatedMonitorIcon;
+      if (iconName === 'bento-book') Icon = AnimatedFileCodeIcon;
+      if (iconName === 'bento-users') Icon = AnimatedRadarIcon;
+      if (iconName === 'bento-shield') Icon = AnimatedCheckSquareIcon;
+      if (iconName === 'bento-briefcase') Icon = AnimatedPresentationIcon;
+      
+      if (Icon) {
+        const root = createRoot(container);
+        root.render(<TimelineIcon IconComponent={Icon} color={color} />);
+      }
+    });
+  }, [mounted]);
 
   useEffect(() => {
     if (!mounted) return;
@@ -109,13 +179,20 @@ export default function HomePage() {
         <!-- Hero Content -->
         <div class="hero-content">
             <span class="section-tag">CONSCIOUS SECURITY</span>
-            <h1 class="main-heading">Intelligence that secures<br>your physical world</h1>
-            <p class="body-text"
+            <h1 class="main-heading">
+        <span class="word-mask"><span class="word-inner w1">Intelligence</span></span>
+        <span class="word-mask"><span class="word-inner w2">that</span></span>
+        <span class="word-mask"><span class="word-inner w3">secures</span></span><br>
+        <span class="word-mask"><span class="word-inner w4">your</span></span>
+        <span class="word-mask"><span class="word-inner w5">physical</span></span>
+        <span class="word-mask"><span class="word-inner w6">world</span></span>
+      </h1>
+            <p class="body-text award-fade-up delay-p"
                 style="margin-bottom: 2.5rem; max-width: 650px; margin-left: auto; margin-right: auto;">
                 Mithriv is the AI execution layer that knows your sites, correlates across systems, and acts in real
                 time, turning storms into intentional responses.
             </p>
-            <button class="cta-main">Request Consultation</button>
+            <button class="ent-btn-primary">Request Consultation <svg class="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow-stem" d="M3 12h12" /><path class="arrow-head" d="m9 18 6-6-6-6"/></svg></button>
         </div>
     </main>
 
@@ -632,13 +709,13 @@ export default function HomePage() {
                         <div class="mock-dashboard-sidebar">
                             <div class="sidebar-icon active">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                                 </svg>
                             </div>
                             <div class="sidebar-icon">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <line x1="18" y1="20" x2="18" y2="10"></line>
                                     <line x1="12" y1="20" x2="12" y2="4"></line>
                                     <line x1="6" y1="20" x2="6" y2="14"></line>
@@ -646,7 +723,7 @@ export default function HomePage() {
                             </div>
                             <div class="sidebar-icon">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <circle cx="12" cy="12" r="3"></circle>
                                     <path
                                         d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
@@ -696,7 +773,7 @@ export default function HomePage() {
                                             <div class="cmd-item" onclick="selectCommand(0)">
                                                 <svg class="cmd-icon" xmlns="http://www.w3.org/2000/svg" width="16"
                                                     height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                                                 </svg>
                                                 <span class="cmd-label">Simulate Breach</span>
@@ -705,7 +782,7 @@ export default function HomePage() {
                                             <div class="cmd-item" onclick="selectCommand(1)">
                                                 <svg class="cmd-icon" xmlns="http://www.w3.org/2000/svg" width="16"
                                                     height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                     <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
                                                     <path d="M3 9h18" />
                                                     <path d="M9 21V9" />
@@ -716,7 +793,7 @@ export default function HomePage() {
                                             <div class="cmd-item" onclick="selectCommand(2)">
                                                 <svg class="cmd-icon" xmlns="http://www.w3.org/2000/svg" width="16"
                                                     height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                     <path
                                                         d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                                     <polyline points="14 2 14 8 20 8" />
@@ -730,7 +807,7 @@ export default function HomePage() {
                                             <div class="cmd-item" onclick="selectCommand(3)">
                                                 <svg class="cmd-icon" xmlns="http://www.w3.org/2000/svg" width="16"
                                                     height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                     <path
                                                         d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
                                                     <path d="M5 3v4" />
@@ -752,8 +829,8 @@ export default function HomePage() {
                                             <div class="action-left">
                                                 <button class="action-btn" onclick="attachFile()" title="Attach File">
                                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round">
+                                                        stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                                                        strokeLinejoin="round">
                                                         <path
                                                             d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48" />
                                                     </svg>
@@ -761,8 +838,8 @@ export default function HomePage() {
                                                 <button class="action-btn" id="commandBtn"
                                                     onclick="toggleCommandPalette()" title="Commands">
                                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round">
+                                                        stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                                                        strokeLinejoin="round">
                                                         <path
                                                             d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />
                                                     </svg>
@@ -771,14 +848,14 @@ export default function HomePage() {
 
                                             <button class="ai-send-btn" id="aiSendBtn" onclick="sendMessage()" disabled>
                                                 <svg class="send-icon" width="16" height="16" viewBox="0 0 24 24"
-                                                    fill="none" stroke="currentColor" stroke-width="2"
-                                                    stroke-linecap="round" stroke-linejoin="round">
+                                                    fill="none" stroke="currentColor" strokeWidth="2"
+                                                    strokeLinecap="round" strokeLinejoin="round">
                                                     <line x1="22" y1="2" x2="11" y2="13"></line>
                                                     <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                                                 </svg>
                                                 <svg class="loader-icon util-hidden" width="16" height="16"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                     <path d="M21 12a9 9 0 1 1-6.219-8.56" />
                                                 </svg>
                                                 <span>Send</span>
@@ -789,16 +866,16 @@ export default function HomePage() {
                                     <div class="chat-suggestions">
                                         <button class="suggestion-btn" onclick="selectCommand(0)">
                                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
+                                                stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                                                strokeLinejoin="round">
                                                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                                             </svg>
                                             <span>Simulate Breach</span>
                                         </button>
                                         <button class="suggestion-btn" onclick="selectCommand(1)">
                                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
+                                                stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                                                strokeLinejoin="round">
                                                 <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
                                                 <path d="M3 9h18" />
                                                 <path d="M9 21V9" />
@@ -807,8 +884,8 @@ export default function HomePage() {
                                         </button>
                                         <button class="suggestion-btn" onclick="selectCommand(2)">
                                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
+                                                stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                                                strokeLinejoin="round">
                                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                                 <polyline points="14 2 14 8 20 8" />
                                                 <line x1="16" y1="13" x2="8" y2="13" />
@@ -819,8 +896,8 @@ export default function HomePage() {
                                         </button>
                                         <button class="suggestion-btn" onclick="selectCommand(3)">
                                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
+                                                stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                                                strokeLinejoin="round">
                                                 <path
                                                     d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
                                                 <path d="M5 3v4" />
@@ -868,9 +945,11 @@ export default function HomePage() {
                     acting.</p>
                 <div class="features-scroll-grid">
                     <!-- Vertical Dividers -->
+                    <div class="feature-col-divider feature-col-divider-0"></div>
                     <div class="feature-col-divider feature-col-divider-1"></div>
                     <div class="feature-col-divider feature-col-divider-2"></div>
                     <div class="feature-col-divider feature-col-divider-3"></div>
+                    <div class="feature-col-divider feature-col-divider-4"></div>
 
                     <!-- Feature 1 -->
                     <div class="feature-col-item">
@@ -943,10 +1022,10 @@ export default function HomePage() {
                                     }
                                 </style>
                                 <!-- Background Grid -->
-                                <path d="M100,20 L100,140" stroke="rgba(255,255,255,0.03)" stroke-dasharray="2,2" />
+                                <path d="M100,20 L100,140" stroke="rgba(255, 255, 255, 0.25)" stroke-dasharray="2,2" />
                                 <!-- Outer warning hexagon -->
                                 <polygon points="100,25 155,55 155,115 100,145 45,115 45,55"
-                                    stroke="rgba(124,60,208,0.15)" stroke-width="1.5" stroke-dasharray="4,4" />
+                                    stroke="rgba(124,60,208,0.15)" strokeWidth="1.5" stroke-dasharray="4,4" />
 
                                 <!-- 98% text in high-tech font -->
                                 <g style="animation: text-blink 2s infinite;">
@@ -973,16 +1052,16 @@ export default function HomePage() {
 
                                 <!-- Center Siren Beacon (Isometric projection) -->
                                 <g transform="translate(100, 95)">
-                                    <ellipse cx="0" cy="0" rx="35" ry="17.5" stroke="#7C3CD0" stroke-width="1"
+                                    <ellipse cx="0" cy="0" rx="35" ry="17.5" stroke="#7C3CD0" strokeWidth="1"
                                         style="transform-origin: 0 0; animation: wave-expand 2.5s infinite linear;" />
-                                    <ellipse cx="0" cy="0" rx="55" ry="27.5" stroke="#7C3CD0" stroke-width="0.5"
+                                    <ellipse cx="0" cy="0" rx="55" ry="27.5" stroke="#7C3CD0" strokeWidth="0.5"
                                         style="transform-origin: 0 0; animation: wave-expand 2.5s infinite linear; animation-delay: 1.25s;" />
                                     <ellipse cx="0" cy="10" rx="18" ry="9" fill="rgba(0,0,0,0.3)" />
                                     <polygon points="-15,0 15,0 15,10 -15,10" fill="rgba(255,255,255,0.05)"
-                                        stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+                                        stroke="rgba(255, 255, 255, 0.25)" strokeWidth="1" />
                                     <ellipse cx="0" cy="0" rx="15" ry="7.5" fill="rgba(255,255,255,0.08)"
-                                        stroke="rgba(255,255,255,0.2)" />
-                                    <path d="M-8,-10 L8,-10 L12,0 L-12,0 Z" stroke="#7C3CD0" stroke-width="1"
+                                        stroke="rgba(255, 255, 255, 0.25)" />
+                                    <path d="M-8,-10 L8,-10 L12,0 L-12,0 Z" stroke="#7C3CD0" strokeWidth="1"
                                         style="animation: siren-glow 1s infinite alternate;" />
                                     <ellipse cx="0" cy="-10" rx="8" ry="4" fill="#7C3CD0"
                                         style="animation: siren-glow 1s infinite alternate;" />
@@ -1046,56 +1125,56 @@ export default function HomePage() {
                                         }
                                     }
                                 </style>
-                                <path d="M100,20 L100,140" stroke="rgba(255,255,255,0.03)" stroke-dasharray="2,2" />
+                                <path d="M100,20 L100,140" stroke="rgba(255, 255, 255, 0.25)" stroke-dasharray="2,2" />
                                 <g style="animation: platform-hover 4s ease-in-out infinite;">
                                     <polygon points="100,115 145,92.5 100,70 55,92.5" fill="rgba(0,0,0,0.2)" />
-                                    <polygon points="100,105 145,82.5 100,60 55,82.5" stroke="rgba(255,255,255,0.15)"
-                                        stroke-width="1" fill="rgba(255,255,255,0.02)" />
-                                    <line x1="55" y1="82.5" x2="55" y2="92.5" stroke="rgba(255,255,255,0.15)"
-                                        stroke-width="1" />
-                                    <line x1="145" y1="82.5" x2="145" y2="92.5" stroke="rgba(255,255,255,0.15)"
-                                        stroke-width="1" />
-                                    <line x1="100" y1="105" x2="100" y2="115" stroke="rgba(255,255,255,0.15)"
-                                        stroke-width="1" />
+                                    <polygon points="100,105 145,82.5 100,60 55,82.5" stroke="rgba(255, 255, 255, 0.25)"
+                                        strokeWidth="1" fill="rgba(255,255,255,0.02)" />
+                                    <line x1="55" y1="82.5" x2="55" y2="92.5" stroke="rgba(255, 255, 255, 0.25)"
+                                        strokeWidth="1" />
+                                    <line x1="145" y1="82.5" x2="145" y2="92.5" stroke="rgba(255, 255, 255, 0.25)"
+                                        strokeWidth="1" />
+                                    <line x1="100" y1="105" x2="100" y2="115" stroke="rgba(255, 255, 255, 0.25)"
+                                        strokeWidth="1" />
                                     <polygon points="55,92.5 100,115 100,105 55,82.5" fill="rgba(255,255,255,0.03)" />
                                     <polygon points="145,92.5 100,115 100,105 145,82.5" fill="rgba(255,255,255,0.04)" />
-                                    <path d="M60,80 L140,120" stroke="rgba(255,255,255,0.1)" stroke-width="1"
+                                    <path d="M60,80 L140,120" stroke="rgba(255, 255, 255, 0.25)" strokeWidth="1"
                                         stroke-dasharray="3,3" />
-                                    <path d="M70,65 L130,95" stroke="rgba(255,255,255,0.1)" stroke-width="1"
+                                    <path d="M70,65 L130,95" stroke="rgba(255, 255, 255, 0.25)" strokeWidth="1"
                                         stroke-dasharray="3,3" />
 
                                     <g
                                         style="transform-origin: 100px 82.5px; animation: avatar-slide 4s linear infinite;">
-                                        <polygon points="100,75 112,81 100,87 88,81" stroke="rgba(255,255,255,0.5)"
-                                            stroke-width="0.8" fill="rgba(255,255,255,0.1)" />
+                                        <polygon points="100,75 112,81 100,87 88,81" stroke="rgba(255, 255, 255, 0.25)"
+                                            strokeWidth="0.8" fill="rgba(255,255,255,0.1)" />
                                         <circle cx="100" cy="72" r="2.5" fill="rgba(255,255,255,0.6)"
-                                            stroke="rgba(255,255,255,0.8)" stroke-width="0.5" />
-                                        <path d="M96,78 C96,75.5 104,75.5 104,78" stroke="rgba(255,255,255,0.8)"
-                                            stroke-width="0.8" fill="rgba(255,255,255,0.4)" />
-                                        <line x1="100" y1="87" x2="100" y2="92" stroke="rgba(255,255,255,0.3)"
-                                            stroke-width="0.5" />
+                                            stroke="rgba(255, 255, 255, 0.25)" strokeWidth="0.5" />
+                                        <path d="M96,78 C96,75.5 104,75.5 104,78" stroke="rgba(255, 255, 255, 0.25)"
+                                            strokeWidth="0.8" fill="rgba(255,255,255,0.4)" />
+                                        <line x1="100" y1="87" x2="100" y2="92" stroke="rgba(255, 255, 255, 0.25)"
+                                            strokeWidth="0.5" />
                                     </g>
                                     <g
                                         style="transform-origin: 100px 82.5px; animation: avatar-slide 4s linear infinite; animation-delay: 2s;">
-                                        <polygon points="100,75 112,81 100,87 88,81" stroke="rgba(255,255,255,0.5)"
-                                            stroke-width="0.8" fill="rgba(255,255,255,0.1)" />
+                                        <polygon points="100,75 112,81 100,87 88,81" stroke="rgba(255, 255, 255, 0.25)"
+                                            strokeWidth="0.8" fill="rgba(255,255,255,0.1)" />
                                         <circle cx="100" cy="72" r="2.5" fill="rgba(255,255,255,0.6)"
-                                            stroke="rgba(255,255,255,0.8)" stroke-width="0.5" />
-                                        <path d="M96,78 C96,75.5 104,75.5 104,78" stroke="rgba(255,255,255,0.8)"
-                                            stroke-width="0.8" fill="rgba(255,255,255,0.4)" />
-                                        <line x1="100" y1="87" x2="100" y2="92" stroke="rgba(255,255,255,0.3)"
-                                            stroke-width="0.5" />
+                                            stroke="rgba(255, 255, 255, 0.25)" strokeWidth="0.5" />
+                                        <path d="M96,78 C96,75.5 104,75.5 104,78" stroke="rgba(255, 255, 255, 0.25)"
+                                            strokeWidth="0.8" fill="rgba(255,255,255,0.4)" />
+                                        <line x1="100" y1="87" x2="100" y2="92" stroke="rgba(255, 255, 255, 0.25)"
+                                            strokeWidth="0.5" />
                                     </g>
 
-                                    <ellipse cx="140" cy="80" rx="3" ry="15" stroke="#7C3CD0" stroke-width="1.5"
+                                    <ellipse cx="140" cy="80" rx="3" ry="15" stroke="#FFE500" strokeWidth="1.5"
                                         style="transform: rotate(-25deg); opacity: 0.7;" />
-                                    <ellipse cx="140" cy="80" rx="1" ry="10" fill="rgba(124, 60, 208, 0.1)"
+                                    <ellipse cx="140" cy="80" rx="1" ry="10" fill="rgba(255, 229, 0, 0.1)"
                                         style="transform: rotate(-25deg);" />
-                                    <ellipse cx="60" cy="40" rx="2" ry="10" stroke="rgba(255,255,255,0.2)"
-                                        stroke-width="1" style="transform: rotate(-25deg);" />
-                                    <path d="M110,87 C130,97 150,90 165,70" stroke="#7C3CD0" stroke-width="1.5"
+                                    <ellipse cx="60" cy="40" rx="2" ry="10" stroke="rgba(255, 255, 255, 0.25)"
+                                        strokeWidth="1" style="transform: rotate(-25deg);" />
+                                    <path d="M110,87 C130,97 150,90 165,70" stroke="#FFE500" strokeWidth="1.5"
                                         stroke-dasharray="3,3" style="animation: arrow-pulse 2s infinite;" />
-                                    <polygon points="167,70 164,75 160,70" fill="#7C3CD0" />
+                                    <polygon points="167,70 164,75 160,70" fill="#FFE500" />
                                 </g>
                             </svg>
                         </div>
@@ -1164,51 +1243,51 @@ export default function HomePage() {
                                         }
                                     }
                                 </style>
-                                <path d="M100,20 L100,140" stroke="rgba(255,255,255,0.03)" stroke-dasharray="2,2" />
-                                <ellipse cx="100" cy="80" rx="65" ry="32.5" stroke="rgba(255,255,255,0.05)"
-                                    stroke-width="2" stroke-dasharray="4,8"
+                                <path d="M100,20 L100,140" stroke="rgba(255, 255, 255, 0.25)" stroke-dasharray="2,2" />
+                                <ellipse cx="100" cy="80" rx="65" ry="32.5" stroke="rgba(255, 255, 255, 0.25)"
+                                    strokeWidth="2" stroke-dasharray="4,8"
                                     style="transform-origin: 100px 80px; animation: clock-ticks 20s linear infinite;" />
 
                                 <g transform="translate(100, 80)">
-                                    <polygon points="0,-48 30,-36 0,-24 -30,-36" stroke="rgba(255,255,255,0.2)"
-                                        stroke-width="1.5" fill="rgba(255,255,255,0.02)" />
-                                    <polygon points="0,48 30,36 0,24 -30,36" stroke="rgba(255,255,255,0.2)"
-                                        stroke-width="1.5" fill="rgba(255,255,255,0.02)" />
-                                    <line x1="-30" y1="-36" x2="-30" y2="36" stroke="rgba(255,255,255,0.1)"
-                                        stroke-width="1" />
-                                    <line x1="30" y1="-36" x2="30" y2="36" stroke="rgba(255,255,255,0.1)"
-                                        stroke-width="1" />
-                                    <line x1="0" y1="-24" x2="0" y2="24" stroke="rgba(255,255,255,0.08)"
-                                        stroke-width="0.8" stroke-dasharray="2,2" />
+                                    <polygon points="0,-48 30,-36 0,-24 -30,-36" stroke="rgba(255, 255, 255, 0.25)"
+                                        strokeWidth="1.5" fill="rgba(255,255,255,0.02)" />
+                                    <polygon points="0,48 30,36 0,24 -30,36" stroke="rgba(255, 255, 255, 0.25)"
+                                        strokeWidth="1.5" fill="rgba(255,255,255,0.02)" />
+                                    <line x1="-30" y1="-36" x2="-30" y2="36" stroke="rgba(255, 255, 255, 0.25)"
+                                        strokeWidth="1" />
+                                    <line x1="30" y1="-36" x2="30" y2="36" stroke="rgba(255, 255, 255, 0.25)"
+                                        strokeWidth="1" />
+                                    <line x1="0" y1="-24" x2="0" y2="24" stroke="rgba(255, 255, 255, 0.25)"
+                                        strokeWidth="0.8" stroke-dasharray="2,2" />
                                     <path
                                         d="M-26,-34 C-26,-15 -6,-5 -6,0 C-6,5 -26,15 -26,34 L26,34 C26,15 6,5 6,0 C6,-5 26,-15 26,-34 Z"
-                                        stroke="rgba(255,255,255,0.25)" stroke-width="1" />
+                                        stroke="rgba(255, 255, 255, 0.25)" strokeWidth="1" />
 
                                     <g transform="translate(0, -25)"
                                         style="animation: badge-dissolve 4s infinite ease-in;">
-                                        <polygon points="0,-6 10,-2 0,2 -10,-2" stroke="rgba(255,255,255,0.6)"
-                                            stroke-width="0.8" fill="rgba(255,255,255,0.1)" />
-                                        <line x1="-4" y1="-2" x2="4" y2="-2" stroke="rgba(255,255,255,0.4)"
-                                            stroke-width="0.6" />
+                                        <polygon points="0,-6 10,-2 0,2 -10,-2" stroke="rgba(255, 255, 255, 0.25)"
+                                            strokeWidth="0.8" fill="rgba(255,255,255,0.1)" />
+                                        <line x1="-4" y1="-2" x2="4" y2="-2" stroke="rgba(255, 255, 255, 0.25)"
+                                            strokeWidth="0.6" />
                                         <circle cx="0" cy="0" r="1.5" fill="rgba(255,255,255,0.6)" />
-                                        <line x1="0" y1="1.5" x2="0" y2="4" stroke="rgba(255,255,255,0.6)"
-                                            stroke-width="0.5" />
+                                        <line x1="0" y1="1.5" x2="0" y2="4" stroke="rgba(255, 255, 255, 0.25)"
+                                            strokeWidth="0.5" />
                                     </g>
 
-                                    <line x1="0" y1="-5" x2="0" y2="25" stroke="rgba(255,255,255,0.4)" stroke-width="1"
+                                    <line x1="0" y1="-5" x2="0" y2="25" stroke="#4DA6FF" strokeWidth="1"
                                         stroke-dasharray="2,4"
                                         style="stroke-dashoffset: 0; animation: sand-drip 1s linear infinite;" />
-                                    <circle cx="0" cy="0" r="1" fill="#ffffff" />
+                                    <circle cx="0" cy="0" r="1" fill="#4DA6FF" />
 
-                                    <polygon points="0,32 18,24 0,16 -18,24" stroke="rgba(255,255,255,0.15)"
-                                        stroke-width="0.8" fill="rgba(255,255,255,0.08)"
+                                    <polygon points="0,32 18,24 0,16 -18,24" stroke="#4DA6FF"
+                                        strokeWidth="0.8" fill="rgba(77,166,255,0.15)"
                                         style="transform-origin: 0 32px; animation: sand-pile 4s infinite alternate;" />
-                                    <polygon points="0,32 10,27 0,22 -10,27" stroke="rgba(255,255,255,0.3)"
-                                        stroke-width="0.8" fill="rgba(255,255,255,0.15)" />
+                                    <polygon points="0,32 10,27 0,22 -10,27" stroke="#4DA6FF"
+                                        strokeWidth="0.8" fill="rgba(77,166,255,0.3)" />
 
                                     <g transform="translate(45, 0)">
                                         <rect x="-3" y="-12" width="48" height="15" rx="3" fill="rgba(0,0,0,0.4)"
-                                            stroke="rgba(255,255,255,0.1)" />
+                                            stroke="rgba(255, 255, 255, 0.25)" />
                                         <text x="21" y="-2" font-family="monospace" font-size="8" fill="#ffffff"
                                             text-anchor="middle" font-weight="bold" letter-spacing="0.5">12,000h</text>
                                     </g>
@@ -1243,14 +1322,14 @@ export default function HomePage() {
 
                                         0%,
                                         100% {
-                                            stroke: rgba(124, 60, 208, 0.4);
-                                            fill: rgba(124, 60, 208, 0.05);
+                                            stroke: rgba(187, 251, 2, 0.4);
+                                            fill: rgba(187, 251, 2, 0.05);
                                         }
 
                                         50% {
-                                            stroke: #7C3CD0;
-                                            fill: rgba(124, 60, 208, 0.2);
-                                            filter: drop-shadow(0 0 4px #7C3CD0);
+                                            stroke: #bbfb02;
+                                            fill: rgba(187, 251, 2, 0.2);
+                                            filter: drop-shadow(0 0 4px #bbfb02);
                                         }
                                     }
 
@@ -1266,38 +1345,38 @@ export default function HomePage() {
                                         }
                                     }
                                 </style>
-                                <path d="M100,20 L100,140" stroke="rgba(255,255,255,0.03)" stroke-dasharray="2,2" />
+                                <path d="M100,20 L100,140" stroke="rgba(255, 255, 255, 0.25)" stroke-dasharray="2,2" />
                                 <polygon points="100,45 60,110 140,110" fill="url(#cone-grad-home)"
                                     style="animation: light-glow 3s ease-in-out infinite;" />
-                                <ellipse cx="100" cy="110" rx="40" ry="12" stroke="rgba(255,255,255,0.1)"
-                                    stroke-width="1" stroke-dasharray="2,2" />
+                                <ellipse cx="100" cy="110" rx="40" ry="12" stroke="rgba(255, 255, 255, 0.25)"
+                                    strokeWidth="1" stroke-dasharray="2,2" />
 
                                 <g transform="translate(100, 45)"
                                     style="transform-origin: 0 -5px; animation: camera-scan 6s ease-in-out infinite;">
-                                    <path d="M-15,-15 L0,-5" stroke="rgba(255,255,255,0.3)" stroke-width="2" />
-                                    <line x1="-15" y1="-15" x2="-15" y2="-5" stroke="rgba(255,255,255,0.3)"
-                                        stroke-width="1" />
+                                    <path d="M-15,-15 L0,-5" stroke="rgba(255, 255, 255, 0.25)" strokeWidth="2" />
+                                    <line x1="-15" y1="-15" x2="-15" y2="-5" stroke="rgba(255, 255, 255, 0.25)"
+                                        strokeWidth="1" />
                                     <polygon points="-8,-10 12,-20 12,-8 -8,2" fill="rgba(255,255,255,0.05)"
-                                        stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+                                        stroke="rgba(255, 255, 255, 0.25)" strokeWidth="1" />
                                     <polygon points="12,-20 22,-15 22,-3 12,-8" fill="rgba(255,255,255,0.08)"
-                                        stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+                                        stroke="rgba(255, 255, 255, 0.25)" strokeWidth="1" />
                                     <polygon points="-8,-10 12,-20 22,-15 2,-5" fill="rgba(255,255,255,0.1)"
-                                        stroke="rgba(255,255,255,0.2)" stroke-width="1" />
-                                    <ellipse cx="17" cy="-9" rx="3" ry="5" fill="none" stroke="rgba(255,255,255,0.8)"
-                                        stroke-width="1" />
+                                        stroke="rgba(255, 255, 255, 0.25)" strokeWidth="1" />
+                                    <ellipse cx="17" cy="-9" rx="3" ry="5" fill="none" stroke="rgba(255, 255, 255, 0.25)"
+                                        strokeWidth="1" />
                                     <circle cx="17" cy="-9" r="1.5" fill="#ffffff" />
-                                    <circle cx="10" cy="-14" r="1" fill="#7C3CD0" />
+                                    <circle cx="10" cy="-14" r="1" fill="#bbfb02" />
                                 </g>
 
                                 <g transform="translate(100, 95)">
-                                    <rect x="-14" y="-5" width="28" height="22" rx="3" stroke="#7C3CD0"
-                                        stroke-width="1.5" style="animation: lock-pulse 2s infinite alternate;" />
-                                    <path d="M-9,-5 L-9,-14 C-9,-19 9,-19 9,-14 L9,-5" stroke="#7C3CD0"
-                                        stroke-width="1.5" fill="none"
+                                    <rect x="-14" y="-5" width="28" height="22" rx="3" stroke="#bbfb02"
+                                        strokeWidth="1.5" style="animation: lock-pulse 2s infinite alternate;" />
+                                    <path d="M-9,-5 L-9,-14 C-9,-19 9,-19 9,-14 L9,-5" stroke="#bbfb02"
+                                        strokeWidth="1.5" fill="none"
                                         style="animation: lock-pulse 2s infinite alternate;" />
-                                    <circle cx="0" cy="3" r="2.5" fill="#7C3CD0" />
-                                    <polygon points="-1,3 1,3 2,10 -2,10" fill="#7C3CD0" />
-                                    <ellipse cx="0" cy="5" rx="30" ry="15" stroke="#7C3CD0" stroke-width="1"
+                                    <circle cx="0" cy="3" r="2.5" fill="#bbfb02" />
+                                    <polygon points="-1,3 1,3 2,10 -2,10" fill="#bbfb02" />
+                                    <ellipse cx="0" cy="5" rx="30" ry="15" stroke="#bbfb02" strokeWidth="1"
                                         stroke-dasharray="3,3" />
                                 </g>
                                 <defs>
@@ -1334,7 +1413,7 @@ export default function HomePage() {
                     </p>
                 </div>
                 <div class="header-btn-block">
-                    <a href="#explore" class="ent-btn-primary" style="margin-top: 0;">Explore the platform</a>
+                    <a href="#explore" className="ent-btn-primary award-fade-up delay-btn" style={{ marginTop: 0 }}>Explore the platform <svg className="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path className="arrow-stem" d="M3 12h12" /><path className="arrow-head" d="m9 18 6-6-6-6"/></svg></a>
                 </div>
             </div>
 
@@ -1345,22 +1424,7 @@ export default function HomePage() {
                     <!-- Milestone Item 1: Incident Response -->
                     <div class="timeline-item">
                         <div class="timeline-dot-slot">
-                            <div class="timeline-dot">
-                                <svg width="24" height="24" viewBox="0 0 48 48" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="24" cy="24" r="20" stroke="#7C3CD0" stroke-width="2"
-                                        stroke-opacity="0.3" />
-                                    <circle cx="24" cy="24" r="10" stroke="#7C3CD0" stroke-width="2"
-                                        stroke-opacity="0.5" />
-                                    <line x1="24" y1="4" x2="24" y2="44" stroke="#7C3CD0" stroke-width="2"
-                                        stroke-opacity="0.4" />
-                                    <line x1="4" y1="24" x2="44" y2="24" stroke="#7C3CD0" stroke-width="2"
-                                        stroke-opacity="0.4" />
-                                    <circle cx="24" cy="24" r="3" fill="#8B5CF6" />
-                                    <path d="M24 4 A20 20 0 0 1 44 24" stroke="#8B5CF6" stroke-width="3"
-                                        class="svg-radar-line" />
-                                </svg>
-                            </div>
+                            <div class="timeline-dot react-timeline-icon" data-icon="network" data-color="#EA49B2"></div>
                         </div>
                         <div class="timeline-content-slot">
                             <h3 class="agent-card-title">Incident Response</h3>
@@ -1384,18 +1448,7 @@ export default function HomePage() {
                     <!-- Milestone Item 2: Credential Governance -->
                     <div class="timeline-item">
                         <div class="timeline-dot-slot">
-                            <div class="timeline-dot">
-                                <svg width="24" height="24" viewBox="0 0 48 48" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="8" y="16" width="22" height="14" rx="2" stroke="#7C3CD0" stroke-width="2"
-                                        fill="rgba(124, 60, 208, 0.1)" transform="rotate(-10 8 16)" />
-                                    <rect x="18" y="20" width="22" height="14" rx="2" stroke="#8B5CF6" stroke-width="2"
-                                        stroke-dasharray="2,2" fill="none" transform="rotate(15 18 20)" />
-                                    <circle cx="24" cy="24" r="18" stroke="#8B5CF6" stroke-width="1.5"
-                                        stroke-opacity="0.2" />
-                                    <circle cx="36" cy="12" r="3" fill="#8B5CF6" class="svg-orbit-node" />
-                                </svg>
-                            </div>
+                            <div class="timeline-dot react-timeline-icon" data-icon="case" data-color="#FCE545"></div>
                         </div>
                         <div class="timeline-content-slot">
                             <h3 class="agent-card-title">Credential Governance</h3>
@@ -1419,18 +1472,7 @@ export default function HomePage() {
                     <!-- Milestone Item 3: Visitor Operations -->
                     <div class="timeline-item">
                         <div class="timeline-dot-slot">
-                            <div class="timeline-dot">
-                                <svg width="24" height="24" viewBox="0 0 48 48" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 8 H36 V40 H12 Z" stroke="#7C3CD0" stroke-width="2"
-                                        fill="rgba(124, 60, 208, 0.1)" />
-                                    <circle cx="24" cy="18" r="4" stroke="#8B5CF6" stroke-width="2" />
-                                    <line x1="16" y1="28" x2="32" y2="28" stroke="#7C3CD0" stroke-width="2" />
-                                    <line x1="16" y1="33" x2="28" y2="33" stroke="#7C3CD0" stroke-width="2" />
-                                    <line x1="8" y1="24" x2="40" y2="24" stroke="#8B5CF6" stroke-width="2"
-                                        class="svg-laser-line" />
-                                </svg>
-                            </div>
+                            <div class="timeline-dot react-timeline-icon" data-icon="bot" data-color="#4993E3"></div>
                         </div>
                         <div class="timeline-content-slot">
                             <h3 class="agent-card-title">Visitor Operations</h3>
@@ -1454,16 +1496,7 @@ export default function HomePage() {
                     <!-- Milestone Item 4: Safety Monitoring -->
                     <div class="timeline-item">
                         <div class="timeline-dot-slot">
-                            <div class="timeline-dot">
-                                <svg width="24" height="24" viewBox="0 0 48 48" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="24" cy="24" r="18" stroke="#7C3CD0" stroke-width="2" />
-                                    <circle cx="24" cy="24" r="8" stroke="#8B5CF6" stroke-width="2"
-                                        class="svg-circle-pulse" />
-                                    <path d="M24 6 L20 20 M38 18 L24 20 M32 38 L24 28 M10 30 L20 28 M16 10 L24 24"
-                                        stroke="#7C3CD0" stroke-width="1.5" class="svg-rotate-cw" />
-                                </svg>
-                            </div>
+                            <div class="timeline-dot react-timeline-icon" data-icon="brain" data-color="#E44856"></div>
                         </div>
                         <div class="timeline-content-slot">
                             <h3 class="agent-card-title">Safety Monitoring</h3>
@@ -1487,20 +1520,7 @@ export default function HomePage() {
                     <!-- Milestone Item 5: Guard Coordination -->
                     <div class="timeline-item">
                         <div class="timeline-dot-slot">
-                            <div class="timeline-dot">
-                                <svg width="24" height="24" viewBox="0 0 48 48" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <polygon points="24,6 42,15 24,24 6,15" stroke="#7C3CD0" stroke-width="2"
-                                        fill="rgba(124, 60, 208, 0.1)" />
-                                    <polygon points="24,24 42,33 24,42 6,33" stroke="#8B5CF6" stroke-width="1.5"
-                                        stroke-opacity="0.4" />
-                                    <line x1="24" y1="6" x2="24" y2="42" stroke="#7C3CD0" stroke-width="1"
-                                        stroke-opacity="0.3" />
-                                    <circle cx="24" cy="15" r="2.5" fill="#8B5CF6" class="svg-circle-pulse" />
-                                    <circle cx="16" cy="28" r="2" fill="#7C3CD0" />
-                                    <circle cx="32" cy="32" r="2" fill="#7C3CD0" />
-                                </svg>
-                            </div>
+                            <div class="timeline-dot react-timeline-icon" data-icon="podcast" data-color="#AFF962"></div>
                         </div>
                         <div class="timeline-content-slot">
                             <h3 class="agent-card-title">Guard Coordination</h3>
@@ -1524,22 +1544,7 @@ export default function HomePage() {
                     <!-- Milestone Item 6: Vehicle & Perimeter -->
                     <div class="timeline-item">
                         <div class="timeline-dot-slot">
-                            <div class="timeline-dot">
-                                <svg width="24" height="24" viewBox="0 0 48 48" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M6 38 H42" stroke="#7C3CD0" stroke-width="3" />
-                                    <rect x="8" y="16" width="6" height="22" fill="#7C3CD0" stroke="#7C3CD0"
-                                        stroke-width="1" />
-                                    <rect x="34" y="16" width="6" height="22" fill="#7C3CD0" stroke="#7C3CD0"
-                                        stroke-width="1" />
-                                    <line x1="14" y1="20" x2="34" y2="20" stroke="#8B5CF6" stroke-width="3"
-                                        stroke-dasharray="2,2" />
-                                    <line x1="14" y1="26" x2="34" y2="26" stroke="#8B5CF6" stroke-width="3"
-                                        stroke-dasharray="2,2" />
-                                    <path d="M24 10 L24 30" stroke="#8B5CF6" stroke-width="1.5"
-                                        class="svg-laser-line" />
-                                </svg>
-                            </div>
+                            <div class="timeline-dot react-timeline-icon" data-icon="ebook" data-color="#6354F3"></div>
                         </div>
                         <div class="timeline-content-slot">
                             <h3 class="agent-card-title">Vehicle & Perimeter</h3>
@@ -1564,15 +1569,13 @@ export default function HomePage() {
             </div>
         </section>
 
-        <div class="ent-section-divider"></div>
-
 
         <!-- Cinematic Feature Split Section -->
-        <section class="section sec-cinematic-feature" id="cinematic-feature">
+        <section class="section sec-cinematic-feature" id="cinematic-feature" style="padding-top: 0 !important;">
             <div class="container">
                 <div class="text-center"
-                    style="margin-bottom: 2.5rem; display: flex; flex-direction: column; align-items: center;">
-                    <span class="ent-pill">Why This Matters</span>
+                    style="display: flex; flex-direction: column; align-items: center;">
+                    <span class="ent-pill award-pill">Why This Matters</span>
                     <h2 class="std-section-h2 text-center" style="margin-top: 1rem; margin-bottom: 1.5rem;">What changes
                         when security can act</h2>
                     <p class="std-section-subheading text-center" style="max-width: 650px; margin: 0 auto;">
@@ -1584,425 +1587,56 @@ export default function HomePage() {
                     <!-- Left Column: Symmetrical Right-Aligned Points -->
                     <div class="isometric-col col-left">
                         <div class="isometric-point-item">
-                            <div class="point-icon-wrap">
-                                <div class="point-icon-dot">
-                                    <svg width="24" height="24" viewBox="0 0 48 48" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="24" cy="24" r="20" stroke="#7C3CD0" stroke-width="2"
-                                            stroke-opacity="0.3" />
-                                        <rect x="12" y="12" width="24" height="24" rx="2" stroke="#7C3CD0"
-                                            stroke-width="2" fill="rgba(124, 60, 208, 0.1)" />
-                                        <path d="M17 19 L21 23 L17 27" stroke="#8B5CF6" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <line x1="24" y1="27" x2="30" y2="27" stroke="#8B5CF6" stroke-width="2.5"
-                                            stroke-linecap="round" class="svg-laser-line" />
-                                    </svg>
+                            <div class="bento-hover-bg"></div>
+                            <div class="bento-content-wrap">
+                                <div class="point-icon-wrap">
+                                    <div class="point-icon-dot react-timeline-icon" data-icon="bento-book" data-color="#FCE545"></div>
                                 </div>
+                                <strong>Turnover stops breaking you</strong>
+                                <p>SOPs live in code, not in people's heads. New staff become effective in days. Knowledge
+                                    persists.</p>
                             </div>
-                            <strong>Turnover stops breaking you</strong>
-                            <p>SOPs live in code, not in people's heads. New staff become effective in days. Knowledge
-                                persists.</p>
                         </div>
                         <div class="isometric-point-item">
-                            <div class="point-icon-wrap">
-                                <div class="point-icon-dot">
-                                    <svg width="24" height="24" viewBox="0 0 48 48" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="24" cy="24" r="20" stroke="#7C3CD0" stroke-width="2"
-                                            stroke-opacity="0.3" />
-                                        <line x1="24" y1="12" x2="24" y2="36" stroke="#7C3CD0" stroke-width="2"
-                                            stroke-opacity="0.5" />
-                                        <line x1="12" y1="24" x2="36" y2="24" stroke="#7C3CD0" stroke-width="2"
-                                            stroke-opacity="0.5" />
-                                        <circle cx="24" cy="24" r="6" stroke="#8B5CF6" stroke-width="2"
-                                            class="svg-circle-pulse" fill="rgba(139, 92, 246, 0.1)" />
-                                        <circle cx="24" cy="12" r="3" fill="#8B5CF6" class="svg-orbit-node" />
-                                        <circle cx="24" cy="36" r="3" fill="#8B5CF6" class="svg-orbit-node" />
-                                        <circle cx="12" cy="24" r="3" fill="#8B5CF6" class="svg-orbit-node" />
-                                        <circle cx="36" cy="24" r="3" fill="#8B5CF6" class="svg-orbit-node" />
-                                    </svg>
+                            <div class="bento-hover-bg"></div>
+                            <div class="bento-content-wrap">
+                                <div class="point-icon-wrap">
+                                    <div class="point-icon-dot react-timeline-icon" data-icon="bento-users" data-color="#EA49B2"></div>
                                 </div>
+                                <strong>Fewer people, more coverage</strong>
+                                <p>Modules handle routine operations. Your team handles exceptions. One operator
+                                    accomplishes what five couldn't.</p>
                             </div>
-                            <strong>Fewer people, more coverage</strong>
-                            <p>Modules handle routine operations. Your team handles exceptions. One operator
-                                accomplishes what five couldn't.</p>
                         </div>
                     </div>
 
                     <!-- Center Column: Animated 3D Isometric Graphic -->
-                    <div class="isometric-center-graphic">
-                        <div class="iso-graphic-wrapper">
-                            <div class="iso-glow-ring"></div>
-
-                            <!-- Symmetrical vertical wireframe dotted lines -->
-                            <div class="iso-wireframe-lines">
-                                <div class="wireframe-line line-left"></div>
-                                <div class="wireframe-line line-right"></div>
-                            </div>
-
-                            <!-- Top Slab (SOP Code Persistence & Automation Hub) -->
-                            <div class="iso-slab slab-top">
-                                <div class="iso-slab-inner">
-                                    <svg viewBox="0 0 100 100" class="iso-logo" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <style>
-                                            @keyframes flow-right {
-                                                0% {
-                                                    transform: translateX(0);
-                                                    opacity: 0;
-                                                }
-
-                                                10% {
-                                                    opacity: 1;
-                                                }
-
-                                                90% {
-                                                    opacity: 1;
-                                                }
-
-                                                100% {
-                                                    transform: translateX(46px);
-                                                    opacity: 0;
-                                                }
-                                            }
-
-                                            @keyframes scale-active {
-
-                                                0%,
-                                                100% {
-                                                    transform: scale(1);
-                                                    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
-                                                }
-
-                                                50% {
-                                                    transform: scale(1.15);
-                                                    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.7));
-                                                }
-                                            }
-
-                                            @keyframes text-blink {
-
-                                                0%,
-                                                100% {
-                                                    opacity: 0.4;
-                                                }
-
-                                                50% {
-                                                    opacity: 1;
-                                                }
-                                            }
-
-                                            @keyframes code-scroll {
-                                                0% {
-                                                    stroke-dashoffset: 24;
-                                                }
-
-                                                100% {
-                                                    stroke-dashoffset: 0;
-                                                }
-                                            }
-                                        </style>
-                                        <!-- Background grid -->
-                                        <circle cx="50" cy="50" r="45" stroke="rgba(255,255,255,0.06)"
-                                            stroke-width="0.8" stroke-dasharray="2,2" />
-
-                                        <!-- LEFT: Operator Head Silhouette representing "knowledge in heads" -->
-                                        <g transform="translate(0, -2)">
-                                            <circle cx="20" cy="30" r="4" stroke="rgba(255,255,255,0.3)"
-                                                stroke-width="1" />
-                                            <path d="M14 39 C14 36 26 36 26 39" stroke="rgba(255,255,255,0.3)"
-                                                stroke-width="1" />
-                                        </g>
-
-                                        <!-- RIGHT: Code / Database stack representing "SOPs live in code" -->
-                                        <g transform="translate(0, -2)">
-                                            <rect x="74" y="20" width="12" height="4" rx="1" stroke="#ffffff"
-                                                stroke-width="1" fill="rgba(255, 255, 255, 0.04)" />
-                                            <rect x="74" y="26" width="12" height="4" rx="1" stroke="#ffffff"
-                                                stroke-width="1" fill="rgba(255, 255, 255, 0.04)" />
-                                            <rect x="74" y="32" width="12" height="4" rx="1" stroke="#ffffff"
-                                                stroke-width="1" fill="rgba(255, 255, 255, 0.04)" />
-                                        </g>
-
-                                        <!-- FLOW: Dotted transfer of knowledge from Operator Head to Code stack -->
-                                        <path d="M 28 28 L 68 28" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"
-                                            stroke-dasharray="2,2" />
-                                        <circle cx="28" cy="28" r="1.5" fill="#ffffff"
-                                            style="animation: flow-right 2.5s infinite linear;" />
-
-                                        <!-- SOP Code Terminal Display -->
-                                        <text x="50" y="32" font-family="monospace" font-size="10" fill="#ffffff"
-                                            text-anchor="middle" font-weight="900"
-                                            style="animation: text-blink 2s infinite;">{ SOP }</text>
-
-                                        <!-- Automated execution flow lines (SOP logic executing) -->
-                                        <path d="M 32 36 C 32 44, 68 44, 68 36" stroke="rgba(255, 255, 255, 0.2)"
-                                            stroke-width="1" stroke-dasharray="4,4"
-                                            style="animation: code-scroll 2s infinite linear;" />
-
-                                        <!-- 1 Operator to 5 Automated Modules branching logic (Fewer people, more coverage) -->
-                                        <!-- Central Operator Node -->
-                                        <g
-                                            style="transform-origin: 50px 54px; animation: scale-active 3s infinite alternate;">
-                                            <circle cx="50" cy="54" r="4.5" fill="#ffffff" />
-                                            <circle cx="50" cy="54" r="8" stroke="rgba(255, 255, 255, 0.3)"
-                                                stroke-width="0.8" stroke-dasharray="2,2" />
-                                        </g>
-
-                                        <!-- Symmetrical Branches -->
-                                        <g stroke="rgba(255,255,255,0.15)" stroke-width="0.8">
-                                            <line x1="50" y1="54" x2="26" y2="72" />
-                                            <line x1="50" y1="54" x2="38" y2="72" />
-                                            <line x1="50" y1="54" x2="50" y2="72" />
-                                            <line x1="50" y1="54" x2="62" y2="72" />
-                                            <line x1="50" y1="54" x2="74" y2="72" />
-                                        </g>
-
-                                        <!-- 5 Active Modules (Representing standard operations run by modules) -->
-                                        <circle cx="26" cy="72" r="2.5" fill="#ffffff" />
-                                        <circle cx="38" cy="72" r="2.5" fill="#ffffff" />
-                                        <circle cx="50" cy="72" r="2.5" fill="#ffffff" />
-                                        <circle cx="62" cy="72" r="2.5" fill="#ffffff" />
-                                        <circle cx="74" cy="72" r="2.5" fill="#ffffff" />
-
-                                        <!-- Animated signal pulses traveling down branches -->
-                                        <circle cx="50" cy="54" r="1.5" fill="#ffffff"
-                                            style="animation: flow-right 1.5s infinite linear; transform-origin: 50px 54px;" />
-
-                                        <!-- Legend text: 1:5 scale efficiency -->
-                                        <text x="50" y="86" font-family="'Outfit', sans-serif" font-size="7"
-                                            fill="rgba(255,255,255,0.4)" text-anchor="middle" font-weight="bold"
-                                            letter-spacing="0.5">1 OPERATOR : 5x COVERAGE</text>
-                                    </svg>
-                                </div>
-                            </div>
-
-                            <!-- Scrolling chevron connectors -->
-                            <div class="iso-connectors">
-                                <div class="iso-chevrons col-left-chevrons">
-                                    <svg viewBox="0 0 24 60" class="chevrons-svg">
-                                        <path d="M6 22 L12 16 L18 22 M6 32 L12 26 L18 32 M6 42 L12 36 L18 42"
-                                            fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                                            stroke-linejoin="round" class="chevrons-up-path" />
-                                    </svg>
-                                </div>
-                                <div class="iso-chevrons col-right-chevrons">
-                                    <svg viewBox="0 0 24 60" class="chevrons-svg">
-                                        <path d="M6 18 L12 24 L18 18 M6 28 L12 34 L18 28 M6 38 L12 44 L18 38"
-                                            fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                                            stroke-linejoin="round" class="chevrons-down-path" />
-                                    </svg>
-                                </div>
-                            </div>
-
-                            <!-- Bottom Slab (Threat Funnel & Posture Shield) -->
-                            <div class="iso-slab slab-bottom">
-                                <div class="iso-slab-inner">
-                                    <svg viewBox="0 0 100 100" class="iso-logo" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <style>
-                                            @keyframes check-draw {
-
-                                                0%,
-                                                20% {
-                                                    stroke-dashoffset: 16;
-                                                    opacity: 0;
-                                                }
-
-                                                50%,
-                                                100% {
-                                                    stroke-dashoffset: 0;
-                                                    opacity: 1;
-                                                }
-                                            }
-
-                                            @keyframes threat-mitigate {
-
-                                                0%,
-                                                30% {
-                                                    fill: #ef4444;
-                                                    filter: drop-shadow(0 0 2px #ef4444);
-                                                }
-
-                                                70%,
-                                                100% {
-                                                    fill: #8b5cf6;
-                                                    filter: drop-shadow(0 0 2px #8b5cf6);
-                                                }
-                                            }
-
-                                            @keyframes wave-bounce {
-
-                                                0%,
-                                                100% {
-                                                    transform: translateY(0);
-                                                }
-
-                                                50% {
-                                                    transform: translateY(-3px);
-                                                }
-                                            }
-
-                                            @keyframes funnel-pulse {
-
-                                                0%,
-                                                100% {
-                                                    opacity: 0.15;
-                                                }
-
-                                                50% {
-                                                    opacity: 0.5;
-                                                }
-                                            }
-
-                                            @keyframes bar-grow-1 {
-
-                                                0%,
-                                                100% {
-                                                    height: 0px;
-                                                    y: 74px;
-                                                }
-
-                                                50% {
-                                                    height: 8px;
-                                                    y: 66px;
-                                                }
-                                            }
-
-                                            @keyframes bar-grow-2 {
-
-                                                0%,
-                                                100% {
-                                                    height: 0px;
-                                                    y: 74px;
-                                                }
-
-                                                50% {
-                                                    height: 11px;
-                                                    y: 63px;
-                                                }
-                                            }
-
-                                            @keyframes bar-grow-3 {
-
-                                                0%,
-                                                100% {
-                                                    height: 0px;
-                                                    y: 74px;
-                                                }
-
-                                                50% {
-                                                    height: 14px;
-                                                    y: 60px;
-                                                }
-                                            }
-                                        </style>
-                                        <!-- Background grid -->
-                                        <circle cx="50" cy="50" r="45" stroke="rgba(255,255,255,0.06)"
-                                            stroke-width="0.8" stroke-dasharray="2,2" />
-
-                                        <!-- 1. "NOTHING FALLS THROUGH" Threat Funnel Safeguard (Top of SVG) -->
-                                        <!-- Funnel upper boundary -->
-                                        <path d="M 22 18 L 78 18 L 62 38 L 38 38 Z" fill="rgba(139, 92, 246, 0.03)"
-                                            stroke="rgba(255,255,255,0.15)" stroke-width="0.8"
-                                            style="animation: funnel-pulse 3s infinite alternate;" />
-
-                                        <!-- Input Alert dots falling into the funnel -->
-                                        <circle cx="34" cy="22" r="2" fill="#ef4444"
-                                            style="animation: threat-mitigate 4s infinite alternate;" />
-                                        <circle cx="50" cy="24" r="2" fill="#ef4444"
-                                            style="animation: threat-mitigate 4s infinite alternate; animation-delay: 1s;" />
-                                        <circle cx="66" cy="22" r="2" fill="#ef4444"
-                                            style="animation: threat-mitigate 4s infinite alternate; animation-delay: 2s;" />
-
-                                        <!-- 2. Concentric Security Shield with validation check (Nothing falls through) -->
-                                        <g transform="translate(0, 5)">
-                                            <path
-                                                d="M50 32 C58 32 62 34 62 42 C62 54 50 62 50 64 C50 62 38 54 38 42 C38 34 42 32 50 32 Z"
-                                                stroke="#8b5cf6" stroke-width="1.5" fill="rgba(139, 92, 246, 0.06)" />
-
-                                            <!-- Live drawing validation checkmark -->
-                                            <path d="M45 46 L49 50 L55 42" stroke="#8b5cf6" stroke-width="2.2"
-                                                stroke-linecap="round" stroke-linejoin="round" fill="none"
-                                                stroke-dasharray="16" stroke-dashoffset="16"
-                                                style="animation: check-draw 4s infinite linear;" />
-                                        </g>
-
-                                        <!-- 3. "STRATEGIC CREDIBILITY" Modernized Board Dashboard (Bottom of SVG) -->
-                                        <g transform="translate(0, 8)">
-                                            <!-- Digital Boardroom Monitor border -->
-                                            <rect x="24" y="60" width="52" height="20" rx="1.5"
-                                                stroke="rgba(255,255,255,0.12)" stroke-width="0.8"
-                                                fill="rgba(0,0,0,0.45)" />
-
-                                            <!-- Board presentation bar charts -->
-                                            <!-- Bar 1 -->
-                                            <rect x="32" y="74" width="6" height="0" fill="#8b5cf6" rx="0.5"
-                                                style="animation: bar-grow-1 3s infinite ease-in-out;" />
-
-                                            <!-- Bar 2 -->
-                                            <rect x="42" y="74" width="6" height="0" fill="#8b5cf6" rx="0.5"
-                                                style="animation: bar-grow-2 3s infinite ease-in-out; animation-delay: 0.5s;" />
-
-                                            <!-- Bar 3 -->
-                                            <rect x="52" y="74" width="6" height="0" fill="#8b5cf6" rx="0.5"
-                                                style="animation: bar-grow-3 3s infinite ease-in-out; animation-delay: 1s;" />
-
-                                            <!-- Small upward posture growth arrow -->
-                                            <path d="M 64 72 L 68 68 L 72 72 M 68 68 L 68 76" stroke="#8b5cf6"
-                                                stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
-                                                style="animation: wave-bounce 2s infinite ease-in-out;" />
-                                        </g>
-
-                                        <!-- Around the clock status text -->
-                                        <text x="50" y="93" font-family="'Outfit', sans-serif" font-size="7"
-                                            fill="rgba(255,255,255,0.4)" text-anchor="middle" font-weight="bold"
-                                            letter-spacing="0.5">24/7 SEC POSTURE : BOARD READY</text>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="trigger-illustration-wrapper">
+                        <img src="/SVGs/SOP Agents 1.svg" alt="SOP Agent Architecture Diagram" style={{ width: '90%', height: 'auto', display: 'block', margin: '0 auto' }} />
                     </div>
-
                     <!-- Right Column: Symmetrical Left-Aligned Points -->
                     <div class="isometric-col col-right">
                         <div class="isometric-point-item">
-                            <div class="point-icon-wrap">
-                                <div class="point-icon-dot">
-                                    <svg width="24" height="24" viewBox="0 0 48 48" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="24" cy="24" r="20" stroke="#7C3CD0" stroke-width="2"
-                                            stroke-opacity="0.3" />
-                                        <path d="M24 11 L35 15 V25 C35 32 24 37 24 37 C24 37 13 32 13 25 V15 Z"
-                                            stroke="#7C3CD0" stroke-width="2" fill="rgba(124, 60, 208, 0.1)"
-                                            stroke-linejoin="round" />
-                                        <path d="M19 23 L23 27 L29 19" stroke="#8B5CF6" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" class="svg-laser-line" />
-                                    </svg>
+                            <div class="bento-hover-bg"></div>
+                            <div class="bento-content-wrap">
+                                <div class="point-icon-wrap">
+                                    <div class="point-icon-dot react-timeline-icon" data-icon="bento-shield" data-color="#E44856"></div>
                                 </div>
+                                <strong>Nothing falls through</strong>
+                                <p>Every alarm assessed. Every credential tracked. Every incident documented. Around the
+                                    clock.</p>
                             </div>
-                            <strong>Nothing falls through</strong>
-                            <p>Every alarm assessed. Every credential tracked. Every incident documented. Around the
-                                clock.</p>
                         </div>
                         <div class="isometric-point-item">
-                            <div class="point-icon-wrap">
-                                <div class="point-icon-dot">
-                                    <svg width="24" height="24" viewBox="0 0 48 48" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="24" cy="24" r="20" stroke="#7C3CD0" stroke-width="2"
-                                            stroke-opacity="0.3" />
-                                        <path d="M14 14 V34 H34" stroke="#7C3CD0" stroke-width="2"
-                                            stroke-linecap="round" />
-                                        <path d="M17 30 L23 24 L29 27 L34 17" stroke="#8B5CF6" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" class="svg-radar-line" />
-                                        <circle cx="34" cy="17" r="3" fill="#8B5CF6" class="svg-orbit-node" />
-                                    </svg>
+                            <div class="bento-hover-bg"></div>
+                            <div class="bento-content-wrap">
+                                <div class="point-icon-wrap">
+                                    <div class="point-icon-dot react-timeline-icon" data-icon="bento-briefcase" data-color="#AFF962"></div>
                                 </div>
+                                <strong>Strategic credibility</strong>
+                                <p>Stop firefighting paperwork. Start presenting security posture to the board. Become the
+                                    CSO who modernized the operation.</p>
                             </div>
-                            <strong>Strategic credibility</strong>
-                            <p>Stop firefighting paperwork. Start presenting security posture to the board. Become the
-                                CSO who modernized the operation.</p>
                         </div>
                     </div>
                 </div>
@@ -2023,7 +1657,7 @@ export default function HomePage() {
                 <h2 class="canvas-title">Hire our security agents</h2>
                 <p class="canvas-subtitle">Autonomous security that never blinks. AI agents that observe, decide, and
                     act in real time.</p>
-                <a href="#" class="ent-btn-primary">Learn More</a>
+                <a href="#" class="ent-btn-primary">Learn More <svg class="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow-stem" d="M3 12h12" /><path class="arrow-head" d="m9 18 6-6-6-6"/></svg></a>
             </div>
 
         </section>
@@ -2043,8 +1677,8 @@ export default function HomePage() {
                         <span
                             style="color: #8B5CF6; margin-right: 8px; display: inline-flex; align-items: center; filter: drop-shadow(0 0 4px rgba(139, 92, 246, 0.45));">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="3" y="3" width="18" height="18" rx="2" stroke-linejoin="round" />
+                                strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2" strokeLinejoin="round" />
                                 <line x1="9" y1="3" x2="9" y2="21" />
                                 <line x1="15" y1="3" x2="15" y2="21" />
                                 <line x1="3" y1="9" x2="21" y2="9" />
@@ -2070,10 +1704,7 @@ export default function HomePage() {
                         <div class="k-card-header"
                             style="border-bottom: 1px solid rgba(255, 255, 255, 0.06); padding-bottom: 16px; width: 100%;">
                             <span class="k-card-icon">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                                </svg>
+                                <div class="react-timeline-icon" data-icon="icon-message" data-color="#FCE545"></div>
                             </span>
                             <h3 class="k-card-title">Ask questions directly</h3>
                         </div>
@@ -2106,12 +1737,7 @@ export default function HomePage() {
                         <div class="k-feature-card">
                             <div class="k-card-header">
                                 <span class="k-card-icon">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <polygon points="12 2 2 7 12 12 22 7 12 2" />
-                                        <polyline points="2 17 12 22 22 17" />
-                                        <polyline points="2 12 12 17 22 12" />
-                                    </svg>
+                                    <div class="react-timeline-icon" data-icon="icon-layers" data-color="#EA49B2"></div>
                                 </span>
                                 <h3 class="k-card-title">Single operational view</h3>
                             </div>
@@ -2123,10 +1749,7 @@ export default function HomePage() {
                         <div class="k-feature-card">
                             <div class="k-card-header">
                                 <span class="k-card-icon">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                                    </svg>
+                                    <div class="react-timeline-icon" data-icon="icon-zap" data-color="#E44856"></div>
                                 </span>
                                 <h3 class="k-card-title">Deploy instantly</h3>
                             </div>
@@ -2138,14 +1761,7 @@ export default function HomePage() {
                         <div class="k-feature-card">
                             <div class="k-card-header">
                                 <span class="k-card-icon">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-                                        <line x1="2" y1="10" x2="22" y2="10" />
-                                        <line x1="12" y1="10" x2="12" y2="17" />
-                                        <line x1="8" y1="21" x2="16" y2="21" />
-                                        <line x1="12" y1="17" x2="12" y2="21" />
-                                    </svg>
+                                    <div class="react-timeline-icon" data-icon="icon-monitor" data-color="#AFF962"></div>
                                 </span>
                                 <h3 class="k-card-title">Your console or ours</h3>
                             </div>
@@ -2169,10 +1785,7 @@ export default function HomePage() {
 
                     <!-- Right: Pill Learn More Button -->
                     <div class="knowledge-action">
-                        <a href="#explore-memory" class="ent-btn-secondary learn-more-btn"
-                            style="display: inline-flex; align-items: center; padding: 12px 28px; border-radius: 100px; font-family: var(--font-main); font-size: 15px; font-weight: 500; color: #ffffff; background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%); border: 1px solid rgba(255, 255, 255, 0.08); text-decoration: none; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);">
-                            Learn more
-                        </a>
+                        <a href="#explore-memory" class="ent-btn-primary">Learn more <svg class="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow-stem" d="M3 12h12" /><path class="arrow-head" d="m9 18 6-6-6-6"/></svg></a>
                     </div>
                 </div>
             </div>
@@ -2192,7 +1805,7 @@ export default function HomePage() {
                     Critical environments demand proof. Guardrails, approval gates, and immutable records—autonomous
                     execution that stays auditable.
                 </p>
-                <a href="#" class="ent-btn-primary" style="margin-bottom: 80px;">Request architecture review</a>
+                <a href="#" class="ent-btn-primary" style="margin-bottom: 80px;">Request architecture review <svg class="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow-stem" d="M3 12h12" /><path class="arrow-head" d="m9 18 6-6-6-6"/></svg></a>
 
                 <style>
                     @keyframes ent-spin-slow {
@@ -2282,24 +1895,24 @@ export default function HomePage() {
                         <div
                             style="flex: 1; display: flex; align-items: center; justify-content: center; position: relative;">
                             <svg width="200" height="200" viewBox="0 0 200 200" fill="none" style="overflow: visible;">
-                                <path d="M40,130 L90,130 L100,100 L110,130 L160,130" stroke="rgba(255,255,255,0.1)"
-                                    stroke-width="1" stroke-dasharray="2 4"
+                                <path d="M40,130 L90,130 L100,100 L110,130 L160,130" stroke="rgba(255, 255, 255, 0.25)"
+                                    strokeWidth="1" stroke-dasharray="2 4"
                                     style="animation: ent-dash-flow 2s linear infinite reverse;" />
 
                                 <g style="animation: ent-float-up-down 4s ease-in-out infinite;">
                                     <polygon points="100,60 130,75 100,90 70,75" fill="rgba(139,92,246,0.1)"
-                                        stroke="rgba(139,92,246,0.5)" stroke-width="1" />
+                                        stroke="rgba(139,92,246,0.5)" strokeWidth="1" />
                                     <polygon points="70,75 100,90 100,120 70,105" fill="rgba(139,92,246,0.05)"
-                                        stroke="rgba(139,92,246,0.3)" stroke-width="1" />
+                                        stroke="rgba(139,92,246,0.3)" strokeWidth="1" />
                                     <polygon points="100,90 130,75 130,105 100,120" fill="rgba(139,92,246,0.15)"
-                                        stroke="rgba(139,92,246,0.5)" stroke-width="1" />
+                                        stroke="rgba(139,92,246,0.5)" strokeWidth="1" />
 
-                                    <ellipse cx="100" cy="90" rx="20" ry="10" stroke="rgba(255,255,255,0.3)"
-                                        stroke-width="1" stroke-dasharray="2 2"
+                                    <ellipse cx="100" cy="90" rx="20" ry="10" stroke="rgba(255, 255, 255, 0.25)"
+                                        strokeWidth="1" stroke-dasharray="2 2"
                                         style="animation: ent-spin-slow 4s linear infinite; transform-origin: 100px 90px;" />
                                 </g>
 
-                                <circle cx="100" cy="90" r="30" stroke="rgba(139,92,246,0.3)" stroke-width="1"
+                                <circle cx="100" cy="90" r="30" stroke="rgba(139,92,246,0.3)" strokeWidth="1"
                                     fill="none" style="color: #8b5cf6; animation: ent-pulse-glow 2s infinite;" />
                                 <circle cx="100" cy="90" r="3" fill="#8b5cf6"
                                     style="color: #8b5cf6; animation: ent-pulse-glow 1s infinite;" />
@@ -2334,30 +1947,30 @@ export default function HomePage() {
                             style="flex: 1; display: flex; align-items: center; justify-content: center; position: relative;">
                             <svg width="200" height="200" viewBox="0 0 200 200" fill="none" style="overflow: visible;">
                                 <ellipse cx="100" cy="140" rx="60" ry="18" fill="rgba(16, 185, 129, 0.05)"
-                                    stroke="rgba(16, 185, 129, 0.4)" stroke-width="1"
+                                    stroke="rgba(16, 185, 129, 0.4)" strokeWidth="1"
                                     style="animation: ent-float-up-down 5s ease-in-out infinite;" />
                                 <text x="170" y="145" font-family="monospace" font-size="8" fill="#10b981"
                                     text-anchor="start">LVL.1</text>
 
                                 <ellipse cx="100" cy="100" rx="45" ry="14" fill="rgba(245, 158, 11, 0.05)"
-                                    stroke="rgba(245, 158, 11, 0.4)" stroke-width="1" stroke-dasharray="4 2"
+                                    stroke="rgba(245, 158, 11, 0.4)" strokeWidth="1" stroke-dasharray="4 2"
                                     style="animation: ent-float-up-down 4s ease-in-out infinite; animation-delay: 0.5s;" />
                                 <text x="155" y="105" font-family="monospace" font-size="8" fill="#f59e0b"
                                     text-anchor="start">LVL.2</text>
 
                                 <ellipse cx="100" cy="60" rx="30" ry="10" fill="rgba(239, 68, 68, 0.05)"
-                                    stroke="rgba(239, 68, 68, 0.4)" stroke-width="1"
+                                    stroke="rgba(239, 68, 68, 0.4)" strokeWidth="1"
                                     style="animation: ent-float-up-down 3s ease-in-out infinite; animation-delay: 1s;" />
                                 <rect x="96" y="45" width="8" height="8" rx="1" fill="rgba(239, 68, 68, 0.2)"
-                                    stroke="#ef4444" stroke-width="1"
+                                    stroke="#ef4444" strokeWidth="1"
                                     style="animation: ent-float-up-down 3s ease-in-out infinite; animation-delay: 1s;" />
                                 <path d="M98,45 V42 C98,40 102,40 102,42 V45" fill="none" stroke="#ef4444"
-                                    stroke-width="1"
+                                    strokeWidth="1"
                                     style="animation: ent-float-up-down 3s ease-in-out infinite; animation-delay: 1s;" />
                                 <text x="140" y="65" font-family="monospace" font-size="8" fill="#ef4444"
                                     text-anchor="start">REQ_AUTH</text>
 
-                                <line x1="100" y1="60" x2="100" y2="140" stroke="rgba(255,255,255,0.1)" stroke-width="1"
+                                <line x1="100" y1="60" x2="100" y2="140" stroke="rgba(255, 255, 255, 0.25)" strokeWidth="1"
                                     stroke-dasharray="2 2" />
                             </svg>
                         </div>
@@ -2384,17 +1997,17 @@ export default function HomePage() {
                         <div
                             style="flex: 1; display: flex; align-items: center; justify-content: center; position: relative;">
                             <svg width="200" height="200" viewBox="0 0 200 200" fill="none" style="overflow: visible;">
-                                <path d="M40,140 L80,100 L120,100 L160,60" stroke="rgba(255,255,255,0.1)"
-                                    stroke-width="1" stroke-dasharray="3 3"
+                                <path d="M40,140 L80,100 L120,100 L160,60" stroke="rgba(255, 255, 255, 0.25)"
+                                    strokeWidth="1" stroke-dasharray="3 3"
                                     style="animation: ent-dash-flow 2s linear infinite;" />
 
                                 <g style="animation: ent-float-up-down 4s ease-in-out infinite;">
                                     <polygon points="40,140 55,130 40,120 25,130" fill="rgba(59, 130, 246, 0.1)"
-                                        stroke="#3b82f6" stroke-width="1" />
+                                        stroke="#3b82f6" strokeWidth="1" />
                                     <polygon points="25,130 40,140 40,155 25,145" fill="rgba(59, 130, 246, 0.05)"
-                                        stroke="#3b82f6" stroke-width="1" />
+                                        stroke="#3b82f6" strokeWidth="1" />
                                     <polygon points="40,140 55,130 55,145 40,155" fill="rgba(59, 130, 246, 0.15)"
-                                        stroke="#3b82f6" stroke-width="1" />
+                                        stroke="#3b82f6" strokeWidth="1" />
                                     <circle cx="40" cy="130" r="2" fill="#3b82f6"
                                         style="color: #3b82f6; animation: ent-pulse-glow 1.5s infinite;" />
                                 </g>
@@ -2402,11 +2015,11 @@ export default function HomePage() {
                                 <g
                                     style="animation: ent-float-up-down 4.5s ease-in-out infinite; animation-delay: 0.3s;">
                                     <polygon points="100,100 115,90 100,80 85,90" fill="rgba(59, 130, 246, 0.1)"
-                                        stroke="#3b82f6" stroke-width="1" />
+                                        stroke="#3b82f6" strokeWidth="1" />
                                     <polygon points="85,90 100,100 100,115 85,105" fill="rgba(59, 130, 246, 0.05)"
-                                        stroke="#3b82f6" stroke-width="1" />
+                                        stroke="#3b82f6" strokeWidth="1" />
                                     <polygon points="100,100 115,90 115,105 100,115" fill="rgba(59, 130, 246, 0.15)"
-                                        stroke="#3b82f6" stroke-width="1" />
+                                        stroke="#3b82f6" strokeWidth="1" />
                                     <circle cx="100" cy="90" r="2" fill="#3b82f6"
                                         style="color: #3b82f6; animation: ent-pulse-glow 1.5s infinite; animation-delay: 0.3s;" />
 
@@ -2419,11 +2032,11 @@ export default function HomePage() {
                                 <g
                                     style="animation: ent-float-up-down 3.5s ease-in-out infinite; animation-delay: 0.6s;">
                                     <polygon points="160,60 175,50 160,40 145,50" fill="rgba(59, 130, 246, 0.1)"
-                                        stroke="#3b82f6" stroke-width="1" />
+                                        stroke="#3b82f6" strokeWidth="1" />
                                     <polygon points="145,50 160,60 160,75 145,65" fill="rgba(59, 130, 246, 0.05)"
-                                        stroke="#3b82f6" stroke-width="1" />
+                                        stroke="#3b82f6" strokeWidth="1" />
                                     <polygon points="160,60 175,50 175,65 160,75" fill="rgba(59, 130, 246, 0.15)"
-                                        stroke="#3b82f6" stroke-width="1" />
+                                        stroke="#3b82f6" strokeWidth="1" />
                                     <circle cx="160" cy="50" r="2" fill="#3b82f6"
                                         style="color: #3b82f6; animation: ent-pulse-glow 1.5s infinite; animation-delay: 0.6s;" />
                                 </g>
@@ -2453,25 +2066,25 @@ export default function HomePage() {
                             style="flex: 1; display: flex; align-items: center; justify-content: center; position: relative;">
                             <svg width="200" height="200" viewBox="0 0 200 200" fill="none" style="overflow: visible;">
                                 <path d="M50,130 C50,60 150,60 150,130" stroke="rgba(16, 185, 129, 0.4)"
-                                    stroke-width="1" stroke-dasharray="4 2" fill="rgba(16, 185, 129, 0.05)"
+                                    strokeWidth="1" stroke-dasharray="4 2" fill="rgba(16, 185, 129, 0.05)"
                                     style="color: #10b981; animation: ent-pulse-glow 4s infinite;" />
 
                                 <ellipse cx="100" cy="130" rx="60" ry="15" fill="rgba(16, 185, 129, 0.05)"
-                                    stroke="rgba(16, 185, 129, 0.4)" stroke-width="1" />
-                                <ellipse cx="100" cy="130" rx="80" ry="20" stroke="rgba(255, 255, 255, 0.1)"
-                                    stroke-width="1" stroke-dasharray="3 3"
+                                    stroke="rgba(16, 185, 129, 0.4)" strokeWidth="1" />
+                                <ellipse cx="100" cy="130" rx="80" ry="20" stroke="rgba(255, 255, 255, 0.25)"
+                                    strokeWidth="1" stroke-dasharray="3 3"
                                     style="animation: ent-spin-slow 20s linear infinite; transform-origin: 100px 130px;" />
 
                                 <g style="animation: ent-float-up-down 4s ease-in-out infinite;">
                                     <rect x="85" y="80" width="30" height="40" rx="2" fill="rgba(16, 185, 129, 0.1)"
-                                        stroke="#10b981" stroke-width="1" />
-                                    <line x1="85" y1="90" x2="115" y2="90" stroke="#10b981" stroke-width="1" />
-                                    <line x1="85" y1="100" x2="115" y2="100" stroke="#10b981" stroke-width="1" />
-                                    <line x1="85" y1="110" x2="115" y2="110" stroke="#10b981" stroke-width="1" />
+                                        stroke="#10b981" strokeWidth="1" />
+                                    <line x1="85" y1="90" x2="115" y2="90" stroke="#10b981" strokeWidth="1" />
+                                    <line x1="85" y1="100" x2="115" y2="100" stroke="#10b981" strokeWidth="1" />
+                                    <line x1="85" y1="110" x2="115" y2="110" stroke="#10b981" strokeWidth="1" />
 
-                                    <circle cx="100" cy="65" r="4" stroke="#10b981" stroke-width="1.5" fill="none" />
-                                    <line x1="100" y1="69" x2="100" y2="76" stroke="#10b981" stroke-width="1.5" />
-                                    <line x1="100" y1="74" x2="104" y2="74" stroke="#10b981" stroke-width="1.5" />
+                                    <circle cx="100" cy="65" r="4" stroke="#10b981" strokeWidth="1.5" fill="none" />
+                                    <line x1="100" y1="69" x2="100" y2="76" stroke="#10b981" strokeWidth="1.5" />
+                                    <line x1="100" y1="74" x2="104" y2="74" stroke="#10b981" strokeWidth="1.5" />
                                 </g>
 
                                 <path d="M100,130 L160,130 A60,15 0 0,0 100,115 Z" fill="rgba(16, 185, 129, 0.2)"
@@ -2609,7 +2222,7 @@ export default function HomePage() {
                         <span
                             style="margin-right: 8px; display: inline-flex; align-items: center; filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.45));">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                 <polyline points="20 6 9 17 4 12"></polyline>
                             </svg>
                         </span>

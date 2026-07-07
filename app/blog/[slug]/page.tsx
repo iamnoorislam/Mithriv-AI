@@ -41,7 +41,7 @@ const ptComponents = {
           alt={value.alt || ' '}
           loading="lazy"
           src={`https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${value.asset._ref.split('-')[1]}-${value.asset._ref.split('-')[2]}.${value.asset._ref.split('-')[3]}`}
-          className="my-10 rounded-2xl w-full max-w-4xl mx-auto shadow-2xl border border-white/10"
+          className="my-10 rounded-2xl w-full max-w-4xl mx-auto shadow-2xl border border-[#1A1C1E]"
         />
       )
     }
@@ -113,13 +113,13 @@ export default async function BlogPostPage({ params }: Props) {
   }) || []
 
   return (
-    <article className="min-h-screen bg-[#0C0D10] text-white pb-24 font-sans relative">
+    <article className="min-h-screen bg-[#131416] text-white pb-24 font-sans relative">
       {/* Decorative Atmospheric Glows */}
       <div className="absolute top-[5%] left-[10%] w-[350px] h-[350px] bg-[#8350e8]/5 rounded-full blur-[100px] pointer-events-none -z-10"></div>
       <div className="absolute top-[20%] right-[10%] w-[450px] h-[450px] bg-[#8350e8]/3 rounded-full blur-[140px] pointer-events-none -z-10"></div>
 
       {/* Hero Header */}
-      <header className="relative w-full pt-40 pb-10 md:pt-48 md:pb-12 overflow-hidden bg-[#0C0D10]">
+      <header className="relative w-full pt-40 pb-10 md:pt-48 md:pb-12 overflow-hidden bg-[#131416]">
         <div className="relative max-w-[1280px] mx-auto px-6 text-left">
 
           {/* Breadcrumb Navigation / Meta tag */}
@@ -160,7 +160,7 @@ export default async function BlogPostPage({ params }: Props) {
             <img
               src={post.imageUrl}
               alt={post.title}
-              className="object-cover w-full h-full border border-white/10"
+              className="object-cover w-full h-full border border-[#1A1C1E]"
             />
           </div>
         </div>
@@ -179,10 +179,10 @@ export default async function BlogPostPage({ params }: Props) {
                 <img
                   src={post.authorImageUrl}
                   alt={post.authorName}
-                  className="w-10 h-10 rounded-full border border-white/10 object-cover"
+                  className="w-10 h-10 rounded-full border border-[#1A1C1E] object-cover"
                 />
               ) : (
-                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white text-sm font-bold border border-white/10">
+                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white text-sm font-bold border border-[#1A1C1E]">
                   {post.authorName.charAt(0)}
                 </div>
               )}
@@ -197,7 +197,7 @@ export default async function BlogPostPage({ params }: Props) {
           {headings.length > 0 && (
             <div>
               <h4 className="font-mono text-[14px] tracking-widest text-slate-500 uppercase mb-6">Table of Contents</h4>
-              <ul className="space-y-4 border-l border-white/10 pl-4">
+              <ul className="space-y-4 border-l border-[#1A1C1E] pl-4">
                 {headings.map((h: any) => (
                   <li key={h.id} className={h.style === 'h3' ? 'pl-3' : ''}>
                     <a href={`#${h.id}`} className="text-[14px] leading-relaxed text-slate-400 hover:text-white transition-colors line-clamp-2">

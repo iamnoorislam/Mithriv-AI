@@ -37,13 +37,13 @@ export default async function PodcastDetailPage({ params }: Props) {
   }
 
   return (
-    <article className="min-h-screen bg-[#0C0D10] font-sans text-white pb-32">
+    <article className="min-h-screen bg-[#131416] font-sans text-white pb-32">
       
       {/* Decorative Atmospheric Glow */}
       <div className="absolute top-[10%] left-[20%] w-[500px] h-[500px] bg-[#8350e8]/5 rounded-full blur-[120px] pointer-events-none -z-10"></div>
 
       {/* Hero Header */}
-      <header className="pt-40 pb-12 w-full relative border-b border-white/5 bg-[#0C0D10]">
+      <header className="pt-40 pb-12 w-full relative border-b border-[#1A1C1E] bg-[#131416]">
         <div className="max-w-[1280px] mx-auto px-6 text-left">
           
           <div className="font-mono text-[14px] font-semibold tracking-widest text-slate-400 uppercase mb-4 flex items-center space-x-3">
@@ -67,7 +67,7 @@ export default async function PodcastDetailPage({ params }: Props) {
 
       {/* Featured Video Container */}
       <div className="max-w-[1280px] mx-auto px-6 mb-16 mt-16 relative z-10">
-        <div className="w-full bg-[#161718] rounded-2xl overflow-hidden aspect-[21/9] border border-white/10 shadow-2xl relative group">
+        <div className="w-full bg-[#161718] rounded-2xl overflow-hidden aspect-[21/9] border border-[#1A1C1E] shadow-2xl relative group">
           {podcast.videoUrl ? (
             podcast.videoUrl.match(/\.(mp4|webm|ogg)$/i) ? (
               <video 
@@ -92,7 +92,7 @@ export default async function PodcastDetailPage({ params }: Props) {
           {/* Play Button Overlay (only for image thumbnails) */}
           {(!podcast.videoUrl || !podcast.videoUrl.match(/\.(mp4|webm|ogg)$/i)) && (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-               <div className="w-24 h-24 rounded-full bg-[#8350e8]/80 border border-white/20 flex items-center justify-center backdrop-blur-md shadow-xl shadow-[#8350e8]/20">
+               <div className="w-24 h-24 rounded-full bg-[#8350e8]/80 border border-[#1A1C1E] flex items-center justify-center backdrop-blur-md shadow-xl shadow-[#8350e8]/20">
                   <svg className="w-10 h-10 text-white translate-x-1" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M8 5v14l11-7z"/>
                   </svg>
@@ -109,7 +109,7 @@ export default async function PodcastDetailPage({ params }: Props) {
         <aside className="md:sticky md:top-32 self-start flex flex-col gap-8">
           
           {/* Audio Player Card */}
-          <div className="bg-[#121316] border border-white/10 rounded-2xl p-6 shadow-xl">
+          <div className="bg-[#121316] border border-[#1A1C1E] rounded-2xl p-6 shadow-xl">
              <div className="flex items-center gap-4 mb-6">
                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#8350e8] to-[#4b2796] flex items-center justify-center shadow-lg">
                  <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -135,10 +135,10 @@ export default async function PodcastDetailPage({ params }: Props) {
           </div>
 
           {/* Guest Details */}
-          <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-6">
+          <div className="bg-white/[0.02] border border-[#1A1C1E] rounded-2xl p-6">
             <h4 className="font-mono text-[14px] tracking-widest text-slate-500 uppercase mb-6">Special Guest</h4>
             <div className="flex items-center space-x-4">
-              <div className="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center text-white text-xl font-bold border border-white/10">
+              <div className="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center text-white text-xl font-bold border border-[#1A1C1E]">
                 {podcast.guestName ? podcast.guestName.charAt(0) : 'G'}
               </div>
               <div className="text-left font-sans">

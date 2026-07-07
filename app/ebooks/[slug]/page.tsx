@@ -31,10 +31,10 @@ export default async function EbookDetailPage({ params }: Props) {
   }
 
   return (
-    <article className="min-h-screen bg-[#0C0D10] text-white pb-32 font-sans relative">
+    <article className="min-h-screen bg-[#131416] text-white pb-32 font-sans relative">
       <div className="absolute top-[10%] left-[50%] -translate-x-1/2 w-[500px] h-[500px] bg-[#A7F3D0]/5 rounded-full blur-[140px] pointer-events-none -z-10"></div>
 
-      <header className="relative w-full pt-40 pb-20 overflow-hidden bg-[#0C0D10] border-b border-white/5">
+      <header className="relative w-full pt-40 pb-20 overflow-hidden bg-[#131416] border-b border-[#1A1C1E]">
         <div className="relative max-w-[1280px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-12 items-center">
           
           <div>
@@ -69,7 +69,7 @@ export default async function EbookDetailPage({ params }: Props) {
           </div>
 
           <div className="relative">
-            <div className="aspect-[3/4] w-full max-w-[350px] mx-auto bg-[#1a1b1e] rounded-xl border border-white/10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] overflow-hidden transform rotate-2 hover:rotate-0 transition-transform duration-500">
+            <div className="aspect-[3/4] w-full max-w-[350px] mx-auto bg-[#1a1b1e] rounded-xl border border-[#1A1C1E] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] overflow-hidden transform rotate-2 hover:rotate-0 transition-transform duration-500">
               {ebook.coverUrl || ebook.imageUrl ? (
                 <img 
                   src={ebook.coverUrl || ebook.imageUrl} 

@@ -7,9 +7,10 @@
 .nav-links li a {
     color: var(--text-primary);
     text-decoration: none;
-    font-size: 0.95rem;
+    font-size: 14px;
+    letter-spacing: 0.3px;
     font-weight: 500;
-    opacity: 0.8;
+    opacity: 0.7;
     transition: opacity 0.2s ease, color 0.2s ease;
 }
 
@@ -278,12 +279,13 @@ body.light-mode .mega-left .ent-btn-secondary:hover {
     pointer-events: auto;
     
     max-width: 1000px;
-    padding: 12px 12px 12px 32px;
-    background: rgba(11, 13, 15, 0.50);
-
-    border-radius: 100px;
+    padding: 12px 16px 12px 32px;
+    background: rgba(10, 10, 14, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
     transform: translateY(0);
 }
 
@@ -291,51 +293,44 @@ body.light-mode .mega-left .ent-btn-secondary:hover {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, rgba(22, 20, 18, 0.78) 0%, rgba(14, 12, 11, 0.82) 100%) !important;
-    backdrop-filter: blur(20px) saturate(120%) !important;
-    -webkit-backdrop-filter: blur(20px) saturate(120%) !important;
-    color: #FAF5EB !important;
-    padding: 12px 24px !important;
-    border-radius: 100px !important;
+    background: #7700FF !important;
+    color: #ffffff !important;
+    padding: 10px 15px !important;
+    border-radius: 4px !important;
+    gap: 10px !important;
     font-weight: 500;
     font-size: 1rem;
+    white-space: nowrap !important;
+    flex-wrap: nowrap !important;
     text-decoration: none;
-    border: 1px solid rgba(255, 255, 255, 0.32) !important;
+    border: none !important;
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    box-shadow: inset 0 0 12px 1.5px rgba(255, 255, 255, 0.28) !important;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.ent-btn-primary::before {
-    content: '' !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: -100% !important;
-    width: 100% !important;
-    height: 100% !important;
-    background: linear-gradient(90deg, transparent, rgba(245, 235, 215, 0.15), transparent) !important;
-    transition: all 0.6s ease !important;
-    z-index: 1 !important;
+    transition: background-color 0.2s ease, transform 0.2s ease !important;
 }
 
 .ent-btn-primary:hover {
-    background: linear-gradient(135deg, rgba(28, 25, 23, 0.85) 0%, rgba(20, 18, 16, 0.9) 100%) !important;
-    border-color: rgba(255, 255, 255, 0.48) !important;
-    color: #ffffff !important;
-    transform: translateY(-2px) scale(1.02) !important;
-    box-shadow: inset 0 0 16px 2.5px rgba(255, 255, 255, 0.45) !important;
-}
-
-.ent-btn-primary:hover::before {
-    left: 100% !important;
+    background: #5D00CC !important;
+    transform: translateY(-1px) !important;
 }
 
 .ent-btn-primary:active {
-    transform: translateY(1px) scale(0.98) !important;
-    box-shadow: inset 0 0 8px 1px rgba(255, 255, 255, 0.2) !important;
+    transform: translateY(1px) !important;
+}
+
+/* Arrow hover animation */
+.ent-btn-primary .hover-arrow-svg {
+    transition: transform 0.3s ease;
+}
+.ent-btn-primary:hover .hover-arrow-svg {
+    transform: translateX(4px);
+}
+.ent-btn-primary .hover-arrow-svg .arrow-stem {
+    stroke-dasharray: 12;
+    stroke-dashoffset: 12;
+    transition: stroke-dashoffset 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.ent-btn-primary:hover .hover-arrow-svg .arrow-stem {
+    stroke-dashoffset: 0;
 }
 
 .navbar.nav-hidden {
@@ -366,17 +361,17 @@ body.light-mode .mega-left .ent-btn-secondary:hover {
     transform: translateX(-50%) translateY(10px) scale(0.95) rotateX(-8deg);
     opacity: var(--hero-overlay-opacity, 0);
     visibility: hidden;
-    width: 700px;
-    background: rgba(17, 19, 21, 0.65);
+    width: 650px;
+    background: rgba(10, 10, 14, 0.85);
     backdrop-filter: blur(24px);
-    backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 24px;
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 12px;
+    padding: 0;
     display: flex;
-    gap: 32px;
-    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.02);
-    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease, visibility 0.7s;
+    gap: 0;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, visibility 0.4s;
     pointer-events: none;
     z-index: 1000;
 }
@@ -398,7 +393,7 @@ body.light-mode .mega-left .ent-btn-secondary:hover {
 
 .mega-left {
     flex: 0 0 240px;
-    padding-right: 24px;
+    padding: 24px;
     border-right: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
     flex-direction: column;
@@ -406,6 +401,7 @@ body.light-mode .mega-left .ent-btn-secondary:hover {
 
 .mega-right {
     flex: 1;
+    padding: 24px 24px 24px 32px;
 }
 
 .mega-grid {
@@ -419,7 +415,7 @@ body.light-mode .mega-left .ent-btn-secondary:hover {
     align-items: flex-start;
     gap: 16px;
     padding: 12px;
-    border-radius: 12px;
+    border-radius: 16px;
     text-decoration: none;
     transition: all 0.2s ease;
     background: transparent;
@@ -431,11 +427,8 @@ body.light-mode .mega-left .ent-btn-secondary:hover {
 }
 
 .mega-icon {
-    flex: 0 0 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    flex: 0 0 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -444,12 +437,12 @@ body.light-mode .mega-left .ent-btn-secondary:hover {
 .mega-content h5 {
     color: #F5F7FA;
     font-size: 0.95rem;
-    font-weight: 500;
+    font-weight: 700;
     margin: 0 0 4px 0;
 }
 
 .mega-content p {
-    color: #8B949E;
+    color: #ADADAE;
     font-size: 0.8rem;
     margin: 0;
     line-height: 1.4;
@@ -459,48 +452,23 @@ body.light-mode .mega-left .ent-btn-secondary:hover {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    background: linear-gradient(135deg, rgba(22, 20, 18, 0.45) 0%, rgba(14, 12, 11, 0.5) 100%) !important;
-    backdrop-filter: blur(16px) saturate(120%) !important;
-    -webkit-backdrop-filter: blur(16px) saturate(120%) !important;
+    background: transparent !important;
     color: rgba(250, 245, 235, 0.8) !important;
-    padding: 12px 24px !important;
-    border-radius: 100px !important;
-    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    padding: 10px 15px !important;
+    border-radius: 4px !important;
+    border: none !important;
     text-decoration: none;
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    box-shadow: inset 0 0 10px 1px rgba(255, 255, 255, 0.22) !important;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-.ent-btn-secondary::before {
-    content: '' !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: -100% !important;
-    width: 100% !important;
-    height: 100% !important;
-    background: linear-gradient(90deg, transparent, rgba(245, 235, 215, 0.15), transparent) !important;
-    transition: all 0.6s ease !important;
-    z-index: 1 !important;
+    transition: all 0.3s ease !important;
 }
 
 .ent-btn-secondary:hover {
-    background: linear-gradient(135deg, rgba(28, 25, 23, 0.6) 0%, rgba(20, 18, 16, 0.65) 100%) !important;
-    border-color: rgba(255, 255, 255, 0.38) !important;
+    background: rgba(255, 255, 255, 0.1) !important;
     color: #ffffff !important;
-    transform: translateY(-2px) scale(1.02) !important;
-    box-shadow: inset 0 0 14px 2px rgba(255, 255, 255, 0.35) !important;
-}
-
-.ent-btn-secondary:hover::before {
-    left: 100% !important;
 }
 
 .ent-btn-secondary:active {
-    transform: translateY(1px) scale(0.98) !important;
-    box-shadow: inset 0 0 8px 1px rgba(255, 255, 255, 0.16) !important;
+    transform: translateY(1px) !important;
 }
 
 .mega-left {
@@ -573,7 +541,7 @@ body.light-mode .mega-left .ent-btn-secondary:hover {
     content: '';
     position: absolute;
     inset: 0;
-    border-radius: 100px;
+    border-radius: 16px;
     backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
     z-index: -1;
@@ -615,3 +583,4 @@ body.light-mode .mega-left .ent-btn-secondary:hover {
 .navbar.navbar-hidden {
     transform: translateY(-100%) !important;
 }
+

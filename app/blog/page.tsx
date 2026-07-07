@@ -30,13 +30,13 @@ export default async function BlogPage() {
     : DUMMY_POSTS
 
   return (
-    <main className="min-h-screen bg-[#0C0D10] text-white pt-32 pb-24 md:pt-40 px-6 md:px-8 max-w-[1280px] mx-auto font-sans relative">
+    <main className="min-h-screen bg-[#131416] text-white pt-32 pb-24 md:pt-40 px-6 md:px-8 max-w-[1280px] mx-auto font-sans relative">
 
       {/* Dynamic Background Mesh Grid matching homepage style */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none -z-20 opacity-30"></div>
 
       {/* Two-Column Header Layout (Heading Left, Subheading Right) */}
-      <header className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start mb-20 border-b border-white/[0.08] pb-12">
+      <header className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start mb-20 border-b border-[#1A1C1E] pb-12">
         <div>
           <h1 className="text-[36px] md:text-[48px] font-semibold text-white tracking-[-0.03em] leading-[1.1] font-sans">
             Notes from the autonomous production frontier.
@@ -115,7 +115,7 @@ export default async function BlogPage() {
                 </div>
 
                 {/* Footer with Author and read time */}
-                <div className="mt-8 pt-4 flex items-center justify-between border-t border-white/[0.05]">
+                <div className="mt-8 pt-4 flex items-center justify-between border-t border-[#1A1C1E]">
                   <div className="flex items-center gap-2.5">
                     {post.authorImageUrl ? (
                       <img
@@ -124,7 +124,7 @@ export default async function BlogPage() {
                         className="w-7 h-7 rounded-full object-cover"
                       />
                     ) : (
-                      <div className="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-bold text-white uppercase">
+                      <div className="w-7 h-7 rounded-full bg-white/5 border border-[#1A1C1E] flex items-center justify-center text-[10px] font-bold text-white uppercase">
                         {post.authorName ? post.authorName.charAt(0) : 'M'}
                       </div>
                     )}

@@ -37,7 +37,7 @@ export default async function CaseStudiesPage() {
             <Link 
               href={`/case-studies/${study.slug.current}`}
               key={study._id}
-              className="group flex flex-col bg-[#1a1b1e] border border-white/10 rounded-3xl overflow-hidden hover:border-[#8350e8]/50 transition-all duration-300 hover:shadow-[0_20px_40px_-15px_rgba(131,80,232,0.15)]"
+              className="group flex flex-col bg-[#1a1b1e] border border-[#1A1C1E] rounded-3xl overflow-hidden hover:border-[#8350e8]/50 transition-all duration-300 hover:shadow-[0_20px_40px_-15px_rgba(131,80,232,0.15)]"
             >
               <div className="relative h-72 w-full bg-[#0a0a0c] overflow-hidden">
                 {study.imageUrl ? (
@@ -74,7 +74,7 @@ export default async function CaseStudiesPage() {
             </Link>
           ))
         ) : (
-          <div className="col-span-full py-16 text-center text-slate-500 border border-white/5 rounded-3xl bg-white/[0.02]">
+          <div className="col-span-full py-16 text-center text-slate-500 border border-[#1A1C1E] rounded-3xl bg-white/[0.02]">
             <p className="text-lg">Case studies are currently being curated.</p>
           </div>
         )}

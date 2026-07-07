@@ -3,7 +3,23 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { AnimatedNetworkIcon, AnimatedBotIcon, AnimatedBrainIcon, AnimatedBlogIcon, AnimatedPodcastIcon, AnimatedEbookIcon, AnimatedNewsletterIcon, AnimatedCaseStudiesIcon } from './AnimatedIcons'
 
+
+function MegaItem({ href, title, description, IconComponent, color, iconClass }: { href: string, title: string, description: string, IconComponent: React.ElementType, color: string, iconClass: string }) {
+  const [isHovered, setIsHovered] = useState(false);
+  return (
+    <Link href={href} className="mega-item" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+      <div className="mega-icon">
+        <IconComponent color={color} size={20} className={`animated-icon ${iconClass}`} isHovered={isHovered} />
+      </div>
+      <div className="mega-content">
+        <h5>{title}</h5>
+        <p>{description}</p>
+      </div>
+    </Link>
+  );
+}
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -115,68 +131,18 @@ export default function Navbar() {
                     <div className="mega-menu">
                         <div className="mega-left">
                             <h3 style={{ color: '#F5F7FA', fontSize: '1.1rem', marginBottom: '8px', fontWeight: 600 }}>The Mithriv Platform</h3>
-                            <p style={{ color: '#6B7280', fontSize: '0.85rem', lineHeight: 1.5, marginBottom: '24px', flexGrow: 1 }}>
+                            <p style={{ color: '#ADADAE', fontSize: '14px', lineHeight: 1.5, marginBottom: '24px', flexGrow: 1 }}>
                                 The first AI execution layer that knows your sites, correlates across systems, and acts in real time.</p>
-                            <Link href="/integration-fabric" className="ent-btn-secondary" style={{ fontSize: '0.85rem', padding: '8px 16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', color: '#F5F7FA', textDecoration: 'none', textAlign: 'center' }}>View Platform Overview</Link>
+                            <Link href="/integration-fabric" className="ent-btn-primary">View Platform Overview <svg className="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path className="arrow-stem" d="M3 12h12" /><path className="arrow-head" d="m9 18 6-6-6-6"/></svg></Link>
                         </div>
                         <div className="mega-right">
-                            <h4 style={{ color: '#6B7280', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px', fontWeight: 600 }}>Core Modules</h4>
+                            <h4 style={{ color: '#ADADAE', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px', fontWeight: 600 }}>Core Modules</h4>
                             <div className="mega-grid">
-                                <Link href="/integration-fabric" className="mega-item">
-                                    <div className="mega-icon">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A8B1FF" strokeWidth="2">
-                                            <path d="M18 3L22 7L18 11M22 7H13C10.7909 7 9 8.79086 9 11V13C9 15.2091 7.20914 17 5 17H2" />
-                                        </svg>
-                                    </div>
-                                    <div className="mega-content">
-                                        <h5>Integration Fabric</h5>
-                                        <p>Every Security System. One Operational Model.</p>
-                                    </div>
-                                </Link>
-                                <Link href="/communication-interface" className="mega-item">
-                                    <div className="mega-icon">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF9A9A" strokeWidth="2">
-                                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-                                        </svg>
-                                    </div>
-                                    <div className="mega-content">
-                                        <h5>Communication Interface</h5>
-                                        <p>Mithriv Conversation Stack Scenario Mapping.</p>
-                                    </div>
-                                </Link>
-                                <Link href="/communication-v2" className="mega-item">
-                                    <div className="mega-icon">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c084fc" strokeWidth="2">
-                                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-                                        </svg>
-                                    </div>
-                                    <div className="mega-content">
-                                        <h5>Communication Interface v2</h5>
-                                        <p>Autonomous Conversational Operations.</p>
-                                    </div>
-                                </Link>
-                                <Link href="/intelligence-engine" className="mega-item">
-                                    <div className="mega-icon">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A7F3D0" strokeWidth="2">
-                                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                                        </svg>
-                                    </div>
-                                    <div className="mega-content">
-                                        <h5>Intelligence Engine</h5>
-                                        <p>The Decision Layer for Physical Security.</p>
-                                    </div>
-                                </Link>
-                                <Link href="/intelligence-engine-v2" className="mega-item">
-                                    <div className="mega-icon">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" strokeWidth="2">
-                                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                                        </svg>
-                                    </div>
-                                    <div className="mega-content">
-                                        <h5>Intelligence Engine v2</h5>
-                                        <p>Conscious Physical Decision Engine.</p>
-                                    </div>
-                                </Link>
+                                <MegaItem href="/integration-fabric" title="Integration Fabric" description="Every Security System. One Operational Model." IconComponent={AnimatedNetworkIcon} color="#EA49B2" iconClass="network-icon" />
+
+                                <MegaItem href="/communication-v2" title="Communication Interface v2" description="Autonomous Conversational Operations." IconComponent={AnimatedBotIcon} color="#FCE545" iconClass="bot-icon" />
+                                <MegaItem href="/intelligence-engine-v2" title="Intelligence Engine v2" description="The Decision Layer for Physical Security." IconComponent={AnimatedBrainIcon} color="#6354F3" iconClass="brain-icon" />
+
                             </div>
                         </div>
                     </div>
@@ -190,71 +156,19 @@ export default function Navbar() {
                     <div className="mega-menu">
                         <div className="mega-left">
                             <h3 style={{ color: '#F5F7FA', fontSize: '1.1rem', marginBottom: '8px', fontWeight: 600 }}>Intelligence & Insights</h3>
-                            <p style={{ color: '#6B7280', fontSize: '0.85rem', lineHeight: 1.5, marginBottom: '24px', flexGrow: 1 }}>
+                            <p style={{ color: '#ADADAE', fontSize: '14px', lineHeight: 1.5, marginBottom: '24px', flexGrow: 1 }}>
                                 Stay ahead with our latest research, podcasts, and deep dives into autonomous execution.
                             </p>
+                            <Link href="/resources" className="ent-btn-primary">View All Resources <svg className="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path className="arrow-stem" d="M3 12h12" /><path className="arrow-head" d="m9 18 6-6-6-6"/></svg></Link>
                         </div>
                         <div className="mega-right">
-                            <h4 style={{ color: '#6B7280', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px', fontWeight: 600 }}>All Resources</h4>
+                            <h4 style={{ color: '#ADADAE', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px', fontWeight: 600 }}>All Resources</h4>
                             <div className="mega-grid">
-                                <Link href="/blog" className="mega-item">
-                                    <div className="mega-icon">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8350e8" strokeWidth="2">
-                                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                                        </svg>
-                                    </div>
-                                    <div className="mega-content">
-                                        <h5>Blog</h5>
-                                        <p>Latest insights & strategy.</p>
-                                    </div>
-                                </Link>
-                                <Link href="/podcast" className="mega-item">
-                                    <div className="mega-icon">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A8B1FF" strokeWidth="2">
-                                            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path>
-                                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
-                                            <line x1="12" y1="19" x2="12" y2="22"></line>
-                                        </svg>
-                                    </div>
-                                    <div className="mega-content">
-                                        <h5>Podcast</h5>
-                                        <p>Listen to industry leaders.</p>
-                                    </div>
-                                </Link>
-                                <Link href="/ebooks" className="mega-item">
-                                    <div className="mega-icon">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A7F3D0" strokeWidth="2">
-                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                            <polyline points="14 2 14 8 20 8"></polyline>
-                                            <line x1="16" y1="13" x2="8" y2="13"></line>
-                                            <line x1="16" y1="17" x2="8" y2="17"></line>
-                                            <polyline points="10 9 9 9 8 9"></polyline>
-                                        </svg>
-                                    </div>
-                                    <div className="mega-content">
-                                        <h5>Ebooks</h5>
-                                        <p>Executive playbooks.</p>
-                                    </div>
-                                </Link>
-                                <Link href="/newsletter" className="mega-item">
-                                    <div className="mega-icon">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF9A9A" strokeWidth="2">
-                                            <rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect>
-                                            <polyline points="3 7 12 13 21 7"></polyline>
-                                        </svg>
-                                    </div>
-                                    <div className="mega-content">
-                                        <h5>Newsletter</h5>
-                                        <p>Weekly autonomy dispatches.</p>
-                                    </div>
-                                </Link>
-                                <Link href="/case-studies" className="mega-item">
-                                    <div className="mega-content" style={{ marginLeft: 0 }}>
-                                        <h5>Case Studies</h5>
-                                        <p>Proven enterprise autonomy.</p>
-                                    </div>
-                                </Link>
+                                <MegaItem href="/blog" title="Blog" description="Latest insights & strategy." IconComponent={AnimatedBlogIcon} color="#AFF962" iconClass="blog-icon" />
+                                <MegaItem href="/podcast" title="Podcast" description="Listen to industry leaders." IconComponent={AnimatedPodcastIcon} color="#4993E3" iconClass="podcast-icon" />
+                                <MegaItem href="/ebooks" title="Ebooks" description="Executive playbooks." IconComponent={AnimatedEbookIcon} color="#E7C73B" iconClass="ebook-icon" />
+                                <MegaItem href="/newsletter" title="Newsletter" description="Weekly autonomy dispatches." IconComponent={AnimatedNewsletterIcon} color="#E44856" iconClass="newsletter-icon" />
+                                <MegaItem href="/case-studies" title="Case Studies" description="Proven enterprise autonomy." IconComponent={AnimatedCaseStudiesIcon} color="#49B25C" iconClass="case-studies-icon" />
                             </div>
                         </div>
                     </div>
@@ -262,44 +176,7 @@ export default function Navbar() {
                 <li><Link href="/#">Company</Link></li>
             </ul>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-                <button
-                  onClick={toggleTheme}
-                  aria-label="Toggle Theme"
-                  style={{
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    borderRadius: '50%',
-                    width: '40px',
-                    height: '40px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    marginRight: '12px',
-                    color: 'currentColor',
-                    transition: 'all 0.3s ease'
-                  }}
-                  className="theme-toggle-btn"
-                >
-                  {theme === 'dark' ? (
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <circle cx="12" cy="12" r="5" />
-                      <line x1="12" y1="1" x2="12" y2="3" />
-                      <line x1="12" y1="21" x2="12" y2="23" />
-                      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                      <line x1="1" y1="12" x2="3" y2="12" />
-                      <line x1="21" y1="12" x2="23" y2="12" />
-                      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                    </svg>
-                  ) : (
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                    </svg>
-                  )}
-                </button>
-                <Link href="/watch-in-action" id="watchDemoBtn" className="ent-btn-primary" style={{ padding: '12px 24px', display: 'inline-flex', fontSize: '14px' }}>Watch Demo</Link>
+                <Link href="/watch-in-action" id="watchDemoBtn" className="ent-btn-primary">Watch Demo <svg className="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path className="arrow-stem" d="M3 12h12" /><path className="arrow-head" d="m9 18 6-6-6-6"/></svg></Link>
                 <button 
                   className="mobile-menu-btn" 
                   id="mobileMenuBtn" 

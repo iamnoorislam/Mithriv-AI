@@ -63,9 +63,15 @@ export default function CommunicationInterfacePage() {
     <section class="hero-section hero-module" style="height: auto; min-height: 0; padding-bottom: 0; z-index: 10;">
         <div class="hero-content text-center">
             <span class="section-tag" style="color: var(--primary-purple);">MITHRIV COMMUNICATION INTERFACE</span>
-            <h1 class="main-heading" style="font-size: 4rem; max-width: 900px; margin: 0 auto 1.5rem;">Security That
-                Speaks.<br>Operations That Listen.</h1>
-            <p class="body-text" style="max-width: 800px; margin: 0 auto 2rem;">
+            <h1 class="main-heading" style="font-size: 4rem; max-width: 900px; margin: 0 auto 1.5rem;">
+        <span class="word-mask"><span class="word-inner w1">Security</span></span>
+        <span class="word-mask"><span class="word-inner w2">That</span></span>
+        <span class="word-mask"><span class="word-inner w3">Speaks.</span></span><br>
+        <span class="word-mask"><span class="word-inner w4">Operations</span></span>
+        <span class="word-mask"><span class="word-inner w5">That</span></span>
+        <span class="word-mask"><span class="word-inner w6">Listen.</span></span>
+      </h1>
+            <p class="body-text award-fade-up delay-p" style="max-width: 800px; margin: 0 auto 2rem;">
                 Your guards radio dispatch. Your visitors wait at kiosks. Your employees call help desks. Your systems
                 stay silent. Mithriv's Communication Interface is the conversational layer that connects every
                 stakeholder to your security operation—naturally, instantly, with complete audit trails.
@@ -82,7 +88,7 @@ export default function CommunicationInterfacePage() {
                 <span style="font-family: var(--font-heading); font-weight: bold;">HONDA</span>
             </div>
 
-            <button class="pixel-btn" style="margin-bottom: 3rem;">Request Integration Assessment</button>
+            <button class="ent-btn-primary" style="margin-bottom: 3rem;">Request Integration Assessment <svg class="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow-stem" d="M3 12h12" /><path class="arrow-head" d="m9 18 6-6-6-6"/></svg></button>
 
             <div class="comm-stats">
                 <div class="stat-item">
@@ -1295,7 +1301,7 @@ export default function CommunicationInterfacePage() {
                     management has AI. Your access control has AI. Your threat detection has AI. Your communication—the
                     thread that connects every stakeholder to your security operation—has been running on manual
                     processes and fragmented channels.</p>
-                <button class="cta-main">Request Communication Assessment</button>
+                <button class="ent-btn-primary">Request Communication Assessment <svg class="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow-stem" d="M3 12h12" /><path class="arrow-head" d="m9 18 6-6-6-6"/></svg></button>
             </div>
 
             <!-- Related Resources -->

@@ -5,62 +5,63 @@ import Script from 'next/script'
 import '../style.css'
 
 export default function IntegrationFabricPage() {
-  const [mounted, setMounted] = useState(false);
+    const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
-  useEffect(() => {
-    if (!mounted) return;
+    useEffect(() => {
+        if (!mounted) return;
 
-    // Hide Preloaders
-    setTimeout(() => {
-      const preloader1 = document.getElementById('premium-preloader');
-      if (preloader1) {
-        preloader1.style.opacity = '0';
-        setTimeout(() => preloader1.style.display = 'none', 500);
-      }
-      const preloader2 = document.querySelector('.preloader');
-      if (preloader2) {
-        (preloader2 as HTMLElement).style.opacity = '0';
-        setTimeout(() => (preloader2 as HTMLElement).style.display = 'none', 500);
-      }
-    }, 800);
+        // Hide Preloaders
+        setTimeout(() => {
+            const preloader1 = document.getElementById('premium-preloader');
+            if (preloader1) {
+                preloader1.style.opacity = '0';
+                setTimeout(() => preloader1.style.display = 'none', 500);
+            }
+            const preloader2 = document.querySelector('.preloader');
+            if (preloader2) {
+                (preloader2 as HTMLElement).style.opacity = '0';
+                setTimeout(() => (preloader2 as HTMLElement).style.display = 'none', 500);
+            }
+        }, 800);
 
-    let timer: NodeJS.Timeout;
-    const init = () => {
-      const w = window as any;
-      if (w.runMain && w.runIntegrationFabric && w.gsap && w.ScrollTrigger && typeof w.Lenis !== 'undefined') {
-        w.runPreloader && w.runPreloader();
-        w.runMain();
-        w.runIntegrationFabric();
-      } else {
-        timer = setTimeout(init, 50);
-      }
-    };
-    init();
+        let timer: NodeJS.Timeout;
+        const init = () => {
+            const w = window as any;
+            if (w.runMain && w.runIntegrationFabric && w.gsap && w.ScrollTrigger && typeof w.Lenis !== 'undefined') {
+                w.runPreloader && w.runPreloader();
+                w.runMain();
+                w.runIntegrationFabric();
+            } else {
+                timer = setTimeout(init, 50);
+            }
+        };
+        init();
 
-    return () => {
-      clearTimeout(timer);
-      const w = window as any;
-      if (w.cleanupMain) {
-        w.cleanupMain();
-      }
-      if (w.gsap && w.ScrollTrigger) {
-        w.ScrollTrigger.getAll().forEach((t: any) => t.kill(true));
-      }
-      if (w.cancelIntegrationFabric) {
-        w.cancelIntegrationFabric();
-      }
-    };
-  }, [mounted]);
+        return () => {
+            clearTimeout(timer);
+            const w = window as any;
+            if (w.cleanupMain) {
+                w.cleanupMain();
+            }
+            if (w.gsap && w.ScrollTrigger) {
+                w.ScrollTrigger.getAll().forEach((t: any) => t.kill(true));
+            }
+            if (w.cancelIntegrationFabric) {
+                w.cancelIntegrationFabric();
+            }
+        };
+    }, [mounted]);
 
-  if (!mounted) return null;
+    if (!mounted) return null;
 
-  return (
-    <div className="landing-theme">
-      <style id="enterprise-theme" dangerouslySetInnerHTML={{ __html: `
+    return (
+        <div className="landing-theme">
+            <style id="enterprise-theme" dangerouslySetInnerHTML={{
+                __html: `
         :root {
             --bg-base: #0B0D0F;
             --surface-secondary: #111315;
@@ -73,7 +74,7 @@ export default function IntegrationFabricPage() {
             --accent-purple: #7C3AED;
             --accent-glow: rgba(124, 58, 237, 0.18);
 
-            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-subtle: #1A1C1E;
             --border-hover: rgba(255, 255, 255, 0.15);
 
             --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -159,7 +160,7 @@ export default function IntegrationFabricPage() {
             position: fixed;
             top: 0;
             width: 1px;
-            background: rgba(255, 255, 255, 0.05);
+            background: #212326;
             z-index: -1;
             pointer-events: none;
             height: 100vh;
@@ -189,20 +190,20 @@ export default function IntegrationFabricPage() {
             z-index: 0;
             pointer-events: none;
             background-image: repeating-linear-gradient(45deg,
-                    rgba(255, 255, 255, 0.03) 0,
-                    rgba(255, 255, 255, 0.03) 1px,
+                    #212326 0,
+                    #212326 1px,
                     transparent 1px,
                     transparent 10px);
         }
 
         .os-config-section::before {
             left: calc(50% - 640px);
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            border-right: 1px solid #212326;
         }
 
         .os-config-section::after {
             right: calc(50% - 640px);
-            border-left: 1px solid rgba(255, 255, 255, 0.05);
+            border-left: 1px solid #212326;
         }
 
         @media (max-width: 1280px) {
@@ -224,24 +225,10 @@ export default function IntegrationFabricPage() {
         .ent-section {
             padding: 120px 0;
             position: relative;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid #212326;
         }
 
         /* Floating Enterprise Navbar */
-
-        .ent-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        padding: 6px 12px;
-        background: var(--surface-secondary);
-        border: 1px solid var(--border-subtle);
-        border-radius: 100px;
-        color: var(--text-secondary);
-        font-size: 0.875rem;
-        font-weight: 500;
-        margin-bottom: 32px;
-        }
 
         .ent-pill-accent {
             color: var(--accent-purple);
@@ -460,7 +447,7 @@ export default function IntegrationFabricPage() {
             background: #161718;
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid #212326;
             border-radius: 0px;
             padding: 40px;
             overflow: hidden;
@@ -469,8 +456,8 @@ export default function IntegrationFabricPage() {
 
         .module-card:hover {
             transform: translateY(-8px);
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.1);
+            background: #212326;
+            border-color: #212326;
         }
 
         .module-header {
@@ -534,7 +521,7 @@ export default function IntegrationFabricPage() {
             grid-template-columns: 1fr 1fr;
             gap: 0;
             align-items: stretch;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid #212326;
         }
 
         .os-nav-cards {
@@ -546,7 +533,7 @@ export default function IntegrationFabricPage() {
 
         .os-nav-card {
             background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid #212326;
             border-radius: 0px;
             padding: 32px;
             cursor: pointer;
@@ -559,8 +546,8 @@ export default function IntegrationFabricPage() {
         }
 
         .os-nav-card:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.1);
+            background: #212326;
+            border-color: #212326;
         }
 
         .os-nav-header {
@@ -637,7 +624,7 @@ export default function IntegrationFabricPage() {
         .os-dashboard {
             background: transparent;
             border: none;
-            border-left: 1px solid rgba(255, 255, 255, 0.05);
+            border-left: 1px solid #212326;
             padding: 64px;
             border-radius: 0px;
             position: sticky;
@@ -725,7 +712,7 @@ export default function IntegrationFabricPage() {
             grid-template-columns: 380px 1fr;
             gap: 0;
             align-items: stretch;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid #212326;
             background: rgba(17, 19, 21, 0.2);
             margin-top: 40px;
         }
@@ -733,12 +720,12 @@ export default function IntegrationFabricPage() {
         .explorer-nav {
             display: flex;
             flex-direction: column;
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            border-right: 1px solid #212326;
             background: rgba(17, 19, 21, 0.4);
         }
 
         .explorer-row {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid #212326;
             cursor: pointer;
             transition: background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             padding: 24px;
@@ -759,7 +746,7 @@ export default function IntegrationFabricPage() {
         }
 
         .explorer-row:focus-visible {
-            background: rgba(255, 255, 255, 0.03);
+            background: #212326;
             border-left-color: rgba(124, 58, 237, 0.4);
         }
 
@@ -936,8 +923,8 @@ export default function IntegrationFabricPage() {
             font-family: var(--font-mono);
             font-size: 0.75rem;
             color: var(--text-secondary);
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #212326;
+            border: 1px solid #212326;
             padding: 5px 10px;
             border-radius: 0px;
             transition: all 0.2s ease;
@@ -975,7 +962,7 @@ export default function IntegrationFabricPage() {
         }
 
         .explorer-why-box {
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid #212326;
             padding-top: 32px;
         }
 
@@ -994,7 +981,7 @@ export default function IntegrationFabricPage() {
             font-size: 0.68rem;
             color: var(--text-muted);
             padding: 16px 24px;
-            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            border-top: 1px solid #212326;
             letter-spacing: 0.05em;
             text-transform: uppercase;
         }
@@ -1006,7 +993,7 @@ export default function IntegrationFabricPage() {
 
             .explorer-nav {
                 border-right: none;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                border-bottom: 1px solid #212326;
                 flex-direction: row;
                 overflow-x: auto;
                 padding: 0;
@@ -1020,7 +1007,7 @@ export default function IntegrationFabricPage() {
 
             .explorer-row {
                 border-bottom: none;
-                border-right: 1px solid rgba(255, 255, 255, 0.05);
+                border-right: 1px solid #212326;
                 padding: 16px 20px;
                 flex: 0 0 auto;
                 border-left: none;
@@ -1126,10 +1113,10 @@ export default function IntegrationFabricPage() {
         .arch-section-bg::before, .arch-section-bg::after {
             content: ''; position: absolute; top: 320px; width: 32px; height: calc(100% - 320px);
             z-index: 0; pointer-events: none;
-            background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 10px);
+            background-image: repeating-linear-gradient(45deg, #212326 0, #212326 1px, transparent 1px, transparent 10px);
         }
-        .arch-section-bg::before { left: calc(50% - 640px); border-right: 1px solid rgba(255,255,255,0.05); }
-        .arch-section-bg::after { right: calc(50% - 640px); border-left: 1px solid rgba(255,255,255,0.05); }
+        .arch-section-bg::before { left: calc(50% - 640px); border-right: 1px solid #212326; }
+        .arch-section-bg::after { right: calc(50% - 640px); border-left: 1px solid #212326; }
 
 
 
@@ -1142,7 +1129,7 @@ export default function IntegrationFabricPage() {
             -webkit-backdrop-filter: blur(8px);
             border-radius: 100px;
             padding: 6px;
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid #212326;
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
             position: relative;
             z-index: 1;
@@ -1193,7 +1180,7 @@ export default function IntegrationFabricPage() {
         }
 
         .bento-card:hover {
-            border-color: rgba(255, 255, 255, 0.1);
+            border-color: #212326;
             background: rgba(20, 22, 25, 0.8);
             transform: translateY(-4px);
             box-shadow: 0 12px 32px rgba(0,0,0,0.4);
@@ -1207,7 +1194,7 @@ export default function IntegrationFabricPage() {
         .bento-graphic {
             flex: 1;
             position: relative;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid #212326;
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -1337,9 +1324,9 @@ export default function IntegrationFabricPage() {
         /* scenario-tab CSS removed - now using os-nav-card styling */
         
         .term-time { color: #10b981; margin-bottom: 8px; display: block; font-weight: 500; }
-        .term-msg { background: rgba(255,255,255,0.05); padding: 12px 16px; border-radius: 8px; color: #e5e7eb; margin-bottom: 16px; line-height: 1.5; }
+        .term-msg { background: #212326; padding: 12px 16px; border-radius: 8px; color: #e5e7eb; margin-bottom: 16px; line-height: 1.5; }
         .term-corr { color: #fbbf24; margin-bottom: 12px; display: block; text-align: center; }
-        .term-flow { display: flex; flex-direction: column; align-items: center; gap: 8px; background: rgba(255,255,255,0.02); padding: 16px; border-radius: 8px; color: #e5e7eb; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
+        .term-flow { display: flex; flex-direction: column; align-items: center; gap: 8px; background: rgba(255,255,255,0.02); padding: 16px; border-radius: 8px; color: #e5e7eb; text-align: center; border: 1px solid #212326; }
         .term-arrow { color: #10b981; }
 
         /* SECTION 07: Ripple Effect */
@@ -1352,7 +1339,7 @@ export default function IntegrationFabricPage() {
             justify-content: center;
             background: #0f1012;
             overflow: hidden;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid #212326;
         }
 
         .ripple-container {
@@ -1401,7 +1388,8 @@ export default function IntegrationFabricPage() {
 
       ` }} />
 
-      <div dangerouslySetInnerHTML={{ __html: `
+            <div dangerouslySetInnerHTML={{
+                __html: `
 
     <!-- Hero -->
     <section class="ent-section" style="padding-top: 180px;">
@@ -1420,8 +1408,8 @@ export default function IntegrationFabricPage() {
             </p>
 
             <div style="display: flex; gap: 16px; justify-content: center; margin-bottom: 80px;">
-                <a href="#" class="ent-btn-primary">Request Assessment</a>
-                <a href="#" class="ent-btn-secondary">View Documentation</a>
+                <a href="#" class="ent-btn-primary">Request Assessment <svg class="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow-stem" d="M3 12h12" /><path class="arrow-head" d="m9 18 6-6-6-6"/></svg></a>
+                <a href="#" class="ent-btn-primary">View Documentation <svg class="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow-stem" d="M3 12h12" /><path class="arrow-head" d="m9 18 6-6-6-6"/></svg></a>
             </div>
 
             <!-- Customer Logos -->
@@ -1572,11 +1560,11 @@ export default function IntegrationFabricPage() {
                                 dynamic access rules directly into the state model.</p>
                             <div style="display: flex; gap: 12px;">
                                 <span
-                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px;">Genetec</span>
+                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: #212326; padding: 4px 8px; border-radius: 4px;">Genetec</span>
                                 <span
-                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px;">LenelS2</span>
+                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: #212326; padding: 4px 8px; border-radius: 4px;">LenelS2</span>
                                 <span
-                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px;">Brivo</span>
+                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: #212326; padding: 4px 8px; border-radius: 4px;">Brivo</span>
                             </div>
                         </div>
                     </div>
@@ -1592,9 +1580,9 @@ export default function IntegrationFabricPage() {
                                 feeds directly to identity events and anomalies.</p>
                             <div style="display: flex; gap: 12px;">
                                 <span
-                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px;">Milestone</span>
+                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: #212326; padding: 4px 8px; border-radius: 4px;">Milestone</span>
                                 <span
-                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px;">Verkada</span>
+                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: #212326; padding: 4px 8px; border-radius: 4px;">Verkada</span>
                             </div>
                         </div>
                     </div>
@@ -1610,9 +1598,9 @@ export default function IntegrationFabricPage() {
                                 provisioning, host notifications, and access expiration globally.</p>
                             <div style="display: flex; gap: 12px;">
                                 <span
-                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px;">Envoy</span>
+                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: #212326; padding: 4px 8px; border-radius: 4px;">Envoy</span>
                                 <span
-                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px;">Proxyclick</span>
+                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: #212326; padding: 4px 8px; border-radius: 4px;">Proxyclick</span>
                             </div>
                         </div>
                     </div>
@@ -1628,10 +1616,10 @@ export default function IntegrationFabricPage() {
                                 calendar bookings to identify shadow occupancy.</p>
                             <div style="display: flex; gap: 12px;">
                                 <span
-                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px;">Microsoft
+                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: #212326; padding: 4px 8px; border-radius: 4px;">Microsoft
                                     365</span>
                                 <span
-                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px;">Robin</span>
+                                    style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); background: #212326; padding: 4px 8px; border-radius: 4px;">Robin</span>
                             </div>
                         </div>
                     </div>
@@ -1887,7 +1875,7 @@ export default function IntegrationFabricPage() {
             <!-- Pill Toggle Switch over Horizontal Guideline -->
             <div style="position: relative; width: 100%; max-width: 1280px; margin: 0 auto 64px; display: flex; justify-content: center; align-items: center; box-sizing: border-box;">
                 <!-- Full-width Horizontal Guideline acting as the track behind the pill -->
-                <div style="position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: rgba(255,255,255,0.05); z-index: 0;"></div>
+                <div style="position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: #212326; z-index: 0;"></div>
 
                 <!-- The Toggle Switch Pill -->
                 <div class="arch-toggle-container">
@@ -1904,12 +1892,12 @@ export default function IntegrationFabricPage() {
                 <!-- [01] PROTOCOL LAYER (Span 2) -->
                 <div class="bento-card span-2">
                     <div class="bento-graphic">
-                        <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 32px 32px; mask-image: linear-gradient(to bottom, black 20%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 100%);"></div>
+                        <div style="position: absolute; inset: 0; background-image: linear-gradient(#212326 1px, transparent 1px), linear-gradient(90deg, #212326 1px, transparent 1px); background-size: 32px 32px; mask-image: linear-gradient(to bottom, black 20%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 100%);"></div>
                         <div style="display: flex; gap: 12px; z-index: 1; align-items: center;">
-                            <div style="padding: 8px 16px; background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.5);">ONVIF</div>
-                            <div style="padding: 10px 20px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.8); box-shadow: 0 4px 12px rgba(0,0,0,0.2);">REST API</div>
-                            <div style="padding: 8px 16px; background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.5);">BACnet</div>
-                            <div style="padding: 8px 16px; background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.5);">OSDP v2</div>
+                            <div style="padding: 8px 16px; background: #212326; border-radius: 8px; border: 1px solid #212326; font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.5);">ONVIF</div>
+                            <div style="padding: 10px 20px; background: #212326; border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.8); box-shadow: 0 4px 12px rgba(0,0,0,0.2);">REST API</div>
+                            <div style="padding: 8px 16px; background: #212326; border-radius: 8px; border: 1px solid #212326; font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.5);">BACnet</div>
+                            <div style="padding: 8px 16px; background: #212326; border-radius: 8px; border: 1px solid #212326; font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.5);">OSDP v2</div>
                         </div>
                     </div>
                     <div class="bento-content">
@@ -1921,8 +1909,8 @@ export default function IntegrationFabricPage() {
                 <!-- [02] NORMALIZATION LAYER (Span 1) -->
                 <div class="bento-card span-1">
                     <div class="bento-graphic" style="flex-direction: column;">
-                        <div style="width: 48px; height: 48px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.3);">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2"><path d="M4 12v8M12 4v16M20 12v8M8 8v12M16 8v12"/></svg>
+                        <div style="width: 48px; height: 48px; background: #212326; border: 1px solid #212326; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.3);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A1C1E" strokeWidth="2"><path d="M4 12v8M12 4v16M20 12v8M8 8v12M16 8v12"/></svg>
                         </div>
                         <div style="display: flex; gap: 8px;">
                             <div style="width: 32px; height: 32px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; display: flex; align-items: center; justify-content: center;"><div style="width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.3);"></div></div>
@@ -1939,12 +1927,12 @@ export default function IntegrationFabricPage() {
                 <!-- [03] STATE LAYER (Span 1) -->
                 <div class="bento-card span-1">
                     <div class="bento-graphic">
-                        <div style="width: 140px; height: 140px; border-radius: 50%; border: 1px dashed rgba(255,255,255,0.1); position: relative; display: flex; align-items: center; justify-content: center; animation: spinSlow 20s linear infinite;">
+                        <div style="width: 140px; height: 140px; border-radius: 50%; border: 1px dashed #212326; position: relative; display: flex; align-items: center; justify-content: center; animation: spinSlow 20s linear infinite;">
                             <div style="width: 48px; height: 48px; background: rgba(20,184,166,0.1); border: 1px solid rgba(20,184,166,0.3); border-radius: 50%; position: absolute; display: flex; align-items: center; justify-content: center; animation: spinSlow 20s linear infinite reverse;">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(20,184,166,0.8)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(20,184,166,0.8)" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                             </div>
                             <div style="position: absolute; width: 10px; height: 10px; background: rgba(255,255,255,0.2); border-radius: 50%; top: -5px; left: 50%; transform: translateX(-50%);"></div>
-                            <div style="position: absolute; width: 6px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 50%; bottom: 15px; left: 5px;"></div>
+                            <div style="position: absolute; width: 6px; height: 6px; background: #212326; border-radius: 50%; bottom: 15px; left: 5px;"></div>
                             <div style="position: absolute; width: 8px; height: 8px; background: rgba(255,255,255,0.15); border-radius: 50%; bottom: 15px; right: 5px;"></div>
                         </div>
                     </div>
@@ -1959,9 +1947,9 @@ export default function IntegrationFabricPage() {
                     <div class="bento-graphic" style="align-items: flex-end; justify-content: flex-start; padding: 0 40px;">
                         <div style="width: 100%; height: 85%; background: rgba(10,10,12,0.6); border: 1px solid rgba(255,255,255,0.06); border-bottom: none; border-radius: 12px 12px 0 0; padding: 20px; position: relative; overflow: hidden; box-shadow: 0 -4px 24px rgba(0,0,0,0.4);">
                             <div style="display: flex; gap: 8px; margin-bottom: 24px;">
-                                <div style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.1);"></div>
-                                <div style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.1);"></div>
-                                <div style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.1);"></div>
+                                <div style="width: 10px; height: 10px; border-radius: 50%; background: #212326;"></div>
+                                <div style="width: 10px; height: 10px; border-radius: 50%; background: #212326;"></div>
+                                <div style="width: 10px; height: 10px; border-radius: 50%; background: #212326;"></div>
                             </div>
                             <div style="font-family: var(--font-mono); font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.8;">
                                 <span style="color: rgba(255,255,255,0.2);">1</span> &nbsp;&nbsp;\$ orchestrate --layer action<br>
@@ -2060,14 +2048,14 @@ export default function IntegrationFabricPage() {
                 One badge tap. One camera alert. One visitor check-in. The Integration Fabric turns isolated events into coordinated intelligence — across every system, in real time.
             </p>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <a href="#" class="ent-btn-primary">Request Assessment</a>
-                <a href="#" class="ent-btn-secondary">View Documentation</a>
+                <a href="#" class="ent-btn-primary">Request Assessment <svg class="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow-stem" d="M3 12h12" /><path class="arrow-head" d="m9 18 6-6-6-6"/></svg></a>
+                <a href="#" class="ent-btn-primary">View Documentation <svg class="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow-stem" d="M3 12h12" /><path class="arrow-head" d="m9 18 6-6-6-6"/></svg></a>
             </div>
         </div>
     </section>
 
     <!-- SECTION 07: Integration in Action (Scenarios) -->
-    <section class="ent-section" style="padding-top: 120px; padding-bottom: 120px; border-top: 1px solid rgba(255,255,255,0.05);">
+    <section class="ent-section" style="padding-top: 120px; padding-bottom: 120px; border-top: 1px solid #212326;">
         <div class="ent-container">
             <div style="display: flex; flex-direction: column; align-items: center; padding-bottom: 64px; max-width: 720px; margin: 0 auto; text-align: center;">
                 <div class="ent-pill" style="margin-bottom: 24px;">
@@ -2112,12 +2100,12 @@ export default function IntegrationFabricPage() {
                 </div>
 
                 <!-- Right: Phone/Terminal Box -->
-                <div class="os-dashboard scenario-terminal" style="display: flex; flex-direction: column; padding: 0; overflow: hidden; height: 580px; width: 100%; max-width: 340px; margin: 0 auto; border-radius: 36px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 32px 64px rgba(0,0,0,0.5);">
+                <div class="os-dashboard scenario-terminal" style="display: flex; flex-direction: column; padding: 0; overflow: hidden; height: 580px; width: 100%; max-width: 340px; margin: 0 auto; border-radius: 36px; border: 1px solid #212326; box-shadow: 0 32px 64px rgba(0,0,0,0.5);">
                     <!-- Phone Header (Dynamic Notch / Status) -->
-                    <div style="padding: 16px 24px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4);">
-                        <div style="width: 60px; height: 6px; border-radius: 100px; background: rgba(255,255,255,0.1);"></div>
+                    <div style="padding: 16px 24px; border-bottom: 1px solid #212326; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4);">
+                        <div style="width: 60px; height: 6px; border-radius: 100px; background: #212326;"></div>
                     </div>
-                    <div style="padding: 12px 24px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; background: rgba(10,11,13,0.8);">
+                    <div style="padding: 12px 24px; border-bottom: 1px solid #212326; display: flex; align-items: center; justify-content: center; background: rgba(10,11,13,0.8);">
                         <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); font-weight: 500; letter-spacing: 0.05em;">MITHRIV_SECURE_COMMS</span>
                     </div>
                     <!-- Phone/Terminal Content -->
@@ -2130,6 +2118,6 @@ export default function IntegrationFabricPage() {
     </section>
 
       ` }} />
-    </div>
-  )
+        </div>
+    )
 }

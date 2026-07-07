@@ -34,13 +34,13 @@ export default async function PodcastPage() {
   const uniquePodcasts = Array.from(new Map(allPodcasts.map(p => [p.slug.current, p])).values())
 
   return (
-    <main className="min-h-screen bg-[#0C0D10] text-white pt-32 pb-24 md:pt-40 px-6 md:px-8 max-w-[1280px] mx-auto font-sans relative">
+    <main className="min-h-screen bg-[#131416] text-white pt-32 pb-24 md:pt-40 px-6 md:px-8 max-w-[1280px] mx-auto font-sans relative">
 
       {/* Dynamic Background Mesh Grid matching homepage style */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none -z-20 opacity-30"></div>
 
       {/* Hero Header */}
-      <header className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start mb-20 border-b border-white/[0.08] pb-12">
+      <header className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start mb-20 border-b border-[#1A1C1E] pb-12">
         <div>
           <h1 className="text-[36px] md:text-[48px] font-semibold text-white tracking-[-0.03em] leading-[1.1] font-sans">
             The Autonomous Execution Podcast.
@@ -90,7 +90,7 @@ export default async function PodcastPage() {
               )}
               {/* Play Button Overlay */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-14 h-14 rounded-full bg-black/50 border border-white/20 flex items-center justify-center backdrop-blur-sm group-hover:bg-[#8350e8]/80 group-hover:border-[#8350e8] transition-all">
+                <div className="w-14 h-14 rounded-full bg-black/50 border border-[#1A1C1E] flex items-center justify-center backdrop-blur-sm group-hover:bg-[#8350e8]/80 group-hover:border-[#8350e8] transition-all">
                   <svg className="w-6 h-6 text-white translate-x-0.5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M8 5v14l11-7z"/>
                   </svg>
@@ -120,7 +120,7 @@ export default async function PodcastPage() {
               </div>
 
               {/* Footer */}
-              <div className="mt-8 pt-4 flex items-center justify-between border-t border-white/[0.05]">
+              <div className="mt-8 pt-4 flex items-center justify-between border-t border-[#1A1C1E]">
                 <span className="text-xs text-slate-300 font-semibold">
                   With {podcast.guestName || 'Special Guest'}
                 </span>

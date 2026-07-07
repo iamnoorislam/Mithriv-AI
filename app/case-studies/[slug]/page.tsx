@@ -32,12 +32,12 @@ export default async function CaseStudyDetailPage({ params }: Props) {
   }
 
   return (
-    <article className="min-h-screen bg-[#0C0D10] text-white pb-32 font-sans relative">
+    <article className="min-h-screen bg-[#131416] text-white pb-32 font-sans relative">
       {/* Decorative Glow */}
       <div className="absolute top-[10%] left-[50%] -translate-x-1/2 w-[600px] h-[600px] bg-[#8350e8]/5 rounded-full blur-[140px] pointer-events-none -z-10"></div>
 
       {/* Hero Header */}
-      <header className="relative w-full pt-40 pb-16 overflow-hidden bg-[#0C0D10]">
+      <header className="relative w-full pt-40 pb-16 overflow-hidden bg-[#131416]">
         <div className="relative max-w-[1000px] mx-auto px-6 text-center">
           
           <div className="font-mono text-[14px] font-semibold tracking-widest text-slate-400 uppercase mb-6 flex items-center justify-center space-x-3">
@@ -67,7 +67,7 @@ export default async function CaseStudyDetailPage({ params }: Props) {
       {/* Featured Image */}
       {study.imageUrl && (
         <div className="max-w-[1280px] mx-auto px-6 mb-20 relative z-10">
-          <div className="w-full bg-[#1a1b1e] overflow-hidden aspect-[21/9] rounded-3xl border border-white/10 shadow-2xl">
+          <div className="w-full bg-[#1a1b1e] overflow-hidden aspect-[21/9] rounded-3xl border border-[#1A1C1E] shadow-2xl">
             <img 
               src={study.imageUrl} 
               alt={study.title} 

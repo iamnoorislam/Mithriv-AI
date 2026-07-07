@@ -37,14 +37,14 @@ export default async function NewsletterPage() {
             <div key={newsletter._id} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
               
               {/* Timeline dot */}
-              <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white/20 bg-[#0E0F11] shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 relative z-10 group-hover:border-[#8350e8] group-hover:shadow-[0_0_15px_rgba(131,80,232,0.4)] transition-all">
+              <div className="flex items-center justify-center w-10 h-10 rounded-full border border-[#1A1C1E] bg-[#0E0F11] shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 relative z-10 group-hover:border-[#8350e8] group-hover:shadow-[0_0_15px_rgba(131,80,232,0.4)] transition-all">
                 <div className="w-3 h-3 bg-[#8350e8] rounded-full"></div>
               </div>
               
               {/* Content Card */}
               <Link 
                 href={`/newsletter/${newsletter.slug.current}`}
-                className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-[#1a1b1e] border border-white/10 p-6 rounded-2xl hover:border-[#8350e8]/50 hover:bg-[#1a1b1e]/80 transition-all shadow-xl block"
+                className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-[#1a1b1e] border border-[#1A1C1E] p-6 rounded-2xl hover:border-[#8350e8]/50 hover:bg-[#1a1b1e]/80 transition-all shadow-xl block"
               >
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-xl font-bold text-white group-hover:text-[#8350e8] transition-colors">{newsletter.title}</h3>
@@ -64,7 +64,7 @@ export default async function NewsletterPage() {
             </div>
           ))
         ) : (
-          <div className="py-12 text-center text-slate-500 border border-white/5 rounded-2xl bg-white/[0.02] relative z-10">
+          <div className="py-12 text-center text-slate-500 border border-[#1A1C1E] rounded-2xl bg-white/[0.02] relative z-10">
             <p>No newsletters published yet.</p>
           </div>
         )}

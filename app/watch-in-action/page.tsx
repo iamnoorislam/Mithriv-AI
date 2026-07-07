@@ -96,7 +96,7 @@ export default function WatchInActionPage() {
     <main className="landing-theme relative flex flex-col lg:flex-row min-h-screen w-full bg-[#07080a] overflow-x-hidden">
       
       {/* Left Partition: Brand Display with Background Boxes animation */}
-      <div className="relative z-10 flex flex-col items-center justify-center w-full lg:w-1/2 min-h-[50vh] lg:h-screen bg-[#040507]/90 lg:border-r border-white/5 overflow-hidden py-16 lg:py-0 select-none">
+      <div className="relative z-10 flex flex-col items-center justify-center w-full lg:w-1/2 min-h-[50vh] lg:h-screen bg-[#040507]/90 lg:border-r border-[#1A1C1E] overflow-hidden py-16 lg:py-0 select-none">
         
         {/* Background Boxes Animation */}
         <Boxes />

@@ -37,7 +37,7 @@ export default async function EbooksPage() {
           ebooks.map((ebook: any) => (
             <div 
               key={ebook._id}
-              className="group flex flex-col bg-white/[0.02] border border-white/5 rounded-3xl overflow-hidden hover:bg-white/[0.04] transition-all duration-300 shadow-2xl"
+              className="group flex flex-col bg-white/[0.02] border border-[#1A1C1E] rounded-3xl overflow-hidden hover:bg-white/[0.04] transition-all duration-300 shadow-2xl"
             >
               <div className="relative aspect-[3/4] w-full bg-[#0a0a0c] p-8 flex items-center justify-center">
                 {ebook.imageUrl ? (
@@ -47,12 +47,12 @@ export default async function EbooksPage() {
                     className="object-cover w-full h-full rounded-md shadow-2xl group-hover:-translate-y-2 group-hover:rotate-1 transition-all duration-500"
                   />
                 ) : (
-                  <div className="w-[80%] h-[90%] bg-gradient-to-br from-[#1a1b1e] to-[#0E0F11] border border-white/10 rounded-md flex items-center justify-center text-slate-600 shadow-2xl group-hover:-translate-y-2 group-hover:rotate-1 transition-all duration-500">
+                  <div className="w-[80%] h-[90%] bg-gradient-to-br from-[#1a1b1e] to-[#0E0F11] border border-[#1A1C1E] rounded-md flex items-center justify-center text-slate-600 shadow-2xl group-hover:-translate-y-2 group-hover:rotate-1 transition-all duration-500">
                     <span className="text-sm font-medium tracking-widest uppercase">No Cover</span>
                   </div>
                 )}
               </div>
-              <div className="p-8 flex flex-col flex-1 border-t border-white/5">
+              <div className="p-8 flex flex-col flex-1 border-t border-[#1A1C1E]">
                 <h2 className="text-2xl font-bold text-white mb-3 leading-tight">
                   {ebook.title}
                 </h2>
@@ -79,7 +79,7 @@ export default async function EbooksPage() {
             </div>
           ))
         ) : (
-          <div className="col-span-full py-12 text-center text-slate-500 border border-white/5 rounded-2xl bg-white/[0.02]">
+          <div className="col-span-full py-12 text-center text-slate-500 border border-[#1A1C1E] rounded-2xl bg-white/[0.02]">
             <p>No ebooks available right now.</p>
           </div>
         )}

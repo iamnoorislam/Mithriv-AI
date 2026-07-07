@@ -1,0 +1,144 @@
+
+Created At: 2026-06-30T06:04:58Z
+Completed At: 2026-06-30T06:05:00Z
+The following changes were made by the multi_replace_file_content tool to: /Users/noorislam/Downloads/Bnner/mithriv-website/public/SVGs/SOP Agents 1.svg. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -3,6 +3,43 @@
+ <path d="M196.5 117.5L199.387 112.5H193.613L196.5 117.5ZM313 57.5V57H312V57.5H312.5H313ZM304.5 83.3228V82.8228H204.5V83.3228V83.8228H304.5V83.3228ZM196.5 91.3228H196V113H196.5H197V91.3228H196.5ZM312.5 75.3228H313V57.5H312.5H312V75.3228H312.5ZM204.5 83.3228V82.8228C199.806 82.8228 196 86.6284 196 91.3228H196.5H197C197 87.1806 200.358 83.8228 204.5 83.8228V83.3228ZM304.5 83.3228V83.8228C309.194 83.8228 313 80.0172 313 75.3228H312.5H312C312 79.4649 308.642 82.8228 304.5 82.8228V83.3228Z" fill="#6852D6"/>
+ <path d="M196.5 229.5L193.613 234.5H199.387L196.5 229.5ZM80 289.5V290H81V289.5H80.5H80ZM88.5 263.677V264.177H188.5V263.677V263.177H88.5V263.677ZM196.5 255.677H197V234H196.5H196V255.677H196.5ZM80.5 271.677H80V289.5H80.5H81V271.677H80.5ZM188.5 263.677V264.177C193.194 264.177 197 260.372 197 255.677H196.5H196C196 259.819 192.642 263.177 188.5 263.177V263.677ZM88.5 263.677V263.177C83.8056 263.177 80 266.983 80 271.677H80.5H81C81 267.535 84.3579 264.177 88.5 264.177V263.677Z" fill="#6852D6"/>
+ <path d="M196.5 229.5L199.387 234.5H193.613L196.5 229.5ZM313 289.5V290H312V289.5H312.5H313ZM304.5 263.677V264.177H204.5V263.677V263.177H304.5V263.677ZM196.5 255.677H196V234H196.5H197V255.677H196.5ZM312.5 271.677H313V289.5H312.5H312V271.677H312.5ZM204.5 263.677V264.177C199.806 264.177 196 260.372 196 255.677H196.5H197C197 259.819 200.358 263.177 204.5 263.177V263.677ZM304.5 263.677V263.177C309.194 263.177 313 266.983 313 271.677H312.5H312C312 267.535 308.642 264.177 304.5 264.177V263.677Z" fill="#6852D6"/>
++<defs>
++  <path id="flow-path1" d="M 80.5 57.5 L 80.5 75.3 C 80.5 80 84.3 83.3 88.5 83.3 L 188.5 83.3 C 193 83.3 196.5 87.1 196.5 91.3 L 196.5 115" />
++  <path id="flow-path2" d="M 312.5 57.5 L 312.5 75.3 C 312.5 80 308.7 83.3 304.5 83.3 L 204.5 83.3 C 200 83.3 196.5 87.1 196.5 91.3 L 196.5 115" />
++  <path id="flow-path3" d="M 80.5 289.5 L 80.5 271.6 C 80.5 266.9 84.3 263.6 88.5 263.6 L 188.5 263.6 C 193 263.6 196.5 259.8 196.5 255.6 L 196.5 232" />
++  <path id="flow-path4" d="M 312.5 289.5 L 312.5 271.6 C 312.5 266.9 308.7 263.6 304.5 263.6 L 204.5 263.6 C 200 263.6 196.5 259.8 196.5 255.6 L 196.5 232" />
++  
++  <filter id="dot-glow">
++    <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
++    <feMerge>
++      <feMergeNode in="coloredBlur"/>
++      <feMergeNode in="SourceGraphic"/>
++    </feMerge>
++  </filter>
++</defs>
++
++<g fill="#bbfb02" filter="url(#dot-glow)">
++  <circle r="3">
++    <animateMotion dur="2.5s" repeatCount="indefinite">
++      <mpath href="#flow-path1"/>
++    </animateMotion>
++  </circle>
++  <circle r="3">
++    <animateMotion dur="2.5s" repeatCount="indefinite" begin="1.25s">
++      <mpath href="#flow-path2"/>
++    </animateMotion>
++  </circle>
++  <circle r="3">
++    <animateMotion dur="2.5s" repeatCount="indefinite" begin="0.625s">
++      <mpath href="#flow-path3"/>
++    </animateMotion>
++  </circle>
++  <circle r="3">
++    <animateMotion dur="2.5s" repeatCount="indefinite" begin="1.875s">
++      <mpath href="#flow-path4"/>
++    </animateMotion>
++  </circle>
++</g>
+ <g filter="url(#filter0_d_4986_62924)">
+ <rect x="14.5" y="2.5" width="144" height="55" rx="10" fill="#141516"/>
+ <rect x="15" y="3" width="143" height="54" rx="9.5" stroke="#262728"/>
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+Created At: 2026-06-30T06:08:04Z
+Completed At: 2026-06-30T06:08:06Z
+The following changes were made by the multi_replace_file_content tool to: /Users/noorislam/Downloads/Bnner/mithriv-website/public/SVGs/SOP Agents 1.svg. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -18,7 +18,7 @@
+   </filter>
+ </defs>
+ 
+-<g fill="#bbfb02" filter="url(#dot-glow)">
++<g fill="#6852D6" filter="url(#dot-glow)">
+   <circle r="3">
+     <animateMotion dur="2.5s" repeatCount="indefinite">
+       <mpath href="#flow-path1"/>
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
+Created At: 2026-07-03T04:33:48Z
+Completed At: 2026-07-03T04:33:56Z
+
+				The command failed with exit code: 1
+				Output:
+				<truncated 1 lines>
+>   </circle>
+>   <circle r="3">
+>     <animateMotion dur="2.5s" repeatCount="indefinite" begin="1.875s">
+>       <mpath href="#flow-path4"/>
+>     </animateMotion>
+>   </circle>
+> </g>
+8c45
+< <rect x="15" y="3" width="143" height="54" rx="9.5" stroke="#262728"/>
+---
+> <rect x="15" y="3" width="143" height="54" rx="9.5" stroke="#212326"/>
+12c49
+< <rect x="15" y="290" width="158" height="54" rx="9.5" stroke="#262728"/>
+---
+> <rect x="15" y="290" width="158" height="54" rx="9.5" stroke="#212326"/>
+16c53
+< <rect x="243" y="3" width="143" height="54" rx="9.5" stroke="#262728"/>
+---
+> <rect x="243" y="3" width="143" height="54" rx="9.5" stroke="#212326"/>
+20c57
+< <rect x="243" y="290" width="143" height="54" rx="9.5" stroke="#262728"/>
+---
+> <rect x="243" y="290" width="143" height="54" rx="9.5" stroke="#212326"/>
+45c82
+< <rect x="86" y="117" width="222" height="111" rx="9.5" stroke="#262728"/>
+---
+> <rect x="86" y="117" width="222" height="111" rx="9.5" stroke="#212326"/>
+48c85
+< <rect x="86" y="117" width="222" height="111" rx="9.5" fill="#0F1012" stroke="#262728"/>
+---
+> <rect x="86" y="117" width="222" height="111" rx="9.5" fill="#0F1012" stroke="#212326"/>
+51,79c88,146
+< <line x1="-38.1464" y1="108.146" x2="89.8535" y2="236.146" stroke="#252526"/>
+< <line x1="-26.1464" y1="108.146" x2="101.854" y2="236.146" stroke="#252526"/>
+< <line x1="-14.1464" y1="108.146" x2="113.854" y2="236.146" stroke="#252526"/>
+< <line x1="-2.14645" y1="108.146" x2="125.854" y2="236.146" stroke="#252526"/>
+< <line x1="9.85355" y1="108.146" x2="137.854" y2="236.146" stroke="#252526"/>
+< <line x1="21.8536" y1="108.146" x2="149.854" y2="236.146" stroke="#252526"/>
+< <line x1="33.8536" y1="108.146" x2="161.854" y2="236.146" stroke="#252526"/>
+< <line x1="45.8536" y1="108.146" x2="173.854" y2="236.146" stroke="#252526"/>
+< <line x1="57.8536" y1="108.146" x2="185.854" y2="236.146" stroke="#252526"/>
+<truncated 4236 bytes>
+" x2="286.854" y2="236.146" stroke="#212326"/>
+> <line x1="164.8536" y1="108.146" x2="292.854" y2="236.146" stroke="#212326"/>
+> <line x1="170.8536" y1="108.146" x2="298.854" y2="236.146" stroke="#212326"/>
+> <line x1="176.8536" y1="108.146" x2="304.854" y2="236.146" stroke="#212326"/>
+> <line x1="182.8536" y1="108.146" x2="310.854" y2="236.146" stroke="#212326"/>
+> <line x1="188.8536" y1="108.146" x2="316.854" y2="236.146" stroke="#212326"/>
+> <line x1="194.8536" y1="108.146" x2="322.854" y2="236.146" stroke="#212326"/>
+> <line x1="200.8536" y1="108.146" x2="328.854" y2="236.146" stroke="#212326"/>
+> <line x1="206.8536" y1="108.146" x2="334.854" y2="236.146" stroke="#212326"/>
+> <line x1="212.8536" y1="108.146" x2="340.854" y2="236.146" stroke="#212326"/>
+> <line x1="218.8536" y1="108.146" x2="346.854" y2="236.146" stroke="#212326"/>
+> <line x1="224.8536" y1="108.146" x2="352.854" y2="236.146" stroke="#212326"/>
+> <line x1="230.8536" y1="108.146" x2="358.854" y2="236.146" stroke="#212326"/>
+> <line x1="236.8536" y1="108.146" x2="364.854" y2="236.146" stroke="#212326"/>
+> <line x1="242.8536" y1="108.146" x2="370.854" y2="236.146" stroke="#212326"/>
+> <line x1="248.8536" y1="108.146" x2="376.854" y2="236.146" stroke="#212326"/>
+> <line x1="254.8536" y1="108.146" x2="382.854" y2="236.146" stroke="#212326"/>
+> <line x1="260.8536" y1="108.146" x2="388.854" y2="236.146" stroke="#212326"/>
+> <line x1="266.8536" y1="108.146" x2="394.854" y2="236.146" stroke="#212326"/>
+> <line x1="272.8536" y1="108.146" x2="400.854" y2="236.146" stroke="#212326"/>
+> <line x1="278.8536" y1="108.146" x2="406.854" y2="236.146" stroke="#212326"/>
+> <line x1="284.8536" y1="108.146" x2="412.854" y2="236.146" stroke="#212326"/>
+> <line x1="290.8536" y1="108.146" x2="418.854" y2="236.146" stroke="#212326"/>
+> <line x1="296.8536" y1="108.146" x2="424.854" y2="236.146" stroke="#212326"/>
+> <line x1="302.8536" y1="108.146" x2="430.854" y2="236.146" stroke="#212326"/>
+> <line x1="308.8536" y1="108.146" x2="436.854" y2="236.146" stroke="#212326"/>
+
+
