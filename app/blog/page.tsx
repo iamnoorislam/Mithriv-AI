@@ -39,7 +39,7 @@ export default async function BlogPage() {
       <header className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start mb-20 border-b border-[#1A1C1E] pb-12">
         <div>
           <h1 className="text-[36px] md:text-[48px] font-semibold text-white tracking-[-0.03em] leading-[1.1] font-sans">
-            Notes from the autonomous production frontier.
+            Notes from the autonomous production frontier
           </h1>
         </div>
         <div className="pt-2 md:pt-4">

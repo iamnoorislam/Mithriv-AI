@@ -341,3 +341,66 @@ export function AnimatedPresentationIcon({ color = "currentColor", size = 20, cl
     </motion.svg>
   );
 }
+
+export function AnimatedActivityIcon({ color = "currentColor", size = 20, className = "", isHovered = false }: AnimatedIconProps) {
+  return (
+    <motion.svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <motion.polyline 
+        points="22 12 18 12 15 21 9 3 6 12 2 12" 
+        animate={{ pathLength: isHovered ? [0, 1] : 1, opacity: isHovered ? [0.5, 1] : 1 }} 
+        transition={{ duration: 1.5 }} 
+      />
+    </motion.svg>
+  );
+}
+
+export function AnimatedAlertTriangleIcon({ color = "currentColor", size = 20, className = "", isHovered = false }: AnimatedIconProps) {
+  return (
+    <motion.svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <motion.path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" animate={{ rotate: isHovered ? [0, 10, -10, 0] : 0 }} transition={{ duration: 0.5 }} />
+      <motion.line x1="12" y1="9" x2="12" y2="13" animate={{ scaleY: isHovered ? [1, 1.3, 1] : 1 }} transition={{ duration: 0.5 }} />
+      <motion.line x1="12" y1="17" x2="12.01" y2="17" />
+    </motion.svg>
+  );
+}
+
+export function AnimatedFingerprintIcon({ color = "currentColor", size = 20, className = "", isHovered = false }: AnimatedIconProps) {
+  return (
+    <motion.svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <motion.path d="M2 12C2 6.48 6.48 2 12 2s10 4.48 10 10" animate={{ pathLength: isHovered ? [0, 1] : 1 }} transition={{ duration: 1.5 }} />
+      <motion.path d="M5 12a7 7 0 0 1 14 0" animate={{ pathLength: isHovered ? [0, 1] : 1 }} transition={{ duration: 1.5, delay: 0.2 }} />
+      <motion.path d="M8 12a4 4 0 0 1 8 0" animate={{ pathLength: isHovered ? [0, 1] : 1 }} transition={{ duration: 1.5, delay: 0.4 }} />
+      <motion.path d="M11 12a1 1 0 0 1 2 0" animate={{ scale: isHovered ? [1, 1.5, 1] : 1 }} transition={{ duration: 1.5, delay: 0.6 }} />
+    </motion.svg>
+  );
+}
+
+export function AnimatedFileTextIcon({ color = "currentColor", size = 20, className = "", isHovered = false }: AnimatedIconProps) {
+  return (
+    <motion.svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <motion.path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <motion.path d="M14 2v6h6" animate={{ rotate: isHovered ? [0, 10, 0] : 0, originX: 0, originY: 1 }} transition={{ duration: 0.5 }} />
+      <motion.line x1="16" y1="13" x2="8" y2="13" animate={{ pathLength: isHovered ? [0, 1] : 1 }} transition={{ duration: 1 }} />
+      <motion.line x1="16" y1="17" x2="8" y2="17" animate={{ pathLength: isHovered ? [0, 1] : 1 }} transition={{ duration: 1, delay: 0.2 }} />
+      <motion.line x1="10" y1="9" x2="8" y2="9" />
+    </motion.svg>
+  );
+}
+
+export function AnimatedShieldCheckIcon({ color = "currentColor", size = 20, className = "", isHovered = false }: AnimatedIconProps) {
+  return (
+    <motion.svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <motion.path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" animate={{ scale: isHovered ? [1, 1.05, 1] : 1 }} transition={{ duration: 1 }} />
+      <motion.path d="M9 12l2 2 4-4" animate={{ pathLength: isHovered ? [0, 1] : 1 }} transition={{ duration: 0.8 }} />
+    </motion.svg>
+  );
+}
+
+export function AnimatedClockIcon({ color = "currentColor", size = 20, className = "", isHovered = false }: AnimatedIconProps) {
+  return (
+    <motion.svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <motion.circle cx="12" cy="12" r="10" />
+      <motion.polyline points="12 6 12 12 16 14" animate={{ rotate: isHovered ? [0, 360] : 0 }} style={{ transformOrigin: "12px 12px" }} transition={{ duration: 1, ease: "easeInOut" }} />
+    </motion.svg>
+  );
+}

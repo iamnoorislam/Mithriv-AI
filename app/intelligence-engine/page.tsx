@@ -252,7 +252,7 @@ export default function IntelligenceEnginePage() {
             <div class="split-layout">
                 <div>
                     <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem;">Your security stack detects threats in
-                        milliseconds.</h3>
+                        milliseconds</h3>
                     <p class="body-text" style="margin-bottom: 1.5rem;">Your cameras identify unauthorized access at
                         T+0. Your access control logs the badge attempt at T+50ms. Your analytics engine flags the
                         anomaly at T+200ms.</p>
@@ -514,7 +514,7 @@ export default function IntelligenceEnginePage() {
             <div class="split-layout" style="align-items: center;">
                 <div class="pixel-card" style="background: rgba(10, 10, 14, 0.95);">
                     <h3 style="margin-bottom: 1.5rem; font-size: 1.2rem; color: var(--primary-purple);">Before
-                        automation goes live, test it.</h3>
+                        automation goes live, test it</h3>
                     <p class="body-text" style="margin-bottom: 1rem;">The Simulation Playground runs your SOPs against
                         historical incidents, synthetic scenarios, and edge cases. See exactly how the Intelligence
                         Engine responds.</p>
@@ -539,7 +539,7 @@ export default function IntelligenceEnginePage() {
                 </div>
                 <div>
                     <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Identify gaps. Refine policies. Build
-                        confidence.</h3>
+                        confidence</h3>
                     <p class="body-text">Run simulations before deployment. Run them after policy changes. Run them when
                         regulations update.</p>
                 </div>

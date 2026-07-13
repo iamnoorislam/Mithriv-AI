@@ -233,7 +233,7 @@ export default function IndustrySectionIntelligence({ isEmbedded = false }: { is
               </span>
             </div>
 
-            <div className="header-split-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'end', marginBottom: '40px' }}>
+            <div className="header-split-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'end', marginBottom: '80px' }}>
               {/* Left Side: Heading */}
               <h2
                 className="std-section-h2"
@@ -248,7 +248,7 @@ export default function IndustrySectionIntelligence({ isEmbedded = false }: { is
                   color: '#ffffff',
                 }}
               >
-                Built for industries where intelligence gaps cost lives.
+                Built for industries where intelligence gaps cost lives
               </h2>
 
               {/* Right Side: Subheading */}
@@ -259,8 +259,9 @@ export default function IndustrySectionIntelligence({ isEmbedded = false }: { is
                   lineHeight: '1.55',
                   textAlign: 'left',
                   marginTop: '0',
-                  marginBottom: '0px',
+                  marginBottom: '20px',
                   fontFamily: 'var(--font-mono)',
+                  alignSelf: 'end'
                 }}
               >
                 Every industry generates security data differently. The Intelligence Engine is built to understand the difference.
@@ -696,14 +697,14 @@ export default function IndustrySectionIntelligence({ isEmbedded = false }: { is
           #industries-intelligence {
             height: 2150px;
             position: relative;
-            padding: 160px 0 100px 0 !important;
+            padding: 0 !important;
           }
           .industries-sticky-wrapper {
             position: sticky;
             top: 50px;
             height: auto;
             z-index: 10;
-            background: #0C0D10;
+            background: transparent;
           }
         }
         @media (max-width: 991px) {

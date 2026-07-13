@@ -233,7 +233,7 @@ const PremiumCodeWindow = ({
           right: '-30px',
           width: 'calc(100% + 10px)',
           background: '#0B0D12',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          border: '1px solid #212326',
           borderRadius: '12px',
           boxShadow: '0 24px 50px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.04)',
           overflow: 'hidden',
@@ -245,7 +245,7 @@ const PremiumCodeWindow = ({
           alignItems: 'center',
           height: '42px',
           padding: '0 16px',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+          borderBottom: '1px solid #212326',
           background: 'rgba(15, 16, 22, 0.5)',
         }}>
           {/* Mac Traffic Lights */}
@@ -546,7 +546,7 @@ export default function IndustrySection({ isEmbedded = false }: { isEmbedded?: b
                   color: '#ffffff',
                 }}
               >
-                Built for environments where failure is not an option.
+                Built for environments where failure is not an option
               </h2>
 
               {/* Right Side: Subheading */}
@@ -558,6 +558,7 @@ export default function IndustrySection({ isEmbedded = false }: { isEmbedded?: b
                   textAlign: 'left',
                   marginTop: '0',
                   marginBottom: '0px',
+                  paddingBottom: '20px',
                   fontFamily: 'var(--font-mono)',
                 }}
               >
@@ -570,9 +571,9 @@ export default function IndustrySection({ isEmbedded = false }: { isEmbedded?: b
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(4, 1fr)',
-                borderTop: '1px solid rgba(255,255,255,0.08)',
-                borderLeft: '1px solid rgba(255,255,255,0.08)',
-                background: 'rgba(255, 255, 255, 0.01)',
+                borderTop: '1px solid #212326',
+                borderLeft: '1px solid #212326',
+                background: 'transparent',
                 marginBottom: '0px',
               }}
             >
@@ -581,10 +582,10 @@ export default function IndustrySection({ isEmbedded = false }: { isEmbedded?: b
                   key={ind.id}
                   onClick={() => handleTabClick(idx)}
                   style={{
-                    background: active === idx ? 'rgba(255,255,255,0.03)' : 'transparent',
+                    background: active === idx ? '#212326' : 'transparent',
                     border: 'none',
-                    borderRight: '1px solid rgba(255,255,255,0.08)',
-                    borderBottom: '1px solid rgba(255,255,255,0.08)',
+                    borderRight: '1px solid #212326',
+                    borderBottom: '1px solid #212326',
                     padding: '16px 24px',
                     cursor: 'pointer',
                     fontFamily: 'var(--font-mono)',
@@ -627,7 +628,7 @@ export default function IndustrySection({ isEmbedded = false }: { isEmbedded?: b
                       <div
                         style={{
                           padding: '24px 32px',
-                          borderRight: '1px solid rgba(255,255,255,0.08)',
+                          borderRight: '1px solid #212326',
                           display: 'flex',
                           flexDirection: 'column',
                           justifyContent: 'flex-start',
@@ -699,7 +700,7 @@ export default function IndustrySection({ isEmbedded = false }: { isEmbedded?: b
                                   alignItems: 'flex-start',
                                   gap: '12px',
                                   padding: '10px 0',
-                                  borderBottom: i < 2 ? '1px solid rgba(255,255,255,0.06)' : 'none',
+                                  borderBottom: i < 2 ? '1px solid #212326' : 'none',
                                   position: 'relative',
                                 }}
                               >
@@ -812,7 +813,7 @@ export default function IndustrySection({ isEmbedded = false }: { isEmbedded?: b
 
         /* Dotted Grid Background Animation */
         .dotted-grid-bg {
-          background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 0);
+          background-image: radial-gradient(#212326 1px, transparent 0);
           background-size: 18px 18px;
           animation: gridScroll 16s linear infinite;
           overflow: hidden !important;
@@ -843,7 +844,7 @@ export default function IndustrySection({ isEmbedded = false }: { isEmbedded?: b
         /* Fixed Window Box Desktop Layout */
         .features-window-box {
           height: 500px;
-          border: 1px solid rgba(255, 255, 255, 0.08);
+          border: 1px solid #212326;
           border-top: none;
           border-radius: 0px;
           background: #0C0D10;
@@ -868,15 +869,9 @@ export default function IndustrySection({ isEmbedded = false }: { isEmbedded?: b
         .feature-divider {
           height: 48px;
           min-height: 48px;
-          border-top: 1px solid rgba(255, 255, 255, 0.08);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-          background-image: repeating-linear-gradient(
-            45deg,
-            rgba(255, 255, 255, 0.015) 0px,
-            rgba(255, 255, 255, 0.015) 1px,
-            transparent 1px,
-            transparent 10px
-          );
+          border-top: 1px solid #212326;
+          border-bottom: 1px solid #212326;
+          background-image: url("data:image/svg+xml,%3Csvg width='8' height='8' viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M-1,-1 L9,9 M7,-1 L9,1 M-1,7 L1,9' stroke='%23212326' stroke-width='1'/%3E%3C/svg%3E");
           background-color: #0A0B0E;
           width: 100%;
         }
@@ -885,15 +880,15 @@ export default function IndustrySection({ isEmbedded = false }: { isEmbedded?: b
           display: grid;
           grid-template-columns: 55fr 45fr;
           gap: 48px;
-          align-items: start;
-          margin-bottom: 24px;
+          align-items: end;
+          margin-bottom: 80px;
         }
 
         .industry-outcome-box {
           margin: 20px 20px 0 20px;
           padding: 16px 20px;
           background: #090A0E;
-          border: 1px solid rgba(255, 255, 255, 0.06);
+          border: 1px solid #212326;
           border-radius: 8px;
           display: flex;
           align-items: center;

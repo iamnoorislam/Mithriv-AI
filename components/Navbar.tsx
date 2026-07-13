@@ -13,9 +13,15 @@ function MegaItem({ href, title, description, IconComponent, color, iconClass }:
       <div className="mega-icon">
         <IconComponent color={color} size={20} className={`animated-icon ${iconClass}`} isHovered={isHovered} />
       </div>
-      <div className="mega-content">
+      <div className="mega-content" style={{ flexGrow: 1 }}>
         <h5>{title}</h5>
         <p>{description}</p>
+      </div>
+      <div className="mega-arrow">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+              <path className="arrow-stem" d="M5 12h14" />
+              <path className="arrow-head" d="m12 5 7 7-7 7" />
+          </svg>
       </div>
     </Link>
   );
@@ -136,7 +142,9 @@ export default function Navbar() {
                             <Link href="/integration-fabric" className="ent-btn-primary">View Platform Overview <svg className="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path className="arrow-stem" d="M3 12h12" /><path className="arrow-head" d="m9 18 6-6-6-6"/></svg></Link>
                         </div>
                         <div className="mega-right">
-                            <h4 style={{ color: '#ADADAE', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px', fontWeight: 600 }}>Core Modules</h4>
+                            <div style={{ padding: '24px 32px 16px 32px', borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
+                                <h4 style={{ color: '#ADADAE', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', margin: 0, fontWeight: 600 }}>Core Modules</h4>
+                            </div>
                             <div className="mega-grid">
                                 <MegaItem href="/integration-fabric" title="Integration Fabric" description="Every Security System. One Operational Model." IconComponent={AnimatedNetworkIcon} color="#EA49B2" iconClass="network-icon" />
 
@@ -162,7 +170,9 @@ export default function Navbar() {
                             <Link href="/resources" className="ent-btn-primary">View All Resources <svg className="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path className="arrow-stem" d="M3 12h12" /><path className="arrow-head" d="m9 18 6-6-6-6"/></svg></Link>
                         </div>
                         <div className="mega-right">
-                            <h4 style={{ color: '#ADADAE', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px', fontWeight: 600 }}>All Resources</h4>
+                            <div style={{ padding: '24px 32px 16px 32px', borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
+                                <h4 style={{ color: '#ADADAE', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', margin: 0, fontWeight: 600 }}>All Resources</h4>
+                            </div>
                             <div className="mega-grid">
                                 <MegaItem href="/blog" title="Blog" description="Latest insights & strategy." IconComponent={AnimatedBlogIcon} color="#AFF962" iconClass="blog-icon" />
                                 <MegaItem href="/podcast" title="Podcast" description="Listen to industry leaders." IconComponent={AnimatedPodcastIcon} color="#4993E3" iconClass="podcast-icon" />

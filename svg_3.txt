@@ -1,0 +1,90 @@
+<svg viewBox="0 0 200 160" width="100%" height="160" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <style>
+                                    @keyframes camera-scan {
+
+                                        0%,
+                                        100% {
+                                            transform: rotate(-5deg);
+                                        }
+
+                                        50% {
+                                            transform: rotate(5deg);
+                                        }
+                                    }
+
+                                    @keyframes lock-pulse {
+
+                                        0%,
+                                        100% {
+                                            stroke: rgba(187, 251, 2, 0.4);
+                                            fill: rgba(187, 251, 2, 0.05);
+                                        }
+
+                                        50% {
+                                            stroke: #bbfb02;
+                                            fill: rgba(187, 251, 2, 0.2);
+                                            filter: drop-shadow(0 0 4px #bbfb02);
+                                        }
+                                    }
+
+                                    @keyframes light-glow {
+
+                                        0%,
+                                        100% {
+                                            opacity: 0.1;
+                                        }
+
+                                        50% {
+                                            opacity: 0.3;
+                                        }
+                                    }
+
+                                    #hero .ent-btn-primary {
+                                        backdrop-filter: none !important;
+                                        -webkit-backdrop-filter: none !important;
+                                        transform: translateZ(0);
+                                    }
+                                </style>
+                                <path d="M100,20 L100,140" stroke="rgba(255, 255, 255, 0.25)" stroke-dasharray="2,2" />
+                                <polygon points="100,45 60,110 140,110" fill="url(#cone-grad-home)"
+                                    style="animation: light-glow 3s ease-in-out infinite;" />
+                                <ellipse cx="100" cy="110" rx="40" ry="12" stroke="rgba(255, 255, 255, 0.25)"
+                                    stroke-width="1" stroke-dasharray="2,2" />
+
+                                <g transform="translate(100, 45)"
+                                    style="transform-origin: 0 -5px; animation: camera-scan 6s ease-in-out infinite;">
+                                    <path d="M-15,-15 L0,-5" stroke="rgba(255, 255, 255, 0.25)" stroke-width="2" />
+                                    <line x1="-15" y1="-15" x2="-15" y2="-5" stroke="rgba(255, 255, 255, 0.25)"
+                                        stroke-width="1" />
+                                    <polygon points="-8,-10 12,-20 12,-8 -8,2" fill="rgba(255,255,255,0.05)"
+                                        stroke="rgba(255, 255, 255, 0.25)" stroke-width="1" />
+                                    <polygon points="12,-20 22,-15 22,-3 12,-8" fill="rgba(255,255,255,0.08)"
+                                        stroke="rgba(255, 255, 255, 0.25)" stroke-width="1" />
+                                    <polygon points="-8,-10 12,-20 22,-15 2,-5" fill="rgba(255,255,255,0.1)"
+                                        stroke="rgba(255, 255, 255, 0.25)" stroke-width="1" />
+                                    <ellipse cx="17" cy="-9" rx="3" ry="5" fill="none" stroke="rgba(255, 255, 255, 0.25)"
+                                        stroke-width="1" />
+                                    <circle cx="17" cy="-9" r="1.5" fill="#ffffff" />
+                                    <circle cx="10" cy="-14" r="1" fill="#bbfb02" />
+                                </g>
+
+                                <g transform="translate(100, 95)">
+                                    <rect x="-14" y="-5" width="28" height="22" rx="3" stroke="#bbfb02"
+                                        stroke-width="1.5" style="animation: lock-pulse 2s infinite alternate;" />
+                                    <path d="M-9,-5 L-9,-14 C-9,-19 9,-19 9,-14 L9,-5" stroke="#bbfb02"
+                                        stroke-width="1.5" fill="none"
+                                        style="animation: lock-pulse 2s infinite alternate;" />
+                                    <circle cx="0" cy="3" r="2.5" fill="#bbfb02" />
+                                    <polygon points="-1,3 1,3 2,10 -2,10" fill="#bbfb02" />
+                                    <ellipse cx="0" cy="5" rx="30" ry="15" stroke="#bbfb02" stroke-width="1"
+                                        stroke-dasharray="3,3" />
+                                </g>
+                                <defs>
+                                    <linearGradient id="cone-grad-home" x1="100" y1="45" x2="100" y2="110"
+                                        gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="rgba(255,255,255,0.2)" />
+                                        <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>

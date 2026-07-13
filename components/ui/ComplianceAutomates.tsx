@@ -86,7 +86,7 @@ export default function ComplianceAutomates() {
                         Compliance Automates
                     </span>
                     <h2 className="std-section-h2" style={{ fontSize: '48px', fontWeight: 600, letterSpacing: '-0.02em', lineHeight: 1.1, margin: '0 0 24px 0', maxWidth: '800px' }}>
-                        Audit-ready as a default state.
+                        Audit-ready as a default state
                     </h2>
                     <p className="std-section-subheading" style={{ fontSize: '16px', color: 'rgba(255,255,255,0.45)', lineHeight: 1.6, fontFamily: 'var(--font-mono), JetBrains Mono, monospace', margin: '0', maxWidth: '600px' }}>
                         When operations flow through a unified system, compliance documentation is automatic. No scrambling, no manual logging.

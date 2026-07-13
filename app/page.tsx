@@ -1689,7 +1689,7 @@ export default function HomePage() {
                     </span>
                     <h2 class="std-section-h2 cinematic-reveal-title"
                         style="margin: 0; font-size: 48px; font-weight: 600; letter-spacing: -0.02em;">
-                        Everything visible. Everything queryable.</h2>
+                        Everything visible. Everything queryable</h2>
                 </div>
 
                 <!-- Middle Row: Interactive Command Console Dashboard -->
@@ -1798,7 +1798,7 @@ export default function HomePage() {
                 <p
                     style="color: #8b5cf6; font-family: var(--font-mono); font-size: 14px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px;">
                     Assurance Architecture</p>
-                <h2 class="main-heading" style="font-size: 48px; margin-bottom: 20px;">Autonomy with accountability.
+                <h2 class="main-heading" style="font-size: 48px; margin-bottom: 20px;">Autonomy with accountability
                 </h2>
                 <p class="body-text"
                     style="font-family: var(--font-mono); font-size: 14px; max-width: 600px; margin: 0 auto 40px; color: rgba(255,255,255,0.65);">
@@ -2232,7 +2232,7 @@ export default function HomePage() {
 
                     <h2 class="main-heading cinematic-reveal-title"
                         style="font-size: 48px; line-height: 1.05; margin-bottom: 24px; color: #ffffff;">Audit-ready as
-                        a<br>default state.</h2>
+                        a<br>default state</h2>
                     <p class="body-text"
                         style="font-family: var(--font-mono); font-size: 14px; color: rgba(255,255,255,0.65); max-width: 650px; margin: 0 auto 40px; line-height: 1.6;">
                         When operations flow through a unified system, compliance documentation is automatic. No

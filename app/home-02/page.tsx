@@ -2551,71 +2551,11 @@ export default function Home02Page() {
                     </span>
                     <h2 class="std-section-h2 cinematic-reveal-title"
                         style="margin: 0; font-size: 48px; font-weight: 600; letter-spacing: -0.02em;">
-                        Everything visible. Everything queryable.</h2>
+                        Everything visible. Everything queryable</h2>
                 </div>
 
-                <!-- Middle Row: Interactive Command Console Dashboard -->
-                <style>
-                /* Micro-animations for Knowledge Dashboard Icons (Trigger.dev style) - Hover Only */
                 
-                /* 1. Message Bubble */
-                .anim-message { overflow: visible; transition: all 0.3s ease; }
-                .k-console-panel:hover .anim-message { animation: msgFloat 2s ease-in-out infinite; }
-                @keyframes msgFloat {
-                    0%, 100% { transform: translateY(0) scale(1); stroke: currentColor; }
-                    50% { transform: translateY(-3px) scale(1.05); stroke: #a78bfa; filter: drop-shadow(0 4px 6px rgba(139, 92, 246, 0.2)); }
-                }
-
-                /* 2. Layers */
-                .anim-layers { overflow: visible; }
-                .anim-layers polygon, .anim-layers polyline { transition: all 0.3s ease; }
-                .k-feature-card:hover .anim-layers polygon { animation: layer1 2s ease-in-out infinite; }
-                .k-feature-card:hover .anim-layers polyline:nth-of-type(1) { animation: layer2 2s ease-in-out infinite; }
-                .k-feature-card:hover .anim-layers polyline:nth-of-type(2) { animation: layer3 2s ease-in-out infinite; }
-                @keyframes layer1 {
-                    0%, 100% { transform: translateY(0); stroke: currentColor; }
-                    50% { transform: translateY(-4px); stroke: #a78bfa; filter: drop-shadow(0 -4px 4px rgba(139, 92, 246, 0.2)); }
-                }
-                @keyframes layer2 {
-                    0%, 100% { transform: translateY(0); stroke: currentColor; }
-                    50% { transform: translateY(0px); stroke: #c4b5fd; }
-                }
-                @keyframes layer3 {
-                    0%, 100% { transform: translateY(0); stroke: currentColor; }
-                    50% { transform: translateY(4px); stroke: #8b5cf6; filter: drop-shadow(0 4px 4px rgba(139, 92, 246, 0.2)); }
-                }
-
-                /* 3. Lightning/Zap */
-                .anim-zap {
-                    stroke-dasharray: 65; stroke-dashoffset: 0;
-                    overflow: visible; transition: all 0.3s ease;
-                }
-                .k-feature-card:hover .anim-zap { animation: zapDraw 2s cubic-bezier(0.25, 1, 0.5, 1) infinite; }
-                @keyframes zapDraw {
-                    0% { stroke-dashoffset: 65; fill: transparent; filter: drop-shadow(0 0 0 rgba(139,92,246,0)); }
-                    25% { stroke-dashoffset: 0; fill: transparent; }
-                    30% { fill: rgba(139, 92, 246, 0.4); stroke: #a78bfa; filter: drop-shadow(0 0 8px rgba(139,92,246,0.6)); }
-                    40% { fill: transparent; stroke: currentColor; filter: drop-shadow(0 0 0 rgba(139,92,246,0)); }
-                    60% { stroke-dashoffset: 0; }
-                    100% { stroke-dashoffset: -65; }
-                }
-
-                /* 4. Monitor */
-                .anim-monitor { overflow: visible; }
-                .anim-monitor rect, .anim-monitor line { transition: all 0.3s ease; }
-                .k-feature-card:hover .anim-monitor rect { animation: monitorGlow 2s ease-in-out infinite; }
-                .k-feature-card:hover .anim-monitor line:nth-of-type(1) { animation: scanLine 2s linear infinite; stroke: #8b5cf6; }
-                @keyframes monitorGlow {
-                    0%, 100% { fill: transparent; stroke: currentColor; }
-                    50% { fill: rgba(139, 92, 246, 0.1); stroke: #a78bfa; }
-                }
-                @keyframes scanLine {
-                    0% { transform: translateY(-5px); opacity: 0; }
-                    15% { opacity: 1; filter: drop-shadow(0 0 3px #8b5cf6); }
-                    85% { opacity: 1; filter: drop-shadow(0 0 3px #8b5cf6); }
-                    100% { transform: translateY(5px); opacity: 0; }
-                }
-                </style>
+                <!-- Middle Row: Interactive Command Console Dashboard -->
                 <div class="knowledge-dashboard">
 
                     <!-- Left: Active AI Query Terminal (Ask Questions Directly) -->
@@ -2721,7 +2661,7 @@ export default function Home02Page() {
         <!-- Header -->
         <div style="display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 800px; margin: 0 auto 80px;">
             <h2 class="std-section-h2" style="font-size: 48px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; margin-top: 0px; margin-bottom: 24px;">
-                Autonomy with accountability.
+                Autonomy with accountability
             </h2>
             <p class="std-section-subheading" style="font-size: 16px; color: rgba(255,255,255,0.45); line-height: 1.6; font-family: var(--font-mono), JetBrains Mono, monospace; max-width: 600px; margin: 0 auto 48px;">
                 Critical environments demand proof. Guardrails, approval gates, and immutable records—autonomous execution that stays auditable.

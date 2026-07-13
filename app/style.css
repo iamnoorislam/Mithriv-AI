@@ -4359,32 +4359,7 @@ body.light-mode * {
     flex-direction: column;
 }
 
-.mega-right {
-    flex: 1;
-    padding: 24px 24px 24px 32px;
-}
-
-.mega-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.mega-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 12px;
-    border-radius: 16px;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    background: transparent;
-}
-
-.mega-item:hover {
-    background: rgba(255, 255, 255, 0.04);
-    transform: translateX(4px);
-}
+/* mega-right, mega-grid, mega-item have been moved to navbar.css to prevent conflicts */
 
 .mega-icon {
     flex: 0 0 24px;
@@ -4431,56 +4406,7 @@ body.light-mode * {
     transform: translateY(1px) !important;
 }
 
-/* Cinematic Staggering for Mega Menu contents */
-.mega-left {
-    opacity: var(--hero-overlay-opacity, 0);
-    transform: translateX(-15px);
-    transition: opacity 0.5s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.mega-grid .mega-item {
-    opacity: var(--hero-overlay-opacity, 0);
-    transform: translateY(15px);
-    /* We keep the original transition for hover effects (bg color), but override opacity/transform on entrance */
-    transition: background 0.2s ease, opacity 0.5s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.has-dropdown:hover .mega-left,
-.has-dropdown.is-active .mega-left {
-    opacity: 1;
-    transform: translateX(0);
-    transition-delay: 0.1s;
-}
-
-.has-dropdown:hover .mega-grid .mega-item:nth-child(1),
-.has-dropdown.is-active .mega-grid .mega-item:nth-child(1) {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.15s;
-}
-
-.has-dropdown:hover .mega-grid .mega-item:nth-child(2),
-.has-dropdown.is-active .mega-grid .mega-item:nth-child(2) {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.2s;
-}
-
-.has-dropdown:hover .mega-grid .mega-item:nth-child(3),
-.has-dropdown.is-active .mega-grid .mega-item:nth-child(3) {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.25s;
-}
-
-/* Reset hover transform for mega-item so it still bumps right when hovered individually */
-.has-dropdown:hover .mega-grid .mega-item:hover,
-.has-dropdown.is-active .mega-grid .mega-item:hover {
-    transform: translateX(4px);
-    transition-delay: 0s;
-    /* Instant hover effect */
-}
-
+/* Cinematic staggering moved to navbar.css */
 /* Invisible bridge to prevent hover loss in the gap */
 .mega-menu::before {
     content: '';

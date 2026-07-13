@@ -645,7 +645,7 @@ export default function IntelligenceEnginePage() {
             too little information — it is too much, in too many places, arriving too late to act on.
           </p>
 
-          <style dangerouslySetInnerHTML={{ __html: `
+          <style>{`
             .ent-grid-wrapper {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
@@ -681,63 +681,83 @@ export default function IntelligenceEnginePage() {
                 .ent-grid-cell { min-height: 300px; padding: 24px; border-right: none !important; }
                 .ent-grid-cell:nth-child(1), .ent-grid-cell:nth-child(2), .ent-grid-cell:nth-child(3) { border-bottom: 1px solid #212326; }
             }
-          ` }} />
+          `}</style>
           <div className="ent-grid-wrapper">
 
             {/* Feature 1 */}
             <div className="feature-col-item ent-grid-cell" style={{ opacity: 0 }}>
               <span className="fig-label">Fig 0.1</span>
               <div className="fig-svg-wrap">
-                <svg viewBox="0 0 240 180" width="100%" height="190" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes pulse-purple {
-            0%, 100% { filter: drop-shadow(0 0 4px #7C3CD0); opacity: 0.8; }
-            50% { filter: drop-shadow(0 0 12px #7C3CD0); opacity: 1; }
-        }
-        @keyframes data-flow {
-            0% { transform: translateY(-10px); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translateY(30px); opacity: 0; }
-        }
-    ` }} />
-    <defs>
-        <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#7C3CD0" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#7C3CD0" stopOpacity="0.05" />
-        </linearGradient>
-    </defs>
-    {/* Background Isometric Grid */}
-    <g stroke="rgba(255,255,255,0.1)" strokeWidth="1" strokeDasharray="2,4">
-        <path d="M20,90 L220,90" />
-        <path d="M40,70 L200,70" />
-        <path d="M60,50 L180,50" />
-        <path d="M120,30 L120,150" />
-        <path d="M80,30 L80,150" />
-        <path d="M160,30 L160,150" />
-    </g>
-    
-    {/* Central Cylinder / Stack */}
-    <g transform="translate(120, 110)">
-        {/* Bottom Unreviewed Stack */}
-        <path d="M-40,0 L0,20 L40,0 L40,-30 L0,-10 L-40,-30 Z" fill="url(#purpleGrad)" stroke="#7C3CD0" strokeWidth="1" strokeOpacity="0.3" />
-        <path d="M-40,-10 L0,10 L40,-10" stroke="#7C3CD0" strokeWidth="1" strokeOpacity="0.2" />
-        <path d="M-40,-20 L0,0 L40,-20" stroke="#7C3CD0" strokeWidth="1" strokeOpacity="0.2" />
-        
-        {/* Top Reviewed Layer (Glowing) */}
-        <path d="M-40,-40 L0,-20 L40,-40 L0,-60 Z" fill="rgba(124, 60, 208, 0.8)" stroke="#fff" strokeWidth="1.5" style={{animation: 'pulse-purple 3s infinite'}} />
-        
-        {/* Dropping Data Particles */}
-        <circle cx="0" cy="-70" r="2" fill="#fff" style={{animation: 'data-flow 2s infinite'}} />
-        <circle cx="-15" cy="-60" r="1.5" fill="#fff" style={{animation: 'data-flow 2s infinite 0.5s'}} />
-        <circle cx="15" cy="-80" r="2" fill="#fff" style={{animation: 'data-flow 2s infinite 1s'}} />
-    </g>
+                <svg viewBox="0 0 360 200" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="purpleGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="rgba(119, 0, 255, 0.05)" />
+                      <stop offset="100%" stopColor="rgba(119, 0, 255, 0.3)" />
+                    </linearGradient>
+                    <linearGradient id="purpleGradVertical1" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="rgba(119, 0, 255, 0.2)" />
+                      <stop offset="100%" stopColor="rgba(119, 0, 255, 0.02)" />
+                    </linearGradient>
+                    <linearGradient id="boxGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#212326" />
+                      <stop offset="100%" stopColor="rgba(255, 255, 255, 0.02)" />
+                    </linearGradient>
+                    <filter id="glow1" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="4" result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                    <filter id="glowSubtle1" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="2" result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                  </defs>
 
-    {/* Prominent Text */}
-    <g transform="translate(120, 155)">
-        <text x="0" y="0" fontFamily="'Outfit', sans-serif" fontWeight="900" fontSize="16" fill="#7C3CD0" textAnchor="middle" letterSpacing="2" style={{animation: 'pulse-purple 3s infinite'}}>94% UNREVIEWED</text>
-        <text x="0" y="14" fontFamily="var(--font-mono), monospace" fontSize="8" fill="rgba(255,255,255,0.6)" textAnchor="middle" letterSpacing="1">MASSIVE DATA INFLUX</text>
-    </g>
-</svg>
+                  <g transform="translate(180, 100) scale(1.2)">
+                    {/* Base Architectural Grid */}
+                    <g stroke="#1A1C1E" strokeWidth="0.5" strokeDasharray="3,3">
+                      <path d="M-150,-80 L150,-80 M-150,-40 L150,-40 M-150,0 L150,0 M-150,40 L150,40 M-150,80 L150,80" />
+                      <path d="M-120,-100 L-120,100 M-80,-100 L-80,100 M-40,-100 L-40,100 M0,-100 L0,100 M40,-100 L40,100 M80,-100 L80,100 M120,-100 L120,100" />
+                    </g>
+
+                    {/* Data Influx Streams */}
+                    <path d="M-140,-50 L-60,-50 M-140,-30 L-60,-30 M-140,-10 L-60,-10 M-140,10 L-60,10 M-140,30 L-60,30 M-140,50 L-60,50" stroke="#1A1C1E" strokeWidth="1" />
+                    <g fill="#ffffff" filter="url(#glowSubtle1)">
+                      <circle cx="-130" cy="-50" r="1.5" /> <circle cx="-110" cy="-30" r="1.5" /> <circle cx="-90" cy="-10" r="1.5" />
+                      <circle cx="-120" cy="10" r="1.5" /> <circle cx="-100" cy="30" r="1.5" /> <circle cx="-80" cy="50" r="1.5" />
+                    </g>
+                    <rect x="-150" y="-60" width="30" height="14" rx="2" fill="url(#boxGrad1)" stroke="#1A1C1E" strokeWidth="1" />
+                    <text x="-135" y="-51" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#A1A1AA" textAnchor="middle">47M/DAY</text>
+
+                    {/* Aggregator Node */}
+                    <path d="M-60,-60 L-30,-20 L-30,20 L-60,60 Z" fill="url(#purpleGrad1)" stroke="#7700FF" strokeWidth="1" opacity="0.9" />
+                    <path d="M-50,-40 L-40,-25 M-50,40 L-40,25" stroke="#1A1C1E" strokeWidth="1" strokeDasharray="2,2" />
+
+                    {/* Core Processor Bottleneck */}
+                    <rect x="-30" y="-20" width="30" height="40" fill="#131416" stroke="#7700FF" strokeWidth="1" />
+                    <line x1="-20" y1="-10" x2="-10" y2="-10" stroke="#7700FF" strokeWidth="1.5" style={{ animation: 'blink-warning-1 1s infinite' }} filter="url(#glowSubtle1)" />
+                    <line x1="-20" y1="0" x2="-10" y2="0" stroke="#7700FF" strokeWidth="1.5" style={{ animation: 'blink-warning-1 1s infinite', animationDelay: '0.2s' }} filter="url(#glowSubtle1)" />
+                    <line x1="-20" y1="10" x2="-10" y2="10" stroke="#7700FF" strokeWidth="1.5" style={{ animation: 'blink-warning-1 1s infinite', animationDelay: '0.4s' }} filter="url(#glowSubtle1)" />
+
+                    {/* Filtered Output (Small) */}
+                    <path d="M0,-5 L100,-5 M0,5 L100,5" stroke="#1A1C1E" strokeWidth="1" />
+                    <circle cx="100" cy="-5" r="2" fill="#ffffff" filter="url(#glowSubtle1)" />
+                    <circle cx="100" cy="5" r="2" fill="#ffffff" filter="url(#glowSubtle1)" />
+                    <rect x="70" y="-25" width="40" height="14" rx="2" fill="url(#boxGrad1)" stroke="#1A1C1E" strokeWidth="1" />
+                    <text x="90" y="-16" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#ffffff" textAnchor="middle">REVIEWED</text>
+
+                    {/* Dropped Output (Massive) */}
+                    <path d="M-15,20 L-15,60 L20,60 M-5,20 L-5,70 L20,70 M5,20 L5,80 L20,80" stroke="#7700FF" strokeWidth="1" strokeDasharray="2,2" opacity="0.6" />
+
+                    {/* Unreviewed Repository */}
+                    <path d="M20,50 L110,50 L110,90 L20,90 Z" fill="url(#purpleGradVertical1)" stroke="#7700FF" strokeWidth="1" />
+                    <g fill="#7700FF" opacity="0.5">
+                      <rect x="25" y="55" width="8" height="8" /> <rect x="35" y="55" width="8" height="8" /> <rect x="45" y="55" width="8" height="8" /> <rect x="55" y="55" width="8" height="8" />
+                      <rect x="25" y="65" width="8" height="8" /> <rect x="35" y="65" width="8" height="8" /> <rect x="45" y="65" width="8" height="8" /> <rect x="55" y="65" width="8" height="8" />
+                      <rect x="25" y="75" width="8" height="8" /> <rect x="35" y="75" width="8" height="8" /> <rect x="45" y="75" width="8" height="8" /> <rect x="55" y="75" width="8" height="8" />
+                    </g>
+                    <text x="75" y="72" fontFamily="var(--font-mono), monospace" fontSize="9" fontWeight="bold" fill="#ffffff" textAnchor="middle" filter="url(#glowSubtle1)" style={{ animation: 'blink-warning-1 1.5s infinite' }}>94% UNREVIEWED</text>
+                  </g>
+                </svg>
               </div>
               <h3>Unreviewed Intelligence</h3>
               <p className="card-desc">2.4 million access events generated last month across your sites. 94% were never reviewed by a human. The patterns that matter most are buried in the volume your team cannot reach.</p>
@@ -747,49 +767,67 @@ export default function IntelligenceEnginePage() {
             <div className="feature-col-item ent-grid-cell" style={{ opacity: 0 }}>
               <span className="fig-label">Fig 0.2</span>
               <div className="fig-svg-wrap">
-                <svg viewBox="0 0 240 180" width="100%" height="190" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes radar-scan {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        @keyframes blink-yellow {
-            0%, 100% { opacity: 0.3; filter: drop-shadow(0 0 2px #E7C73B); }
-            50% { opacity: 1; filter: drop-shadow(0 0 10px #E7C73B); }
-        }
-    ` }} />
-    <defs>
-        <linearGradient id="yellowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#E7C73B" stopOpacity="0.3" />
-            <stop offset="100%" stopColor="#E7C73B" stopOpacity="0" />
-        </linearGradient>
-    </defs>
-    {/* Background Grid */}
-    <g stroke="rgba(255,255,255,0.1)" strokeWidth="1" strokeDasharray="2,4">
-        <circle cx="120" cy="80" r="60" />
-        <circle cx="120" cy="80" r="40" />
-        <circle cx="120" cy="80" r="20" />
-        <line x1="60" y1="80" x2="180" y2="80" />
-        <line x1="120" y1="20" x2="120" y2="140" />
-    </g>
+                <svg viewBox="0 0 360 200" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="boxGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#212326" />
+                      <stop offset="100%" stopColor="rgba(255, 255, 255, 0.02)" />
+                    </linearGradient>
+                    <filter id="glow2" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="4" result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                    <filter id="glowSubtle2" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="2" result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                  </defs>
 
-    {/* Radar Sweep */}
-    <g transform="translate(120, 80)">
-        <path d="M0,0 L0,-60 A60,60 0 0,1 42,-42 Z" fill="url(#yellowGrad)" style={{transformOrigin: '0 0', animation: 'radar-scan 4s linear infinite'}} />
-        
-        {/* Detected Anomaly */}
-        <circle cx="-30" cy="20" r="4" fill="#E7C73B" style={{animation: 'blink-yellow 1s infinite'}} />
-        {/* Escaping Anomaly (Late) */}
-        <circle cx="45" cy="45" r="4" fill="#E44856" style={{animation: 'blink-yellow 0.5s infinite'}} />
-        <path d="M-25,25 L40,40" stroke="#E7C73B" strokeWidth="1.5" strokeDasharray="4,4" />
-    </g>
+                  <g transform="translate(180, 105) scale(1.1)">
+                    {/* Base Architectural Grid */}
+                    <g stroke="#1A1C1E" strokeWidth="0.5" strokeDasharray="3,3">
+                      <path d="M-150,-80 L150,-80 M-150,-40 L150,-40 M-150,0 L150,0 M-150,40 L150,40 M-150,80 L150,80" />
+                      <path d="M-120,-100 L-120,100 M-80,-100 L-80,100 M-40,-100 L-40,100 M0,-100 L0,100 M40,-100 L40,100 M80,-100 L80,100 M120,-100 L120,100" />
+                    </g>
 
-    {/* Prominent Text */}
-    <g transform="translate(120, 160)">
-        <text x="0" y="0" fontFamily="'Outfit', sans-serif" fontWeight="900" fontSize="16" fill="#E7C73B" textAnchor="middle" letterSpacing="1" style={{animation: 'blink-yellow 2s infinite'}}>75 MIN EXPOSURE</text>
-        <text x="0" y="14" fontFamily="var(--font-mono), monospace" fontSize="8" fill="rgba(255,255,255,0.6)" textAnchor="middle" letterSpacing="1">ANOMALY ESCALATION DELAY</text>
-    </g>
-</svg>
+                    {/* Sequence Layers */}
+                    <path d="M-120,-60 L120,-60" stroke="#1A1C1E" strokeWidth="1" />
+                    <path d="M-120,0 L120,0" stroke="#1A1C1E" strokeWidth="1" />
+                    <path d="M-120,60 L120,60" stroke="#1A1C1E" strokeWidth="1" />
+
+                    <text x="-140" y="-57" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#A1A1AA" textAnchor="end">SYSTEM</text>
+                    <text x="-140" y="3" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#A1A1AA" textAnchor="end">ANALYST</text>
+                    <text x="-140" y="63" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#A1A1AA" textAnchor="end">RESPONSE</text>
+
+                    {/* Nodes & Flow */}
+                    {/* Trigger */}
+                    <circle cx="-100" cy="-60" r="6" fill="#7700FF" filter="url(#glowSubtle2)" />
+                    <text x="-100" y="-75" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#ffffff" textAnchor="middle">ANOMALY DETECTED</text>
+                    <text x="-100" y="-45" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#A1A1AA" textAnchor="middle">02:14:00</text>
+
+                    {/* Propagation */}
+                    <path d="M-100,-60 L-60,0" stroke="rgba(119, 0, 255, 0.4)" strokeWidth="1.5" strokeDasharray="4,2" />
+                    <circle cx="-60" cy="0" r="6" fill="url(#boxGrad2)" stroke="#7700FF" strokeWidth="1.5" />
+                    <text x="-60" y="-15" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#ffffff" textAnchor="middle">TICKET CREATED</text>
+                    <text x="-60" y="15" fontFamily="var(--font-mono), monospace" fontSize="6" fill="rgba(255,255,255,0.4)" textAnchor="middle">+15m</text>
+
+                    <path d="M-60,0 L20,0" stroke="rgba(119, 0, 255, 0.4)" strokeWidth="1.5" strokeDasharray="4,2" />
+                    <rect x="0" y="-12" width="20" height="24" rx="2" fill="url(#boxGrad2)" stroke="#7700FF" strokeWidth="1" />
+                    <text x="10" y="-18" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#ffffff" textAnchor="middle">MANUAL REVIEW</text>
+                    <text x="10" y="22" fontFamily="var(--font-mono), monospace" fontSize="6" fill="rgba(255,255,255,0.4)" textAnchor="middle">+45m</text>
+
+                    <path d="M20,0 L100,60" stroke="#7700FF" strokeWidth="1.5" strokeDasharray="4,2" />
+                    <circle cx="100" cy="60" r="8" fill="rgba(119,0,255,0.1)" stroke="#7700FF" strokeWidth="2" filter="url(#glow2)" style={{ animation: 'blink-warning-1 1.5s infinite' }} />
+                    <text x="100" y="45" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#7700FF" textAnchor="middle">ACTION TAKEN</text>
+                    <text x="100" y="78" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#7700FF" textAnchor="middle">+75m</text>
+
+                    {/* Critical Delay Marker */}
+                    <path d="M-100,-85 L100,-85" stroke="#7700FF" strokeWidth="1" opacity="0.6" />
+                    <path d="M-100,-90 L-100,-80 M100,-90 L100,-80" stroke="#7700FF" strokeWidth="1" opacity="0.6" />
+                    <rect x="-30" y="-92" width="60" height="14" rx="2" fill="#131416" stroke="#7700FF" strokeWidth="1" />
+                    <text x="0" y="-83" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#7700FF" filter="url(#glowSubtle2)" textAnchor="middle" style={{ animation: 'blink-warning-1 1.5s infinite' }}>75 MINUTE EXPOSURE</text>
+                  </g>
+                </svg>
               </div>
               <h3>Decisions That Arrive Too Late</h3>
               <p className="card-desc">An access anomaly triggers at 2am. By the time it escalates through manual processes, the window has passed. Your team had the data. They just couldn't get to it fast enough.</p>
@@ -799,66 +837,86 @@ export default function IntelligenceEnginePage() {
             <div className="feature-col-item ent-grid-cell" style={{ opacity: 0 }}>
               <span className="fig-label">Fig 0.3</span>
               <div className="fig-svg-wrap">
-                <svg viewBox="0 0 240 180" width="100%" height="190" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes float-blue {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); filter: drop-shadow(0 0 12px #4993E3); }
-        }
-        @keyframes fail-line {
-            0% { stroke-dashoffset: 20; opacity: 1; }
-            100% { stroke-dashoffset: 0; opacity: 0; }
-        }
-    ` }} />
-    {/* Grid */}
-    <g stroke="rgba(255,255,255,0.05)" strokeWidth="1" strokeDasharray="1,3">
-        <path d="M0,40 L240,40 M0,80 L240,80 M0,120 L240,120" />
-    </g>
+                <svg viewBox="0 0 360 200" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="purpleGradVertical3" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="rgba(119, 0, 255, 0.2)" />
+                      <stop offset="100%" stopColor="rgba(119, 0, 255, 0.02)" />
+                    </linearGradient>
+                    <linearGradient id="boxGrad3" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#212326" />
+                      <stop offset="100%" stopColor="rgba(255, 255, 255, 0.02)" />
+                    </linearGradient>
+                    <filter id="glow3" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="4" result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                    <filter id="glowSubtle3" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="2" result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                  </defs>
 
-    {/* Silo 1 */}
-    <g transform="translate(50, 70)">
-        <g style={{animation: 'float-blue 4s ease-in-out infinite'}}>
-        <polygon points="0,-15 25,-5 0,5 -25,-5" fill="rgba(73, 147, 227, 0.2)" stroke="#4993E3" strokeWidth="1.5" />
-        <polygon points="-25,-5 0,5 0,35 -25,25" fill="rgba(73, 147, 227, 0.1)" stroke="#4993E3" strokeWidth="1" />
-        <polygon points="25,-5 0,5 0,35 25,25" fill="rgba(73, 147, 227, 0.05)" stroke="#4993E3" strokeWidth="1" />
-        <text x="0" y="15" fontFamily="var(--font-mono)" fontSize="8" fill="#fff" textAnchor="middle">VMS</text>
-        </g>
-    </g>
+                  <g transform="translate(180, 100) scale(1.2)">
+                    {/* Base Architectural Grid */}
+                    <g stroke="#1A1C1E" strokeWidth="0.5" strokeDasharray="3,3">
+                      <path d="M-150,-80 L150,-80 M-150,-40 L150,-40 M-150,0 L150,0 M-150,40 L150,40 M-150,80 L150,80" />
+                      <path d="M-120,-100 L-120,100 M-80,-100 L-80,100 M-40,-100 L-40,100 M0,-100 L0,100 M40,-100 L40,100 M80,-100 L80,100 M120,-100 L120,100" />
+                    </g>
 
-    {/* Silo 2 */}
-    <g transform="translate(190, 60)">
-        <g style={{animation: 'float-blue 4s ease-in-out infinite 1s'}}>
-        <polygon points="0,-15 25,-5 0,5 -25,-5" fill="rgba(73, 147, 227, 0.2)" stroke="#4993E3" strokeWidth="1.5" />
-        <polygon points="-25,-5 0,5 0,35 -25,25" fill="rgba(73, 147, 227, 0.1)" stroke="#4993E3" strokeWidth="1" />
-        <polygon points="25,-5 0,5 0,35 25,25" fill="rgba(73, 147, 227, 0.05)" stroke="#4993E3" strokeWidth="1" />
-        <text x="0" y="15" fontFamily="var(--font-mono)" fontSize="8" fill="#fff" textAnchor="middle">IAM</text>
-        </g>
-    </g>
+                    {/* Three Large Silos */}
+                    {/* VMS Silo */}
+                    <g transform="translate(-100, 0)">
+                      <path d="M-25,-50 L25,-50 L35,-40 L35,50 L-25,50 Z" fill="url(#boxGrad3)" stroke="#1A1C1E" strokeWidth="1.5" />
+                      <path d="M25,-50 L25,50" stroke="#1A1C1E" strokeWidth="1" />
+                      <path d="M25,-50 L35,-40" stroke="#1A1C1E" strokeWidth="1" />
+                      <text x="0" y="-20" fontFamily="var(--font-mono), monospace" fontSize="8" fontWeight="bold" fill="#ffffff" textAnchor="middle">VMS</text>
+                      {/* Data Fragments */}
+                      <rect x="-15" y="0" width="20" height="4" fill="#7700FF" />
+                      <rect x="-15" y="10" width="12" height="4" fill="rgba(119, 0, 255, 0.4)" />
+                      <rect x="-15" y="20" width="25" height="4" fill="rgba(119, 0, 255, 0.4)" />
+                    </g>
 
-    {/* Silo 3 */}
-    <g transform="translate(120, 110)">
-        <g style={{animation: 'float-blue 4s ease-in-out infinite 2s'}}>
-        <polygon points="0,-15 25,-5 0,5 -25,-5" fill="rgba(73, 147, 227, 0.2)" stroke="#4993E3" strokeWidth="1.5" />
-        <polygon points="-25,-5 0,5 0,35 -25,25" fill="rgba(73, 147, 227, 0.1)" stroke="#4993E3" strokeWidth="1" />
-        <polygon points="25,-5 0,5 0,35 25,25" fill="rgba(73, 147, 227, 0.05)" stroke="#4993E3" strokeWidth="1" />
-        <text x="0" y="15" fontFamily="var(--font-mono)" fontSize="8" fill="#fff" textAnchor="middle">HR</text>
-        </g>
-    </g>
+                    {/* ACS Silo */}
+                    <g transform="translate(0, 0)">
+                      <path d="M-25,-50 L25,-50 L35,-40 L35,50 L-25,50 Z" fill="url(#boxGrad3)" stroke="#1A1C1E" strokeWidth="1.5" />
+                      <path d="M25,-50 L25,50" stroke="#1A1C1E" strokeWidth="1" />
+                      <path d="M25,-50 L35,-40" stroke="#1A1C1E" strokeWidth="1" />
+                      <text x="0" y="-20" fontFamily="var(--font-mono), monospace" fontSize="8" fontWeight="bold" fill="#ffffff" textAnchor="middle">ACS</text>
+                      {/* Data Fragments */}
+                      <rect x="-15" y="0" width="22" height="4" fill="#7700FF" />
+                      <rect x="-15" y="10" width="18" height="4" fill="rgba(119, 0, 255, 0.4)" />
+                      <rect x="-15" y="20" width="14" height="4" fill="rgba(119, 0, 255, 0.4)" />
+                    </g>
 
-    {/* Failed Connections */}
-    <g stroke="#E44856" strokeWidth="1.5" strokeDasharray="4,4" style={{animation: 'fail-line 1s linear infinite'}}>
-        <line x1="75" y1="70" x2="165" y2="60" />
-        <line x1="50" y1="100" x2="95" y2="120" />
-        <line x1="190" y1="90" x2="145" y2="120" />
-    </g>
-    {/* Red X marks */}
-    <path d="M115,60 L125,70 M125,60 L115,70" stroke="#E44856" strokeWidth="2" />
+                    {/* DIR Silo */}
+                    <g transform="translate(100, 0)">
+                      <path d="M-25,-50 L25,-50 L35,-40 L35,50 L-25,50 Z" fill="url(#boxGrad3)" stroke="#1A1C1E" strokeWidth="1.5" />
+                      <path d="M25,-50 L25,50" stroke="#1A1C1E" strokeWidth="1" />
+                      <path d="M25,-50 L35,-40" stroke="#1A1C1E" strokeWidth="1" />
+                      <text x="0" y="-20" fontFamily="var(--font-mono), monospace" fontSize="8" fontWeight="bold" fill="#ffffff" textAnchor="middle">DIR</text>
+                      {/* Data Fragments */}
+                      <rect x="-15" y="0" width="16" height="4" fill="#7700FF" />
+                      <rect x="-15" y="10" width="24" height="4" fill="rgba(119, 0, 255, 0.4)" />
+                      <rect x="-15" y="20" width="10" height="4" fill="rgba(119, 0, 255, 0.4)" />
+                    </g>
 
-    {/* Prominent Text */}
-    <g transform="translate(120, 165)">
-        <text x="0" y="0" fontFamily="'Outfit', sans-serif" fontWeight="900" fontSize="16" fill="#4993E3" textAnchor="middle" letterSpacing="1">ZERO CONTEXT</text>
-    </g>
-</svg>
+                    {/* Broken Connectors */}
+                    <path d="M-65,10 L-25,10" stroke="#7700FF" strokeWidth="2" strokeDasharray="4,4" opacity="0.5" />
+                    <g stroke="#7700FF" strokeWidth="2" transform="translate(-45, 10)" filter="url(#glowSubtle3)">
+                      <line x1="-4" y1="-4" x2="4" y2="4" /> <line x1="4" y1="-4" x2="-4" y2="4" />
+                    </g>
+
+                    <path d="M35,10 L75,10" stroke="#7700FF" strokeWidth="2" strokeDasharray="4,4" opacity="0.5" />
+                    <g stroke="#7700FF" strokeWidth="2" transform="translate(55, 10)" filter="url(#glowSubtle3)">
+                      <line x1="-4" y1="-4" x2="4" y2="4" /> <line x1="4" y1="-4" x2="-4" y2="4" />
+                    </g>
+
+                    {/* Status Bar */}
+                    <rect x="-70" y="70" width="140" height="18" rx="2" fill="url(#purpleGradVertical3)" stroke="#7700FF" strokeWidth="1" />
+                    <text x="0" y="82" fontFamily="var(--font-mono), monospace" fontSize="8" fill="#ffffff" filter="url(#glowSubtle3)" textAnchor="middle" style={{ animation: 'blink-warning-1 1.5s infinite' }}>[ ZERO CROSS-SYSTEM CONTEXT ]</text>
+                  </g>
+                </svg>
               </div>
               <h3>Intelligence Trapped in Silos</h3>
               <p className="card-desc">Your VMS, access control, identity directory, and incident management each hold a piece of the picture. No system connects them. No human has time to. The full picture never forms.</p>
@@ -868,55 +926,74 @@ export default function IntelligenceEnginePage() {
             <div className="feature-col-item ent-grid-cell" style={{ opacity: 0 }}>
               <span className="fig-label">Fig 0.4</span>
               <div className="fig-svg-wrap">
-                <svg viewBox="0 0 240 180" width="100%" height="190" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes gear-spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        @keyframes doc-slide {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(10px, -10px); }
-        }
-    ` }} />
-    {/* Background Grid */}
-    <g stroke="rgba(255,255,255,0.05)" strokeWidth="1">
-        <line x1="40" y1="0" x2="40" y2="180" />
-        <line x1="80" y1="0" x2="80" y2="180" />
-        <line x1="120" y1="0" x2="120" y2="180" />
-        <line x1="160" y1="0" x2="160" y2="180" />
-        <line x1="200" y1="0" x2="200" y2="180" />
-    </g>
+                <svg viewBox="0 0 360 200" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="boxGrad4" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#212326" />
+                      <stop offset="100%" stopColor="rgba(255, 255, 255, 0.02)" />
+                    </linearGradient>
+                    <filter id="glow4" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="4" result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                    <filter id="glowSubtle4" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="2" result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                  </defs>
 
-    <g transform="translate(120, 80)">
-        {/* Stack of Documents (Manual Work) */}
-        <g style={{animation: 'doc-slide 4s ease-in-out infinite'}}>
-            <rect x="-40" y="-30" width="60" height="70" rx="4" fill="rgba(73, 178, 92, 0.05)" stroke="#49B25C" strokeWidth="1" opacity="0.5" />
-        </g>
-        <g style={{animation: 'doc-slide 4s ease-in-out infinite 1s'}}>
-            <rect x="-30" y="-20" width="60" height="70" rx="4" fill="rgba(73, 178, 92, 0.1)" stroke="#49B25C" strokeWidth="1.5" />
-            <line x1="-15" y1="0" x2="15" y2="0" stroke="#49B25C" strokeWidth="2" strokeDasharray="4,4" />
-            <line x1="-15" y1="15" x2="20" y2="15" stroke="#49B25C" strokeWidth="2" />
-            <line x1="-15" y1="30" x2="10" y2="30" stroke="#49B25C" strokeWidth="2" strokeDasharray="2,2" />
-        </g>
+                  <g transform="translate(180, 100) scale(1.2)">
+                    {/* Base Architectural Grid */}
+                    <g stroke="#1A1C1E" strokeWidth="0.5" strokeDasharray="3,3">
+                      <path d="M-150,-80 L150,-80 M-150,-40 L150,-40 M-150,0 L150,0 M-150,40 L150,40 M-150,80 L150,80" />
+                      <path d="M-120,-100 L-120,100 M-80,-100 L-80,100 M-40,-100 L-40,100 M0,-100 L0,100 M40,-100 L40,100 M80,-100 L80,100 M120,-100 L120,100" />
+                    </g>
 
-        {/* Grinding Gear (Manual labor overhead) */}
-        <g transform="translate(35, 10)">
-            <g style={{animation: 'gear-spin 6s linear infinite'}}>
-                <circle cx="0" cy="0" r="14" fill="#131416" stroke="#49B25C" strokeWidth="2" filter="drop-shadow(0 0 6px #49B25C)" />
-                <circle cx="0" cy="0" r="6" fill="#49B25C" />
-                <path d="M-4,-18 L4,-18 L4,18 L-4,18 M-18,-4 L18,-4 L18,4 L-18,4" fill="#49B25C" />
-                <path d="M-12,-12 L12,12 M-12,12 L12,-12" stroke="#49B25C" strokeWidth="6" />
-            </g>
-        </g>
-    </g>
+                    {/* Disparate Data Sources */}
+                    <g transform="translate(-120, -50)">
+                      <rect x="-20" y="-15" width="40" height="30" fill="url(#boxGrad4)" stroke="#1A1C1E" strokeWidth="1" />
+                      <text x="0" y="3" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#A1A1AA" textAnchor="middle">LOG EXPORTS</text>
+                    </g>
+                    <g transform="translate(-120, 0)">
+                      <rect x="-20" y="-15" width="40" height="30" fill="url(#boxGrad4)" stroke="#1A1C1E" strokeWidth="1" />
+                      <text x="0" y="3" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#A1A1AA" textAnchor="middle">ACCESS DB</text>
+                    </g>
+                    <g transform="translate(-120, 50)">
+                      <rect x="-20" y="-15" width="40" height="30" fill="url(#boxGrad4)" stroke="#1A1C1E" strokeWidth="1" />
+                      <text x="0" y="3" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#A1A1AA" textAnchor="middle">VIDEO ARCHIVE</text>
+                    </g>
 
-    {/* Prominent Text */}
-    <g transform="translate(120, 160)">
-        <text x="0" y="0" fontFamily="'Outfit', sans-serif" fontWeight="900" fontSize="16" fill="#49B25C" textAnchor="middle" letterSpacing="1" filter="drop-shadow(0 0 4px rgba(73,178,92,0.5))">240H OVERHEAD</text>
-        <text x="0" y="14" fontFamily="var(--font-mono), monospace" fontSize="8" fill="rgba(255,255,255,0.6)" textAnchor="middle" letterSpacing="1">MANUAL REPORTING</text>
-    </g>
-</svg>
+                    {/* Manual Extraction Paths */}
+                    <path d="M-100,-50 L-30,-20" stroke="#1A1C1E" strokeWidth="1.5" strokeDasharray="4,4" />
+                    <path d="M-100,0 L-30,0" stroke="#1A1C1E" strokeWidth="1.5" strokeDasharray="4,4" />
+                    <path d="M-100,50 L-30,20" stroke="#1A1C1E" strokeWidth="1.5" strokeDasharray="4,4" />
+
+                    {/* Human Analyst Bottleneck */}
+                    <circle cx="-30" cy="0" r="25" fill="#131416" stroke="#7700FF" strokeWidth="1.5" />
+                    <circle cx="-30" cy="0" r="18" fill="rgba(119,0,255,0.1)" stroke="#7700FF" strokeWidth="1" filter="url(#glowSubtle4)" />
+                    <text x="-30" y="3" fontFamily="var(--font-mono), monospace" fontSize="8" fill="#ffffff" textAnchor="middle">HUMAN</text>
+                    <rect x="-50" y="35" width="40" height="12" rx="2" fill="url(#boxGrad4)" stroke="#7700FF" strokeWidth="1" />
+                    <text x="-30" y="43" fontFamily="var(--font-mono), monospace" fontSize="5" fill="#7700FF" textAnchor="middle" filter="url(#glowSubtle4)" style={{ animation: 'blink-warning-1 1.5s infinite' }}>BOTTLENECK</text>
+
+                    {/* Slow Processing Path */}
+                    <path d="M-5,0 L60,0" stroke="#1A1C1E" strokeWidth="1" strokeDasharray="2,2" />
+                    <polygon points="56,-4 62,0 56,4" fill="rgba(255,255,255,0.2)" />
+
+                    {/* Compliance Document */}
+                    <g transform="translate(90, 0)">
+                      <path d="M-25,-35 L15,-35 L25,-25 L25,35 L-25,35 Z" fill="url(#boxGrad4)" stroke="#1A1C1E" strokeWidth="1.5" />
+                      <path d="M15,-35 L15,-25 L25,-25" fill="none" stroke="#1A1C1E" strokeWidth="1.5" />
+                      <line x1="-15" y1="-10" x2="15" y2="-10" stroke="#1A1C1E" strokeWidth="1" />
+                      <line x1="-15" y1="0" x2="15" y2="0" stroke="#1A1C1E" strokeWidth="1" />
+                      <line x1="-15" y1="10" x2="5" y2="10" stroke="#1A1C1E" strokeWidth="1" />
+                      <text x="0" y="25" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#ffffff" textAnchor="middle">COMPLIANCE REPORT</text>
+                    </g>
+
+                    {/* Cost Alert */}
+                    <rect x="50" y="-70" width="80" height="20" rx="2" fill="#131416" stroke="#7700FF" strokeWidth="1" />
+                    <text x="90" y="-57" fontFamily="var(--font-mono), monospace" fontSize="7" fill="#7700FF" filter="url(#glowSubtle4)" textAnchor="middle" style={{ animation: 'blink-warning-1 1.5s infinite' }}>[ 240H OVERHEAD ]</text>
+                  </g>
+                </svg>
               </div>
               <h3>Compliance Built by Hand</h3>
               <p className="card-desc">One quarterly compliance report. Three analysts. Two weeks. 240 hours of pulling data from six disconnected systems to produce documentation that should generate itself automatically.</p>
@@ -972,7 +1049,7 @@ export default function IntelligenceEnginePage() {
           zIndex: 10,
         }}
       >
-        <style dangerouslySetInnerHTML={{ __html: `
+        <style>{`
           @keyframes moveDiagonalsIntel {
               0% { background-position: 0 0; }
               100% { background-position: 120px 0; }
@@ -980,7 +1057,7 @@ export default function IntelligenceEnginePage() {
           .intel-cta-section:hover .intel-cta-bg {
               animation: moveDiagonalsIntel 3s linear infinite;
           }
-        ` }} />
+        `}</style>
         {/* Horizontal Top (Full width) */}
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: '#212326', zIndex: 0 }} />
         {/* Horizontal Bottom (Full width) */}
@@ -1011,7 +1088,7 @@ export default function IntelligenceEnginePage() {
               left: 0,
               right: 0,
               height: '70%',
-              background: 'radial-gradient(ellipse 80% 100% at 50% 100%, rgba(99, 84, 243, 0.25) 0%, transparent 100%)',
+              background: 'radial-gradient(ellipse 80% 100% at 50% 100%, rgba(119, 0, 255, 0.25) 0%, transparent 100%)',
               animation: 'bottomBreathing 5s ease-in-out infinite',
               transformOrigin: 'bottom center',
               pointerEvents: 'none',
@@ -1072,7 +1149,7 @@ export default function IntelligenceEnginePage() {
               Six capabilities with zero analyst bottlenecks
             </h2>
             <div style={{ maxWidth: '400px', marginBottom: '22px' }}>
-              <p style={{ fontSize: '14px', color: '#B6B6B7', lineHeight: 1.6, textAlign: 'left', margin: '0' }}>
+              <p style={{ fontSize: '15px', color: '#B6B6B7', lineHeight: 1.6, textAlign: 'left', margin: '0' }}>
                 Purpose-built intelligence for every function in your security operation. From the guard floor to the boardroom.
               </p>
             </div>
@@ -1089,7 +1166,7 @@ export default function IntelligenceEnginePage() {
                 >
                   <div className="agent-accordion-header">
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                      <span style={{ fontSize: '14px', fontFamily: 'var(--font-mono), monospace', color: activeCapability === cap.id ? '#6354F3' : 'rgba(255,255,255,0.3)', fontWeight: 600 }}>{cap.num}</span>
+                      <span style={{ fontSize: '14px', fontFamily: 'var(--font-mono), monospace', color: activeCapability === cap.id ? '#7700FF' : 'rgba(255,255,255,0.3)', fontWeight: 600 }}>{cap.num}</span>
                       <h3 className="agent-accordion-title" style={{ fontSize: '14px', fontFamily: 'var(--font-mono), monospace', fontWeight: activeCapability === cap.id ? 600 : 400, color: activeCapability === cap.id ? '#ffffff' : 'rgba(255,255,255,0.4)', margin: 0 }}>{cap.name}</h3>
                     </div>
                   </div>
@@ -1100,7 +1177,7 @@ export default function IntelligenceEnginePage() {
 
                         {/* Scope Block */}
                         <div>
-                          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', fontWeight: 700, color: 'rgba(228,72,86,0.85)', letterSpacing: '2px', textTransform: 'uppercase', display: 'block', marginBottom: '10px', border: '1px solid rgba(228,72,86,0.2)', padding: '2px 6px', width: 'fit-content' }}>
+                          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', fontWeight: 700, color: 'rgba(239,68,68,0.85)', letterSpacing: '2px', textTransform: 'uppercase', display: 'block', marginBottom: '10px', border: '1px solid rgba(239,68,68,0.2)', padding: '2px 6px', width: 'fit-content' }}>
                             CAPABILITY SCOPE
                           </span>
                           <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.75)', lineHeight: '1.5', margin: 0, fontFamily: 'var(--font-main)' }}>
@@ -1110,13 +1187,13 @@ export default function IntelligenceEnginePage() {
 
                         {/* Metrics Block */}
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0px' }}>
-                          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', fontWeight: 700, color: 'rgba(99,84,243,0.85)', letterSpacing: '2px', textTransform: 'uppercase', display: 'block', marginBottom: '10px', border: '1px solid rgba(99,84,243,0.2)', padding: '2px 6px', width: 'fit-content' }}>
+                          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', fontWeight: 700, color: 'rgba(119,0,255,0.85)', letterSpacing: '2px', textTransform: 'uppercase', display: 'block', marginBottom: '10px', border: '1px solid rgba(119,0,255,0.2)', padding: '2px 6px', width: 'fit-content' }}>
                             KEY OUTCOMES
                           </span>
                           <div style={{ display: 'flex', flexDirection: 'column', gap: '0px' }}>
                             {cap.metrics.map((metric, i) => (
                               <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '8px 0', borderBottom: 'none', position: 'relative' }}>
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6354F3" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: '3px', flexShrink: 0 }}>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7700FF" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: '3px', flexShrink: 0 }}>
                                   <polyline points="20 6 9 17 4 12" />
                                 </svg>
                                 <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)', lineHeight: '1.5', margin: 0, fontFamily: 'var(--font-main)' }}>
@@ -1154,122 +1231,152 @@ export default function IntelligenceEnginePage() {
                         overflow: 'hidden',
                         animation: 'fadeIn 0.5s ease-out'
                       }}>
-                        
-                        <svg width="100%" height="100%" viewBox="0 0 500 300" style={{ position: 'relative', zIndex: 1, background: 'radial-gradient(circle at 50% 50%, rgba(99, 84, 243, 0.08) 0%, transparent 60%)' }}>
-  <defs>
-    {/* Drop Shadows for the Trigger.dev neon glow effect */}
-    <filter id="glowPurple" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#6354F3" floodOpacity="0.6" />
-    </filter>
-    <filter id="glowRed" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="0" dy="0" stdDeviation="8" floodColor="#E44856" floodOpacity="0.8" />
-    </filter>
-    
-    <style>
-      {`
-        .trigger-path { fill: none; stroke: rgba(99, 84, 243, 0.2); stroke-width: 2; }
-        .trigger-packet { fill: none; stroke: #6354F3; stroke-width: 3; stroke-linecap: round; filter: url(#glowPurple); }
-        .trigger-path-red { fill: none; stroke: rgba(228, 72, 86, 0.2); stroke-width: 2; }
-        .trigger-packet-red { fill: none; stroke: #E44856; stroke-width: 3; stroke-linecap: round; filter: url(#glowRed); }
-        
-        @keyframes flow1 { 0% { stroke-dashoffset: 200; } 100% { stroke-dashoffset: -40; } }
-        @keyframes flow2 { 0% { stroke-dashoffset: 150; } 100% { stroke-dashoffset: -40; } }
-        @keyframes spin-slow { 100% { transform: rotate(360deg); } }
-        @keyframes spin-reverse { 100% { transform: rotate(-360deg); } }
-        @keyframes pulse-core { 0%, 100% { opacity: 0.8; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.1); } }
-      `}
-    </style>
-  </defs>
+                        {/* Fading gradient border overlay (CSS) */}
+                        <div style={{
+                          position: 'absolute',
+                          inset: 0,
+                          borderRadius: '8px',
+                          padding: '1px',
+                          background: 'linear-gradient(135deg, #7700FF 0%, rgba(119, 0, 255, 0) 50%)',
+                          WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                          WebkitMaskComposite: 'xor',
+                          maskComposite: 'exclude',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }} />
+                        <svg width="100%" height="100%" viewBox="0 0 400 250" style={{ position: 'relative', zIndex: 1 }}>
+                          <defs>
+                            {/* Subtle dot grid for the Trigger.dev tech vibe */}
+                            <pattern id="triggerGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                              <circle cx="2" cy="2" r="1" fill="#212326" />
+                            </pattern>
 
-  {/* Extremely subtle dot grid */}
-  <pattern id="triggerGrid" width="24" height="24" patternUnits="userSpaceOnUse">
-    <circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.06)" />
-  </pattern>
-  <rect width="100%" height="100%" fill="url(#triggerGrid)" />
+                            {/* Glowing drop shadow for nodes */}
+                            <filter id="glowPurple" x="-20%" y="-20%" width="140%" height="140%">
+                              <feGaussianBlur stdDeviation="4" result="blur" />
+                              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                            </filter>
 
-  {/* CONNECTIONS */}
-  {/* Path 1 */}
-  <path d="M 180 65 C 220 65, 210 150, 250 150" className="trigger-path" />
-  <path d="M 180 65 C 220 65, 210 150, 250 150" className="trigger-packet" strokeDasharray="20 200" style={{ animation: 'flow1 2s linear infinite' }} />
+                            <filter id="glowPink" x="-20%" y="-20%" width="140%" height="140%">
+                              <feGaussianBlur stdDeviation="4" result="blur" />
+                              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                            </filter>
 
-  {/* Path 2 */}
-  <path d="M 180 150 L 250 150" className="trigger-path" />
-  <path d="M 180 150 L 250 150" className="trigger-packet" strokeDasharray="20 200" style={{ animation: 'flow2 1.5s linear infinite 0.5s' }} />
+                            <filter id="glowGreen" x="-20%" y="-20%" width="140%" height="140%">
+                              <feGaussianBlur stdDeviation="3" result="blur" />
+                              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                            </filter>
 
-  {/* Path 3 */}
-  <path d="M 180 235 C 220 235, 210 150, 250 150" className="trigger-path" />
-  <path d="M 180 235 C 220 235, 210 150, 250 150" className="trigger-packet" strokeDasharray="20 200" style={{ animation: 'flow1 2s linear infinite 1s' }} />
+                            {/* Gradient for the main correlation core */}
+                            <linearGradient id="coreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                              <stop offset="0%" stopColor="#7700FF" />
+                              <stop offset="100%" stopColor="#A855F7" />
+                            </linearGradient>
+                          </defs>
 
-  {/* Output Path */}
-  <path d="M 250 150 C 290 150, 310 150, 340 150" className="trigger-path-red" />
-  <path d="M 250 150 C 290 150, 310 150, 340 150" className="trigger-packet-red" strokeDasharray="20 200" style={{ animation: 'flow2 1.5s linear infinite 0.2s' }} />
+                          {/* Background */}
+                          <rect width="100%" height="100%" fill="url(#triggerGrid)" />
 
+                          {/* Background decorative circles */}
+                          <circle cx="200" cy="125" r="80" fill="none" stroke="rgba(119, 0, 255, 0.05)" strokeWidth="1" />
+                          <circle cx="200" cy="125" r="120" fill="none" stroke="rgba(119, 0, 255, 0.03)" strokeWidth="1" strokeDasharray="4 4" />
 
-  {/* LEFT NODES */}
-  
-  {/* Node 1: Identity */}
-  <g transform="translate(30, 45)">
-    <rect width="150" height="40" rx="20" fill="#0B0D12" stroke="rgba(99, 84, 243, 0.4)" strokeWidth="1" filter="url(#glowPurple)" />
-    <rect width="150" height="40" rx="20" fill="rgba(99, 84, 243, 0.05)" />
-    <circle cx="20" cy="20" r="6" fill="#4993E3" />
-    <text x="36" y="24" fill="#fff" fontSize="11" fontWeight="500" fontFamily="var(--font-sans)">Identity Log</text>
-    <text x="110" y="23" fill="rgba(255,255,255,0.4)" fontSize="9" fontFamily="var(--font-sans)">Just now</text>
-    {/* Port */}
-    <circle cx="150" cy="20" r="3.5" fill="#0B0D12" stroke="#6354F3" strokeWidth="1.5" />
-  </g>
+                          {/* --- CONNECTIONS --- */}
 
-  {/* Node 2: Network */}
-  <g transform="translate(30, 130)">
-    <rect width="150" height="40" rx="20" fill="#0B0D12" stroke="rgba(99, 84, 243, 0.4)" strokeWidth="1" filter="url(#glowPurple)" />
-    <rect width="150" height="40" rx="20" fill="rgba(99, 84, 243, 0.05)" />
-    <circle cx="20" cy="20" r="6" fill="#E7C73B" />
-    <text x="36" y="24" fill="#fff" fontSize="11" fontWeight="500" fontFamily="var(--font-sans)">Network Event</text>
-    <text x="115" y="23" fill="rgba(255,255,255,0.4)" fontSize="9" fontFamily="var(--font-sans)">2s ago</text>
-    <circle cx="150" cy="20" r="3.5" fill="#0B0D12" stroke="#6354F3" strokeWidth="1.5" />
-  </g>
-
-  {/* Node 3: Access */}
-  <g transform="translate(30, 215)">
-    <rect width="150" height="40" rx="20" fill="#0B0D12" stroke="rgba(99, 84, 243, 0.4)" strokeWidth="1" filter="url(#glowPurple)" />
-    <rect width="150" height="40" rx="20" fill="rgba(99, 84, 243, 0.05)" />
-    <circle cx="20" cy="20" r="6" fill="#AFF962" />
-    <text x="36" y="24" fill="#fff" fontSize="11" fontWeight="500" fontFamily="var(--font-sans)">Access Denial</text>
-    <text x="115" y="23" fill="rgba(255,255,255,0.4)" fontSize="9" fontFamily="var(--font-sans)">5s ago</text>
-    <circle cx="150" cy="20" r="3.5" fill="#0B0D12" stroke="#6354F3" strokeWidth="1.5" />
-  </g>
+                          {/* Normal data streams (Green) */}
+                          <path d="M 60 60 Q 130 60 200 125" fill="none" stroke="#10B981" strokeWidth="1.5" strokeOpacity="0.4" strokeDasharray="4 4">
+                            <animate attributeName="stroke-dashoffset" from="100" to="0" dur="4s" repeatCount="indefinite" />
+                          </path>
+                          <path d="M 60 190 Q 130 190 200 125" fill="none" stroke="#10B981" strokeWidth="1.5" strokeOpacity="0.4" strokeDasharray="4 4">
+                            <animate attributeName="stroke-dashoffset" from="100" to="0" dur="4s" repeatCount="indefinite" />
+                          </path>
 
 
-  {/* CENTRAL CORRELATION ENGINE (Trigger.dev style glowing ring) */}
-  <g transform="translate(250, 150)">
-    {/* Ambient massive glow */}
-    <circle cx="0" cy="0" r="40" fill="#6354F3" opacity="0.1" filter="url(#glowPurple)" />
-    
-    {/* Outer dashed ring spinning */}
-    <circle cx="0" cy="0" r="34" fill="none" stroke="rgba(99, 84, 243, 0.6)" strokeWidth="1.5" strokeDasharray="8 8" style={{ animation: 'spin-slow 15s linear infinite' }} />
-    <circle cx="0" cy="0" r="28" fill="none" stroke="rgba(255, 255, 255, 0.3)" strokeWidth="1" strokeDasharray="4 12" style={{ animation: 'spin-reverse 10s linear infinite' }} />
-    
-    {/* Inner solid body */}
-    <circle cx="0" cy="0" r="20" fill="#0B0D12" stroke="#6354F3" strokeWidth="2" filter="url(#glowPurple)" />
-    
-    {/* Center pulsing core */}
-    <circle cx="0" cy="0" r="8" fill="#E44856" filter="url(#glowRed)" style={{ animation: 'pulse-core 2s infinite' }} />
-  </g>
+                          {/* High-priority threat paths (Pink/Purple) */}
+                          <path d="M 340 60 Q 270 60 200 125" fill="none" stroke="#EC4899" strokeWidth="1.5" strokeDasharray="4 4">
+                            <animate attributeName="stroke-dashoffset" from="0" to="100" dur="4s" repeatCount="indefinite" />
+                          </path>
+                          <path d="M 340 190 Q 270 190 200 125" fill="none" stroke="#7700FF" strokeWidth="1.5" strokeDasharray="4 4">
+                            <animate attributeName="stroke-dashoffset" from="0" to="100" dur="4s" repeatCount="indefinite" />
+                          </path>
 
+                          {/* Animated data packets traveling along paths */}
+                          <circle cx="0" cy="0" r="2" fill="#10B981">
+                            <animateMotion path="M 60 60 Q 130 60 200 125" dur="3s" repeatCount="indefinite" />
+                          </circle>
+                          <circle cx="0" cy="0" r="2" fill="#10B981">
+                            <animateMotion path="M 60 190 Q 130 190 200 125" dur="4s" repeatCount="indefinite" />
+                          </circle>
+                          <circle cx="0" cy="0" r="3" fill="#EC4899" filter="url(#glowPink)">
+                            <animateMotion path="M 340 60 Q 270 60 200 125" dur="2s" repeatCount="indefinite" />
+                          </circle>
+                          <circle cx="0" cy="0" r="2.5" fill="#7700FF" filter="url(#glowPurple)">
+                            <animateMotion path="M 340 190 Q 270 190 200 125" dur="2.5s" repeatCount="indefinite" />
+                          </circle>
 
-  {/* RIGHT NODE (Output Threat) */}
-  <g transform="translate(340, 130)">
-    <rect width="130" height="40" rx="20" fill="#0B0D12" stroke="#E44856" strokeWidth="1.5" filter="url(#glowRed)" />
-    <rect width="130" height="40" rx="20" fill="rgba(228, 72, 86, 0.1)" />
-    
-    <circle cx="22" cy="20" r="8" fill="#E44856" />
-    <path d="M 22 16 L 22 21 M 22 24 L 22 25" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
-    
-    <text x="38" y="24" fill="#fff" fontSize="11" fontWeight="600" fontFamily="var(--font-sans)">Valid Threat</text>
-    
-    <circle cx="0" cy="20" r="3.5" fill="#0B0D12" stroke="#E44856" strokeWidth="1.5" />
-  </g>
+                          {/* --- NODES --- */}
 
-</svg>
+                          {/* Source Node 1 (Green) */}
+                          <g transform="translate(60, 60)">
+                            <circle r="12" fill="rgba(16, 185, 129, 0.1)" stroke="rgba(16, 185, 129, 0.3)" />
+                            <circle r="4" fill="#10B981" filter="url(#glowGreen)" />
+                            <text x="-15" y="22" fill="#E4E4E7" fontSize="9" fontFamily="var(--font-mono)">LOGS_DB</text>
+                          </g>
+
+                          {/* Source Node 2 (Green) */}
+                          <g transform="translate(60, 190)">
+                            <circle r="12" fill="rgba(16, 185, 129, 0.1)" stroke="rgba(16, 185, 129, 0.3)" />
+                            <circle r="4" fill="#10B981" filter="url(#glowGreen)" />
+                            <text x="-15" y="22" fill="#E4E4E7" fontSize="9" fontFamily="var(--font-mono)">IDENTITY</text>
+                          </g>
+
+                          {/* Threat Node 1 (Pink) */}
+                          <g transform="translate(340, 60)">
+                            <circle r="16" fill="rgba(236, 72, 153, 0.1)" stroke="rgba(236, 72, 153, 0.5)" strokeDasharray="2 2" style={{ animation: 'spin 4s linear infinite' }} />
+                            <circle r="5" fill="#EC4899" filter="url(#glowPink)" />
+                            <text x="-25" y="26" fill="#EC4899" fontSize="9" fontFamily="var(--font-mono)" fontWeight="bold">ANOMALY_7</text>
+                          </g>
+
+                          {/* Threat Node 2 (Purple) */}
+                          <g transform="translate(340, 190)">
+                            <circle r="14" fill="rgba(119, 0, 255, 0.1)" stroke="rgba(119, 0, 255, 0.4)" />
+                            <circle r="4.5" fill="#7700FF" filter="url(#glowPurple)" />
+                            <text x="-20" y="24" fill="#7700FF" fontSize="9" fontFamily="var(--font-mono)">EXTERNAL</text>
+                          </g>
+
+                          {/* --- CENTER CORRELATION ENGINE --- */}
+                          <g transform="translate(200, 125)">
+                            {/* Pulsing rings */}
+                            <circle r="30" fill="none" stroke="rgba(119, 0, 255, 0.2)" strokeWidth="1" style={{ animation: 'pulse 2s infinite' }} />
+                            <circle r="40" fill="none" stroke="rgba(119, 0, 255, 0.1)" strokeWidth="1" style={{ animation: 'pulse 2s infinite 0.5s' }} />
+
+                            {/* Core Hexagon */}
+                            <path d="M 0 -22 L 19 -11 L 19 11 L 0 22 L -19 11 L -19 -11 Z" fill="rgba(119, 0, 255, 0.1)" stroke="#7700FF" strokeWidth="1.5" filter="url(#glowPurple)" />
+
+                            {/* Inner Core */}
+                            <circle r="8" fill="url(#coreGradient)" />
+
+                            {/* Rotating scanner */}
+                            <path d="M 0 0 L 0 -18 A 18 18 0 0 1 18 0 Z" fill="rgba(168, 85, 247, 0.3)" style={{ transformOrigin: '0 0', animation: 'spin 3s linear infinite' }} />
+                          </g>
+
+                          {/* --- FLOATING UI OVERLAY (Trigger.dev style) --- */}
+                          <g transform="translate(145, 175)">
+                            <rect width="110" height="40" rx="4" fill="#0B0D12" stroke="#1A1C1E" />
+
+                            {/* Executing Spinner */}
+                            <circle cx="15" cy="20" r="4" fill="none" stroke="#1A1C1E" strokeWidth="1.5" />
+                            <circle cx="15" cy="20" r="4" fill="none" stroke="#7700FF" strokeWidth="1.5" strokeDasharray="6 20" style={{ transformOrigin: '15px 20px', animation: 'spin 1s linear infinite' }} />
+
+                            <text x="26" y="18" fill="#E4E4E7" fontSize="8" fontFamily="var(--font-mono)">Correlating...</text>
+                            <text x="26" y="28" fill="#7700FF" fontSize="7" fontFamily="var(--font-mono)">+14 Data points</text>
+
+                            {/* Small Badge */}
+                            <rect x="75" y="14" width="25" height="12" rx="2" fill="rgba(236,72,153,0.1)" stroke="rgba(236,72,153,0.3)" />
+                            <text x="78" y="22" fill="#EC4899" fontSize="6" fontFamily="var(--font-mono)" fontWeight="bold">98%</text>
+                          </g>
+
+                        </svg>
                       </div>
                     )}
 
@@ -1283,7 +1390,19 @@ export default function IntelligenceEnginePage() {
                         overflow: 'hidden',
                         animation: 'fadeIn 0.5s ease-out'
                       }}>
-                        
+                        {/* Fading gradient border overlay (CSS) */}
+                        <div style={{
+                          position: 'absolute',
+                          inset: 0,
+                          borderRadius: '8px',
+                          padding: '1px',
+                          background: 'linear-gradient(135deg, #7700FF 0%, rgba(119, 0, 255, 0) 50%)',
+                          WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                          WebkitMaskComposite: 'xor',
+                          maskComposite: 'exclude',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }} />
                         <svg width="100%" height="100%" viewBox="0 0 400 250" style={{ position: 'relative', zIndex: 1 }}>
                           <defs>
                             <pattern id="nlTriggerGrid" width="20" height="20" patternUnits="userSpaceOnUse">
@@ -1298,7 +1417,7 @@ export default function IntelligenceEnginePage() {
                               <feComposite in="SourceGraphic" in2="blur" operator="over" />
                             </filter>
                             <linearGradient id="queryGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-                              <stop offset="0%" stopColor="#6354F3" />
+                              <stop offset="0%" stopColor="#7700FF" />
                               <stop offset="100%" stopColor="transparent" />
                             </linearGradient>
                           </defs>
@@ -1307,21 +1426,21 @@ export default function IntelligenceEnginePage() {
                           <rect width="100%" height="100%" fill="url(#nlTriggerGrid)" />
 
                           {/* Connections / Processing Lines */}
-                          <path d="M 200 110 Q 200 170 120 180" fill="none" stroke="#6354F3" strokeWidth="1.5" strokeDasharray="4 4" style={{ animation: 'dashLine 15s linear infinite reverse' }} />
-                          <path d="M 200 110 Q 200 170 280 180" fill="none" stroke="#EA49B2" strokeWidth="1.5" strokeDasharray="4 4" style={{ animation: 'dashLine 15s linear infinite reverse' }} />
+                          <path d="M 200 110 Q 200 170 120 180" fill="none" stroke="#7700FF" strokeWidth="1.5" strokeDasharray="4 4" style={{ animation: 'dashLine 15s linear infinite reverse' }} />
+                          <path d="M 200 110 Q 200 170 280 180" fill="none" stroke="#EC4899" strokeWidth="1.5" strokeDasharray="4 4" style={{ animation: 'dashLine 15s linear infinite reverse' }} />
 
                           {/* Moving Particles */}
-                          <circle cx="0" cy="0" r="3" fill="#6354F3" filter="url(#nlGlowPurple)">
+                          <circle cx="0" cy="0" r="3" fill="#7700FF" filter="url(#nlGlowPurple)">
                             <animateMotion path="M 200 110 Q 200 170 120 180" dur="2s" repeatCount="indefinite" />
                           </circle>
-                          <circle cx="0" cy="0" r="3" fill="#EA49B2" filter="url(#nlGlowPink)">
+                          <circle cx="0" cy="0" r="3" fill="#EC4899" filter="url(#nlGlowPink)">
                             <animateMotion path="M 200 110 Q 200 170 280 180" dur="2.5s" repeatCount="indefinite" />
                           </circle>
 
                           {/* Center: Processing Node */}
                           <g transform="translate(200, 110)">
-                            <circle r="15" fill="rgba(99, 84, 243, 0.1)" stroke="#6354F3" strokeWidth="1" filter="url(#nlGlowPurple)" />
-                            <circle r="4" fill="#6354F3" />
+                            <circle r="15" fill="rgba(119, 0, 255, 0.1)" stroke="#7700FF" strokeWidth="1" filter="url(#nlGlowPurple)" />
+                            <circle r="4" fill="#7700FF" />
                           </g>
 
                           {/* Top: Query Input Panel */}
@@ -1331,39 +1450,39 @@ export default function IntelligenceEnginePage() {
                             <rect width="280" height="60" rx="8" fill="url(#queryGlow)" opacity="0.15" />
 
                             {/* Glowing top-left border accent */}
-                            <path d="M 0 8 Q 0 0 8 0 L 100 0" fill="none" stroke="#6354F3" strokeWidth="1.5" />
-                            <path d="M 0 40 L 0 8 Q 0 0 8 0" fill="none" stroke="#6354F3" strokeWidth="1.5" />
+                            <path d="M 0 8 Q 0 0 8 0 L 100 0" fill="none" stroke="#7700FF" strokeWidth="1.5" />
+                            <path d="M 0 40 L 0 8 Q 0 0 8 0" fill="none" stroke="#7700FF" strokeWidth="1.5" />
 
                             <text x="20" y="25" fill="#E4E4E7" fontSize="11" fontFamily="var(--font-mono)">
                               &gt; Show me all lateral movement
                             </text>
                             <text x="20" y="45" fill="rgba(255,255,255,0.4)" fontSize="11" fontFamily="var(--font-mono)">
-                              from <tspan fill="#6354F3">Site 7</tspan> in the last <tspan fill="#EA49B2">48 hours</tspan>
+                              from <tspan fill="#7700FF">Site 7</tspan> in the last <tspan fill="#EC4899">48 hours</tspan>
                             </text>
-                            <rect x="235" y="35" width="6" height="12" fill="#6354F3" style={{ animation: 'blink 1s step-end infinite' }} />
+                            <rect x="235" y="35" width="6" height="12" fill="#7700FF" style={{ animation: 'blink 1s step-end infinite' }} />
                           </g>
 
                           {/* Result Node 1 (Purple) */}
                           <g transform="translate(120, 180)">
-                            <circle r="25" fill="none" stroke="rgba(99, 84, 243, 0.2)" strokeWidth="1" style={{ animation: 'pulse 2s infinite' }} />
-                            <rect x="-45" y="-15" width="90" height="30" rx="15" fill="#0B0D12" stroke="rgba(99, 84, 243, 0.3)" />
-                            <circle cx="-30" cy="0" r="4" fill="#6354F3" filter="url(#nlGlowPurple)" />
+                            <circle r="25" fill="none" stroke="rgba(119, 0, 255, 0.2)" strokeWidth="1" style={{ animation: 'pulse 2s infinite' }} />
+                            <rect x="-45" y="-15" width="90" height="30" rx="15" fill="#0B0D12" stroke="rgba(119, 0, 255, 0.3)" />
+                            <circle cx="-30" cy="0" r="4" fill="#7700FF" filter="url(#nlGlowPurple)" />
                             <text x="-15" y="3" fill="#E4E4E7" fontSize="9" fontFamily="var(--font-mono)">14 EVENTS</text>
                           </g>
 
                           {/* Result Node 2 (Pink) */}
                           <g transform="translate(280, 180)">
-                            <circle r="30" fill="none" stroke="rgba(234, 73, 178, 0.2)" strokeWidth="1" style={{ animation: 'pulse 2.5s infinite' }} />
-                            <rect x="-45" y="-15" width="90" height="30" rx="15" fill="#0B0D12" stroke="rgba(234, 73, 178, 0.3)" />
-                            <circle cx="-30" cy="0" r="4" fill="#EA49B2" filter="url(#nlGlowPink)" />
+                            <circle r="30" fill="none" stroke="rgba(236, 72, 153, 0.2)" strokeWidth="1" style={{ animation: 'pulse 2.5s infinite' }} />
+                            <rect x="-45" y="-15" width="90" height="30" rx="15" fill="#0B0D12" stroke="rgba(236, 72, 153, 0.3)" />
+                            <circle cx="-30" cy="0" r="4" fill="#EC4899" filter="url(#nlGlowPink)" />
                             <text x="-15" y="3" fill="#E4E4E7" fontSize="9" fontFamily="var(--font-mono)" fontWeight="bold">CRITICAL</text>
                           </g>
 
                           {/* Floating Status UI */}
                           <g transform="translate(240, 25)">
                             <rect width="90" height="24" rx="4" fill="#0B0D12" stroke="#1A1C1E" />
-                            <circle cx="12" cy="12" r="3" fill="none" stroke="#49B25C" strokeWidth="1.5" strokeDasharray="4 10" style={{ animation: 'spin 1s linear infinite' }} />
-                            <text x="22" y="15" fill="#49B25C" fontSize="7" fontFamily="var(--font-mono)">Querying DB...</text>
+                            <circle cx="12" cy="12" r="3" fill="none" stroke="#10B981" strokeWidth="1.5" strokeDasharray="4 10" style={{ animation: 'spin 1s linear infinite' }} />
+                            <text x="22" y="15" fill="#10B981" fontSize="7" fontFamily="var(--font-mono)">Querying DB...</text>
                           </g>
                         </svg>
                       </div>
@@ -1379,7 +1498,19 @@ export default function IntelligenceEnginePage() {
                         overflow: 'hidden',
                         animation: 'fadeIn 0.5s ease-out'
                       }}>
-                        
+                        {/* Fading gradient border overlay (CSS) */}
+                        <div style={{
+                          position: 'absolute',
+                          inset: 0,
+                          borderRadius: '8px',
+                          padding: '1px',
+                          background: 'linear-gradient(135deg, #7700FF 0%, rgba(119, 0, 255, 0) 50%)',
+                          WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                          WebkitMaskComposite: 'xor',
+                          maskComposite: 'exclude',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }} />
                         <svg width="100%" height="100%" viewBox="0 0 400 250" style={{ position: 'relative', zIndex: 1 }}>
                           <defs>
                             <pattern id="repTriggerGrid" width="20" height="20" patternUnits="userSpaceOnUse">
@@ -1390,7 +1521,7 @@ export default function IntelligenceEnginePage() {
                               <feComposite in="SourceGraphic" in2="blur" operator="over" />
                             </filter>
                             <linearGradient id="compGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                              <stop offset="0%" stopColor="rgba(175,249,98,0.3)" />
+                              <stop offset="0%" stopColor="rgba(16,185,129,0.3)" />
                               <stop offset="100%" stopColor="transparent" />
                             </linearGradient>
                           </defs>
@@ -1399,22 +1530,22 @@ export default function IntelligenceEnginePage() {
 
                           {/* Top Center: Compliance Hub */}
                           <g transform="translate(200, 70)">
-                            <circle r="40" fill="rgba(175, 249, 98, 0.05)" stroke="rgba(175, 249, 98, 0.2)" strokeWidth="1" />
-                            <circle r="50" fill="none" stroke="rgba(175, 249, 98, 0.1)" strokeWidth="1" strokeDasharray="4 4" style={{ animation: 'spin 10s linear infinite' }} />
-                            <circle r="6" fill="#AFF962" filter="url(#repGlowGreen)" />
-                            <text x="0" y="-15" textAnchor="middle" fill="#AFF962" fontSize="12" fontFamily="var(--font-mono)" fontWeight="bold">100%</text>
+                            <circle r="40" fill="rgba(16, 185, 129, 0.05)" stroke="rgba(16, 185, 129, 0.2)" strokeWidth="1" />
+                            <circle r="50" fill="none" stroke="rgba(16, 185, 129, 0.1)" strokeWidth="1" strokeDasharray="4 4" style={{ animation: 'spin 10s linear infinite' }} />
+                            <circle r="6" fill="#10B981" filter="url(#repGlowGreen)" />
+                            <text x="0" y="-15" textAnchor="middle" fill="#10B981" fontSize="12" fontFamily="var(--font-mono)" fontWeight="bold">100%</text>
                             <text x="0" y="25" textAnchor="middle" fill="rgba(255,255,255,0.6)" fontSize="9" fontFamily="var(--font-mono)">COMPLIANT</text>
                           </g>
 
                           {/* Data streams going down to reports */}
-                          <path d="M 200 120 L 200 150 L 100 150 L 100 170" fill="none" stroke="rgba(175,249,98,0.3)" strokeWidth="1.5" strokeDasharray="4 4" style={{ animation: 'dashLine 10s linear infinite reverse' }} />
-                          <path d="M 200 120 L 200 150 L 300 150 L 300 170" fill="none" stroke="rgba(175,249,98,0.3)" strokeWidth="1.5" strokeDasharray="4 4" style={{ animation: 'dashLine 10s linear infinite reverse' }} />
+                          <path d="M 200 120 L 200 150 L 100 150 L 100 170" fill="none" stroke="rgba(16,185,129,0.3)" strokeWidth="1.5" strokeDasharray="4 4" style={{ animation: 'dashLine 10s linear infinite reverse' }} />
+                          <path d="M 200 120 L 200 150 L 300 150 L 300 170" fill="none" stroke="rgba(16,185,129,0.3)" strokeWidth="1.5" strokeDasharray="4 4" style={{ animation: 'dashLine 10s linear infinite reverse' }} />
 
                           {/* Moving Data Packets */}
-                          <circle cx="0" cy="0" r="3" fill="#AFF962" filter="url(#repGlowGreen)">
+                          <circle cx="0" cy="0" r="3" fill="#10B981" filter="url(#repGlowGreen)">
                             <animateMotion path="M 200 120 L 200 150 L 100 150 L 100 170" dur="2s" repeatCount="indefinite" />
                           </circle>
-                          <circle cx="0" cy="0" r="3" fill="#AFF962" filter="url(#repGlowGreen)">
+                          <circle cx="0" cy="0" r="3" fill="#10B981" filter="url(#repGlowGreen)">
                             <animateMotion path="M 200 120 L 200 150 L 300 150 L 300 170" dur="2.5s" repeatCount="indefinite" />
                           </circle>
 
@@ -1422,7 +1553,7 @@ export default function IntelligenceEnginePage() {
                           <g transform="translate(30, 170)">
                             <rect width="140" height="40" rx="6" fill="#0B0D12" stroke="#1A1C1E" />
                             <rect width="140" height="40" rx="6" fill="url(#compGrad)" opacity="0.2" />
-                            <circle cx="15" cy="20" r="4" fill="#AFF962" filter="url(#repGlowGreen)" />
+                            <circle cx="15" cy="20" r="4" fill="#10B981" filter="url(#repGlowGreen)" />
                             <text x="28" y="18" fill="#E4E4E7" fontSize="9" fontFamily="var(--font-mono)">HIPAA AUDIT</text>
                             <text x="28" y="30" fill="rgba(255,255,255,0.4)" fontSize="8" fontFamily="var(--font-mono)">Generated: Today</text>
                           </g>
@@ -1431,7 +1562,7 @@ export default function IntelligenceEnginePage() {
                           <g transform="translate(230, 170)">
                             <rect width="140" height="40" rx="6" fill="#0B0D12" stroke="#1A1C1E" />
                             <rect width="140" height="40" rx="6" fill="url(#compGrad)" opacity="0.2" />
-                            <circle cx="15" cy="20" r="4" fill="#AFF962" filter="url(#repGlowGreen)" />
+                            <circle cx="15" cy="20" r="4" fill="#10B981" filter="url(#repGlowGreen)" />
                             <text x="28" y="18" fill="#E4E4E7" fontSize="9" fontFamily="var(--font-mono)">SOC 2 REPORT</text>
                             <text x="28" y="30" fill="rgba(255,255,255,0.4)" fontSize="8" fontFamily="var(--font-mono)">Generated: Today</text>
                           </g>
@@ -1449,7 +1580,19 @@ export default function IntelligenceEnginePage() {
                         overflow: 'hidden',
                         animation: 'fadeIn 0.5s ease-out'
                       }}>
-                        
+                        {/* Fading gradient border overlay (CSS) */}
+                        <div style={{
+                          position: 'absolute',
+                          inset: 0,
+                          borderRadius: '8px',
+                          padding: '1px',
+                          background: 'linear-gradient(135deg, #7700FF 0%, rgba(119, 0, 255, 0) 50%)',
+                          WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                          WebkitMaskComposite: 'xor',
+                          maskComposite: 'exclude',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }} />
                         <svg width="100%" height="100%" viewBox="0 0 400 250" style={{ position: 'relative', zIndex: 1 }}>
                           <defs>
                             <pattern id="predTriggerGrid" width="20" height="20" patternUnits="userSpaceOnUse">
@@ -1460,7 +1603,7 @@ export default function IntelligenceEnginePage() {
                               <feComposite in="SourceGraphic" in2="blur" operator="over" />
                             </filter>
                             <linearGradient id="predHeatGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                              <stop offset="0%" stopColor="rgba(228,72,86,0.4)" />
+                              <stop offset="0%" stopColor="rgba(239,68,68,0.4)" />
                               <stop offset="100%" stopColor="transparent" />
                             </linearGradient>
                           </defs>
@@ -1469,37 +1612,37 @@ export default function IntelligenceEnginePage() {
 
                           {/* Predictive Network Graph */}
                           <path d="M 80 60 L 200 120 L 320 80" fill="none" stroke="#1A1C1E" strokeWidth="1" />
-                          <path d="M 80 180 L 200 120 L 320 200" fill="none" stroke="rgba(228,72,86,0.3)" strokeWidth="1.5" strokeDasharray="4 4" style={{ animation: 'dashLine 10s linear infinite reverse' }} />
+                          <path d="M 80 180 L 200 120 L 320 200" fill="none" stroke="rgba(239,68,68,0.3)" strokeWidth="1.5" strokeDasharray="4 4" style={{ animation: 'dashLine 10s linear infinite reverse' }} />
 
                           {/* Safe Nodes */}
-                          <circle cx="80" cy="60" r="12" fill="rgba(73,178,92,0.1)" stroke="rgba(73,178,92,0.3)" />
-                          <circle cx="80" cy="60" r="3" fill="#49B25C" />
-                          <circle cx="320" cy="80" r="12" fill="rgba(73,178,92,0.1)" stroke="rgba(73,178,92,0.3)" />
-                          <circle cx="320" cy="80" r="3" fill="#49B25C" />
+                          <circle cx="80" cy="60" r="12" fill="rgba(16,185,129,0.1)" stroke="rgba(16,185,129,0.3)" />
+                          <circle cx="80" cy="60" r="3" fill="#10B981" />
+                          <circle cx="320" cy="80" r="12" fill="rgba(16,185,129,0.1)" stroke="rgba(16,185,129,0.3)" />
+                          <circle cx="320" cy="80" r="3" fill="#10B981" />
 
                           {/* Predicted Attack Path Target */}
                           <g transform="translate(200, 120)">
-                            <circle r="25" fill="none" stroke="rgba(228,72,86,0.2)" strokeWidth="1" style={{ animation: 'pulse 2s infinite' }} />
-                            <circle r="20" fill="rgba(228,72,86,0.1)" stroke="rgba(228,72,86,0.3)" />
-                            <circle r="5" fill="#E44856" filter="url(#predGlowRed)" />
-                            <text x="25" y="4" fill="#E44856" fontSize="9" fontFamily="var(--font-mono)">PREDICTED TARGET</text>
+                            <circle r="25" fill="none" stroke="rgba(239,68,68,0.2)" strokeWidth="1" style={{ animation: 'pulse 2s infinite' }} />
+                            <circle r="20" fill="rgba(239,68,68,0.1)" stroke="rgba(239,68,68,0.3)" />
+                            <circle r="5" fill="#EF4444" filter="url(#predGlowRed)" />
+                            <text x="25" y="4" fill="#EF4444" fontSize="9" fontFamily="var(--font-mono)">PREDICTED TARGET</text>
                           </g>
 
                           {/* Threat Source 1 */}
-                          <circle cx="80" cy="180" r="12" fill="rgba(228,72,86,0.1)" stroke="rgba(228,72,86,0.3)" />
-                          <circle cx="80" cy="180" r="3" fill="#E44856" filter="url(#predGlowRed)" />
+                          <circle cx="80" cy="180" r="12" fill="rgba(239,68,68,0.1)" stroke="rgba(239,68,68,0.3)" />
+                          <circle cx="80" cy="180" r="3" fill="#EF4444" filter="url(#predGlowRed)" />
                           <text x="40" y="205" fill="#E4E4E7" fontSize="9" fontFamily="var(--font-mono)">VULNERABILITY</text>
 
                           {/* Threat Source 2 */}
-                          <circle cx="320" cy="200" r="12" fill="rgba(228,72,86,0.1)" stroke="rgba(228,72,86,0.3)" />
-                          <circle cx="320" cy="200" r="3" fill="#E44856" filter="url(#predGlowRed)" />
+                          <circle cx="320" cy="200" r="12" fill="rgba(239,68,68,0.1)" stroke="rgba(239,68,68,0.3)" />
+                          <circle cx="320" cy="200" r="3" fill="#EF4444" filter="url(#predGlowRed)" />
                           <text x="270" y="225" fill="#E4E4E7" fontSize="9" fontFamily="var(--font-mono)">COMPROMISED SITE</text>
 
                           {/* Floating Alert UI */}
                           <g transform="translate(130, 20)">
-                            <rect width="140" height="30" rx="6" fill="#0B0D12" stroke="rgba(228,72,86,0.3)" />
-                            <circle cx="15" cy="15" r="4" fill="#E44856" filter="url(#predGlowRed)" style={{ animation: 'pulse 1s infinite' }} />
-                            <text x="28" y="18" fill="#E44856" fontSize="9" fontFamily="var(--font-mono)" fontWeight="bold">92% ATTACK PROBABILITY</text>
+                            <rect width="140" height="30" rx="6" fill="#0B0D12" stroke="rgba(239,68,68,0.3)" />
+                            <circle cx="15" cy="15" r="4" fill="#EF4444" filter="url(#predGlowRed)" style={{ animation: 'pulse 1s infinite' }} />
+                            <text x="28" y="18" fill="#EF4444" fontSize="9" fontFamily="var(--font-mono)" fontWeight="bold">92% ATTACK PROBABILITY</text>
                           </g>
                         </svg>
                       </div>
@@ -1515,94 +1658,107 @@ export default function IntelligenceEnginePage() {
                         overflow: 'hidden',
                         animation: 'fadeIn 0.5s ease-out'
                       }}>
-                        
+                        {/* Fading gradient border overlay (CSS) */}
+                        <div style={{
+                          position: 'absolute',
+                          inset: 0,
+                          borderRadius: '8px',
+                          padding: '1px',
+                          background: 'linear-gradient(135deg, #7700FF 0%, rgba(119, 0, 255, 0) 50%)',
+                          WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                          WebkitMaskComposite: 'xor',
+                          maskComposite: 'exclude',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }} />
                         <svg width="100%" height="100%" viewBox="0 0 400 250" style={{ position: 'relative', zIndex: 1 }}>
-  <defs>
-    <style>
-      {`
-        @keyframes bar-rise {
-          0% { opacity: 0; transform: translateY(30px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes float-tag {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-5px); }
-        }
-        @keyframes pulse-glow {
-          0%, 100% { filter: drop-shadow(0 0 10px rgba(231, 199, 59, 0.4)); }
-          50% { filter: drop-shadow(0 0 20px rgba(231, 199, 59, 0.8)); }
-        }
-        @keyframes draw-line {
-          0% { stroke-dashoffset: 300; }
-          100% { stroke-dashoffset: 0; }
-        }
-        @keyframes fade-in {
-          0% { opacity: 0; }
-          100% { opacity: 1; }
-        }
-      `}
-    </style>
-    
-    <filter id="glowGreen"><feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#49B25C" floodOpacity="0.6" /></filter>
-    <filter id="glowPurple"><feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#6354F3" floodOpacity="0.6" /></filter>
-    <filter id="glowGold"><feDropShadow dx="0" dy="0" stdDeviation="8" floodColor="#E7C73B" floodOpacity="0.8" /></filter>
-    
-    <linearGradient id="trendGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-       <stop offset="0%" stopColor="#6354F3" />
-       <stop offset="100%" stopColor="#E7C73B" />
-    </linearGradient>
-  </defs>
+                          <defs>
+                            <pattern id="riskTriggerGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                              <circle cx="2" cy="2" r="1" fill="#212326" />
+                            </pattern>
+                            <filter id="riskGlowOrange" x="-20%" y="-20%" width="140%" height="140%">
+                              <feGaussianBlur stdDeviation="4" result="blur" />
+                              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                            </filter>
+                            <linearGradient id="riskGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                              <stop offset="0%" stopColor="#F59E0B" />
+                              <stop offset="100%" stopColor="transparent" />
+                            </linearGradient>
+                          </defs>
 
-  {/* Background Plane */}
-  <g transform="translate(180, 180) scale(1, 0.5) rotate(45)">
-    <rect x="-120" y="-120" width="240" height="240" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
-    {/* Grid Lines */}
-    <path d="M-80 -120 L-80 120 M-40 -120 L-40 120 M0 -120 L0 120 M40 -120 L40 120 M80 -120 L80 120" stroke="rgba(255,255,255,0.03)" />
-    <path d="M-120 -80 L120 -80 M-120 -40 L120 -40 M-120 0 L120 0 M-120 40 L120 40 M-120 80 L120 80" stroke="rgba(255,255,255,0.03)" />
-  </g>
+                          <rect width="100%" height="100%" fill="url(#riskTriggerGrid)" />
 
-  {/* BARS */}
-  {/* BAR 1: Site 3 (Green) */}
-  <g transform="translate(90, 140)" style={{ opacity: 0, animation: 'bar-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards' }}>
-    <path d="M 0 -15 L 20 -25 L 20 0 L 0 10 Z" fill="rgba(73,178,92,0.1)" stroke="#49B25C" strokeWidth="1" strokeLinejoin="round" />
-    <path d="M -20 -25 L 0 -15 L 0 10 L -20 0 Z" fill="rgba(73,178,92,0.3)" stroke="#49B25C" strokeWidth="1" strokeLinejoin="round" />
-    <path d="M 0 -35 L 20 -25 L 0 -15 L -20 -25 Z" fill="rgba(73,178,92,0.6)" stroke="#49B25C" strokeWidth="1" strokeLinejoin="round" filter="url(#glowGreen)" />
-    <text x="-35" y="25" fill="rgba(255,255,255,0.5)" fontSize="8" fontFamily="var(--font-mono)">SITE 3</text>
-  </g>
+                          {/* Risk Leaderboard UI Panel */}
+                          <g transform="translate(30, 30)">
+                            <text x="0" y="-10" fill="rgba(255,255,255,0.3)" fontSize="8" fontFamily="var(--font-mono)">RISK LEADERBOARD</text>
 
-  {/* BAR 2: Site 12 (Purple) */}
-  <g transform="translate(170, 180)" style={{ opacity: 0, animation: 'bar-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards' }}>
-    <path d="M 0 -45 L 20 -55 L 20 0 L 0 10 Z" fill="rgba(99,84,243,0.1)" stroke="#6354F3" strokeWidth="1" strokeLinejoin="round" />
-    <path d="M -20 -55 L 0 -45 L 0 10 L -20 0 Z" fill="rgba(99,84,243,0.3)" stroke="#6354F3" strokeWidth="1" strokeLinejoin="round" />
-    <path d="M 0 -65 L 20 -55 L 0 -45 L -20 -55 Z" fill="rgba(99,84,243,0.6)" stroke="#6354F3" strokeWidth="1" strokeLinejoin="round" filter="url(#glowPurple)" />
-    <text x="-40" y="25" fill="rgba(255,255,255,0.5)" fontSize="8" fontFamily="var(--font-mono)">SITE 12</text>
-  </g>
+                            {/* High Risk Item */}
+                            <rect x="0" y="0" width="340" height="40" fill="#0B0D12" stroke="rgba(245,158,11,0.3)" rx="6" />
+                            <rect x="0" y="0" width="340" height="40" fill="url(#riskGrad)" opacity="0.1" rx="6" />
+                            <circle cx="20" cy="20" r="4" fill="#F59E0B" filter="url(#riskGlowOrange)" style={{ animation: 'pulse 1s infinite' }} />
+                            <text x="40" y="24" fill="#fff" fontSize="11" fontFamily="var(--font-mono)" fontWeight="bold">SITE 7</text>
+                            <text x="90" y="24" fill="#F59E0B" fontSize="9" fontFamily="var(--font-mono)">CRITICAL</text>
+                            <rect x="150" y="18" width="140" height="4" fill="rgba(255,255,255,0.1)" rx="2" />
+                            <rect x="150" y="18" width="110" height="4" fill="#F59E0B" rx="2" />
+                            <text x="300" y="24" fill="#F59E0B" fontSize="11" fontFamily="var(--font-mono)" fontWeight="bold">0.82</text>
 
-  {/* BAR 3: Site 7 (Gold) */}
-  <g transform="translate(250, 220)" style={{ opacity: 0, animation: 'bar-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards' }}>
-    <path d="M 0 -110 L 20 -120 L 20 0 L 0 10 Z" fill="rgba(231,199,59,0.1)" stroke="#E7C73B" strokeWidth="1" strokeLinejoin="round" />
-    <path d="M -20 -120 L 0 -110 L 0 10 L -20 0 Z" fill="rgba(231,199,59,0.3)" stroke="#E7C73B" strokeWidth="1" strokeLinejoin="round" />
-    <path d="M 0 -130 L 20 -120 L 0 -110 L -20 -120 Z" fill="rgba(231,199,59,0.7)" stroke="#E7C73B" strokeWidth="1.5" strokeLinejoin="round" filter="url(#glowGold)" style={{ animation: 'pulse-glow 2s infinite' }} />
-    <text x="-20" y="25" fill="#E7C73B" fontSize="9" fontWeight="bold" fontFamily="var(--font-mono)">SITE 7 (CRITICAL)</text>
-  </g>
+                            {/* Medium Risk Item */}
+                            <g transform="translate(0, 50)">
+                              <rect x="0" y="0" width="340" height="30" fill="#0B0D12" stroke="#1A1C1E" rx="4" />
+                              <circle cx="20" cy="15" r="3" fill="#7700FF" />
+                              <text x="40" y="19" fill="#E4E4E7" fontSize="10" fontFamily="var(--font-mono)">SITE 12</text>
+                              <rect x="150" y="13" width="140" height="4" fill="rgba(255,255,255,0.1)" rx="2" />
+                              <rect x="150" y="13" width="40" height="4" fill="#7700FF" rx="2" />
+                              <text x="300" y="19" fill="#7700FF" fontSize="10" fontFamily="var(--font-mono)">0.21</text>
+                            </g>
 
-  {/* PREDICTIVE TRENDLINE (Draws in after bars) */}
-  <path d="M 170 115 Q 210 110, 250 90 T 320 40" fill="none" stroke="url(#trendGrad)" strokeWidth="3" strokeLinecap="round" filter="url(#glowGold)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: 'draw-line 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards' }} />
-  
-  {/* Projection Target Node (Fades in) */}
-  <g transform="translate(320, 40)" style={{ opacity: 0, animation: 'fade-in 0.5s ease-out 1.8s forwards' }}>
-    {/* Inner floating animation wrapper so it doesn't override the translation */}
-    <g style={{ animation: 'float-tag 3s ease-in-out infinite' }}>
-      <circle cx="0" cy="0" r="4" fill="#E7C73B" filter="url(#glowGold)" />
-      
-      {/* UI Tag */}
-      <rect x="-40" y="-35" width="110" height="26" rx="4" fill="#0B0D12" stroke="#E7C73B" strokeWidth="1.5" filter="url(#glowGold)" />
-      <rect x="-40" y="-35" width="110" height="26" rx="4" fill="rgba(231,199,59,0.15)" />
-      <text x="15" y="-17" textAnchor="middle" fill="#E7C73B" fontSize="9" fontWeight="bold" fontFamily="var(--font-mono)">+42% RISK VELOCITY</text>
-    </g>
-  </g>
+                            {/* Low Risk Item */}
+                            <g transform="translate(0, 90)">
+                              <rect x="0" y="0" width="340" height="30" fill="#0B0D12" stroke="#1A1C1E" rx="4" />
+                              <circle cx="20" cy="15" r="3" fill="#10B981" />
+                              <text x="40" y="19" fill="#E4E4E7" fontSize="10" fontFamily="var(--font-mono)">SITE 3</text>
+                              <rect x="150" y="13" width="140" height="4" fill="rgba(255,255,255,0.1)" rx="2" />
+                              <rect x="150" y="13" width="15" height="4" fill="#10B981" rx="2" />
+                              <text x="300" y="19" fill="#10B981" fontSize="10" fontFamily="var(--font-mono)">0.08</text>
+                            </g>
+                          </g>
 
-</svg>
+                          {/* Dynamic Trend Overlay */}
+                          <g transform="translate(30, 160)">
+                            {/* Axis and background */}
+                            <rect x="0" y="0" width="340" height="70" fill="#0B0D12" stroke="#1A1C1E" rx="6" />
+
+                            {/* Grid Lines */}
+                            <path d="M 0 17 L 340 17 M 0 35 L 340 35 M 0 53 L 340 53" fill="none" stroke="#1A1C1E" strokeWidth="1" strokeDasharray="2 2" />
+
+                            {/* Gradient Fill under Curve */}
+                            <linearGradient id="areaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                              <stop offset="0%" stopColor="#F59E0B" stopOpacity="0.2" />
+                              <stop offset="100%" stopColor="transparent" stopOpacity="0" />
+                            </linearGradient>
+
+                            {/* Area Path (Smooth curve) */}
+                            <path d="M 10 60 C 60 50, 90 45, 130 50 C 170 55, 200 20, 250 30 C 290 38, 310 15, 320 10 L 320 70 L 10 70 Z" fill="url(#areaGrad)" />
+
+                            {/* Line Path (Smooth curve) */}
+                            <path d="M 10 60 C 60 50, 90 45, 130 50 C 170 55, 200 20, 250 30 C 290 38, 310 15, 320 10" fill="none" stroke="#F59E0B" strokeWidth="2" filter="url(#riskGlowOrange)" />
+
+                            {/* Vertical tracker line at end point */}
+                            <path d="M 320 10 L 320 70" fill="none" stroke="#F59E0B" strokeWidth="1" strokeDasharray="2 2" opacity="0.5" />
+
+                            {/* Pulsing End Node */}
+                            <circle cx="320" cy="10" r="4" fill="#F59E0B" filter="url(#riskGlowOrange)" style={{ animation: 'pulse 1s infinite' }} />
+
+                            {/* Tooltip badge */}
+                            <g transform="translate(260, -5)">
+                              <rect width="65" height="18" rx="4" fill="#F59E0B" />
+                              <text x="32.5" y="12" textAnchor="middle" fill="#0B0D12" fontSize="9" fontFamily="var(--font-mono)" fontWeight="bold">+42% RISK</text>
+                            </g>
+
+                            {/* Label */}
+                            <text x="15" y="15" fill="rgba(255,255,255,0.4)" fontSize="8" fontFamily="var(--font-mono)">SITE 7 VELOCITY (72H)</text>
+                          </g>
+                        </svg>
                       </div>
                     )}
 
@@ -1616,7 +1772,19 @@ export default function IntelligenceEnginePage() {
                         overflow: 'hidden',
                         animation: 'fadeIn 0.5s ease-out'
                       }}>
-                        
+                        {/* Fading gradient border overlay (CSS) */}
+                        <div style={{
+                          position: 'absolute',
+                          inset: 0,
+                          borderRadius: '8px',
+                          padding: '1px',
+                          background: 'linear-gradient(135deg, #7700FF 0%, rgba(119, 0, 255, 0) 50%)',
+                          WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                          WebkitMaskComposite: 'xor',
+                          maskComposite: 'exclude',
+                          pointerEvents: 'none',
+                          zIndex: 10
+                        }} />
                         <svg width="100%" height="100%" viewBox="0 0 400 250" style={{ position: 'relative', zIndex: 1 }}>
                           <defs>
                             <pattern id="hubTriggerGrid" width="20" height="20" patternUnits="userSpaceOnUse">
@@ -1627,7 +1795,7 @@ export default function IntelligenceEnginePage() {
                               <feComposite in="SourceGraphic" in2="blur" operator="over" />
                             </filter>
                             <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
-                              <stop offset="0%" stopColor="rgba(99,84,243,0.2)" />
+                              <stop offset="0%" stopColor="rgba(119,0,255,0.2)" />
                               <stop offset="100%" stopColor="transparent" />
                             </radialGradient>
                           </defs>
@@ -1637,11 +1805,11 @@ export default function IntelligenceEnginePage() {
                           {/* Central Radar Hub */}
                           <g transform="translate(200, 110)">
                             <circle r="90" fill="url(#hubGlow)" />
-                            <circle r="40" fill="rgba(99,84,243,0.05)" stroke="rgba(99,84,243,0.3)" strokeWidth="1" strokeDasharray="4 4" style={{ animation: 'spin 10s linear infinite reverse' }} />
-                            <circle r="70" fill="none" stroke="rgba(99,84,243,0.2)" strokeWidth="1" style={{ animation: 'pulse 4s infinite' }} />
-                            <circle r="6" fill="#6354F3" filter="url(#hubGlowPurple)" />
+                            <circle r="40" fill="rgba(119,0,255,0.05)" stroke="rgba(119,0,255,0.3)" strokeWidth="1" strokeDasharray="4 4" style={{ animation: 'spin 10s linear infinite reverse' }} />
+                            <circle r="70" fill="none" stroke="rgba(119,0,255,0.2)" strokeWidth="1" style={{ animation: 'pulse 4s infinite' }} />
+                            <circle r="6" fill="#7700FF" filter="url(#hubGlowPurple)" />
                             <text x="0" y="4" textAnchor="middle" fill="#fff" fontSize="12" fontFamily="var(--font-mono)" fontWeight="bold">A+</text>
-                            <text x="0" y="25" textAnchor="middle" fill="#6354F3" fontSize="8" fontFamily="var(--font-mono)">POSTURE SCORE</text>
+                            <text x="0" y="25" textAnchor="middle" fill="#7700FF" fontSize="8" fontFamily="var(--font-mono)">POSTURE SCORE</text>
                           </g>
 
                           {/* Top Left Stat */}
@@ -1649,21 +1817,21 @@ export default function IntelligenceEnginePage() {
                             <rect width="100" height="40" rx="6" fill="#0B0D12" stroke="#1A1C1E" />
                             <text x="50" y="16" textAnchor="middle" fill="rgba(255,255,255,0.4)" fontSize="7" fontFamily="var(--font-mono)">ACTIVE THREATS</text>
                             <text x="50" y="32" textAnchor="middle" fill="#fff" fontSize="14" fontFamily="var(--font-mono)" fontWeight="bold">0</text>
-                            <circle cx="10" cy="10" r="3" fill="#49B25C" />
+                            <circle cx="10" cy="10" r="3" fill="#10B981" />
                           </g>
 
                           {/* Top Right Stat */}
                           <g transform="translate(280, 20)">
                             <rect width="100" height="40" rx="6" fill="#0B0D12" stroke="#1A1C1E" />
                             <text x="50" y="16" textAnchor="middle" fill="rgba(255,255,255,0.4)" fontSize="7" fontFamily="var(--font-mono)">SITES SECURE</text>
-                            <text x="50" y="32" textAnchor="middle" fill="#49B25C" fontSize="14" fontFamily="var(--font-mono)" fontWeight="bold">14/14</text>
-                            <circle cx="10" cy="10" r="3" fill="#49B25C" />
+                            <text x="50" y="32" textAnchor="middle" fill="#10B981" fontSize="14" fontFamily="var(--font-mono)" fontWeight="bold">14/14</text>
+                            <circle cx="10" cy="10" r="3" fill="#10B981" />
                           </g>
 
                           {/* Executive Summary Panel */}
                           <g transform="translate(20, 190)">
-                            <rect width="360" height="40" rx="6" fill="#0B0D12" stroke="rgba(99,84,243,0.3)" />
-                            <rect width="360" height="40" rx="6" fill="rgba(99,84,243,0.05)" />
+                            <rect width="360" height="40" rx="6" fill="#0B0D12" stroke="rgba(119,0,255,0.3)" />
+                            <rect width="360" height="40" rx="6" fill="rgba(119,0,255,0.05)" />
                             <text x="16" y="16" fill="#E4E4E7" fontSize="9" fontFamily="var(--font-mono)">"Global security posture is nominal. All agents operational.</text>
                             <text x="16" y="28" fill="#E4E4E7" fontSize="9" fontFamily="var(--font-mono)">No immediate anomalies detected in the last 24 hours."</text>
                           </g>
@@ -1687,7 +1855,7 @@ export default function IntelligenceEnginePage() {
 
       <HonestPositioning />
 
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style>{`
         /* Accordion grid for Capabilities section */
         .agents-accordion-grid {
           display: grid;
@@ -1813,29 +1981,42 @@ export default function IntelligenceEnginePage() {
 
         .threat-hud-box:hover {
           transform: translateY(-2px);
-          box-shadow: 0 8px 16px rgba(231,199,59,0.2) !important;
-          border-color: rgba(231,199,59,0.8) !important;
+          box-shadow: 0 8px 16px rgba(245,158,11,0.2) !important;
+          border-color: rgba(245,158,11,0.8) !important;
         }
 
         /* Local Page Overrides */
 
         .fig-svg-wrap {
           position: relative;
-          background: transparent;
-          padding-top: 0 !important;
-          padding-left: 0;
-          padding-right: 0;
-          min-height: 200px !important;
+          background: #0b0c0e;
+          border: 1px solid #212326;
+          border-radius: 12px;
+          padding-top: 56px !important;
+          padding-left: 24px;
+          padding-right: 24px;
+          min-height: 260px !important;
           display: block;
-          margin: 0 0 32px 0;
+          margin: 16px 0 32px 0;
           max-width: 440px;
-          overflow: visible;
-          /* mask removed */
-          /* mask removed */
+          overflow: hidden;
+          -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+          mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
         }
 
         .fig-svg-wrap::before {
-          display: none;
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 40px;
+          border-bottom: 1px solid #212326;
+          background-image: 
+            radial-gradient(circle at 20px 20px, #EF4444 5px, transparent 5.5px),
+            radial-gradient(circle at 40px 20px, #F59E0B 5px, transparent 5.5px),
+            radial-gradient(circle at 60px 20px, #10B981 5px, transparent 5.5px);
+          background-repeat: no-repeat;
         }
 
         body.light-mode .fig-svg-wrap {
@@ -1860,7 +2041,7 @@ export default function IntelligenceEnginePage() {
           font-weight: 700 !important;
           letter-spacing: -0.02em;
           text-align: center;
-          margin: 0 0 24px;
+          margin: 0 0 20px;
           font-family: 'Satoshi', var(--font-main), sans-serif !important;
           color: var(--text-primary) !important;
           line-height: 1.2;
@@ -1868,7 +2049,7 @@ export default function IntelligenceEnginePage() {
 
         .problem-subheading {
           max-width: 750px;
-          margin: 0 auto 80px;
+          margin: 0 auto 3rem;
           font-size: 14px !important;
           font-weight: 500 !important;
           line-height: 1.6;
@@ -1979,7 +2160,7 @@ export default function IntelligenceEnginePage() {
         }
 
         body.light-mode #problem .feature-col-item:hover {
-          background: rgba(99, 84, 243, 0.03) !important;
+          background: rgba(119, 0, 255, 0.03) !important;
         }
 
         body.light-mode #problem .feature-col-item h3 {
@@ -2045,9 +2226,9 @@ export default function IntelligenceEnginePage() {
         .verdict-full-card {
           margin-top: 48px;
           padding: 24px 32px;
-          background: linear-gradient(90deg, rgba(228, 72, 86, 0.08) 0%, rgba(228, 72, 86, 0.02) 100%);
-          border: 1px solid rgba(228, 72, 86, 0.2);
-          border-left: 4px solid #E44856;
+          background: linear-gradient(90deg, rgba(239, 68, 68, 0.08) 0%, rgba(239, 68, 68, 0.02) 100%);
+          border: 1px solid rgba(239, 68, 68, 0.2);
+          border-left: 4px solid #EF4444;
           border-radius: 0;
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
           width: 100%;
@@ -2141,13 +2322,13 @@ export default function IntelligenceEnginePage() {
         .autonomy-card:hover {
           transform: translateY(-8px);
           border-top-width: 5px !important;
-          box-shadow: 0 16px 40px -4px rgba(99,84,243,0.12) !important;
+          box-shadow: 0 16px 40px -4px rgba(119,0,255,0.12) !important;
           background: rgba(20,21,24,0.65) !important;
         }
 
         .reveal-card:hover {
           transform: translateY(-6px);
-          border-color: rgba(99,84,243,0.2) !important;
+          border-color: rgba(119,0,255,0.2) !important;
           box-shadow: 0 12px 32px rgba(15,17,21,0.25) !important;
           background: rgba(20,21,24,0.7) !important;
         }
@@ -2177,7 +2358,7 @@ export default function IntelligenceEnginePage() {
           transform: translate(-50%, -120%);
           padding: 4px 8px;
           background: rgba(7, 8, 10, 0.85);
-          border: 1px solid rgba(99, 84, 243, 0.35);
+          border: 1px solid rgba(119, 0, 255, 0.35);
           border-radius: 4px;
           color: #FFFFFF;
           font-family: var(--font-mono);
@@ -2192,7 +2373,7 @@ export default function IntelligenceEnginePage() {
           transition: opacity 0.3s ease;
         }
         .telemetry-dot {
-          color: #E44856; 
+          color: #EF4444; 
           margin-right: 6px;
           display: inline-block;
         }
@@ -2209,10 +2390,10 @@ export default function IntelligenceEnginePage() {
           left: 50%;
           transform: translate(-50%, -50%);
           padding: 10px 20px;
-          background: rgba(228, 72, 86, 0.12);
-          border: 1px solid rgba(228, 72, 86, 0.45);
+          background: rgba(239, 68, 68, 0.12);
+          border: 1px solid rgba(239, 68, 68, 0.45);
           border-radius: 8px;
-          color: #E44856;
+          color: #EF4444;
           font-family: var(--font-mono);
           font-size: 10px;
           white-space: nowrap;
@@ -2220,16 +2401,16 @@ export default function IntelligenceEnginePage() {
           opacity: 0;
           transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
           text-align: center;
-          box-shadow: 0 8px 32px rgba(228, 72, 86, 0.15);
+          box-shadow: 0 8px 32px rgba(239, 68, 68, 0.15);
           backdrop-filter: blur(8px);
           -webkit-backdrop-filter: blur(8px);
           z-index: 10;
         }
         body.light-mode .correlation-banner {
-          background: rgba(228, 72, 86, 0.06) !important;
-          border: 1px solid rgba(228, 72, 86, 0.35) !important;
+          background: rgba(239, 68, 68, 0.06) !important;
+          border: 1px solid rgba(239, 68, 68, 0.35) !important;
           color: #DC2626 !important;
-          box-shadow: 0 8px 32px rgba(228, 72, 86, 0.06) !important;
+          box-shadow: 0 8px 32px rgba(239, 68, 68, 0.06) !important;
         }
 
         /* theme-adaptive premium dashboard SVG styling */
@@ -2270,8 +2451,8 @@ export default function IntelligenceEnginePage() {
           transition: stroke 0.3s ease;
         }
         .svg-pill-purple {
-          fill: rgba(99, 84, 243, 0.06);
-          stroke: rgba(99, 84, 243, 0.25);
+          fill: rgba(119, 0, 255, 0.06);
+          stroke: rgba(119, 0, 255, 0.25);
           stroke-width: 1px;
         }
         .svg-pill-pink {
@@ -2280,8 +2461,8 @@ export default function IntelligenceEnginePage() {
           stroke-width: 1px;
         }
         .svg-pill-red {
-          fill: rgba(228, 72, 86, 0.06);
-          stroke: rgba(228, 72, 86, 0.25);
+          fill: rgba(239, 68, 68, 0.06);
+          stroke: rgba(239, 68, 68, 0.25);
           stroke-width: 1px;
         }
         .svg-text-purple {
@@ -2293,7 +2474,7 @@ export default function IntelligenceEnginePage() {
           font-family: var(--font-main);
         }
         .svg-text-red {
-          fill: #E44856;
+          fill: #EF4444;
           font-family: var(--font-main);
         }
         .svg-cursor-tag {
@@ -2386,7 +2567,7 @@ export default function IntelligenceEnginePage() {
           box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
         }
 
-      ` }} />
+      `}</style>
     </div>
   )
 }

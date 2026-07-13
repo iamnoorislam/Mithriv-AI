@@ -1399,7 +1399,7 @@ export default function IntegrationFabricPage() {
                 <span class="ent-pill-accent">✦</span> Core Infrastructure
             </div>
 
-            <h1 class="ent-h1">Every Security System.<br>One Operational Model.</h1>
+            <h1 class="ent-h1">Every Security System.<br>One Operational Model</h1>
 
             <p class="ent-p-large"
                 style="font-size: 14px; max-width: 600px; margin: 0 auto 48px auto; color: var(--text-secondary); line-height: 1.6;">
@@ -1435,7 +1435,7 @@ export default function IntegrationFabricPage() {
                 <div class="sticky-col">
                     <div class="ent-pill" style="margin-bottom: 32px;">The Fragmentation Tax</div>
                     <h2 class="ent-h1" style="font-size: 48px; margin-bottom: 32px; line-height: 1.05;">
-                        Data everywhere.<br>Context nowhere.
+                        Data everywhere.<br>Context nowhere
                     </h2>
 
                     <div style="display: flex; flex-direction: column; gap: 24px; max-width: 560px;">
@@ -2042,7 +2042,7 @@ export default function IntegrationFabricPage() {
                 <span class="ent-pill-accent">✦</span> Ready to Unify Your Stack
             </div>
             <h2 style="font-size: 48px; font-weight: 700; color: #F5F7FA; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 24px;">
-                Every Signal.<br>One Response.
+                Every Signal.<br>One Response
             </h2>
             <p style="font-family: var(--font-mono); font-size: 14px; color: #6B7280; line-height: 1.7; max-width: 560px; margin: 0 auto 48px;">
                 One badge tap. One camera alert. One visitor check-in. The Integration Fabric turns isolated events into coordinated intelligence — across every system, in real time.

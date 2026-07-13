@@ -511,7 +511,7 @@ export default function CommunicationInterfacePage() {
     <section class="section reveal-section">
         <div class="container">
             <span class="section-tag text-center">SECTION 03 | THE ARCHITECTURE</span>
-            <h2 class="pixel-heading text-center">One Conversational Layer. Every Channel. Complete Context.</h2>
+            <h2 class="pixel-heading text-center">One Conversational Layer. Every Channel. Complete Context</h2>
             <p class="body-text text-center" style="max-width: 800px; margin: 0 auto 3rem;">The Communication Interface
                 sits between your stakeholders and your security operation. It understands who's asking, what they need,
                 and what they're authorized to receive.</p>
@@ -961,7 +961,7 @@ export default function CommunicationInterfacePage() {
     <section class="section reveal-section">
         <div class="container">
             <span class="section-tag text-center">SECTION 05 | TRUST ARCHITECTURE</span>
-            <h2 class="pixel-heading text-center">Enterprise-Grade Conversation. Complete Control.</h2>
+            <h2 class="pixel-heading text-center">Enterprise-Grade Conversation. Complete Control</h2>
             <p class="body-text text-center" style="max-width: 800px; margin: 0 auto 3rem;">Security communication
                 handles sensitive information, authorizes physical access, and coordinates emergency response. The
                 architecture must be trustworthy at every layer.</p>

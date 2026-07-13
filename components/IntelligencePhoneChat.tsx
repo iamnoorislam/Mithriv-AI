@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { AnimatedActivityIcon, AnimatedAlertTriangleIcon, AnimatedFingerprintIcon, AnimatedFileTextIcon, AnimatedShieldCheckIcon, AnimatedClockIcon } from './AnimatedIcons'
 
 const conversations = [
   {
@@ -9,8 +10,8 @@ const conversations = [
     question: "What is our current risk posture?",
     description: "Understand your operational status instantly. The Intelligence Engine synthesizes signals across all 14 sites and gives you a single unified risk score in real time.",
     points: [
-      "Posture score updated continuously across all sites — not at end of day",
-      "Every open item ranked by urgency with a recommended action"
+      { text: "Posture score updated continuously across all sites — not at end of day", icon: AnimatedActivityIcon, color: "#3B82F6" },
+      { text: "Every open item ranked by urgency with a recommended action", icon: AnimatedAlertTriangleIcon, color: "#F59E0B" }
     ],
     messages: [
       { sender: 'user', text: "What is our current risk posture?" },
@@ -26,8 +27,8 @@ const conversations = [
     question: "Were there credential anomalies this week?",
     description: "Surface specific security events instantly without pulling reports or waiting for analyst review. Every anomaly cited, timestamped, and export-ready.",
     points: [
-      "Every anomaly cross-referenced against behavioral baseline automatically",
-      "Incident reports generated and export-ready the moment a threat is detected"
+      { text: "Every anomaly cross-referenced against behavioral baseline automatically", icon: AnimatedFingerprintIcon, color: "#10B981" },
+      { text: "Incident reports generated and export-ready the moment a threat is detected", icon: AnimatedFileTextIcon, color: "#EC4899" }
     ],
     messages: [
       { sender: 'user', text: "Any credential anomalies in the last 7 days?" },
@@ -43,8 +44,8 @@ const conversations = [
     question: "Are we NERC CIP compliant across all sites?",
     description: "Get your full compliance status in seconds — not after a two-week analyst sprint. Every framework, every site, every gap identified automatically.",
     points: [
-      "Live compliance percentage across every framework — NERC CIP, HIPAA, TSA, SOC 2",
-      "Gaps identified with estimated resolution time and assigned owner"
+      { text: "Live compliance percentage across every framework — NERC CIP, HIPAA, TSA, SOC 2", icon: AnimatedShieldCheckIcon, color: "#8B5CF6" },
+      { text: "Gaps identified with estimated resolution time and assigned owner", icon: AnimatedClockIcon, color: "#06B6D4" }
     ],
     messages: [
       { sender: 'user', text: "Are we NERC CIP compliant across all sites?" },
@@ -156,8 +157,8 @@ export default function IntelligencePhoneChat() {
 
   return (
     <section style={{ 
-      background: '#F6F4EB', 
-      padding: '160px 0 160px 0', 
+      background: 'transparent', 
+      padding: '0 0 160px 0', 
       position: 'relative', 
       width: '100%',
       zIndex: 20,
@@ -165,22 +166,22 @@ export default function IntelligencePhoneChat() {
     }}>
       
       
-      <div className="container" style={{ position: 'relative', zIndex: 2, maxWidth: '800px', margin: '0 auto', textAlign: 'center', marginBottom: '60px', padding: '0 40px' }}>
+      <div className="container" style={{ position: 'relative', zIndex: 2, maxWidth: '800px', margin: '0 auto', textAlign: 'center', marginBottom: '80px', padding: '0 40px' }}>
         <h2 style={{ 
           fontSize: '48px', 
           fontWeight: 600, 
           letterSpacing: '-0.03em', 
           lineHeight: 1.1, 
-          color: '#18181B', 
-          marginBottom: '32px',
+          color: '#ffffff', 
+          marginBottom: '24px',
           fontFamily: 'var(--font-main)'
         }}>
           Ask your security stack anything
         </h2>
 
         <p style={{ 
-          fontSize: '15px', 
-          color: '#52525B', 
+          fontSize: '14px', 
+          color: '#A1A1AA', 
           lineHeight: 1.7, 
           fontFamily: 'var(--font-mono)', 
           maxWidth: '600px',
@@ -188,70 +189,105 @@ export default function IntelligencePhoneChat() {
         }}>
           No dashboards. No reports. No analyst waiting period. The Intelligence Engine processes every event across every system — and answers any question in plain English, instantly.
         </p>
+
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center',
+          gap: '8px', 
+          background: 'transparent', 
+          padding: '6px', 
+          borderRadius: '100px',
+          border: '1px solid #212326',
+          boxShadow: 'none',
+          maxWidth: 'fit-content',
+          margin: '48px auto 0'
+        }}>
+          {conversations.map((conv, idx) => (
+            <button
+              key={conv.id}
+              onClick={() => setActiveTab(idx)}
+              style={{
+                position: 'relative',
+                flex: '0 0 auto',
+                background: 'transparent',
+                border: '1px solid transparent',
+                color: activeTab === idx ? '#ffffff' : '#A1A1AA',
+                padding: '8px 32px',
+                borderRadius: '100px',
+                fontSize: '13px',
+                fontFamily: 'var(--font-main)',
+                cursor: 'pointer',
+                transition: 'color 0.3s ease, font-weight 0.3s ease',
+                outline: 'none',
+                fontWeight: activeTab === idx ? 600 : 400,
+                textAlign: 'center',
+                WebkitTapHighlightColor: 'transparent'
+              }}
+            >
+              {activeTab === idx && (
+                <motion.div
+                  layoutId="activeTabIndicator"
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    backgroundColor: '#212326',
+                    borderRadius: '100px',
+                    zIndex: 0,
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+                  }}
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                />
+              )}
+              <span style={{ position: 'relative', zIndex: 1 }}>Query 0{idx + 1}</span>
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="container" style={{ position: 'relative', zIndex: 2, margin: '0 auto', padding: '0 20px', maxWidth: '1200px' }}>
         <div style={{
-          background: '#ffffff',
+          background: 'rgba(10, 11, 14, 0.4)',
           borderRadius: '0',
           boxShadow: 'none',
-          border: '1px solid rgba(0,0,0,0.1)',
+          border: '1px solid #212326',
           display: 'flex',
           overflow: 'hidden',
           width: '100%',
           alignItems: 'stretch'
         }}>
           {/* Left Content Side */}
-          <div style={{ flex: 1, padding: '80px 60px', borderRight: '1px solid rgba(0,0,0,0.04)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
-          <div style={{ 
-            display: 'flex', 
-            width: '100%',
-            gap: '8px', 
-            marginBottom: '48px', 
-            background: 'rgba(0,0,0,0.03)', 
-            padding: '6px', 
-            borderRadius: '100px',
-            border: '1px solid rgba(0,0,0,0.04)',
-            boxShadow: 'none'
-          }}>
-            {conversations.map((conv, idx) => (
-              <button
-                key={conv.id}
-                onClick={() => setActiveTab(idx)}
-                style={{
-                  flex: 1,
-                  background: activeTab === idx ? '#ffffff' : 'transparent',
-                  border: `1px solid ${activeTab === idx ? 'rgba(0,0,0,0.05)' : 'transparent'}`,
-                  color: activeTab === idx ? '#18181B' : '#71717A',
-                  padding: '8px 24px',
-                  borderRadius: '100px',
-                  fontSize: '13px',
-                  fontFamily: 'var(--font-main)',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  outline: 'none',
-                  fontWeight: activeTab === idx ? 600 : 400,
-                  boxShadow: activeTab === idx ? '0 2px 8px rgba(0,0,0,0.05)' : 'none',
-                  textAlign: 'center'
-                }}
-              >
-                Query 0{idx + 1}
-              </button>
-            ))}
-          </div>
+          <div style={{ flex: 1, padding: '80px 60px', borderRight: '1px solid #212326', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', position: 'relative' }}>
+          
+          {/* Diagonal Lines Background */}
+          <style>{`
+            @keyframes slideDiagonal {
+              0% { background-position: 0 0; }
+              100% { background-position: 848.53px 0; }
+            }
+          `}</style>
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='8.485' height='8.485' viewBox='0 0 8.5 8.5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M-2 -2L10.5 10.5M6.5 -2L10.5 2M-2 6.5L2 10.5' stroke='%23212326' stroke-width='1'/%3E%3C/svg%3E")`,
+            animation: 'slideDiagonal 40s linear infinite',
+            pointerEvents: 'none',
+            zIndex: 0
+          }} />
+
+          <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
 
           <AnimatePresence mode="wait">
             <motion.div
-              key={activeTab}
+              key={`header-${activeTab}`}
               initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               exit={{ opacity: 0, y: -10, filter: 'blur(4px)' }}
               transition={{ duration: 0.3 }}
             >
               <h3 style={{
-                fontSize: '28px',
-                fontWeight: 700,
-                color: '#18181B',
+                fontSize: '16px',
+                fontWeight: 'bold',
+                color: '#ffffff',
                 marginBottom: '16px',
                 lineHeight: 1.3,
                 letterSpacing: '-0.02em',
@@ -260,39 +296,82 @@ export default function IntelligencePhoneChat() {
                 {activeConv.question}
               </h3>
               
-              <p style={{
-                fontSize: '16px',
-                color: '#52525B',
+              <p style={{ 
+                fontSize: '14px', 
+                color: 'rgba(255,255,255,0.7)',
                 lineHeight: 1.6,
                 fontFamily: 'var(--font-main)',
-                marginBottom: '24px'
+                marginBottom: '48px'
               }}>
                 {activeConv.description}
               </p>
+            </motion.div>
+          </AnimatePresence>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                {activeConv.points.map((point, i) => (
-                  <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0, marginTop: '2px' }}>
-                      <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="#8B5CF6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                    <span style={{
-                      fontSize: '15px',
-                      color: '#3F3F46',
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`points-${activeTab}`}
+              initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, y: -10, filter: 'blur(4px)' }}
+              transition={{ duration: 0.3 }}
+            >
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+                {activeConv.points.map((point, i) => {
+                  const IconComponent = point.icon;
+                  return (
+                  <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'flex-start' }}>
+                    <div style={{
+                      width: '53px',
+                      height: '53px',
+                      borderRadius: '50%',
+                      border: '1px solid #27272A',
+                      background: '#0A0B0E',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                      position: 'relative'
+                    }}>
+                      <motion.div
+                        animate={{ scale: [1, 1.1, 1], opacity: [0.8, 1, 1] }}
+                        transition={{ duration: 1.5, ease: "easeInOut", delay: i * 0.5 }}
+                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                      >
+                        <IconComponent size={20} color={point.color} isHovered={true} />
+                      </motion.div>
+                      <motion.div
+                        animate={{ opacity: [0, 0.4, 0] }}
+                        transition={{ duration: 1.5, ease: "easeInOut", delay: i * 0.5 }}
+                        style={{
+                          position: 'absolute',
+                          width: '100%',
+                          height: '100%',
+                          background: `radial-gradient(circle, ${point.color}40 0%, transparent 70%)`,
+                          borderRadius: '50%',
+                          zIndex: 0
+                        }}
+                      />
+                    </div>
+                    <p style={{ 
+                      fontSize: '14px', 
+                      color: 'rgba(255,255,255,0.8)', 
+                      margin: 0, 
                       lineHeight: 1.5,
                       fontFamily: 'var(--font-main)'
                     }}>
-                      {point}
-                    </span>
+                      {point.text}
+                    </p>
                   </div>
-                ))}
+                )})}
               </div>
             </motion.div>
           </AnimatePresence>
           </div>
+          </div>
 
           {/* Right Subtle Threaded Console */}
-          <div style={{ flex: 1, height: '640px', padding: '40px 60px', background: '#FAFAFA', position: 'relative', display: 'flex', flexDirection: 'column' }}>
+          <div style={{ flex: 1, height: '640px', padding: '40px 60px', background: 'transparent', position: 'relative', display: 'flex', flexDirection: 'column' }}>
           
           <div
             ref={chatScrollRef}
@@ -315,18 +394,7 @@ export default function IntelligencePhoneChat() {
               }
             `}</style>
 
-            {/* Faint connecting thread line for the terminal feel */}
-            <div style={{
-              position: 'absolute',
-              left: '15px',
-              top: '20px',
-              bottom: '40px',
-              width: '1px',
-              background: 'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.05) 80%, rgba(0,0,0,0) 100%)',
-              zIndex: 0
-            }}></div>
-
-            {displayedMessages.map((msg, i) => {
+            {/* Faint connecting thread line removed */}            {displayedMessages.map((msg, i) => {
               const isUser = msg.sender === 'user'
               
               if (isUser) {
@@ -350,8 +418,8 @@ export default function IntelligencePhoneChat() {
                       width: '30px', 
                       height: '30px', 
                       borderRadius: '15px', 
-                      background: '#ffffff', 
-                      border: '1px solid rgba(0,0,0,0.06)',
+                      background: '#18181B', 
+                      border: '1px solid #212326',
                       boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
                       display: 'flex', 
                       alignItems: 'center', 
@@ -363,13 +431,13 @@ export default function IntelligencePhoneChat() {
 
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', maxWidth: '85%' }}>
                       <div style={{
-                        background: '#f4f4f5',
-                        border: '1px solid rgba(0,0,0,0.04)',
+                        background: '#18181B',
+                        border: '1px solid #212326',
                         boxShadow: '0 2px 4px rgba(0,0,0,0.01)',
                         padding: '10px 14px',
                         borderRadius: '12px',
-                        color: '#18181B',
-                        fontSize: '15px',
+                        color: '#ffffff',
+                        fontSize: '14px',
                         lineHeight: 1.6,
                         fontFamily: 'var(--font-main)',
                         fontWeight: 500,
@@ -420,21 +488,17 @@ export default function IntelligencePhoneChat() {
 
                   {/* Glass Block Content */}
                   <div style={{
-                    background: 'rgba(255, 255, 255, 0.4)',
-                    backdropFilter: 'blur(16px)',
-                    WebkitBackdropFilter: 'blur(16px)',
-                    border: '1px solid rgba(255, 255, 255, 0.6)',
-                    borderTop: '1px solid rgba(255, 255, 255, 0.9)',
-                    boxShadow: '0 12px 32px rgba(0, 0, 0, 0.03), 0 2px 6px rgba(0,0,0,0.02)',
+                    background: '#212326',
+                    border: 'none',
+                    boxShadow: 'none',
                     padding: '20px 24px',
                     borderRadius: '12px', 
-                    color: '#3F3F46',
-                    fontSize: '15px',
+                    color: '#D4D4D8',
+                    fontSize: '14px',
                     lineHeight: 1.7,
-                    width: '100%',
                     fontFamily: 'var(--font-main)'
                   }}>
-                    <div style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word', color: '#27272A' }}>
+                    <div style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word', color: '#FAFAFA' }}>
                       {msg.text}
                       {msg.isThinking && (
                         <motion.span
@@ -450,7 +514,7 @@ export default function IntelligencePhoneChat() {
                         <motion.span
                           animate={{ opacity: [1, 0] }}
                           transition={{ repeat: Infinity, duration: 0.8 }}
-                          style={{ marginLeft: '6px', display: 'inline-block', width: '2px', height: '16px', background: '#18181B', verticalAlign: 'middle' }}
+                          style={{ marginLeft: '6px', display: 'inline-block', width: '2px', height: '16px', background: '#FAFAFA', verticalAlign: 'middle' }}
                         />
                       )}
                     </div>
@@ -460,6 +524,8 @@ export default function IntelligencePhoneChat() {
                       </div>
                     )}
                   </div>
+                  {/* Spacer to align max width with user avatar */}
+                  <div style={{ width: '30px', flexShrink: 0 }} />
                 </motion.div>
               )
             })}
@@ -467,10 +533,10 @@ export default function IntelligencePhoneChat() {
 
           {/* Minimal Bottom Input */}
           <div style={{
-            background: '#ffffff',
+            background: '#0A0A0C',
             borderRadius: '12px',
-            boxShadow: '0 12px 32px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.02)',
-            border: '1px solid rgba(0,0,0,0.05)',
+            boxShadow: 'none',
+            border: '1px solid #212326',
             display: 'flex',
             alignItems: 'center',
             padding: '12px 16px',
@@ -478,7 +544,7 @@ export default function IntelligencePhoneChat() {
             flexShrink: 0
           }}>
             <div style={{ width: '24px', height: '24px', marginRight: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={typingText ? '#18181B' : '#A1A1AA'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={typingText ? '#FAFAFA' : '#52525B'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
@@ -487,8 +553,8 @@ export default function IntelligencePhoneChat() {
             <span style={{ 
               flex: 1, 
               fontFamily: 'var(--font-main)', 
-              fontSize: '15px', 
-              color: typingText ? '#18181B' : '#A1A1AA',
+              fontSize: '14px', 
+              color: typingText ? '#FAFAFA' : '#52525B',
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis'
@@ -498,13 +564,13 @@ export default function IntelligencePhoneChat() {
                 <motion.span
                   animate={{ opacity: [1, 0] }}
                   transition={{ repeat: Infinity, duration: 0.8 }}
-                  style={{ marginLeft: '2px', display: 'inline-block', width: '2px', height: '16px', background: '#18181B', verticalAlign: 'middle' }}
+                  style={{ marginLeft: '2px', display: 'inline-block', width: '2px', height: '16px', background: '#FAFAFA', verticalAlign: 'middle' }}
                 />
               )}
             </span>
             
             <div style={{
-              background: typingText ? '#18181B' : '#f4f4f5',
+              background: typingText ? '#FAFAFA' : '#18181B',
               borderRadius: '6px',
               padding: '6px 10px',
               display: 'flex',
@@ -513,7 +579,7 @@ export default function IntelligencePhoneChat() {
               transition: 'background 0.3s',
               flexShrink: 0
             }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={typingText ? '#fff' : '#A1A1AA'} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={typingText ? '#000' : '#52525B'} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="22" y1="2" x2="11" y2="13"></line>
                 <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
               </svg>

@@ -1,0 +1,118 @@
+<svg viewBox="0 0 200 160" width="100%" height="160" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <style>
+                                    @keyframes siren-glow {
+
+                                        0%,
+                                        100% {
+                                            fill: rgba(124, 60, 208, 0.15);
+                                            stroke: rgba(124, 60, 208, 0.4);
+                                        }
+
+                                        50% {
+                                            fill: rgba(124, 60, 208, 0.4);
+                                            stroke: #7C3CD0;
+                                            filter: drop-shadow(0 0 8px #7C3CD0);
+                                        }
+                                    }
+
+                                    @keyframes wave-expand {
+                                        0% {
+                                            transform: scale(0.6);
+                                            opacity: 0;
+                                        }
+
+                                        10% {
+                                            opacity: 0.8;
+                                        }
+
+                                        100% {
+                                            transform: scale(1.4);
+                                            opacity: 0;
+                                        }
+                                    }
+
+                                    @keyframes text-blink {
+
+                                        0%,
+                                        100% {
+                                            opacity: 0.3;
+                                        }
+
+                                        50% {
+                                            opacity: 1;
+                                        }
+                                    }
+
+                                    @keyframes noise-flicker {
+
+                                        0%,
+                                        100% {
+                                            opacity: 0.1;
+                                        }
+
+                                        30% {
+                                            opacity: 0.8;
+                                        }
+
+                                        60% {
+                                            opacity: 0.3;
+                                        }
+
+                                        80% {
+                                            opacity: 0.9;
+                                        }
+                                    }
+
+                                    #hero .ent-btn-primary {
+                                        backdrop-filter: none !important;
+                                        -webkit-backdrop-filter: none !important;
+                                        transform: translateZ(0);
+                                    }
+                                </style>
+                                <!-- Background Grid -->
+                                <path d="M100,20 L100,140" stroke="rgba(255, 255, 255, 0.25)" stroke-dasharray="2,2" />
+                                <!-- Outer warning hexagon -->
+                                <polygon points="100,25 155,55 155,115 100,145 45,115 45,55"
+                                    stroke="rgba(124,60,208,0.15)" stroke-width="1.5" stroke-dasharray="4,4" />
+
+                                <!-- 98% text in high-tech font -->
+                                <g style="animation: text-blink 2s infinite;">
+                                    <text x="100" y="48" font-family="'Outfit', sans-serif" font-weight="900"
+                                        font-size="20" fill="#7C3CD0" text-anchor="middle" letter-spacing="1">98%</text>
+                                    <text x="100" y="60" font-family="monospace" font-weight="bold" font-size="7"
+                                        fill="rgba(255,255,255,0.4)" text-anchor="middle" letter-spacing="1">FALSE
+                                        ALARMS</text>
+                                </g>
+
+                                <!-- Chaotic Alert Noise Cloud -->
+                                <g style="animation: noise-flicker 1.5s infinite;">
+                                    <circle cx="65" cy="55" r="1.5" fill="rgba(255,255,255,0.15)" />
+                                    <circle cx="135" cy="55" r="1.5" fill="rgba(255,255,255,0.15)" />
+                                    <circle cx="50" cy="80" r="1.5" fill="rgba(255,255,255,0.2)" />
+                                    <circle cx="150" cy="80" r="1.5" fill="rgba(255,255,255,0.15)" />
+                                    <circle cx="70" cy="110" r="1.5" fill="rgba(255,255,255,0.2)" />
+                                    <circle cx="130" cy="110" r="1.5" fill="rgba(255,255,255,0.1)" />
+                                    <circle cx="85" cy="65" r="1" fill="rgba(255,255,255,0.25)" />
+                                    <circle cx="115" cy="65" r="1" fill="rgba(255,255,255,0.2)" />
+                                    <circle cx="75" cy="90" r="1" fill="rgba(255,255,255,0.1)" />
+                                    <circle cx="125" cy="90" r="1" fill="rgba(255,255,255,0.3)" />
+                                </g>
+
+                                <!-- Center Siren Beacon (Isometric projection) -->
+                                <g transform="translate(100, 95)">
+                                    <ellipse cx="0" cy="0" rx="35" ry="17.5" stroke="#7C3CD0" stroke-width="1"
+                                        style="transform-origin: 0 0; animation: wave-expand 2.5s infinite linear;" />
+                                    <ellipse cx="0" cy="0" rx="55" ry="27.5" stroke="#7C3CD0" stroke-width="0.5"
+                                        style="transform-origin: 0 0; animation: wave-expand 2.5s infinite linear; animation-delay: 1.25s;" />
+                                    <ellipse cx="0" cy="10" rx="18" ry="9" fill="rgba(0,0,0,0.3)" />
+                                    <polygon points="-15,0 15,0 15,10 -15,10" fill="rgba(255,255,255,0.05)"
+                                        stroke="rgba(255, 255, 255, 0.25)" stroke-width="1" />
+                                    <ellipse cx="0" cy="0" rx="15" ry="7.5" fill="rgba(255,255,255,0.08)"
+                                        stroke="rgba(255, 255, 255, 0.25)" />
+                                    <path d="M-8,-10 L8,-10 L12,0 L-12,0 Z" stroke="#7C3CD0" stroke-width="1"
+                                        style="animation: siren-glow 1s infinite alternate;" />
+                                    <ellipse cx="0" cy="-10" rx="8" ry="4" fill="#7C3CD0"
+                                        style="animation: siren-glow 1s infinite alternate;" />
+                                </g>
+                            </svg>
