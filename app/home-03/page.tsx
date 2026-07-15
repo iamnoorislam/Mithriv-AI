@@ -43,28 +43,7 @@ export default function Home03Page() {
         setMounted(true);
     }, []);
 
-    useEffect(() => {
-        if (!mounted) return;
-        const video = document.getElementById('hero-video') as HTMLVideoElement;
-        if (!video) return;
 
-        const playlist = [
-            '/magnific_video-upscale_ONgSGckynm_1_final.mp4',
-            '/magnific_camera-moving-straigt-slo_CHmJPeCEEy.mp4'
-        ];
-        let currentIdx = 0;
-
-        const handleEnded = () => {
-            currentIdx = (currentIdx + 1) % playlist.length;
-            video.src = playlist[currentIdx];
-            video.play().catch(err => console.error("Error playing next video:", err));
-        };
-
-        video.addEventListener('ended', handleEnded);
-        return () => {
-            video.removeEventListener('ended', handleEnded);
-        };
-    }, [mounted]);
 
     useEffect(() => {
         if (!mounted) return;
@@ -233,9 +212,9 @@ export default function Home03Page() {
     <main class="hero-section" id="hero" style="padding-top: 200px; padding-bottom: 120px;">
         
 
-        <!-- Background Video Playlist (Sequenced Loop) -->
+        <!-- Background Video Playing as a loop -->
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; pointer-events: none;">
-          <video id="hero-video" autoplay muted playsinline style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;">
+          <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;">
             <source src="/magnific_video-upscale_ONgSGckynm_1_final.mp4" type="video/mp4" />
           </video>
           <!-- Subtle dark overlay for text readability -->
