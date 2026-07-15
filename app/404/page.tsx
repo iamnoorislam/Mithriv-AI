@@ -165,7 +165,7 @@ export default function NotFoundPage() {
   }, [mounted])
 
   return (
-    <div className="landing-theme" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', background: '#131416', color: '#fff', position: 'relative', zIndex: 1, overflow: 'hidden' }}>
+    <div className="landing-theme" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', paddingBottom: '80px', background: '#131416', color: '#fff', position: 'relative', zIndex: 1, overflow: 'hidden' }}>
       {/* Global Background Elements */}
       <div className="global-grid-bg" id="globalGridBg"></div>
       <div className="grain-overlay"></div>
@@ -175,7 +175,7 @@ export default function NotFoundPage() {
           position: 'relative',
           width: '100%',
           maxWidth: '800px',
-          marginTop: '60px',
+          marginTop: '20px',
           overflow: 'hidden',
           WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 98%)',
           maskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 98%)',
