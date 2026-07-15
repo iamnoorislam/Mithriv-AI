@@ -170,15 +170,12 @@ export default function NotFoundPage() {
       <div className="global-grid-bg" id="globalGridBg"></div>
       <div className="grain-overlay"></div>
 
-      {/* Dotted 404 Canvas Masked Container */}
       <div style={{
           position: 'relative',
           width: '100%',
           maxWidth: '800px',
           marginTop: '20px',
           overflow: 'hidden',
-          WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 98%)',
-          maskImage: 'linear-gradient(to bottom, black 70%, transparent 98%)',
       }}>
           <div 
               style={{
