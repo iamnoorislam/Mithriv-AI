@@ -38,6 +38,7 @@ function TimelineIcon({ IconComponent, color }: { IconComponent: any, color: str
 
 export default function Home03Page() {
     const [mounted, setMounted] = useState(false);
+    const [currentVideo, setCurrentVideo] = useState('/magnific_video-upscale_ONgSGckynm_1_final.mp4');
 
     useEffect(() => {
         setMounted(true);
@@ -210,10 +211,23 @@ export default function Home03Page() {
     <main class="hero-section" id="hero" style="padding-top: 200px; padding-bottom: 120px;">
         
 
-        <!-- Background Video Playing as a loop -->
-        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; pointer-events: none;">
-          <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;">
-            <source src="/magnific_video-upscale_ONgSGckynm_1_final.mp4" type="video/mp4" />
+        <!-- Background Video Playlist (Sequenced Loop) -->
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+          <video
+            key={currentVideo}
+            autoPlay
+            muted
+            playsInline
+            onEnded={() => {
+              if (currentVideo === '/magnific_video-upscale_ONgSGckynm_1_final.mp4') {
+                setCurrentVideo('/magnific_camera-moving-straigt-slo_CHmJPeCEEy.mp4');
+              } else {
+                setCurrentVideo('/magnific_video-upscale_ONgSGckynm_1_final.mp4');
+              }
+            }}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }}
+          >
+            <source src={currentVideo} type="video/mp4" />
           </video>
           <!-- Subtle dark overlay for text readability -->
           <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, rgba(10, 10, 12, 0.3) 0%, rgba(10, 10, 12, 0.7) 100%);"></div>
