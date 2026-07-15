@@ -155,14 +155,11 @@ export default function NotFoundPage() {
       </div>
 
       <div className="hero-content" style={{ position: 'relative', zIndex: 10, textAlign: 'center', marginTop: '20px' }}>
-        <h1 style={{ fontSize: '2rem', fontWeight: 600, color: '#fff', marginBottom: '16px', letterSpacing: '-0.02em', fontFamily: 'var(--font-heading)' }}>
-          Signal Lost
-        </h1>
-        <p style={{ fontSize: '15px', color: '#B6B6B7', fontFamily: 'var(--font-mono)', maxWidth: '500px', margin: '0 auto 32px', lineHeight: '1.6' }}>
-          The protocol you are trying to access has been disconnected or does not exist. Please return to the main operations hub.
+        <p style={{ fontSize: '15px', color: '#B6B6B7', fontFamily: 'var(--font-mono)', maxWidth: '600px', margin: '0 auto 32px', lineHeight: '1.6' }}>
+          Even our AI couldn't secure this page—mostly because it doesn't exist. Let's abort the mission.
         </p>
         <Link href="/" className="ent-btn-primary" style={{ padding: '12px 24px', fontSize: '0.95rem', textDecoration: 'none' }}>
-          Return to Base
+          [ Abort Mission & Return to Base ]
         </Link>
       </div>
     </div>
