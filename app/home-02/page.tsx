@@ -248,10 +248,7 @@ export default function Home02Page() {
           </div>
           
           <div class="relative flex overflow-hidden w-full group">
-            <div class="absolute left-0 top-0 bottom-0 w-48 z-20" style="background: linear-gradient(to right, #131416, transparent);"></div>
-            <div class="absolute right-0 top-0 bottom-0 w-48 z-20" style="background: linear-gradient(to left, #131416, transparent);"></div>
-
-            <div class="flex overflow-hidden relative w-full">
+            <div class="flex overflow-hidden relative w-full" style="mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);">
               
   <div class="flex shrink-0 items-center justify-start w-max" style="gap: 3.5rem; min-width: 100%; padding-right: 3.5rem; animation: custom-marquee 15s linear infinite;">
     <!-- Inner Repeat 1 -->

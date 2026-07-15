@@ -774,12 +774,12 @@ export default function CommunicationV2Page() {
     };
 
     const init = () => {
-      if (w.runDotCanvas02 && w.runMain && w.gsap && w.ScrollTrigger) {
+      if (w.runHeroDotCanvas02 && w.runMain && w.gsap && w.ScrollTrigger) {
         deferTimer = setTimeout(() => {
           try {
-            w.runDotCanvas02();
+            w.runHeroDotCanvas02();
           } catch (e) {
-            console.error("Error in runDotCanvas02:", e);
+            console.error("Error in runHeroDotCanvas02:", e);
           }
           try {
             w.runMain();
@@ -820,8 +820,8 @@ export default function CommunicationV2Page() {
         }
         w.ScrollTrigger.getAll().forEach((t: any) => t.kill(true));
       }
-      if (w.cancelDotCanvas02Anim) {
-        w.cancelDotCanvas02Anim();
+      if (w.cancelHeroDotCanvas02Anim) {
+        w.cancelHeroDotCanvas02Anim();
       }
     };
   }, [mounted]);
@@ -848,22 +848,22 @@ export default function CommunicationV2Page() {
           WebkitMaskImage: 'radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.15) 45%, black 85%)',
           maskImage: 'radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.15) 45%, black 85%)'
         }}>
-          <canvas id="dotCanvas" style={{ width: '100%', height: '100%', display: 'block' }}></canvas>
+          <canvas id="heroDotCanvas" style={{ width: '100%', height: '100%', display: 'block' }}></canvas>
         </div>
 
         {/* Hero Content */}
         <div className="hero-content" style={{ position: 'relative', zIndex: 10, marginTop: '0' }}>
           <div className="ent-pill award-pill">Communication Interface</div>
           <h1 className="main-heading">
-        <span className="word-mask"><span className="word-inner w1">Security</span></span>
-        <span className="word-mask"><span className="word-inner w2">That</span></span>
-        <span className="word-mask"><span className="word-inner w3">Speaks.</span></span><br />
-        <span className="word-mask"><span className="word-inner w4">Operations</span></span>
-        <span className="word-mask"><span className="word-inner w5">That</span></span>
-        <span className="word-mask"><span className="word-inner w6">Listen.</span></span>
+        <span className="word-mask"><span className="word-inner w1">Security</span></span>{' '}
+        <span className="word-mask"><span className="word-inner w2">that</span></span>{' '}
+        <span className="word-mask"><span className="word-inner w3">speaks.</span></span><br />
+        <span className="word-mask"><span className="word-inner w4">Operations</span></span>{' '}
+        <span className="word-mask"><span className="word-inner w5">that</span></span>{' '}
+        <span className="word-mask"><span className="word-inner w6">listen.</span></span>
       </h1>
           <p className="body-text award-fade-up delay-p" style={{ maxWidth: '650px', margin: '0 auto 2.5rem', fontSize: '15px', lineHeight: '1.6', color: '#B6B6B7', fontFamily: 'var(--font-mono)' }}>
-            Every stakeholder speaks to a different system.<br /><br />Mithriv brings every conversation, decision, and action into one operational layer.
+            Every stakeholder speaks to a different system. Mithriv brings every conversation, decision, and action into one operational layer.
           </p>
           <a href="#" className="ent-btn-primary award-fade-up delay-btn" style={{ padding: '12px 24px', fontSize: '0.95rem', display: 'inline-flex', backdropFilter: 'none', WebkitBackdropFilter: 'none', transform: 'translateZ(0)', position: 'relative', zIndex: 20 }}>Request Communication Assessment <svg className="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path className="arrow-stem" d="M3 12h12" /><path className="arrow-head" d="m9 18 6-6-6-6"/></svg></a>
         </div>
@@ -888,11 +888,7 @@ export default function CommunicationV2Page() {
           </div>
           
           <div className="relative flex overflow-hidden w-full group">
-            {/* Blurs */}
-            <div className="absolute left-0 top-0 bottom-0 w-48 z-20" style={{ background: 'linear-gradient(to right, #131416, transparent)' }}></div>
-            <div className="absolute right-0 top-0 bottom-0 w-48 z-20" style={{ background: 'linear-gradient(to left, #131416, transparent)' }}></div>
-
-            <div className="flex overflow-hidden relative w-full">
+            <div className="flex overflow-hidden relative w-full" style={{ maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)' }}>
               {[0, 1].map((marqueeIdx) => (
                 <div key={marqueeIdx} className="flex shrink-0 items-center justify-start w-max" style={{ gap: '3.5rem', minWidth: '100%', paddingRight: '3.5rem', animation: 'custom-marquee 15s linear infinite' }}>
                   {[0, 1].map((repeatIdx) => (
@@ -1155,7 +1151,7 @@ export default function CommunicationV2Page() {
         }
 
         .agents-dashboard-panel {
-          background: transparent;
+          background: #111113;
           border: none;
           padding: 32px;
           height: 100%;
@@ -1390,7 +1386,7 @@ export default function CommunicationV2Page() {
                   animation: 'slide-diagonal-bg 0.5s linear infinite'
                 }}>
                   <p style={{ fontSize: '24px', lineHeight: '1.5', fontWeight: 400, color: '#B6B6B7', letterSpacing: '-0.01em', margin: 0, position: 'relative', zIndex: 1 }}>
-                    Yet <span style={{ color: '#8B8FFF', fontWeight: 500 }}>communication</span> still runs on radio silence, paper logs, and phones that go to voicemail.
+                    Yet <span style={{ color: '#6354F3', fontWeight: 500 }}>communication</span> still runs on radio silence, paper logs, and phones that go to voicemail.
                   </p>
                 </div>
               </div>
@@ -1414,13 +1410,13 @@ export default function CommunicationV2Page() {
                     </feMerge>
                   </filter>
                   <linearGradient id="laser-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#8B8FFF" stopOpacity="0" />
-                    <stop offset="50%" stopColor="#c084fc" stopOpacity="0.85" />
-                    <stop offset="100%" stopColor="#c084fc" stopOpacity="0" />
+                    <stop offset="0%" stopColor="#6354F3" stopOpacity="0" />
+                    <stop offset="50%" stopColor="#EA49B2" stopOpacity="0.85" />
+                    <stop offset="100%" stopColor="#EA49B2" stopOpacity="0" />
                   </linearGradient>
                   <linearGradient id="red-laser-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#ef4444" stopOpacity="0.6" />
-                    <stop offset="100%" stopColor="#ef4444" stopOpacity="0" />
+                    <stop offset="0%" stopColor="#E44856" stopOpacity="0.6" />
+                    <stop offset="100%" stopColor="#E44856" stopOpacity="0" />
                   </linearGradient>
                 </defs>
 
@@ -1501,7 +1497,7 @@ export default function CommunicationV2Page() {
                     const y1 = 160 + i * 30 * 0.5 - 150 * 0.5;
                     const x2 = 185 + i * 30 * 0.866 + 150 * 0.866;
                     const y2 = 160 + i * 30 * 0.5 + 150 * 0.5;
-                    return <line key={`x-${i}`} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#8B8FFF" strokeWidth="0.3" strokeDasharray="1, 8" />;
+                    return <line key={`x-${i}`} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#6354F3" strokeWidth="0.3" strokeDasharray="1, 8" />;
                   })}
                   {/* Diagonal Y-axis grid lines (down-left) */}
                   {[-4, -2, 0, 2, 4].map(i => {
@@ -1509,7 +1505,7 @@ export default function CommunicationV2Page() {
                     const y1 = 160 + 150 * 0.5 + i * 30 * 0.5;
                     const x2 = 185 + 150 * 0.866 + i * 30 * 0.866;
                     const y2 = 160 - 150 * 0.5 + i * 30 * 0.5;
-                    return <line key={`y-${i}`} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#8B8FFF" strokeWidth="0.3" strokeDasharray="1, 8" />;
+                    return <line key={`y-${i}`} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#6354F3" strokeWidth="0.3" strokeDasharray="1, 8" />;
                   })}
                 </g>
 
@@ -1525,9 +1521,9 @@ export default function CommunicationV2Page() {
                 <path d="M335,164 L335,180 L215,249.2 L215,150" stroke="url(#laser-grad)" strokeWidth={hoveredNode === 'threat' || hoveredNode === 'core' ? 2.2 : 1.2} className="laser-path-right" strokeLinecap="round" style={{ transition: 'stroke-width 0.3s, opacity 0.3s', opacity: hoveredNode && hoveredNode !== 'threat' && hoveredNode !== 'core' ? 0.15 : 1 }} />
 
                 {/* BROKEN DISCONNECTED WIRES (DARK BASES) */}
-                <path d="M185,170 L60,242 L60,225" stroke="rgba(239, 68, 68, 0.05)" strokeWidth="1" strokeDasharray="3, 3" strokeLinecap="round" style={{ transition: 'opacity 0.3s', opacity: hoveredNode && hoveredNode !== 'guards' ? 0.2 : 1 }} />
-                <path d="M185,170 L125,205 L125,255" stroke="rgba(239, 68, 68, 0.05)" strokeWidth="1" strokeDasharray="3, 3" strokeLinecap="round" style={{ transition: 'opacity 0.3s', opacity: hoveredNode && hoveredNode !== 'visitors' ? 0.2 : 1 }} />
-                <path d="M185,170 L190,173 L190,285" stroke="rgba(239, 68, 68, 0.05)" strokeWidth="1" strokeDasharray="3, 3" strokeLinecap="round" style={{ transition: 'opacity 0.3s', opacity: hoveredNode && hoveredNode !== 'execs' ? 0.2 : 1 }} />
+                <path d="M185,170 L60,242 L60,225" stroke="rgba(228, 72, 86, 0.05)" strokeWidth="1" strokeDasharray="3, 3" strokeLinecap="round" style={{ transition: 'opacity 0.3s', opacity: hoveredNode && hoveredNode !== 'guards' ? 0.2 : 1 }} />
+                <path d="M185,170 L125,205 L125,255" stroke="rgba(228, 72, 86, 0.05)" strokeWidth="1" strokeDasharray="3, 3" strokeLinecap="round" style={{ transition: 'opacity 0.3s', opacity: hoveredNode && hoveredNode !== 'visitors' ? 0.2 : 1 }} />
+                <path d="M185,170 L190,173 L190,285" stroke="rgba(228, 72, 86, 0.05)" strokeWidth="1" strokeDasharray="3, 3" strokeLinecap="round" style={{ transition: 'opacity 0.3s', opacity: hoveredNode && hoveredNode !== 'execs' ? 0.2 : 1 }} />
 
                 {/* BROKEN DISCONNECTED WIRES (DECAYING GLOWS) */}
                 <path d="M185,170 L60,242 L60,225" stroke="url(#red-laser-grad)" strokeWidth={hoveredNode === 'guards' ? 2 : 1} className="red-laser-path-left" strokeLinecap="round" style={{ transition: 'stroke-width 0.3s, opacity 0.3s', opacity: hoveredNode && hoveredNode !== 'guards' ? 0.15 : 1 }} />
@@ -1535,14 +1531,14 @@ export default function CommunicationV2Page() {
                 <path d="M185,170 L190,173 L190,285" stroke="url(#red-laser-grad)" strokeWidth={hoveredNode === 'execs' ? 2 : 1} className="red-laser-path-right" strokeLinecap="round" style={{ transition: 'stroke-width 0.3s, opacity 0.3s', opacity: hoveredNode && hoveredNode !== 'execs' ? 0.15 : 1 }} />
 
                 {/* RADIATING RED ERROR SHOCKWAVES ON GRID FLOOR */}
-                <ellipse cx="8" cy="225" rx="5" ry="2.5" stroke="rgba(239, 68, 68, 0.2)" strokeWidth="0.8" fill="none" />
-                <ellipse cx="8" cy="225" rx="5" ry="2.5" stroke="#ef4444" strokeWidth="0.6" fill="none" className="pulse-ring-err" style={{ transformOrigin: '8px 225px', animationDelay: '0s', display: hoveredNode && hoveredNode !== 'guards' ? 'none' : 'block' }} />
+                <ellipse cx="8" cy="225" rx="5" ry="2.5" stroke="rgba(228, 72, 86, 0.2)" strokeWidth="0.8" fill="none" />
+                <ellipse cx="8" cy="225" rx="5" ry="2.5" stroke="#E44856" strokeWidth="0.6" fill="none" className="pulse-ring-err" style={{ transformOrigin: '8px 225px', animationDelay: '0s', display: hoveredNode && hoveredNode !== 'guards' ? 'none' : 'block' }} />
 
-                <ellipse cx="73" cy="255" rx="5" ry="2.5" stroke="rgba(239, 68, 68, 0.2)" strokeWidth="0.8" fill="none" />
-                <ellipse cx="73" cy="255" rx="5" ry="2.5" stroke="#ef4444" strokeWidth="0.6" fill="none" className="pulse-ring-err" style={{ transformOrigin: '73px 255px', animationDelay: '0.5s', display: hoveredNode && hoveredNode !== 'visitors' ? 'none' : 'block' }} />
+                <ellipse cx="73" cy="255" rx="5" ry="2.5" stroke="rgba(228, 72, 86, 0.2)" strokeWidth="0.8" fill="none" />
+                <ellipse cx="73" cy="255" rx="5" ry="2.5" stroke="#E44856" strokeWidth="0.6" fill="none" className="pulse-ring-err" style={{ transformOrigin: '73px 255px', animationDelay: '0.5s', display: hoveredNode && hoveredNode !== 'visitors' ? 'none' : 'block' }} />
 
-                <ellipse cx="138" cy="285" rx="5" ry="2.5" stroke="rgba(239, 68, 68, 0.2)" strokeWidth="0.8" fill="none" />
-                <ellipse cx="138" cy="285" rx="5" ry="2.5" stroke="#ef4444" strokeWidth="0.6" fill="none" className="pulse-ring-err" style={{ transformOrigin: '138px 285px', animationDelay: '1s', display: hoveredNode && hoveredNode !== 'execs' ? 'none' : 'block' }} />
+                <ellipse cx="138" cy="285" rx="5" ry="2.5" stroke="rgba(228, 72, 86, 0.2)" strokeWidth="0.8" fill="none" />
+                <ellipse cx="138" cy="285" rx="5" ry="2.5" stroke="#E44856" strokeWidth="0.6" fill="none" className="pulse-ring-err" style={{ transformOrigin: '138px 285px', animationDelay: '1s', display: hoveredNode && hoveredNode !== 'execs' ? 'none' : 'block' }} />
 
                 {/* ACTIVE NODES (TOP-RIGHT SLEEK & EXTRA-WIDE 3D BLOCKS, SHIFTED LEFT/UP TO AVOID CLIPPING) */}
                 {/* Access AI Block */}
@@ -1628,12 +1624,12 @@ export default function CommunicationV2Page() {
 
                 {/* CENTRAL CORE: SLEEK STACKED CPU SLABS */}
                 {/* Bottom Slab */}
-                <polygon points="185,210 145,187 185,164 225,187" fill="rgba(18, 18, 26, 0.85)" stroke="rgba(139, 143, 255, 0.12)" strokeWidth="0.8" />
+                <polygon points="185,210 145,187 185,164 225,187" fill="rgba(18, 18, 26, 0.85)" stroke="rgba(99, 84, 243, 0.12)" strokeWidth="0.8" />
                 <polygon points="185,210 145,187 145,191 185,214" fill="#0D0D12" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" />
                 <polygon points="185,210 185,214 225,191 225,187" fill="#08080C" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" />
 
                 {/* Middle Slab */}
-                <polygon points="185,187 150,167 185,147 220,167" fill="rgba(22, 22, 32, 0.9)" stroke="rgba(139, 143, 255, 0.15)" strokeWidth="0.8" />
+                <polygon points="185,187 150,167 185,147 220,167" fill="rgba(22, 22, 32, 0.9)" stroke="rgba(99, 84, 243, 0.15)" strokeWidth="0.8" />
                 <polygon points="185,187 150,167 150,171 185,191" fill="#0F0F16" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" />
                 <polygon points="185,187 185,191 220,171 220,167" fill="#0A0A0F" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" />
 
@@ -1647,11 +1643,11 @@ export default function CommunicationV2Page() {
                     animation: hoveredNode === 'core' ? 'none' : 'float-core 4s infinite ease-in-out',
                     transform: hoveredNode === 'core' ? 'scale(1.1)' : 'scale(1)',
                     transition: 'transform 0.3s ease, filter 0.3s ease',
-                    filter: hoveredNode === 'core' ? 'drop-shadow(0px 0px 12px rgba(139, 143, 255, 0.8))' : 'none'
+                    filter: hoveredNode === 'core' ? 'drop-shadow(0px 0px 12px rgba(99, 84, 243, 0.8))' : 'none'
                   }}
                 >
                   {/* Top Face */}
-                  <polygon points="185,165 155,147 185,129 215,147" fill={hoveredNode === 'core' ? 'rgba(139, 143, 255, 0.15)' : 'rgba(26, 26, 38, 0.98)'} stroke={hoveredNode === 'core' ? '#c084fc' : '#8B8FFF'} strokeWidth="1.2" style={{ filter: 'url(#glow-purple)', transition: 'fill 0.3s, stroke 0.3s' }} />
+                  <polygon points="185,165 155,147 185,129 215,147" fill={hoveredNode === 'core' ? 'rgba(99, 84, 243, 0.15)' : 'rgba(26, 26, 38, 0.98)'} stroke={hoveredNode === 'core' ? '#EA49B2' : '#6354F3'} strokeWidth="1.2" style={{ filter: 'url(#glow-purple)', transition: 'fill 0.3s, stroke 0.3s' }} />
                   {/* Left Face */}
                   <polygon points="185,165 155,147 155,151 185,169" fill="#14141F" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" />
                   {/* Right Face */}
@@ -1659,13 +1655,13 @@ export default function CommunicationV2Page() {
 
                   {/* Central Asterisk Emblem (Purple Glow) */}
                   <g transform="matrix(0.866, 0.5, -0.866, 0.5, 185, 147)">
-                    <g stroke="#c084fc" strokeWidth="2" strokeLinecap="round" opacity="0.9" filter="url(#glow-purple)">
+                    <g stroke="#EA49B2" strokeWidth="2" strokeLinecap="round" opacity="0.9" filter="url(#glow-purple)">
                       <line x1="0" y1="-8" x2="0" y2="8" />
                       <line x1="-8" y1="0" x2="8" y2="0" />
                       <line x1="-5.5" y1="-5.5" x2="5.5" y2="5.5" />
                       <line x1="-5.5" y1="5.5" x2="5.5" y2="-5.5" />
                     </g>
-                    <circle cx="0" cy="0" r="3" fill="#1A1A26" stroke="#c084fc" strokeWidth="1" />
+                    <circle cx="0" cy="0" r="3" fill="#1A1A26" stroke="#EA49B2" strokeWidth="1" />
                   </g>
                 </g>
 
@@ -1675,7 +1671,7 @@ export default function CommunicationV2Page() {
                   y="222"
                   fontFamily="var(--font-mono), monospace"
                   fontSize="8"
-                  fill={hoveredNode && !['guards', 'visitors', 'execs'].includes(hoveredNode) ? '#10B981' : '#ef4444'}
+                  fill={hoveredNode && !['guards', 'visitors', 'execs'].includes(hoveredNode) ? '#AFF962' : '#E44856'}
                   textAnchor="middle"
                   fontWeight="bold"
                   style={{
@@ -1713,10 +1709,10 @@ export default function CommunicationV2Page() {
                   {/* Top Face */}
                   <g transform="matrix(0.866, 0.5, -0.866, 0.5, 60, 225)">
                     <rect x="-40" y="-12" width="80" height="24" rx="4" fill="rgba(16, 16, 24, 0.95)" stroke="rgba(255,255,255,0.2)" strokeWidth="0.8" />
-                    <line x1="-39" y1="-12" x2="-39" y2="12" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                    <line x1="-39" y1="-12" x2="-39" y2="12" stroke="#E44856" strokeWidth="2.5" strokeLinecap="round" />
                     <path d="M-28,-3 L-23,-3 L-23,4 L-28,4 Z M-25.5,-3 L-25.5,-6 M-24.5,-1 L-24.5,1" stroke="rgba(255,255,255,0.2)" strokeWidth="0.8" fill="none" />
                     <text x="-16" y="2" fontFamily="system-ui, -apple-system, sans-serif" fontSize="7.5" fill="#ffffff" fontWeight="bold">GUARDS</text>
-                    <circle cx="30" cy="0" r="1.5" fill="#ef4444" className="blink-led" />
+                    <circle cx="30" cy="0" r="1.5" fill="#E44856" className="blink-led" />
                   </g>
                 </g>
 
@@ -1729,7 +1725,7 @@ export default function CommunicationV2Page() {
                     transformOrigin: '125px 255px',
                     transform: hoveredNode === 'visitors' ? 'scale(1.08) translateY(-2px)' : 'scale(1)',
                     transition: 'transform 0.3s ease, filter 0.3s ease',
-                    filter: hoveredNode === 'visitors' ? 'drop-shadow(0px 0px 8px rgba(239, 68, 68, 0.6))' : 'none'
+                    filter: hoveredNode === 'visitors' ? 'drop-shadow(0px 0px 8px rgba(228, 72, 86, 0.6))' : 'none'
                   }}
                 >
                   {/* Bottom Edge */}
@@ -1739,10 +1735,10 @@ export default function CommunicationV2Page() {
                   {/* Top Face */}
                   <g transform="matrix(0.866, 0.5, -0.866, 0.5, 125, 255)">
                     <rect x="-40" y="-12" width="80" height="24" rx="4" fill="rgba(16, 16, 24, 0.95)" stroke="rgba(255,255,255,0.2)" strokeWidth="0.8" />
-                    <line x1="-39" y1="-12" x2="-39" y2="12" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                    <line x1="-39" y1="-12" x2="-39" y2="12" stroke="#E44856" strokeWidth="2.5" strokeLinecap="round" />
                     <path d="M-28,-3 L-23,-3 L-23,4 L-28,4 Z M-26,0 L-25,0 M-26,2 L-25,2" stroke="rgba(255,255,255,0.2)" strokeWidth="0.8" fill="none" />
                     <text x="-16" y="2" fontFamily="system-ui, -apple-system, sans-serif" fontSize="7.5" fill="#ffffff" fontWeight="bold">VISITORS</text>
-                    <circle cx="30" cy="0" r="1.5" fill="#ef4444" className="blink-led" style={{ animationDelay: '0.3s' }} />
+                    <circle cx="30" cy="0" r="1.5" fill="#E44856" className="blink-led" style={{ animationDelay: '0.3s' }} />
                   </g>
                 </g>
 
@@ -1755,7 +1751,7 @@ export default function CommunicationV2Page() {
                     transformOrigin: '190px 285px',
                     transform: hoveredNode === 'execs' ? 'scale(1.08) translateY(-2px)' : 'scale(1)',
                     transition: 'transform 0.3s ease, filter 0.3s ease',
-                    filter: hoveredNode === 'execs' ? 'drop-shadow(0px 0px 8px rgba(239, 68, 68, 0.6))' : 'none'
+                    filter: hoveredNode === 'execs' ? 'drop-shadow(0px 0px 8px rgba(228, 72, 86, 0.6))' : 'none'
                   }}
                 >
                   {/* Bottom Edge */}
@@ -1765,10 +1761,10 @@ export default function CommunicationV2Page() {
                   {/* Top Face */}
                   <g transform="matrix(0.866, 0.5, -0.866, 0.5, 190, 285)">
                     <rect x="-40" y="-12" width="80" height="24" rx="4" fill="rgba(16, 16, 24, 0.95)" stroke="rgba(255,255,255,0.2)" strokeWidth="0.8" />
-                    <line x1="-39" y1="-12" x2="-39" y2="12" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                    <line x1="-39" y1="-12" x2="-39" y2="12" stroke="#E44856" strokeWidth="2.5" strokeLinecap="round" />
                     <path d="M-28,-2 L-23,-2 L-23,4 L-28,4 Z M-26.5,-2 L-26.5,-4 L-24.5,-4 L-24.5,-2" stroke="rgba(255,255,255,0.2)" strokeWidth="0.8" fill="none" />
                     <text x="-16" y="2" fontFamily="system-ui, -apple-system, sans-serif" fontSize="7.5" fill="#ffffff" fontWeight="bold">EXECS</text>
-                    <circle cx="30" cy="0" r="1.5" fill="#ef4444" className="blink-led" style={{ animationDelay: '0.6s' }} />
+                    <circle cx="30" cy="0" r="1.5" fill="#E44856" className="blink-led" style={{ animationDelay: '0.6s' }} />
                   </g>
                 </g>
               </svg>
@@ -1797,7 +1793,7 @@ export default function CommunicationV2Page() {
                     }
                     @keyframes blink-warning-comm-1 {
                       0%, 100% { opacity: 0.2; }
-                      50% { opacity: 1; fill: #7C3CD0; }
+                      50% { opacity: 1; fill: #6354F3; }
                     }
                     @keyframes line-draw-comm-1 {
                       0% { stroke-dashoffset: 24; }
@@ -1807,8 +1803,8 @@ export default function CommunicationV2Page() {
                   <path d="M100,20 L100,140" stroke="rgba(255,255,255,0.2)" strokeDasharray="2,2" />
 
                   <g transform="translate(100, 80)">
-                    <ellipse cx="0" cy="0" rx="35" ry="17.5" stroke="#7C3CD0" strokeWidth="1" style={{ transformOrigin: '0 0', animation: 'pulse-ring-comm-1 2.5s infinite linear' }} />
-                    <ellipse cx="0" cy="0" rx="55" ry="27.5" stroke="#7C3CD0" strokeWidth="0.5" style={{ transformOrigin: '0 0', animation: 'pulse-ring-comm-1 2.5s infinite linear', animationDelay: '1.25s' }} />
+                    <ellipse cx="0" cy="0" rx="35" ry="17.5" stroke="#6354F3" strokeWidth="1" style={{ transformOrigin: '0 0', animation: 'pulse-ring-comm-1 2.5s infinite linear' }} />
+                    <ellipse cx="0" cy="0" rx="55" ry="27.5" stroke="#6354F3" strokeWidth="0.5" style={{ transformOrigin: '0 0', animation: 'pulse-ring-comm-1 2.5s infinite linear', animationDelay: '1.25s' }} />
 
                     <polygon points="-30,10 30,10 40,25 -40,25" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
 
@@ -1816,7 +1812,7 @@ export default function CommunicationV2Page() {
 
                     <polygon points="-16,-35 16,-35 16,-15 -16,-15" fill="rgba(0,0,0,0.6)" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
 
-                    <text x="0" y="-21" fontFamily="monospace" fontWeight="bold" fontSize="8" fill="#7C3CD0" textAnchor="middle" style={{ animation: 'blink-warning-comm-1 1.5s infinite' }}>[WAIT 20m]</text>
+                    <text x="0" y="-21" fontFamily="monospace" fontWeight="bold" fontSize="8" fill="#6354F3" textAnchor="middle" style={{ animation: 'blink-warning-comm-1 1.5s infinite' }}>[WAIT 20m]</text>
 
                     <line x1="-35" y1="0" x2="35" y2="0" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" strokeDasharray="3,3" style={{ animation: 'line-draw-comm-1 2s linear infinite' }} />
                   </g>
@@ -1848,14 +1844,14 @@ export default function CommunicationV2Page() {
                   <path d="M100,20 L100,140" stroke="rgba(255,255,255,0.2)" stroke-dasharray="2,2" />
 
                   <g transform="translate(100, 80)">
-                    <ellipse cx="0" cy="-20" rx="20" ry="10" stroke="rgba(242, 201, 76, 0.4)" strokeWidth="1" style={{ transformOrigin: '0 -20px', animation: 'wave-dissolve-comm-2 3s infinite linear' }} />
-                    <ellipse cx="0" cy="-20" rx="40" ry="20" stroke="rgba(242, 201, 76, 0.2)" strokeWidth="0.5" style={{ transformOrigin: '0 -20px', animation: 'wave-dissolve-comm-2 3s infinite linear', animationDelay: '1.5s' }} />
+                    <ellipse cx="0" cy="-20" rx="20" ry="10" stroke="rgba(252, 229, 69, 0.4)" strokeWidth="1" style={{ transformOrigin: '0 -20px', animation: 'wave-dissolve-comm-2 3s infinite linear' }} />
+                    <ellipse cx="0" cy="-20" rx="40" ry="20" stroke="rgba(252, 229, 69, 0.2)" strokeWidth="0.5" style={{ transformOrigin: '0 -20px', animation: 'wave-dissolve-comm-2 3s infinite linear', animationDelay: '1.5s' }} />
 
                     <polygon points="-8,25 8,25 2,-20 -2,-20" fill="rgba(255, 255, 255, 0.05)" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
                     <line x1="-5" y1="10" x2="5" y2="10" stroke="rgba(255,255,255,0.2)" />
                     <line x1="-3" y1="-5" x2="3" y2="-5" stroke="rgba(255,255,255,0.2)" />
 
-                    <circle cx="0" cy="-22" r="3" fill="#f2c94c" style={{ animation: 'tower-signal-comm-2 1s infinite alternate' }} />
+                    <circle cx="0" cy="-22" r="3" fill="#FCE545" style={{ animation: 'tower-signal-comm-2 1s infinite alternate' }} />
 
                     <path d="M-40,25 L-20,15 L0,20 L20,15 L40,25" stroke="rgba(255,255,255,0.2)" strokeWidth="1" strokeDasharray="2,2" style={{ animation: 'static-noise-comm-2 0.5s infinite linear' }} />
                   </g>
@@ -1877,7 +1873,7 @@ export default function CommunicationV2Page() {
                     }
                     @keyframes badge-glow-comm-3 {
                       0%, 100% { opacity: 0.4; }
-                      50% { opacity: 1; filter: drop-shadow(0 0 4px #3b82f6); }
+                      50% { opacity: 1; filter: drop-shadow(0 0 4px #4993E3); }
                     }
                   `}</style>
                   <path d="M100,20 L100,140" stroke="rgba(255,255,255,0.2)" stroke-dasharray="2,2" />
@@ -1892,15 +1888,15 @@ export default function CommunicationV2Page() {
 
                     <path d="M-20,-28 C-20,-12 -5,-4 -5,0 C-5,4 -20,12 -20,28 L20,28 C20,12 5,4 5,0 C5,-4 20,-12 20,-28 Z" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
 
-                    <line x1="0" y1="-4" x2="0" y2="20" stroke="#3b82f6" strokeWidth="1" strokeDasharray="2,4" style={{ strokeDashoffset: 0, animation: 'sand-drip-comm-3 1s linear infinite' }} />
+                    <line x1="0" y1="-4" x2="0" y2="20" stroke="#4993E3" strokeWidth="1" strokeDasharray="2,4" style={{ strokeDashoffset: 0, animation: 'sand-drip-comm-3 1s linear infinite' }} />
                     <circle cx="0" cy="0" r="1" fill="#ffffff" />
 
                     <polygon points="0,26 12,20 0,14 -12,20" stroke="rgba(255,255,255,0.2)" strokeWidth="0.8" fill="rgba(255,255,255,0.08)" />
                     <polygon points="0,26 8,22 0,18 -8,22" stroke="rgba(255,255,255,0.2)" strokeWidth="0.8" fill="rgba(255,255,255,0.15)" />
 
                     <g transform="translate(32, -8)">
-                      <rect x="-3" y="-12" width="38" height="15" rx="0" fill="rgba(0,0,0,0.6)" stroke="rgba(59, 130, 246, 0.3)" strokeWidth="1" style={{ animation: 'badge-glow-comm-3 2s infinite alternate' }} />
-                      <text x="16" y="-2" fontFamily="monospace" fontSize="8" fill="#3b82f6" textAnchor="middle" fontWeight="bold">96h</text>
+                      <rect x="-3" y="-12" width="38" height="15" rx="0" fill="rgba(0,0,0,0.6)" stroke="rgba(73, 147, 227, 0.3)" strokeWidth="1" style={{ animation: 'badge-glow-comm-3 2s infinite alternate' }} />
+                      <text x="16" y="-2" fontFamily="monospace" fontSize="8" fill="#4993E3" textAnchor="middle" fontWeight="bold">96h</text>
                     </g>
                   </g>
                 </svg>
@@ -1917,7 +1913,7 @@ export default function CommunicationV2Page() {
                   <style>{`
                     @keyframes nodeglow-comm-4 {
                       0%, 100% { opacity: 0.15; }
-                      50% { opacity: 0.6; stroke: #10b981; }
+                      50% { opacity: 0.6; stroke: #AFF962; }
                     }
                     @keyframes line-flicker-comm-4 {
                       0%, 100% { opacity: 0.05; }
@@ -2188,1108 +2184,667 @@ export default function CommunicationV2Page() {
 
                   <div className="agents-dashboard-panel-inner">
                                         {activeAgent === 0 && (
-                      <div className="visitor-agent-ui" style={{
-                        position: 'relative',
-                        width: '100%',
-                        height: '100%',
-                        minHeight: '400px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontFamily: 'var(--font-mono), monospace'
-                      }}>
-                        {/* Main Terminal Box */}
-                        <div style={{
-                          width: '460px',
-                          height: '320px',
-                          background: 'linear-gradient(180deg, rgba(20, 21, 22, 0.8) 0%, rgba(20, 21, 22, 0.4) 100%)',
-                          border: '1px solid rgba(255, 255, 255, 0.08)',
-                          borderRadius: '12px',
-                          position: 'relative',
-                          boxShadow: '0 4px 24px rgba(0, 0, 0, 0.4)',
-                          backdropFilter: 'blur(8px)',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          overflow: 'hidden',
-                          zIndex: 5
-                        }}>
-                          {/* Header Bar */}
-                          <div style={{
-                            padding: '16px 24px',
-                            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            fontSize: '12px',
-                            color: 'rgba(255, 255, 255, 0.4)',
-                            letterSpacing: '0.05em'
-                          }}>
-                            PORTAL_TERMINAL
-                          </div>
+                      <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <svg width="520" height="360" viewBox="0 0 520 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <style>{"\
+                            @keyframes leftPanelLoop {\
+                              0% { opacity: 0; transform: translateY(15px); }\
+                              7.5%, 92.5% { opacity: 1; transform: translateY(0); }\
+                              100% { opacity: 0; transform: translateY(0); }\
+                            }\
+                            @keyframes centerLineLoop {\
+                              0%, 7.5% { stroke-dashoffset: 50; opacity: 0; }\
+                              12.5%, 92.5% { stroke-dashoffset: 0; opacity: 1; }\
+                              100% { stroke-dashoffset: 0; opacity: 0; }\
+                            }\
+                            @keyframes packet0Loop {\
+                              0%, 7.5% { cx: 235; opacity: 0; }\
+                              8% { opacity: 1; }\
+                              12%, 92.5% { cx: 285; opacity: 1; }\
+                              93%, 100% { opacity: 0; }\
+                            }\
+                            @keyframes rightPanelLoop {\
+                              0%, 12.5% { opacity: 0; transform: translateY(15px); }\
+                              20%, 92.5% { opacity: 1; transform: translateY(0); }\
+                              100% { opacity: 0; transform: translateY(0); }\
+                            }\
+                            @keyframes stepGroup1Loop {\
+                              0%, 20% { opacity: 0; }\
+                              25%, 92.5% { opacity: 1; }\
+                              100% { opacity: 0; }\
+                            }\
+                            @keyframes tick1Loop {\
+                              0%, 25% { stroke-dashoffset: 20; opacity: 0; }\
+                              30%, 92.5% { stroke-dashoffset: 0; opacity: 1; }\
+                              100% { opacity: 0; }\
+                            }\
+                            @keyframes status1Loop {\
+                              0%, 25% { opacity: 0; }\
+                              30%, 92.5% { opacity: 1; }\
+                              100% { opacity: 0; }\
+                            }\
+                            @keyframes stepLine1Loop {\
+                              0%, 30% { stroke-dashoffset: 40; opacity: 0; }\
+                              35%, 92.5% { stroke-dashoffset: 0; opacity: 1; }\
+                              100% { opacity: 0; }\
+                            }\
+                            @keyframes stepGroup2Loop {\
+                              0%, 35% { opacity: 0; }\
+                              40%, 92.5% { opacity: 1; }\
+                              100% { opacity: 0; }\
+                            }\
+                            @keyframes tick2Loop {\
+                              0%, 40% { stroke-dashoffset: 20; opacity: 0; }\
+                              45%, 92.5% { stroke-dashoffset: 0; opacity: 1; }\
+                              100% { opacity: 0; }\
+                            }\
+                            @keyframes status2Loop {\
+                              0%, 40% { opacity: 0; }\
+                              45%, 92.5% { opacity: 1; }\
+                              100% { opacity: 0; }\
+                            }\
+                            @keyframes stepLine2Loop {\
+                              0%, 45% { stroke-dashoffset: 40; opacity: 0; }\
+                              50%, 92.5% { stroke-dashoffset: 0; opacity: 1; }\
+                              100% { opacity: 0; }\
+                            }\
+                            @keyframes stepGroup3Loop {\
+                              0%, 50% { opacity: 0; }\
+                              55%, 92.5% { opacity: 1; }\
+                              100% { opacity: 0; }\
+                            }\
+                            @keyframes pulseDot3Loop {\
+                              0%, 55% { opacity: 0; }\
+                              55%, 64% { opacity: 1; }\
+                              65%, 100% { opacity: 0; }\
+                            }\
+                            @keyframes tick3Loop {\
+                              0%, 65% { stroke-dashoffset: 20; opacity: 0; }\
+                              70%, 92.5% { stroke-dashoffset: 0; opacity: 1; }\
+                              100% { opacity: 0; }\
+                            }\
+                            @keyframes statusRunning3Loop {\
+                              0%, 55% { opacity: 0; }\
+                              55%, 64% { opacity: 1; }\
+                              65%, 100% { opacity: 0; }\
+                            }\
+                            @keyframes statusSuccess3Loop {\
+                              0%, 65% { opacity: 0; }\
+                              70%, 92.5% { opacity: 1; }\
+                              100% { opacity: 0; }\
+                            }\
+                            .left-panel { animation: leftPanelLoop 8s infinite ease-in-out; }\
+                            .center-line { stroke-dasharray: 50; animation: centerLineLoop 8s infinite linear; }\
+                            .packet0 { animation: packet0Loop 8s infinite linear; }\
+                            .right-panel { animation: rightPanelLoop 8s infinite ease-in-out; }\
+                            .step-group-1 { animation: stepGroup1Loop 8s infinite ease-in-out; }\
+                            .tick-1 { stroke-dasharray: 20; animation: tick1Loop 8s infinite linear; }\
+                            .status-1 { animation: status1Loop 8s infinite ease-in-out; }\
+                            .step-line-1 { stroke-dasharray: 40; animation: stepLine1Loop 8s infinite linear; }\
+                            .step-group-2 { animation: stepGroup2Loop 8s infinite ease-in-out; }\
+                            .tick-2 { stroke-dasharray: 20; animation: tick2Loop 8s infinite linear; }\
+                            .status-2 { animation: status2Loop 8s infinite ease-in-out; }\
+                            .step-line-2 { stroke-dasharray: 40; animation: stepLine2Loop 8s infinite linear; }\
+                            .step-group-3 { animation: stepGroup3Loop 8s infinite ease-in-out; }\
+                            .pulse-dot-3 { animation: pulseDot3Loop 8s infinite linear; }\
+                            .tick-3 { stroke-dasharray: 20; animation: tick3Loop 8s infinite linear; }\
+                            .status-running-3 { animation: statusRunning3Loop 8s infinite linear; }\
+                            .status-success-3 { animation: statusSuccess3Loop 8s infinite ease-in-out; }\
+                          "}</style>
 
-                          {/* Inner Content Area */}
-                          <div style={{ padding: '32px 24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '32px' }}>
-                            {/* Profile Card */}
-                            <div style={{
-                              background: '#141516',
-                              border: '1px solid rgba(255, 255, 255, 0.06)',
-                              borderRadius: '8px',
-                              padding: '20px',
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: '20px'
-                            }}>
-                              <div style={{
-                                width: '48px',
-                                height: '48px',
-                                borderRadius: '50%',
-                                background: 'rgba(255, 255, 255, 0.03)',
-                                border: '1px solid rgba(255, 255, 255, 0.1)',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                              }}>
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="#D09D00" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                  <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="#D09D00" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                </svg>
-                              </div>
-                              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                                <div style={{ color: '#E4E4E7', fontSize: '14px', fontFamily: 'var(--font-main)', fontWeight: 500 }}>
-                                  Guest: Eleanor P. (Executive)
-                                </div>
-                                <div style={{ color: 'rgba(255, 255, 255, 0.4)', fontSize: '12px' }}>
-                                  Host: Mithriv Inc
-                                </div>
-                                <div style={{ color: 'rgba(255, 255, 255, 0.4)', fontSize: '12px' }}>
-                                  ID: V-8769 <span style={{ color: 'rgba(255, 255, 255, 0.1)', margin: '0 8px' }}>|</span> Sec_LVL: 4
-                                </div>
-                              </div>
-                            </div>
+                          {/* Left Panel: JSON Payload */}
+                          <g className="left-panel">
+                            <rect x="15" y="20" width="220" height="320" fill="#0c0d0e" stroke="#222528" strokeWidth="1" />
+                            <rect x="15" y="20" width="220" height="40" fill="#141517" />
+                            <circle cx="35" cy="40" r="4" fill="#EA49B2" />
+                            <text x="50" y="44" fill="#e4e4e7" fontSize="11" fontFamily="var(--font-mono), monospace" fontWeight="600" letterSpacing="0.05em">EVENT_PAYLOAD</text>
 
-                            {/* Flow State */}
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                              <div style={{ fontSize: '11px', color: 'rgba(255, 255, 255, 0.3)', letterSpacing: '0.05em' }}>
-                                FLOW_STATE
-                              </div>
-                              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                                <div style={{ padding: '6px 12px', background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '4px', fontSize: '12px', color: '#E4E4E7' }}>
-                                  Registered
-                                </div>
-                                <div style={{ width: '32px', height: '1px', background: 'rgba(255, 255, 255, 0.1)', position: 'relative' }}>
-                                  <div style={{ position: 'absolute', right: 0, top: '-3px', borderTop: '3px solid transparent', borderBottom: '3px solid transparent', borderLeft: '4px solid rgba(255, 255, 255, 0.2)' }} />
-                                </div>
-                                <div style={{ padding: '6px 12px', background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '4px', fontSize: '12px', color: '#E4E4E7' }}>
-                                  Verified
-                                </div>
-                                <div style={{ width: '32px', height: '1px', background: 'rgba(255, 255, 255, 0.1)', position: 'relative' }}>
-                                  <div style={{ position: 'absolute', right: 0, top: '-3px', borderTop: '3px solid transparent', borderBottom: '3px solid transparent', borderLeft: '4px solid rgba(255, 255, 255, 0.2)' }} />
-                                </div>
-                                <div style={{ padding: '6px 12px', background: 'transparent', border: '1px dashed rgba(255, 255, 255, 0.1)', borderRadius: '4px', fontSize: '12px', color: 'rgba(255, 255, 255, 0.3)' }}>
-                                  Badge Print
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Footer Bar */}
-                          <div style={{
-                            padding: '16px 24px',
-                            borderTop: '1px solid rgba(255, 255, 255, 0.05)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            fontSize: '11px',
-                            color: 'rgba(255, 255, 255, 0.3)'
-                          }}>
-                            <span>[ RUN_DUR: 42894H ]</span>
-                            <span style={{ color: '#10B981' }}>[ SYSTEM_SECURE ]</span>
-                          </div>
-                        </div>
-
-                        {/* Floating Panels */}
-                        {/* 1. Verification 94s Avg */}
-                        <div style={{
-                          position: 'absolute',
-                          top: '20px',
-                          left: '40px',
-                          background: '#141516',
-                          border: '1px solid rgba(255, 255, 255, 0.08)',
-                          borderRadius: '8px',
-                          padding: '16px 24px',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: '6px',
-                          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6)',
-                          zIndex: 10
-                        }}>
-                          <div style={{ fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)' }}>Verification</div>
-                          <div style={{ fontSize: '15px', color: '#E4E4E7' }}>94s Avg</div>
-                        </div>
-
-                        {/* 2. Queue State */}
-                        <div style={{
-                          position: 'absolute',
-                          bottom: '60px',
-                          right: '20px',
-                          background: '#141516',
-                          border: '1px solid rgba(255, 255, 255, 0.08)',
-                          borderRadius: '8px',
-                          padding: '16px 24px',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: '6px',
-                          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6)',
-                          zIndex: 10
-                        }}>
-                          <div style={{ fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)' }}>Queue State</div>
-                          <div style={{ fontSize: '15px', color: '#E4E4E7' }}>Zero_line</div>
-                        </div>
-
-                      </div>
-                    )}
-
-                    {activeAgent === 1 && (
-                      <>
-                        <svg width="100%" height="100%" viewBox="0 0 513 386" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          {/* Base Terminal Box */}
-                          <rect x="38.7969" y="23.8008" width="436" height="308" fill="#0A0B0E" stroke="#212326" strokeWidth="1"/>
-                          
-                          {/* Header */}
-                          <line x1="38.7969" y1="53.8008" x2="474.7969" y2="53.8008" stroke="#212326" />
-                          <circle cx="56" cy="38" r="4" fill="#10B981" className="blink-led-active" />
-                          <text x="70" y="42" fontFamily="'Inter', var(--font-mono), monospace" fontSize="10" fill="#10B981" fontWeight="600" letterSpacing="1.5">PATROL_HUD_ONLINE</text>
-                          <text x="456" y="42" fontFamily="'Inter', var(--font-mono), monospace" fontSize="10" fill="#53585C" letterSpacing="1" textAnchor="end">SEC: LVL_4</text>
-                          
-                          {/* Top Right Corner Decoration */}
-                          <path d="M 474.7969 23.8008 L 474.7969 33.8008 L 464.7969 23.8008 Z" fill="#262728" />
-                          
-                          {/* Main Camera/Map Feed */}
-                          <rect x="58.7969" y="73.8008" width="270" height="238" fill="#060709" stroke="#1A1C20" />
-                          
-                          <g style={{ clipPath: 'url(#guard_clip_main)' }}>
-                            <rect x="58.7969" y="73.8008" width="270" height="238" fill="url(#guard_grid_v2)" opacity="0.5" />
-                            
-                            {/* Crosshairs */}
-                            <path d="M 193 192 L 193 182 M 193 192 L 183 192 M 193 192 L 203 192 M 193 192 L 193 202" stroke="#53585C" strokeWidth="1" />
-                            
-                            {/* Radar Rings centered around Agent */}
-                            <circle cx="150" cy="150" r="30" stroke="#8B5CF6" strokeWidth="1" strokeOpacity="0.4" fill="none" strokeDasharray="2 4" className="sweep-radar-arm" style={{ animationDuration: '6s' }} />
-                            <circle cx="150" cy="150" r="60" stroke="#8B5CF6" strokeWidth="1" strokeOpacity="0.2" fill="none" />
-                            <circle cx="150" cy="150" r="3" fill="#8B5CF6" />
-                            <text x="150" y="135" fontFamily="'Inter', var(--font-mono), monospace" fontSize="9" fill="#FFFFFF" textAnchor="middle">UNIT-42</text>
-                            
-                            {/* Incident Location */}
-                            <path d="M 240 220 L 260 220 M 250 210 L 250 230" stroke="#EF4444" strokeWidth="1" opacity="0.5" />
-                            <circle cx="250" cy="220" r="8" stroke="#EF4444" strokeWidth="1" fill="rgba(239, 68, 68, 0.2)" className="blink-warning-1" />
-                            <text x="250" y="240" fontFamily="'Inter', var(--font-mono), monospace" fontSize="9" fill="#EF4444" textAnchor="middle" fontWeight="bold">INCIDENT</text>
-
-                            {/* Connecting Line */}
-                            <line x1="150" y1="150" x2="250" y2="220" stroke="#10B981" strokeWidth="1" strokeDasharray="3 3" strokeOpacity="0.8" />
-                            <text x="200" y="180" fontFamily="'Inter', var(--font-mono), monospace" fontSize="8" fill="#10B981" transform="rotate(35 200 180)">ROUTING...</text>
-                          </g>
-
-                          {/* Float: Auto Documentation Logger */}
-                          <g filter="url(#drop_shadow_guard)">
-                            <rect x="70" y="240" width="248" height="60" fill="#0A0B0E" stroke="#212326" />
-                            <rect x="70" y="240" width="248" height="20" fill="#1A1C20" />
-                            <circle cx="82" cy="250" r="3" fill="#10B981" className="blink-led-active" />
-                            <text x="92" y="253" fontFamily="'Inter', var(--font-mono), monospace" fontSize="9" fill="#10B981" fontWeight="600">AUTO-DOC: LISTENING</text>
-                            
-                            <text x="80" y="275" fontFamily="'Inter', var(--font-mono), monospace" fontSize="9" fill="#CFD6E1">"Suspicious package near Gate B.</text>
-                            <text x="80" y="288" fontFamily="'Inter', var(--font-mono), monospace" fontSize="9" fill="#CFD6E1"> Requesting immediate backup."</text>
-                            
-                            {/* Audio Bars */}
-                            <g transform="translate(265, 246)">
-                              {[0, 1, 2, 3, 4, 5, 6].map((i) => (
-                                <rect key={i} x={i * 5} y="0" width="2" height="8" fill="#10B981" className="vocal-bar-pulse" style={{ animationDelay: `${i * 0.15}s` }} />
-                              ))}
+                            {/* JSON Lines */}
+                            <g transform="translate(30, 90)" fill="#EA49B2" fontSize="11" fontFamily="var(--font-mono), monospace">
+                              <text x="0" y="0" fill="#71717a">{"{"}</text>
+                              <text x="15" y="20" fill="#EA49B2">"event"<text fill="#71717a">:</text> <text fill="#EA49B2">"check_in"</text><text fill="#71717a">,</text></text>
+                              <text x="15" y="40" fill="#EA49B2">"visitor_id"<text fill="#71717a">:</text> <text fill="#EA49B2">"v_9842"</text><text fill="#71717a">,</text></text>
+                              <text x="15" y="60" fill="#EA49B2">"guest"<text fill="#71717a">:</text> {"{"}</text>
+                              <text x="30" y="80" fill="#EA49B2">"name"<text fill="#71717a">:</text> <text fill="#EA49B2">"Eleanor P."</text><text fill="#71717a">,</text></text>
+                              <text x="30" y="100" fill="#EA49B2">"class"<text fill="#71717a">:</text> <text fill="#EA49B2">"executive"</text></text>
+                              <text x="15" y="120" fill="#71717a">{"}"}</text>
+                              <text x="0" y="140" fill="#71717a">{"}"}</text>
                             </g>
                           </g>
 
-                          {/* Right Side Panel */}
-                          <rect x="340" y="73.8008" width="114" height="238" fill="#060709" stroke="#1A1C20" />
-                          <text x="350" y="92" fontFamily="'Inter', var(--font-mono), monospace" fontSize="9" fill="#53585C" letterSpacing="1">TELEMETRY</text>
-                          <line x1="340" y1="102" x2="454" y2="102" stroke="#1A1C20" />
-                          
-                          {/* Biometrics */}
-                          <rect x="350" y="112" width="94" height="40" fill="#0A0B0E" stroke="#1A1C20" />
-                          <circle cx="360" cy="122" r="3" fill="#8B5CF6" />
-                          <text x="370" y="125" fontFamily="'Inter', var(--font-mono), monospace" fontSize="8" fill="#CFD6E1">BIOMETRICS</text>
-                          <text x="360" y="142" fontFamily="'Inter', var(--font-mono), monospace" fontSize="13" fill="#FFFFFF" fontWeight="bold">92 <tspan fontSize="8" fill="#53585C">BPM</tspan></text>
-                          
-                          {/* Connection */}
-                          <rect x="350" y="162" width="94" height="40" fill="#0A0B0E" stroke="#1A1C20" />
-                          <circle cx="360" cy="172" r="3" fill="#10B981" />
-                          <text x="370" y="175" fontFamily="'Inter', var(--font-mono), monospace" fontSize="8" fill="#CFD6E1">GPS LINK</text>
-                          <text x="360" y="192" fontFamily="'Inter', var(--font-mono), monospace" fontSize="13" fill="#10B981" fontWeight="bold">STABLE</text>
-                          
-                          {/* Dispatch Alert */}
-                          <rect x="350" y="212" width="94" height="88" fill="rgba(239, 68, 68, 0.05)" stroke="rgba(239, 68, 68, 0.2)" />
-                          <text x="360" y="228" fontFamily="'Inter', var(--font-mono), monospace" fontSize="9" fill="#EF4444" fontWeight="bold">DISPATCH</text>
-                          <text x="360" y="245" fontFamily="'Inter', var(--font-mono), monospace" fontSize="8" fill="#CFD6E1">TARGET:</text>
-                          <text x="360" y="258" fontFamily="'Inter', var(--font-mono), monospace" fontSize="10" fill="#FFFFFF" fontWeight="bold">GATE B</text>
-                          
-                          <rect x="360" y="272" width="74" height="18" fill="rgba(239, 68, 68, 0.15)" stroke="rgba(239, 68, 68, 0.3)" />
-                          <text x="397" y="284" fontFamily="'Inter', var(--font-mono), monospace" fontSize="8" fill="#EF4444" fontWeight="bold" textAnchor="middle">DEPLOY UNIT</text>
+                          {/* Connector Line */}
+                          <line x1="235" y1="180" x2="285" y2="180" stroke="#222528" strokeWidth="2" className="center-line" />
+                          <circle cx="235" cy="180" r="5" fill="#EA49B2" className="packet0" />
 
-                          <defs>
-                            <clipPath id="guard_clip_main">
-                              <rect x="58.7969" y="73.8008" width="270" height="238" />
-                            </clipPath>
-                            <pattern id="guard_grid_v2" width="20" height="20" patternUnits="userSpaceOnUse">
-                              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#212326" strokeWidth="1" />
-                              <circle cx="20" cy="20" r="1" fill="rgba(255, 255, 255, 0.1)" />
-                            </pattern>
-                            <filter id="drop_shadow_guard" x="50" y="230" width="300" height="100" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feDropShadow dx="0" dy="10" stdDeviation="15" floodOpacity="0.2" floodColor="#000000" />
-                            </filter>
-                          </defs>
+                          {/* Right Panel: Workflow Execution */}
+                          <g className="right-panel">
+                            <rect x="285" y="20" width="220" height="320" fill="#0c0d0e" stroke="#222528" strokeWidth="1" />
+                            <rect x="285" y="20" width="220" height="40" fill="#141517" />
+                            <circle cx="305" cy="40" r="4" fill="#EA49B2" />
+                            <text x="320" y="44" fill="#e4e4e7" fontSize="11" fontFamily="var(--font-mono), monospace" fontWeight="600" letterSpacing="0.05em">EXECUTION_STEPS</text>
+                          </g>
+
+                          {/* Step 1 */}
+                          <g transform="translate(305, 90)" className="step-group-1">
+                            <rect x="-8" y="2" width="16" height="16" fill="#3b112d" stroke="#EA49B2" strokeWidth="1" />
+                            <path d="M-4,10 L-1,13 L4,7" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" className="tick-1" />
+                            <text x="20" y="14" fill="#e4e4e7" fontSize="12" fontFamily="var(--font-main)">Verify Credentials</text>
+                            <g className="status-1">
+                              <rect x="145" y="3" width="50" height="16" fill="#3b112d" stroke="#EA49B2" strokeWidth="1" />
+                              <text x="170" y="14" fill="#EA49B2" fontSize="9" fontFamily="var(--font-mono), monospace" textAnchor="middle">SUCCESS</text>
+                            </g>
+                          </g>
+
+                          {/* Connection line between steps */}
+                          <line x1="305" y1="115" x2="305" y2="155" stroke="#222528" strokeWidth="2" className="step-line-1" />
+
+                          {/* Step 2 */}
+                          <g transform="translate(305, 160)" className="step-group-2">
+                            <rect x="-8" y="2" width="16" height="16" fill="#3b112d" stroke="#EA49B2" strokeWidth="1" />
+                            <path d="M-4,10 L-1,13 L4,7" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" className="tick-2" />
+                            <text x="20" y="14" fill="#e4e4e7" fontSize="12" fontFamily="var(--font-main)">Auto-Sign NDA</text>
+                            <g className="status-2">
+                              <rect x="145" y="3" width="50" height="16" fill="#3b112d" stroke="#EA49B2" strokeWidth="1" />
+                              <text x="170" y="14" fill="#EA49B2" fontSize="9" fontFamily="var(--font-mono), monospace" textAnchor="middle">SUCCESS</text>
+                            </g>
+                          </g>
+
+                          {/* Connection line between steps */}
+                          <line x1="305" y1="185" x2="305" y2="225" stroke="#222528" strokeWidth="2" className="step-line-2" />
+
+                          {/* Step 3 */}
+                          <g transform="translate(305, 230)" className="step-group-3">
+                            <rect x="-8" y="2" width="16" height="16" fill="#3b112d" stroke="#EA49B2" strokeWidth="1" />
+                            {/* Running state components */}
+                            <circle cx="0" cy="10" r="3" fill="#EA49B2" className="pulse-dot-3" />
+                            {/* Success state components */}
+                            <path d="M-4,10 L-1,13 L4,7" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" className="tick-3" />
+                            
+                            <text x="20" y="14" fill="#e4e4e7" fontSize="12" fontFamily="var(--font-main)">Print Badge Pass</text>
+                            
+                            {/* Status: RUNNING */}
+                            <g className="status-running-3">
+                              <rect x="145" y="3" width="50" height="16" fill="#141517" stroke="#EA49B2" strokeWidth="1" />
+                              <text x="170" y="14" fill="#EA49B2" fontSize="9" fontFamily="var(--font-mono), monospace" textAnchor="middle">RUNNING</text>
+                            </g>
+                            {/* Status: SUCCESS */}
+                            <g className="status-success-3">
+                              <rect x="145" y="3" width="50" height="16" fill="#3b112d" stroke="#EA49B2" strokeWidth="1" />
+                              <text x="170" y="14" fill="#EA49B2" fontSize="9" fontFamily="var(--font-mono), monospace" textAnchor="middle">SUCCESS</text>
+                            </g>
+                          </g>
                         </svg>
-                      </>
+                      </div>
+                    )}
+
+                                      {activeAgent === 1 && (
+                      <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <svg width="520" height="360" viewBox="0 0 520 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <defs>
+                            <clipPath id="clipLog1">
+                              <rect x="0" y="-10" width="300" height="25" className="log-rect-1" />
+                            </clipPath>
+                            <clipPath id="clipLog2">
+                              <rect x="0" y="12" width="300" height="25" className="log-rect-2" />
+                            </clipPath>
+                            <clipPath id="clipLog3">
+                              <rect x="0" y="34" width="300" height="25" className="log-rect-3" />
+                            </clipPath>
+                            <clipPath id="clipLog4">
+                              <rect x="0" y="56" width="300" height="25" className="log-rect-4" />
+                            </clipPath>
+                            <clipPath id="clipLog5">
+                              <rect x="0" y="78" width="300" height="25" className="log-rect-5" />
+                            </clipPath>
+                          </defs>
+
+                          <style>{"\
+                            @keyframes logPanelLoop {\
+                              0% { opacity: 0; transform: translateY(15px); }\
+                              7.5%, 92.5% { opacity: 1; transform: translateY(0); }\
+                              100% { opacity: 0; transform: translateY(0); }\
+                            }\
+                            @keyframes logScale1 {\
+                              0%, 10% { transform: scaleX(0); }\
+                              20%, 92.5% { transform: scaleX(1); }\
+                              100% { transform: scaleX(0); }\
+                            }\
+                            @keyframes logScale2 {\
+                              0%, 20% { transform: scaleX(0); }\
+                              30%, 92.5% { transform: scaleX(1); }\
+                              100% { transform: scaleX(0); }\
+                            }\
+                            @keyframes logScale3 {\
+                              0%, 30% { transform: scaleX(0); }\
+                              40%, 92.5% { transform: scaleX(1); }\
+                              100% { transform: scaleX(0); }\
+                            }\
+                            @keyframes logScale4 {\
+                              0%, 40% { transform: scaleX(0); }\
+                              50%, 92.5% { transform: scaleX(1); }\
+                              100% { transform: scaleX(0); }\
+                            }\
+                            @keyframes logScale5 {\
+                              0%, 50% { transform: scaleX(0); }\
+                              60%, 92.5% { transform: scaleX(1); }\
+                              100% { transform: scaleX(0); }\
+                            }\
+                            @keyframes guardPanelLoop {\
+                              0%, 60% { opacity: 0; transform: translateY(15px); }\
+                              67.5%, 92.5% { opacity: 1; transform: translateY(0); }\
+                              100% { opacity: 0; transform: translateY(0); }\
+                            }\
+                            @keyframes progressAnim {\
+                              0%, 67.5% { transform: scaleX(0); }\
+                              77.5%, 92.5% { transform: scaleX(1); }\
+                              100% { transform: scaleX(0); }\
+                            }\
+                            @keyframes pulseDot1 {\
+                              0%, 100% { fill: #E44856; }\
+                              50% { fill: #141517; }\
+                            }\
+                            .pulse-dot1 { animation: pulseDot1 1s infinite; }\
+                            .left-log-panel { animation: logPanelLoop 8s infinite ease-in-out; }\
+                            .log-rect-1 { transform-origin: left; animation: logScale1 8s infinite linear; }\
+                            .log-rect-2 { transform-origin: left; animation: logScale2 8s infinite linear; }\
+                            .log-rect-3 { transform-origin: left; animation: logScale3 8s infinite linear; }\
+                            .log-rect-4 { transform-origin: left; animation: logScale4 8s infinite linear; }\
+                            .log-rect-5 { transform-origin: left; animation: logScale5 8s infinite linear; }\
+                            .right-guard-panel { animation: guardPanelLoop 8s infinite ease-in-out; }\
+                            .progress-bar1 { transform-origin: left; animation: progressAnim 8s infinite ease-in-out; }\
+                          "}</style>
+
+                          {/* Left Panel: Streaming Logs */}
+                          <g className="left-log-panel">
+                            <rect x="15" y="20" width="310" height="320" fill="#0c0d0e" stroke="#222528" strokeWidth="1" />
+                            <rect x="15" y="20" width="310" height="40" fill="#141517" />
+                            <circle cx="35" cy="40" r="4" fill="#E44856" className="pulse-dot1" />
+                            <text x="50" y="44" fill="#e4e4e7" fontSize="11" fontFamily="var(--font-mono), monospace" fontWeight="600" letterSpacing="0.05em">LIVE_SECURITY_FEED</text>
+
+                            {/* Log Streams */}
+                            <g transform="translate(30, 90)" fill="#e4e4e7" fontSize="10.5" fontFamily="var(--font-mono), monospace" letterSpacing="-0.02em">
+                              <text x="0" y="0" clipPath="url(#clipLog1)"><tspan fill="#71717a">10:14:02</tspan> <tspan fill="#4993E3">[PATROL]</tspan> Route Sector 4 initialized</text>
+                              <text x="0" y="22" clipPath="url(#clipLog2)"><tspan fill="#71717a">10:14:15</tspan> <tspan fill="#4993E3">[ACCESS]</tspan> Node 12.A status is <tspan fill="#4993E3">NOMINAL</tspan></text>
+                              <text x="0" y="44" clipPath="url(#clipLog3)"><tspan fill="#71717a">10:14:28</tspan> <tspan fill="#4993E3">[PATROL]</tspan> Guard Davis reached Checkpoint B</text>
+                              <text x="0" y="66" clipPath="url(#clipLog4)"><tspan fill="#71717a">10:14:45</tspan> <tspan fill="#E44856">[WARN]</tspan> Door Left Open: Zone C (Resolved)</text>
+                              <text x="0" y="88" clipPath="url(#clipLog5)"><tspan fill="#71717a">10:15:02</tspan> <tspan fill="#4993E3">[ACCESS]</tspan> Verification completed for Eleanor P.</text>
+                            </g>
+                          </g>
+
+                          {/* Right Panel: Guard Status */}
+                          <g className="right-guard-panel">
+                            <rect x="340" y="20" width="165" height="320" fill="#0c0d0e" stroke="#222528" strokeWidth="1" />
+                            <rect x="340" y="20" width="165" height="40" fill="#141517" />
+                            <text x="355" y="44" fill="#e4e4e7" fontSize="11" fontFamily="var(--font-mono), monospace" fontWeight="600" letterSpacing="0.05em">GUARD_STATUS</text>
+
+                            {/* Profile details */}
+                            <g transform="translate(355, 80)">
+                              <rect x="0" y="0" width="48" height="48" fill="#141517" stroke="#222528" strokeWidth="1" />
+                              <circle cx="24" cy="18" r="8" fill="#71717a" />
+                              <path d="M9,42 C9,34 19,34 24,34 C29,34 39,34 39,42" fill="none" stroke="#71717a" strokeWidth="2" />
+
+                              <text x="58" y="22" fill="#e4e4e7" fontSize="12" fontFamily="var(--font-main)" fontWeight="600">Officer Davis</text>
+                              <text x="58" y="37" fill="#71717a" fontSize="10" fontFamily="var(--font-mono), monospace">ID: G-9082</text>
+                              
+                              {/* Route progress */}
+                              <text x="0" y="80" fill="#71717a" fontSize="10" fontFamily="var(--font-main)">Route Progress</text>
+                              <rect x="0" y="90" width="135" height="6" fill="#141517" />
+                              <rect x="0" y="90" width="110" height="6" fill="#4993E3" className="progress-bar1" />
+                              <text x="0" y="115" fill="#4993E3" fontSize="11" fontFamily="var(--font-mono), monospace" fontWeight="600">ACTIVE</text>
+
+                              {/* Badge level */}
+                              <text x="0" y="150" fill="#71717a" fontSize="10" fontFamily="var(--font-main)">Clearance Level</text>
+                              <rect x="0" y="160" width="70" height="18" fill="#10263f" stroke="#4993E3" strokeWidth="1" />
+                              <text x="35" y="172" fill="#4993E3" fontSize="10" fontFamily="var(--font-mono), monospace" textAnchor="middle">LEVEL_03</text>
+                            </g>
+                          </g>
+                        </svg>
+                      </div>
                     )}
 
                     {/* Employee Agent (03) */}
                     {activeAgent === 2 && (
-                      <>
-                        <svg width="100%" height="100%" viewBox="0 0 513 386" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <rect x="38.7969" y="23.8008" width="436" height="308" rx="9.5" fill="url(#paint0_linear_agent3)" stroke="url(#paint1_linear_agent3)" />
-                          <line x1="37.2969" y1="74.8008" x2="475.297" y2="74.8008" stroke="#212326" />
-
-                          {/* HEADER TITLE */}
-                          <text x="256" y="52" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" fontWeight="bold" letterSpacing="2" textAnchor="middle">EMPLOYEE TERMINAL</text>
-
-                          {/* MAIN CARD SCREEN */}
-                          <g filter="url(#filter0_d_agent3)">
-                            <rect x="73.2969" y="135.301" width="356" height="129" rx="10" fill="#141516" />
-                            <rect x="73.7969" y="135.801" width="355" height="128" rx="9.5" stroke="#212326" />
-                          </g>
-
-                          {/* BACKGROUND GRID */}
-                          <g style={{ clipPath: 'url(#card-screen-clip_agent3)' }}>
-                            <rect x="73.2969" y="135.301" width="356" height="129" fill="url(#emp_grid_agent3)" opacity="0.4" />
-                          </g>
-
-                          {/* TERMINAL CONTENT: REQUEST LOG & OKTA SYNC */}
-                          <g style={{ clipPath: 'url(#card-screen-clip_agent3)' }}>
-                            {/* Left panel: Log info */}
-                            <g>
-                              <text x="95" y="158" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" fontWeight="bold">REQUEST LOG #9082</text>
-
-                              <text x="95" y="178" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C">User: <tspan fill="#CFD6E1" fontWeight="bold">eleanor.p@company.com</tspan></text>
-                              <text x="95" y="198" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C">Inquiry: <tspan fill="#8B5CF6" fontWeight="bold">"Server Room Access"</tspan></text>
-                              <text x="95" y="218" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C">Mithriv AI: <tspan fill="#10B981" fontWeight="bold">APPROVED</tspan></text>
-
-                              {/* Progress bar */}
-                              <rect x="95" y="232" width="130" height="6" rx="3" fill="rgba(255, 255, 255, 0.05)" />
-                              <rect x="95" y="232" width="130" height="6" rx="3" fill="#10B981" className="progress-bar-glow" style={{ transformOrigin: 'left' }} />
-                            </g>
-
-                            {/* Right panel: Padlock Orbit */}
-                            <g>
-                              <rect x="255" y="145" width="160" height="110" rx="6" fill="url(#bluePurpleGrad_agent3)" stroke="rgba(139, 92, 246, 0.15)" strokeWidth="1" />
-                              <text x="335" y="162" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" fontWeight="bold" textAnchor="middle">OKTA INTEGRATION</text>
-
-                              {/* Padlock graphic */}
-                              <g>
-                                <rect x="327" y="196" width="16" height="14" rx="2" fill="none" stroke="#CFD6E1" strokeWidth="1" />
-                                <path d="M330,196 V192 C330,189 340,189 340,192 V196" fill="none" stroke="#CFD6E1" strokeWidth="1" />
-
-                                <circle cx="335" cy="200" r="28" stroke="rgba(139, 92, 246, 0.25)" strokeWidth="1" strokeDasharray="3, 3" className="rotate-orbit-agent-path" style={{ transformOrigin: '335px 200px' }} />
-                                <circle cx="335" cy="200" r="22" stroke="rgba(16, 185, 129, 0.25)" strokeWidth="1" strokeDasharray="2, 4" className="rotate-orbit-agent-path" style={{ animationDirection: 'reverse', transformOrigin: '335px 200px' }} />
-                              </g>
-
-                              <text x="335" y="244" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#10B981" fontWeight="bold" textAnchor="middle">OKTA SYNCED ✓</text>
-                            </g>
-                          </g>
-
-                          {/* SCANLINE SWEET */}
-                          <g style={{ clipPath: 'url(#card-screen-clip_agent3)' }}>
-                            <line x1="74" y1="136" x2="428" y2="136" stroke="#10B981" strokeWidth="1.5" strokeOpacity="0.4" className="scanline-kiosk-laser" />
-                          </g>
-
-                          {/* PIP STEP 1: Auth Request */}
-                          <g filter="url(#filter1_d_agent3)">
-                            <rect x="73.2969" y="316.301" width="84" height="28" rx="6" fill="#141516" shapeRendering="crispEdges" />
-                            <rect x="73.7969" y="316.801" width="83" height="27" rx="5.5" stroke="#212326" shapeRendering="crispEdges" />
-                            <text x="115.3" y="334" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#CFD6E1" textAnchor="middle">Auth Request</text>
-                          </g>
-
-                          {/* CONNECTING FLOW ARROW 1 */}
-                          <path d="M207.297 330.301L202.297 327.414L202.297 333.188L207.297 330.301ZM157.297 330.301L157.297 330.801L202.797 330.801L202.797 330.301L202.797 329.801L157.297 329.801L157.297 330.301Z" fill="#262728" className="flow-pulse-line-1" />
-
-                          {/* PIP STEP 2: Okta Check */}
-                          <g filter="url(#filter2_d_agent3)">
-                            <rect x="207.297" y="316.301" width="84" height="28" rx="6" fill="#141516" shapeRendering="crispEdges" />
-                            <rect x="207.797" y="316.801" width="83" height="27" rx="5.5" stroke="#212326" shapeRendering="crispEdges" />
-                            <text x="249.3" y="334" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#CFD6E1" textAnchor="middle">Okta Check</text>
-                          </g>
-
-                          {/* CONNECTING FLOW ARROW 2 */}
-                          <path d="M336.297 330.301L331.297 327.414V333.188L336.297 330.301ZM291.297 330.301V330.801H331.797V330.301V329.801H291.297V330.301Z" fill="#262728" className="flow-pulse-line-2" />
-
-                          {/* PIP STEP 3: Access Granted */}
-                          <g filter="url(#filter3_d_agent3)">
-                            <rect x="336.297" y="316.301" width="104" height="28" rx="6" fill="#141516" shapeRendering="crispEdges" />
-                            <rect x="336.797" y="316.801" width="103" height="27" rx="5.5" stroke="#212326" shapeRendering="crispEdges" />
-                            <text x="388.3" y="334" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#CFD6E1" textAnchor="middle">Access Granted</text>
-                          </g>
-
-                          {/* CARD 4: DIRECTORY SYNC (BOTTOM RIGHT) */}
-                          <g className="float-badge-box" style={{ animationDelay: "0.8s" }}>
-                            <foreignObject x="335.997" y="263.001" width="181.6" height="127.6">
-                              <div style={{ backdropFilter: "blur(8.15px)", clipPath: "url(#bgblur_0_agent3_clip_path)", height: "100%", width: "100%" }}></div>
-                            </foreignObject>
-                            <g filter="url(#filter4_d_agent3)">
-                              <rect x="367.297" y="294.301" width="134" height="80" rx="10" fill="#141516" fillOpacity="1" shapeRendering="crispEdges" />
-                              <rect x="367.797" y="294.801" width="133" height="79" rx="9.5" stroke="#212326" shapeRendering="crispEdges" />
-                            </g>
-                            <text x="434.3" y="326" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" fontWeight="bold" textAnchor="middle">Directory Sync</text>
-                            <text x="434.3" y="354" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="14" fill="#8B5CF6" fontWeight="bold" textAnchor="middle">Active Sync</text>
-                          </g>
-
-                          {/* CARD 5: WORKFORCE AUTH (TOP LEFT) */}
-                          <g className="float-badge-box" style={{ animationDelay: "0.2s" }}>
-                            <foreignObject x="-5.00312" y="-4.99922" width="181.6" height="127.6">
-                              <div style={{ backdropFilter: "blur(8.15px)", clipPath: "url(#bgblur_1_agent3_clip_path)", height: "100%", width: "100%" }}></div>
-                            </foreignObject>
-                            <g filter="url(#filter5_d_agent3)">
-                              <rect x="11.2969" y="11.3008" width="134" height="80" rx="10" fill="#141516" fillOpacity="1" shapeRendering="crispEdges" />
-                              <rect x="11.7969" y="11.8008" width="133" height="79" rx="9.5" stroke="#212326" shapeRendering="crispEdges" />
-                            </g>
-                            <text x="78.3" y="44" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" fontWeight="bold" textAnchor="middle">Workforce Auth</text>
-                            <text x="78.3" y="70" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="14" fill="#10B981" fontWeight="bold" textAnchor="middle">Okta Synced</text>
-                          </g>
-
+                      <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <svg width="520" height="360" viewBox="0 0 520 360" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <defs>
-                            <clipPath id="card-screen-clip_agent3">
-                              <rect x="73.2969" y="135.301" width="356" height="129" rx="10" />
+                            <clipPath id="clipLine1">
+                              <rect x="0" y="-5" width="360" height="20" className="type-rect-1" />
                             </clipPath>
-                            <pattern id="emp_grid_agent3" width="20" height="20" patternUnits="userSpaceOnUse">
-                              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#212326" strokeWidth="0.5" />
-                            </pattern>
-                            <linearGradient id="bluePurpleGrad_agent3" x1="0" y1="0" x2="1" y2="1">
-                              <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.2" />
-                              <stop offset="100%" stopColor="#10B981" stopOpacity="0.05" />
-                            </linearGradient>
-                            <filter id="filter0_d_agent3" x="58.7969" y="132.801" width="385" height="158" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feMorphology radius="23" operator="erode" in="SourceAlpha" result="effect1_dropShadow_agent3" />
-                              <feOffset dy="12" />
-                              <feGaussianBlur stdDeviation="18.75" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.000456116 0 0 0 0 0.000233453 0 0 0 0 0.000901442 0 0 0 0.13 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent3" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent3" result="shape" />
-                            </filter>
-                            <filter id="filter1_d_agent3" x="58.7969" y="313.801" width="113" height="57" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feMorphology radius="23" operator="erode" in="SourceAlpha" result="effect1_dropShadow_agent3" />
-                              <feOffset dy="12" />
-                              <feGaussianBlur stdDeviation="18.75" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.000456116 0 0 0 0 0.000233453 0 0 0 0 0.000901442 0 0 0 0.13 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent3" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent3" result="shape" />
-                            </filter>
-                            <filter id="filter2_d_agent3" x="192.797" y="313.801" width="113" height="57" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feMorphology radius="23" operator="erode" in="SourceAlpha" result="effect1_dropShadow_agent3" />
-                              <feOffset dy="12" />
-                              <feGaussianBlur stdDeviation="18.75" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.000456116 0 0 0 0 0.000233453 0 0 0 0 0.000901442 0 0 0 0.13 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent3" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent3" result="shape" />
-                            </filter>
-                            <filter id="filter3_d_agent3" x="321.797" y="313.801" width="121" height="57" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feMorphology radius="23" operator="erode" in="SourceAlpha" result="effect1_dropShadow_agent3" />
-                              <feOffset dy="12" />
-                              <feGaussianBlur stdDeviation="18.75" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.000456116 0 0 0 0 0.000233453 0 0 0 0 0.000901442 0 0 0 0.13 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent3" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent3" result="shape" />
-                            </filter>
-                            <filter id="filter4_d_agent3" x="335.997" y="263.001" width="181.6" height="127.6" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feOffset dx="-10" dy="-10" />
-                              <feGaussianBlur stdDeviation="10.65" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.04218 0 0 0 0 0.04218 0 0 0 0 0.04218 0 0 0 0.73 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent3" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent3" result="shape" />
-                            </filter>
-                            <clipPath id="bgblur_0_agent3_clip_path" transform="translate(-335.997 -263.001)">
-                              <rect x="367.297" y="294.301" width="134" height="80" rx="10" />
+                            <clipPath id="clipLine2">
+                              <rect x="0" y="15" width="360" height="20" className="type-rect-2" />
                             </clipPath>
-                            <filter id="filter5_d_agent3" x="-5.00312" y="-4.99922" width="181.6" height="127.6" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feOffset dx="10" dy="10" />
-                              <feGaussianBlur stdDeviation="10.65" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.04218 0 0 0 0 0.04218 0 0 0 0 0.04218 0 0 0 0.73 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent3" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent3" result="shape" />
-                            </filter>
-                            <clipPath id="bgblur_1_agent3_clip_path" transform="translate(5.00312 4.99922)">
-                              <rect x="11.2969" y="11.3008" width="134" height="80" rx="10" />
+                            <clipPath id="clipLine3">
+                              <rect x="0" y="35" width="360" height="20" className="type-rect-3" />
                             </clipPath>
-                            <linearGradient id="paint0_linear_agent3" x1="256.797" y1="23.3008" x2="256.797" y2="332.301" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#0F1112" />
-                              <stop offset="1" stopColor="#0C0D0F" />
-                            </linearGradient>
-                            <linearGradient id="paint1_linear_agent3" x1="256.797" y1="23.3008" x2="256.797" y2="332.301" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#262728" />
-                              <stop offset="1" stopColor="#0C0D0F" />
-                            </linearGradient>
+                            <clipPath id="clipLine4">
+                              <rect x="0" y="55" width="360" height="20" className="type-rect-4" />
+                            </clipPath>
                           </defs>
+
+                          <style>{"\
+                            @keyframes topCardLoop {\
+                              0% { opacity: 0; transform: translate(60px, 35px); }\
+                              7.5%, 93.75% { opacity: 1; transform: translate(60px, 20px); }\
+                              100% { opacity: 0; transform: translate(60px, 20px); }\
+                            }\
+                            @keyframes line1Loop {\
+                              0%, 7.5% { stroke-dashoffset: 30; opacity: 0; }\
+                              12.5%, 93.75% { stroke-dashoffset: 0; opacity: 1; }\
+                              100% { stroke-dashoffset: 0; opacity: 0; }\
+                            }\
+                            @keyframes middleCardLoop {\
+                              0%, 12.5% { opacity: 0; transform: translate(60px, 130px); }\
+                              20%, 93.75% { opacity: 1; transform: translate(60px, 115px); }\
+                              100% { opacity: 0; transform: translate(60px, 115px); }\
+                            }\
+                            @keyframes typeScale1 {\
+                              0%, 20% { transform: scaleX(0); }\
+                              30%, 93.75% { transform: scaleX(1); }\
+                              100% { transform: scaleX(0); }\
+                            }\
+                            @keyframes typeScale2 {\
+                              0%, 30% { transform: scaleX(0); }\
+                              40%, 93.75% { transform: scaleX(1); }\
+                              100% { transform: scaleX(0); }\
+                            }\
+                            @keyframes typeScale3 {\
+                              0%, 40% { transform: scaleX(0); }\
+                              50%, 93.75% { transform: scaleX(1); }\
+                              100% { transform: scaleX(0); }\
+                            }\
+                            @keyframes typeScale4 {\
+                              0%, 50% { transform: scaleX(0); }\
+                              55%, 93.75% { transform: scaleX(1); }\
+                              100% { transform: scaleX(0); }\
+                            }\
+                            @keyframes line2Loop {\
+                              0%, 55% { stroke-dashoffset: 30; opacity: 0; }\
+                              60%, 93.75% { stroke-dashoffset: 0; opacity: 1; }\
+                              100% { stroke-dashoffset: 0; opacity: 0; }\
+                            }\
+                            @keyframes bottomCardLoop {\
+                              0%, 60% { opacity: 0; transform: translate(60px, 295px); }\
+                              67.5%, 93.75% { opacity: 1; transform: translate(60px, 280px); }\
+                              100% { opacity: 0; transform: translate(60px, 280px); }\
+                            }\
+                            @keyframes cursorPulse2 {\
+                              0%, 49% { fill: #AFF962; }\
+                              50%, 100% { fill: transparent; }\
+                            }\
+                            .top-card { animation: topCardLoop 8s infinite ease-in-out; }\
+                            .conn-line-1 { stroke-dasharray: 30; animation: line1Loop 8s infinite linear; }\
+                            .middle-card { animation: middleCardLoop 8s infinite ease-in-out; }\
+                            .type-rect-1 { transform-origin: left; animation: typeScale1 8s infinite linear; }\
+                            .type-rect-2 { transform-origin: left; animation: typeScale2 8s infinite linear; }\
+                            .type-rect-3 { transform-origin: left; animation: typeScale3 8s infinite linear; }\
+                            .type-rect-4 { transform-origin: left; animation: typeScale4 8s infinite linear; }\
+                            .conn-line-2 { stroke-dasharray: 30; animation: line2Loop 8s infinite linear; }\
+                            .bottom-card { animation: bottomCardLoop 8s infinite ease-in-out; }\
+                            .cursor2 { animation: cursorPulse2 0.8s infinite; }\
+                          "}</style>
+
+                          {/* Top Card: Provider Sync */}
+                          <g transform="translate(60, 20)" className="top-card">
+                            <rect x="0" y="0" width="400" height="65" fill="#0c0d0e" stroke="#222528" strokeWidth="1" />
+                            <rect x="15" y="17" width="30" height="30" fill="#233411" stroke="#AFF962" strokeWidth="1" />
+                            <path d="M22,32 L27,37 L38,26" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" />
+                            <text x="60" y="32" fill="#e4e4e7" fontSize="13" fontFamily="var(--font-main)" fontWeight="600">Okta Identity Directory Sync</text>
+                            <text x="60" y="48" fill="#71717a" fontSize="10.5" fontFamily="var(--font-mono), monospace">SYNC_STATUS: CONNECTED (2,481 Employees)</text>
+                          </g>
+
+                          {/* Connection line */}
+                          <line x1="260" y1="85" x2="260" y2="115" stroke="#222528" strokeWidth="2" className="conn-line-1" />
+
+                          {/* Middle Card: Policy snippet */}
+                          <g transform="translate(60, 115)" className="middle-card">
+                            <rect x="0" y="0" width="400" height="135" fill="#0c0d0e" stroke="#222528" strokeWidth="1" />
+                            <rect x="0" y="0" width="400" height="30" fill="#141517" />
+                            <text x="20" y="19" fill="#71717a" fontSize="10.5" fontFamily="var(--font-mono), monospace" fontWeight="600" letterSpacing="0.05em">GATEWAY_RULES_ENGINE</text>
+
+                            <g transform="translate(20, 50)" fill="#AFF962" fontSize="11" fontFamily="var(--font-mono), monospace">
+                              <text x="0" y="10" fill="#71717a" clipPath="url(#clipLine1)">if (employee.zone === <tspan fill="#AFF962">"Server Room"</tspan>) {"{"}</text>
+                              <text x="20" y="30" fill="#71717a" clipPath="url(#clipLine2)">await verifyOktaAuth(employee.id);</text>
+                              <text x="20" y="50" fill="#AFF962" clipPath="url(#clipLine3)">grantGatewayAccess(ZONES.SECURE_HQ);</text>
+                              <text x="0" y="70" fill="#71717a" clipPath="url(#clipLine4)">{"}"}<tspan fill="#AFF962" className="cursor2">_</tspan></text>
+                            </g>
+                          </g>
+
+                          {/* Connection line */}
+                          <line x1="260" y1="250" x2="260" y2="280" stroke="#222528" strokeWidth="2" className="conn-line-2" />
+
+                          {/* Bottom Card: Access Granted Result */}
+                          <g transform="translate(60, 280)" className="bottom-card">
+                            <rect x="0" y="0" width="400" height="60" fill="#0c0d0e" stroke="#AFF962" strokeWidth="1" />
+                            <rect x="15" y="17" width="26" height="26" fill="#233411" stroke="#AFF962" strokeWidth="1" />
+                            <path d="M22,30 L25,33 L32,26" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" />
+                            <text x="55" y="31" fill="#AFF962" fontSize="12" fontFamily="var(--font-mono), monospace" fontWeight="600" letterSpacing="0.05em">GATEWAY_VERDICT: ACCESS_GRANTED</text>
+                            <text x="55" y="45" fill="#71717a" fontSize="10" fontFamily="var(--font-main)">Okta assertion verified successfully.</text>
+                          </g>
                         </svg>
-                      </>
+                      </div>
                     )}
 
                     {/* Contractor Agent (04) */}
                     {activeAgent === 3 && (
-                      <>
-                        <svg width="100%" height="100%" viewBox="0 0 513 386" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <rect x="38.7969" y="23.8008" width="436" height="308" rx="9.5" fill="url(#paint0_linear_agent4)" stroke="url(#paint1_linear_agent4)" />
-                          <line x1="37.2969" y1="74.8008" x2="475.297" y2="74.8008" stroke="#212326" />
+                      <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <svg width="520" height="360" viewBox="0 0 520 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <style>{"\
+                            @keyframes blinkColon3 {\
+                              0%, 100% { fill: #FCE545; }\
+                              50% { fill: #0c0d0e; }\
+                            }\
+                            @keyframes progress3 {\
+                              0% { width: 185px; }\
+                              100% { width: 10px; }\
+                            }\
+                            .colon3 { animation: blinkColon3 1s infinite; }\
+                            .progress-bar3 { animation: progress3 10s infinite linear; }\
+                          "}</style>
 
-                          {/* HEADER TITLE */}
-                          <text x="256" y="52" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" fontWeight="bold" letterSpacing="2" textAnchor="middle">CONTRACTOR TERMINAL</text>
+                          {/* Left Panel: Profile Detail */}
+                          <rect x="15" y="20" width="240" height="320" fill="#0c0d0e" stroke="#222528" strokeWidth="1" />
+                          <rect x="15" y="20" width="240" height="40" fill="#141517" />
+                          <text x="30" y="44" fill="#e4e4e7" fontSize="11" fontFamily="var(--font-mono), monospace" fontWeight="600" letterSpacing="0.05em">CONTRACTOR_PROFILE</text>
 
-                          {/* MAIN CARD SCREEN */}
-                          <g filter="url(#filter0_d_agent4)">
-                            <rect x="73.2969" y="135.301" width="356" height="129" rx="10" fill="#141516" />
-                            <rect x="73.7969" y="135.801" width="355" height="128" rx="9.5" stroke="#212326" />
-                          </g>
+                          <g transform="translate(30, 80)">
+                            <text x="0" y="15" fill="#71717a" fontSize="11" fontFamily="var(--font-main)">Vendor</text>
+                            <text x="0" y="32" fill="#e4e4e7" fontSize="13" fontFamily="var(--font-main)" fontWeight="600">ACME HVAC Services</text>
 
-                          {/* BACKGROUND GRID */}
-                          <g style={{ clipPath: 'url(#card-screen-clip_agent4)' }}>
-                            <rect x="73.2969" y="135.301" width="356" height="129" fill="url(#cont_grid_agent4)" opacity="0.4" />
-                          </g>
+                            <text x="0" y="70" fill="#71717a" fontSize="11" fontFamily="var(--font-main)">Permitted Zone</text>
+                            <text x="0" y="87" fill="#FCE545" fontSize="13" fontFamily="var(--font-mono), monospace" fontWeight="600">CENTRAL_PLANT_B</text>
 
-                          {/* TERMINAL CONTENT: ONBOARDING CHECKS & COUNTDOWN */}
-                          <g style={{ clipPath: 'url(#card-screen-clip_agent4)' }}>
-                            {/* Left panel: Verification list */}
-                            <g>
-                              <text x="95" y="158" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" fontWeight="bold">VENDOR: APEX SECURITY</text>
-                              <text x="95" y="174" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#CFD6E1" fontWeight="bold">MARK STEVENS</text>
-
-                              {/* Checklist elements */}
-                              <g>
-                                {/* Item 1 */}
-                                <rect x="95" y="184" width="8" height="8" rx="1" fill="rgba(16, 185, 129, 0.1)" stroke="#10B981" strokeWidth="0.8" />
-                                <polyline points="97,188 99,190 101,186" stroke="#10B981" strokeWidth="1.2" fill="none" />
-                                <text x="110" y="192" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#CFD6E1">Safety Briefing [OK]</text>
-
-                                {/* Item 2 */}
-                                <rect x="95" y="200" width="8" height="8" rx="1" fill="rgba(16, 185, 129, 0.1)" stroke="#10B981" strokeWidth="0.8" />
-                                <polyline points="97,204 99,206 101,202" stroke="#10B981" strokeWidth="1.2" fill="none" />
-                                <text x="110" y="208" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#CFD6E1">NDA Signature [OK]</text>
-
-                                {/* Item 3 */}
-                                <rect x="95" y="216" width="8" height="8" rx="1" fill="rgba(16, 185, 129, 0.1)" stroke="#10B981" strokeWidth="0.8" />
-                                <polyline points="97,220 99,222 101,218" stroke="#10B981" strokeWidth="1.2" fill="none" />
-                                <text x="110" y="224" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#CFD6E1">Credentials [OK]</text>
-
-                                {/* Item 4 */}
-                                <rect x="95" y="232" width="8" height="8" rx="1" fill="rgba(16, 185, 129, 0.1)" stroke="#10B981" strokeWidth="0.8" />
-                                <polyline points="97,236 99,238 101,234" stroke="#10B981" strokeWidth="1.2" fill="none" />
-                                <text x="110" y="240" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#CFD6E1">Escort Assigned [OK]</text>
-                              </g>
+                            {/* Verification List */}
+                            <text x="0" y="130" fill="#71717a" fontSize="11" fontFamily="var(--font-main)">Clearance Checks</text>
+                            
+                            <g transform="translate(0, 145)">
+                              <rect x="0" y="0" width="12" height="12" fill="#3a340b" stroke="#FCE545" strokeWidth="1" />
+                              <path d="M2,6 L5,9 L10,3" stroke="#FFFFFF" strokeWidth="1.5" />
+                              <text x="20" y="11" fill="#e4e4e7" fontSize="11" fontFamily="var(--font-main)">Escort Assigned</text>
                             </g>
 
-                            {/* Right panel: Revocation dial */}
-                            <g>
-                              <rect x="255" y="145" width="160" height="110" rx="6" fill="rgba(255,255,255,0.01)" stroke="#212326" strokeWidth="1" />
-                              <text x="335" y="162" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" fontWeight="bold" textAnchor="middle">REVOCATION COUNTDOWN</text>
-
-                              <g>
-                                <circle cx="335" cy="200" r="26" stroke="rgba(139, 92, 246, 0.15)" strokeWidth="3.5" fill="none" />
-                                <circle cx="335" cy="200" r="26" stroke="#8B5CF6" strokeWidth="3.5" strokeDasharray="163" strokeDashoffset="45" className="timer-dash-run" strokeLinecap="round" fill="none" style={{ transformOrigin: '335px 200px' }} />
-                                <text x="335" y="196" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" textAnchor="middle">ACCESS LEFT</text>
-                                <text x="335" y="212" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="14" fill="#ffffff" fontWeight="bold" textAnchor="middle">18:42H</text>
-                              </g>
-
-                              <text x="335" y="244" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#EF4444" fontWeight="bold" textAnchor="middle">AUTO-REVOKE ACTIVE</text>
+                            <g transform="translate(0, 170)">
+                              <rect x="0" y="0" width="12" height="12" fill="#3a340b" stroke="#FCE545" strokeWidth="1" />
+                              <path d="M2,6 L5,9 L10,3" stroke="#FFFFFF" strokeWidth="1.5" />
+                              <text x="20" y="11" fill="#e4e4e7" fontSize="11" fontFamily="var(--font-main)">Work Order Verified</text>
                             </g>
                           </g>
 
-                          {/* SCANLINE SWEET */}
-                          <g style={{ clipPath: 'url(#card-screen-clip_agent4)' }}>
-                            <line x1="74" y1="136" x2="428" y2="136" stroke="#8B5CF6" strokeWidth="1.5" strokeOpacity="0.4" className="scanline-kiosk-laser" />
-                          </g>
+                          {/* Right Panel: Access Duration */}
+                          <rect x="270" y="20" width="235" height="320" fill="#0c0d0e" stroke="#222528" strokeWidth="1" />
+                          <rect x="270" y="20" width="235" height="40" fill="#141517" />
+                          <text x="285" y="44" fill="#e4e4e7" fontSize="11" fontFamily="var(--font-mono), monospace" fontWeight="600" letterSpacing="0.05em">TEMPORARY_WINDOW</text>
 
-                          {/* PIP STEP 1: Upload NDA */}
-                          <g filter="url(#filter1_d_agent4)">
-                            <rect x="73.2969" y="316.301" width="84" height="28" rx="6" fill="#141516" shapeRendering="crispEdges" />
-                            <rect x="73.7969" y="316.801" width="83" height="27" rx="5.5" stroke="#212326" shapeRendering="crispEdges" />
-                            <text x="115.3" y="334" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#CFD6E1" textAnchor="middle">Upload NDA</text>
-                          </g>
+                          <g transform="translate(295, 80)">
+                            <text x="0" y="20" fill="#71717a" fontSize="12.5" fontFamily="var(--font-main)">Time Remaining</text>
+                            
+                            {/* Big digital clock display */}
+                            <text x="0" y="70" fill="#FCE545" fontSize="36" fontFamily="var(--font-mono), monospace" fontWeight="bold">
+                              06<tspan fill="#FCE545" className="colon3">:</tspan>42<tspan fill="#FCE545" className="colon3">:</tspan>15
+                            </text>
+                            
+                            {/* Countdown bar */}
+                            <rect x="0" y="95" width="185" height="6" fill="#141517" />
+                            <rect x="0" y="95" width="130" height="6" fill="#FCE545" className="progress-bar3" />
 
-                          {/* CONNECTING FLOW ARROW 1 */}
-                          <path d="M207.297 330.301L202.297 327.414L202.297 333.188L207.297 330.301ZM157.297 330.301L157.297 330.801L202.797 330.801L202.797 330.301L202.797 329.801L157.297 329.801L157.297 330.301Z" fill="#262728" className="flow-pulse-line-1" />
-
-                          {/* PIP STEP 2: Briefing */}
-                          <g filter="url(#filter2_d_agent4)">
-                            <rect x="207.297" y="316.301" width="84" height="28" rx="6" fill="#141516" shapeRendering="crispEdges" />
-                            <rect x="207.797" y="316.801" width="83" height="27" rx="5.5" stroke="#212326" shapeRendering="crispEdges" />
-                            <text x="249.3" y="334" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#CFD6E1" textAnchor="middle">Briefing</text>
-                          </g>
-
-                          {/* CONNECTING FLOW ARROW 2 */}
-                          <path d="M336.297 330.301L331.297 327.414V333.188L336.297 330.301ZM291.297 330.301V330.801H331.797V330.301V329.801H291.297V330.301Z" fill="#262728" className="flow-pulse-line-2" />
-
-                          {/* PIP STEP 3: Pass Active */}
-                          <g filter="url(#filter3_d_agent4)">
-                            <rect x="336.297" y="316.301" width="104" height="28" rx="6" fill="#141516" shapeRendering="crispEdges" />
-                            <rect x="336.797" y="316.801" width="103" height="27" rx="5.5" stroke="#212326" shapeRendering="crispEdges" />
-                            <text x="388.3" y="334" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#CFD6E1" textAnchor="middle">Pass Active</text>
-                          </g>
-
-                          {/* CARD 4: ACCESS STATE (BOTTOM RIGHT) */}
-                          <g className="float-badge-box" style={{ animationDelay: "0.8s" }}>
-                            <foreignObject x="335.997" y="263.001" width="181.6" height="127.6">
-                              <div style={{ backdropFilter: "blur(8.15px)", clipPath: "url(#bgblur_0_agent4_clip_path)", height: "100%", width: "100%" }}></div>
-                            </foreignObject>
-                            <g filter="url(#filter4_d_agent4)">
-                              <rect x="367.297" y="294.301" width="134" height="80" rx="10" fill="#141516" fillOpacity="1" shapeRendering="crispEdges" />
-                              <rect x="367.797" y="294.801" width="133" height="79" rx="9.5" stroke="#212326" shapeRendering="crispEdges" />
+                            <g transform="translate(0, 140)">
+                              <rect x="0" y="0" width="185" height="45" fill="#3a340b" stroke="#FCE545" strokeWidth="1" />
+                              <text x="15" y="27" fill="#FCE545" fontSize="11.5" fontFamily="var(--font-mono), monospace" fontWeight="600">STATUS: ACTIVE_PASS</text>
                             </g>
-                            <text x="434.3" y="326" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" fontWeight="bold" textAnchor="middle">Access State</text>
-                            <text x="434.3" y="354" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="14" fill="#8B5CF6" fontWeight="bold" textAnchor="middle">Auto Revoke</text>
                           </g>
-
-                          {/* CARD 5: SAFETY BRIEFING (TOP LEFT) */}
-                          <g className="float-badge-box" style={{ animationDelay: "0.4s" }}>
-                            <foreignObject x="-5.00312" y="-4.99922" width="181.6" height="127.6">
-                              <div style={{ backdropFilter: "blur(8.15px)", clipPath: "url(#bgblur_1_agent4_clip_path)", height: "100%", width: "100%" }}></div>
-                            </foreignObject>
-                            <g filter="url(#filter5_d_agent4)">
-                              <rect x="11.2969" y="11.3008" width="134" height="80" rx="10" fill="#141516" fillOpacity="1" shapeRendering="crispEdges" />
-                              <rect x="11.7969" y="11.8008" width="133" height="79" rx="9.5" stroke="#212326" shapeRendering="crispEdges" />
-                            </g>
-                            <text x="78.3" y="44" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" fontWeight="bold" textAnchor="middle">Safety Briefing</text>
-                            <text x="78.3" y="70" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="14" fill="#10B981" fontWeight="bold" textAnchor="middle">Completed</text>
-                          </g>
-
-                          <defs>
-                            <clipPath id="card-screen-clip_agent4">
-                              <rect x="73.2969" y="135.301" width="356" height="129" rx="10" />
-                            </clipPath>
-                            <pattern id="cont_grid_agent4" width="20" height="20" patternUnits="userSpaceOnUse">
-                              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#212326" strokeWidth="0.5" />
-                            </pattern>
-                            <filter id="filter0_d_agent4" x="58.7969" y="132.801" width="385" height="158" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feMorphology radius="23" operator="erode" in="SourceAlpha" result="effect1_dropShadow_agent4" />
-                              <feOffset dy="12" />
-                              <feGaussianBlur stdDeviation="18.75" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.000456116 0 0 0 0 0.000233453 0 0 0 0 0.000901442 0 0 0 0.13 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent4" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent4" result="shape" />
-                            </filter>
-                            <filter id="filter1_d_agent4" x="58.7969" y="313.801" width="113" height="57" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feMorphology radius="23" operator="erode" in="SourceAlpha" result="effect1_dropShadow_agent4" />
-                              <feOffset dy="12" />
-                              <feGaussianBlur stdDeviation="18.75" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.000456116 0 0 0 0 0.000233453 0 0 0 0 0.000901442 0 0 0 0.13 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent4" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent4" result="shape" />
-                            </filter>
-                            <filter id="filter2_d_agent4" x="192.797" y="313.801" width="113" height="57" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feMorphology radius="23" operator="erode" in="SourceAlpha" result="effect1_dropShadow_agent4" />
-                              <feOffset dy="12" />
-                              <feGaussianBlur stdDeviation="18.75" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.000456116 0 0 0 0 0.000233453 0 0 0 0 0.000901442 0 0 0 0.13 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent4" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent4" result="shape" />
-                            </filter>
-                            <filter id="filter3_d_agent4" x="321.797" y="313.801" width="121" height="57" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feMorphology radius="23" operator="erode" in="SourceAlpha" result="effect1_dropShadow_agent4" />
-                              <feOffset dy="12" />
-                              <feGaussianBlur stdDeviation="18.75" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.000456116 0 0 0 0 0.000233453 0 0 0 0 0.000901442 0 0 0 0.13 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent4" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent4" result="shape" />
-                            </filter>
-                            <filter id="filter4_d_agent4" x="335.997" y="263.001" width="181.6" height="127.6" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feOffset dx="-10" dy="-10" />
-                              <feGaussianBlur stdDeviation="10.65" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.04218 0 0 0 0 0.04218 0 0 0 0 0.04218 0 0 0 0.73 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent4" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent4" result="shape" />
-                            </filter>
-                            <clipPath id="bgblur_0_agent4_clip_path" transform="translate(-335.997 -263.001)">
-                              <rect x="367.297" y="294.301" width="134" height="80" rx="10" />
-                            </clipPath>
-                            <filter id="filter5_d_agent4" x="-5.00312" y="-4.99922" width="181.6" height="127.6" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feOffset dx="10" dy="10" />
-                              <feGaussianBlur stdDeviation="10.65" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.04218 0 0 0 0 0.04218 0 0 0 0 0.04218 0 0 0 0.73 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent4" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent4" result="shape" />
-                            </filter>
-                            <clipPath id="bgblur_1_agent4_clip_path" transform="translate(5.00312 4.99922)">
-                              <rect x="11.2969" y="11.3008" width="134" height="80" rx="10" />
-                            </clipPath>
-                            <linearGradient id="paint0_linear_agent4" x1="256.797" y1="23.3008" x2="256.797" y2="332.301" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#0F1112" />
-                              <stop offset="1" stopColor="#0C0D0F" />
-                            </linearGradient>
-                            <linearGradient id="paint1_linear_agent4" x1="256.797" y1="23.3008" x2="256.797" y2="332.301" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#262728" />
-                              <stop offset="1" stopColor="#0C0D0F" />
-                            </linearGradient>
-                          </defs>
                         </svg>
-                      </>
+                      </div>
                     )}
 
                     {/* Emergency Agent (05) */}
                     {activeAgent === 4 && (
-                      <>
-                        <svg width="100%" height="100%" viewBox="0 0 513 386" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <rect x="38.7969" y="23.8008" width="436" height="308" rx="9.5" fill="url(#paint0_linear_agent5)" stroke="url(#paint1_linear_agent5)" />
-                          <line x1="37.2969" y1="74.8008" x2="475.297" y2="74.8008" stroke="#212326" />
+                      <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <svg width="520" height="360" viewBox="0 0 520 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <style>{"\
+                            @keyframes blinkBanner4 {\
+                              0%, 100% { fill: #3b1116; stroke: #E44856; }\
+                              50% { fill: #5a0c12; stroke: #ff6b7a; }\
+                            }\
+                            @keyframes siren4 {\
+                              0%, 100% { fill: #E44856; }\
+                              50% { fill: #141517; }\
+                            }\
+                            .banner4 { animation: blinkBanner4 1s infinite; }\
+                            .siren-dot4 { animation: siren4 0.6s infinite; }\
+                          "}</style>
 
-                          {/* HEADER TITLE */}
-                          <text x="256" y="52" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" fontWeight="bold" letterSpacing="2" textAnchor="middle">CRISIS COMMAND</text>
-
-                          {/* MAIN CARD SCREEN */}
-                          <g filter="url(#filter0_d_agent5)">
-                            <rect x="73.2969" y="135.301" width="356" height="129" rx="10" fill="#141516" />
-                            <rect x="73.7969" y="135.801" width="355" height="128" rx="9.5" stroke="#212326" />
+                          {/* Critical warning banner */}
+                          <g transform="translate(15, 20)">
+                            <rect x="0" y="0" width="490" height="50" fill="#3b1116" stroke="#E44856" strokeWidth="1" className="banner4" />
+                            <circle cx="25" cy="25" r="6" fill="#E44856" className="siren-dot4" />
+                            <text x="45" y="29" fill="#ffffff" fontSize="11" fontFamily="var(--font-mono), monospace" fontWeight="bold" letterSpacing="0.08em">RUNBOOK_TRIGGER: CRITICAL_INCIDENT_LOBBY_ELEVATOR</text>
                           </g>
 
-                          {/* BACKGROUND GRID */}
-                          <g style={{ clipPath: 'url(#card-screen-clip_agent5)' }}>
-                            <rect x="73.2969" y="135.301" width="356" height="129" fill="url(#emerg_grid_agent5)" opacity="0.4" />
+                          {/* Left Panel: Mitigations */}
+                          <rect x="15" y="85" width="260" height="255" fill="#0c0d0e" stroke="#222528" strokeWidth="1" />
+                          <rect x="15" y="85" width="260" height="35" fill="#141517" />
+                          <text x="30" y="107" fill="#e4e4e7" fontSize="10.5" fontFamily="var(--font-mono), monospace" fontWeight="600" letterSpacing="0.05em">MITIGATION_FLOW</text>
+
+                          <g transform="translate(30, 140)">
+                            {/* Step 1 */}
+                            <rect x="0" y="2" width="12" height="12" fill="#3b1116" stroke="#E44856" strokeWidth="1" />
+                            <path d="M2,8 L5,11 L10,5" stroke="#FFFFFF" strokeWidth="1.5" />
+                            <text x="22" y="13" fill="#e4e4e7" fontSize="11" fontFamily="var(--font-main)">Broadcast Alarm to Staff</text>
+                            
+                            <line x1="6" y1="20" x2="6" y2="40" stroke="#222528" strokeWidth="1.5" />
+
+                            {/* Step 2 */}
+                            <rect x="0" y="42" width="12" height="12" fill="#3b1116" stroke="#E44856" strokeWidth="1" />
+                            <path d="M2,48 L5,51 L10,45" stroke="#FFFFFF" strokeWidth="1.5" />
+                            <text x="22" y="53" fill="#e4e4e7" fontSize="11" fontFamily="var(--font-main)">Lock Down Elevator Shafts</text>
+
+                            <line x1="6" y1="60" x2="6" y2="80" stroke="#222528" strokeWidth="1.5" />
+
+                            {/* Step 3 */}
+                            <rect x="0" y="82" width="12" height="12" fill="#3b1116" stroke="#E44856" strokeWidth="1" />
+                            <circle cx="6" cy="88" r="3" fill="#FFFFFF" className="siren-dot4" />
+                            <text x="22" y="93" fill="#e4e4e7" fontSize="11" fontFamily="var(--font-main)">Verify Evacuation Map</text>
+
+                            <line x1="6" y1="100" x2="6" y2="120" stroke="#222528" strokeWidth="1.5" />
+
+                            {/* Step 4 */}
+                            <rect x="0" y="122" width="12" height="12" fill="#141517" stroke="#71717a" strokeWidth="1" />
+                            <text x="22" y="133" fill="#71717a" fontSize="11" fontFamily="var(--font-main)">Alert First Responders</text>
                           </g>
 
-                          {/* TERMINAL CONTENT: CHANNELS & MUSTER STATE */}
-                          <g style={{ clipPath: 'url(#card-screen-clip_agent5)' }}>
-                            {/* Left panel: Channels */}
-                            <g>
-                              <text x="95" y="158" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" fontWeight="bold">PROPAGATION CHANNELS</text>
+                          {/* Right Panel: Map Diagram */}
+                          <rect x="290" y="85" width="215" height="255" fill="#0c0d0e" stroke="#222528" strokeWidth="1" />
+                          <rect x="290" y="85" width="215" height="35" fill="#141517" />
+                          <text x="305" y="107" fill="#e4e4e7" fontSize="10.5" fontFamily="var(--font-mono), monospace" fontWeight="600" letterSpacing="0.05em">AFFECTED_ZONES</text>
 
-                              {/* SMS channel */}
-                              <rect x="95" y="168" width="45" height="18" rx="2" fill="rgba(16, 185, 129, 0.1)" stroke="#10B981" strokeWidth="0.8" />
-                              <text x="117.5" y="181" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#10B981" fontWeight="bold" textAnchor="middle">SMS</text>
-                              <line x1="140" y1="177" x2="205" y2="209" stroke="#10B981" strokeWidth="1" strokeDasharray="2, 2" />
+                          {/* Flat floor plan diagram */}
+                          <g transform="translate(310, 140)">
+                            {/* Main boundary */}
+                            <rect x="0" y="0" width="175" height="160" fill="none" stroke="#222528" strokeWidth="1.5" />
+                            
+                            {/* Rooms */}
+                            <rect x="10" y="10" width="70" height="60" fill="#0c0d0e" stroke="#222528" strokeWidth="1" />
+                            <text x="45" y="45" fill="#71717a" fontSize="9" textAnchor="middle">LOBBY_A</text>
+                            
+                            <rect x="95" y="10" width="70" height="60" fill="#3b1116" stroke="#E44856" strokeWidth="1" className="banner4" />
+                            <text x="130" y="40" fill="#ffffff" fontSize="9.5" fontWeight="bold" textAnchor="middle">ELEVATORS</text>
+                            <text x="130" y="52" fill="#E44856" fontSize="8" textAnchor="middle">LOCKED</text>
 
-                              {/* SLACK channel */}
-                              <rect x="95" y="191" width="45" height="18" rx="2" fill="rgba(16, 185, 129, 0.1)" stroke="#10B981" strokeWidth="0.8" />
-                              <text x="117.5" y="204" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#10B981" fontWeight="bold" textAnchor="middle">SLACK</text>
-                              <line x1="140" y1="200" x2="205" y2="209" stroke="#10B981" strokeWidth="1" />
-
-                              {/* TEAMS channel */}
-                              <rect x="95" y="214" width="45" height="18" rx="2" fill="rgba(16, 185, 129, 0.1)" stroke="#10B981" strokeWidth="0.8" />
-                              <text x="117.5" y="227" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#10B981" fontWeight="bold" textAnchor="middle">TEAMS</text>
-                              <line x1="140" y1="223" x2="205" y2="209" stroke="#10B981" strokeWidth="1" strokeDasharray="2, 2" />
-
-                              {/* VOICE channel */}
-                              <rect x="95" y="237" width="45" height="18" rx="2" fill="rgba(16, 185, 129, 0.1)" stroke="#10B981" strokeWidth="0.8" />
-                              <text x="117.5" y="250" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#10B981" fontWeight="bold" textAnchor="middle">VOICE</text>
-                              <line x1="140" y1="246" x2="205" y2="209" stroke="#10B981" strokeWidth="1" />
-
-                              {/* Pulse beacon */}
-                              <circle cx="205" cy="209" r="5" fill="#EF4444" className="blink-led-active" />
-                              <circle cx="205" cy="209" r="14" stroke="rgba(239, 68, 68, 0.4)" strokeWidth="1" className="wave-pulse-tactical-circle" style={{ transformOrigin: '205px 209px' }} />
-                            </g>
-
-                            {/* Right panel: Response Rate */}
-                            <g>
-                              <rect x="255" y="145" width="160" height="110" rx="6" fill="rgba(255,255,255,0.01)" stroke="rgba(239, 68, 68, 0.15)" strokeWidth="1" />
-                              <text x="335" y="162" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" fontWeight="bold" textAnchor="middle">MUSTER STATUS</text>
-
-                              <text x="335" y="195" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="26" fill="#EF4444" fontWeight="bold" textAnchor="middle">98.4%</text>
-                              <text x="335" y="215" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#CFD6E1" fontWeight="bold" textAnchor="middle">SAFE: 1,402 / 1,425</text>
-
-                              <rect x="265" y="226" width="140" height="20" rx="2" fill="rgba(16, 185, 129, 0.1)" stroke="rgba(16, 185, 129, 0.3)" strokeWidth="0.8" />
-                              <text x="335" y="240" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#10B981" fontWeight="bold" textAnchor="middle">EVERY MEMBER NOTIFIED ✓</text>
-                            </g>
+                            <rect x="10" y="85" width="155" height="65" fill="#0c0d0e" stroke="#222528" strokeWidth="1" />
+                            <text x="87" y="120" fill="#71717a" fontSize="9.5" textAnchor="middle">CENTRAL_PLANT_FLOOR</text>
                           </g>
-
-                          {/* SCANLINE SWEET */}
-                          <g style={{ clipPath: 'url(#card-screen-clip_agent5)' }}>
-                            <line x1="74" y1="136" x2="428" y2="136" stroke="#EF4444" strokeWidth="1.5" strokeOpacity="0.4" className="scanline-kiosk-laser" />
-                          </g>
-
-                          {/* PIP STEP 1: Trigger */}
-                          <g filter="url(#filter1_d_agent5)">
-                            <rect x="73.2969" y="316.301" width="84" height="28" rx="6" fill="#141516" shapeRendering="crispEdges" />
-                            <rect x="73.7969" y="316.801" width="83" height="27" rx="5.5" stroke="#212326" shapeRendering="crispEdges" />
-                            <text x="115.3" y="334" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#CFD6E1" textAnchor="middle">Trigger</text>
-                          </g>
-
-                          {/* CONNECTING FLOW ARROW 1 */}
-                          <path d="M207.297 330.301L202.297 327.414L202.297 333.188L207.297 330.301ZM157.297 330.301L157.297 330.801L202.797 330.801L202.797 330.301L202.797 329.801L157.297 329.801L157.297 330.301Z" fill="#262728" className="flow-pulse-line-1" />
-
-                          {/* PIP STEP 2: Broadcasting */}
-                          <g filter="url(#filter2_d_agent5)">
-                            <rect x="207.297" y="316.301" width="84" height="28" rx="6" fill="#141516" shapeRendering="crispEdges" />
-                            <rect x="207.797" y="316.801" width="83" height="27" rx="5.5" stroke="#212326" shapeRendering="crispEdges" />
-                            <text x="249.3" y="334" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#CFD6E1" textAnchor="middle">Broadcasting</text>
-                          </g>
-
-                          {/* CONNECTING FLOW ARROW 2 */}
-                          <path d="M336.297 330.301L331.297 327.414V333.188L336.297 330.301ZM291.297 330.301V330.801H331.797V330.301V329.801H291.297V330.301Z" fill="#262728" className="flow-pulse-line-2" />
-
-                          {/* PIP STEP 3: Muster Active */}
-                          <g filter="url(#filter3_d_agent5)">
-                            <rect x="336.297" y="316.301" width="104" height="28" rx="6" fill="#141516" shapeRendering="crispEdges" />
-                            <rect x="336.797" y="316.801" width="103" height="27" rx="5.5" stroke="#212326" shapeRendering="crispEdges" />
-                            <text x="388.3" y="334" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#CFD6E1" textAnchor="middle">Muster Active</text>
-                          </g>
-
-                          {/* CARD 4: MUSTERING KPI (BOTTOM RIGHT) */}
-                          <g className="float-badge-box" style={{ animationDelay: "0.6s" }}>
-                            <foreignObject x="335.997" y="263.001" width="181.6" height="127.6">
-                              <div style={{ backdropFilter: "blur(8.15px)", clipPath: "url(#bgblur_0_agent5_clip_path)", height: "100%", width: "100%" }}></div>
-                            </foreignObject>
-                            <g filter="url(#filter4_d_agent5)">
-                              <rect x="367.297" y="294.301" width="134" height="80" rx="10" fill="#141516" fillOpacity="1" shapeRendering="crispEdges" />
-                              <rect x="367.797" y="294.801" width="133" height="79" rx="9.5" stroke="#212326" shapeRendering="crispEdges" />
-                            </g>
-                            <text x="434.3" y="326" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" fontWeight="bold" textAnchor="middle">Mustering KPI</text>
-                            <text x="434.3" y="354" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="14" fill="#EF4444" fontWeight="bold" textAnchor="middle">100% Account</text>
-                          </g>
-
-                          {/* CARD 5: ALERTS SENT (TOP LEFT) */}
-                          <g className="float-badge-box" style={{ animationDelay: "0.0s" }}>
-                            <foreignObject x="-5.00312" y="-4.99922" width="181.6" height="127.6">
-                              <div style={{ backdropFilter: "blur(8.15px)", clipPath: "url(#bgblur_1_agent5_clip_path)", height: "100%", width: "100%" }}></div>
-                            </foreignObject>
-                            <g filter="url(#filter5_d_agent5)">
-                              <rect x="11.2969" y="11.3008" width="134" height="80" rx="10" fill="#141516" fillOpacity="1" shapeRendering="crispEdges" />
-                              <rect x="11.7969" y="11.8008" width="133" height="79" rx="9.5" stroke="#212326" shapeRendering="crispEdges" />
-                            </g>
-                            <text x="78.3" y="44" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" fontWeight="bold" textAnchor="middle">Alerts Sent</text>
-                            <text x="78.3" y="70" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="14" fill="#EF4444" fontWeight="bold" textAnchor="middle">Every Channel</text>
-                          </g>
-
-                          <defs>
-                            <clipPath id="card-screen-clip_agent5">
-                              <rect x="73.2969" y="135.301" width="356" height="129" rx="10" />
-                            </clipPath>
-                            <pattern id="emerg_grid_agent5" width="20" height="20" patternUnits="userSpaceOnUse">
-                              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#212326" strokeWidth="0.5" />
-                            </pattern>
-                            <filter id="filter0_d_agent5" x="58.7969" y="132.801" width="385" height="158" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feMorphology radius="23" operator="erode" in="SourceAlpha" result="effect1_dropShadow_agent5" />
-                              <feOffset dy="12" />
-                              <feGaussianBlur stdDeviation="18.75" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.000456116 0 0 0 0 0.000233453 0 0 0 0 0.000901442 0 0 0 0.13 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent5" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent5" result="shape" />
-                            </filter>
-                            <filter id="filter1_d_agent5" x="58.7969" y="313.801" width="113" height="57" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feMorphology radius="23" operator="erode" in="SourceAlpha" result="effect1_dropShadow_agent5" />
-                              <feOffset dy="12" />
-                              <feGaussianBlur stdDeviation="18.75" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.000456116 0 0 0 0 0.000233453 0 0 0 0 0.000901442 0 0 0 0.13 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent5" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent5" result="shape" />
-                            </filter>
-                            <filter id="filter2_d_agent5" x="192.797" y="313.801" width="113" height="57" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feMorphology radius="23" operator="erode" in="SourceAlpha" result="effect1_dropShadow_agent5" />
-                              <feOffset dy="12" />
-                              <feGaussianBlur stdDeviation="18.75" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.000456116 0 0 0 0 0.000233453 0 0 0 0 0.000901442 0 0 0 0.13 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent5" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent5" result="shape" />
-                            </filter>
-                            <filter id="filter3_d_agent5" x="321.797" y="313.801" width="121" height="57" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feMorphology radius="23" operator="erode" in="SourceAlpha" result="effect1_dropShadow_agent5" />
-                              <feOffset dy="12" />
-                              <feGaussianBlur stdDeviation="18.75" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.000456116 0 0 0 0 0.000233453 0 0 0 0 0.000901442 0 0 0 0.13 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent5" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent5" result="shape" />
-                            </filter>
-                            <filter id="filter4_d_agent5" x="335.997" y="263.001" width="181.6" height="127.6" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feOffset dx="-10" dy="-10" />
-                              <feGaussianBlur stdDeviation="10.65" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.04218 0 0 0 0 0.04218 0 0 0 0 0.04218 0 0 0 0.73 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent5" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent5" result="shape" />
-                            </filter>
-                            <clipPath id="bgblur_0_agent5_clip_path" transform="translate(-335.997 -263.001)">
-                              <rect x="367.297" y="294.301" width="134" height="80" rx="10" />
-                            </clipPath>
-                            <filter id="filter5_d_agent5" x="-5.00312" y="-4.99922" width="181.6" height="127.6" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feOffset dx="10" dy="10" />
-                              <feGaussianBlur stdDeviation="10.65" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.04218 0 0 0 0 0.04218 0 0 0 0 0.04218 0 0 0 0.73 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent5" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent5" result="shape" />
-                            </filter>
-                            <clipPath id="bgblur_1_agent5_clip_path" transform="translate(5.00312 4.99922)">
-                              <rect x="11.2969" y="11.3008" width="134" height="80" rx="10" />
-                            </clipPath>
-                            <linearGradient id="paint0_linear_agent5" x1="256.797" y1="23.3008" x2="256.797" y2="332.301" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#0F1112" />
-                              <stop offset="1" stopColor="#0C0D0F" />
-                            </linearGradient>
-                            <linearGradient id="paint1_linear_agent5" x1="256.797" y1="23.3008" x2="256.797" y2="332.301" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#262728" />
-                              <stop offset="1" stopColor="#0C0D0F" />
-                            </linearGradient>
-                          </defs>
                         </svg>
-                      </>
+                      </div>
                     )}
 
                     {/* Executive Agent (06) */}
                     {activeAgent === 5 && (
-                      <>
-                        <svg width="100%" height="100%" viewBox="0 0 513 386" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <rect x="38.7969" y="23.8008" width="436" height="308" rx="9.5" fill="url(#paint0_linear_agent6)" stroke="url(#paint1_linear_agent6)" />
-                          <line x1="37.2969" y1="74.8008" x2="475.297" y2="74.8008" stroke="#212326" />
+                      <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <svg width="520" height="360" viewBox="0 0 520 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <style>{"\
+                            @keyframes drawPath5 {\
+                              0% { stroke-dashoffset: 400; }\
+                              100% { stroke-dashoffset: 0; }\
+                            }\
+                            @keyframes pulsePin5 {\
+                              0%, 100% { transform: translateY(0px); }\
+                              50% { transform: translateY(-3px); }\
+                            }\
+                            .graph-path5 { stroke-dasharray: 400; stroke-dashoffset: 400; animation: drawPath5 5s infinite linear; }\
+                            .pin5 { animation: pulsePin5 2s infinite ease-in-out; }\
+                          "}</style>
 
-                          {/* HEADER TITLE */}
-                          <text x="256" y="52" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" fontWeight="bold" letterSpacing="2" textAnchor="middle">INTELLIGENCE CONSOLE</text>
+                          {/* Left Panel: Global Facilities */}
+                          <rect x="15" y="20" width="240" height="320" fill="#0c0d0e" stroke="#222528" strokeWidth="1" />
+                          <rect x="15" y="20" width="240" height="40" fill="#141517" />
+                          <text x="30" y="44" fill="#e4e4e7" fontSize="11" fontFamily="var(--font-mono), monospace" fontWeight="600" letterSpacing="0.05em">FACILITY_DIRECTORY</text>
 
-                          {/* MAIN CARD SCREEN */}
-                          <g filter="url(#filter0_d_agent6)">
-                            <rect x="73.2969" y="135.301" width="356" height="129" rx="10" fill="#141516" />
-                            <rect x="73.7969" y="135.801" width="355" height="128" rx="9.5" stroke="#212326" />
+                          <g transform="translate(30, 85)" fill="#e4e4e7" fontSize="11.5" fontFamily="var(--font-main)">
+                            {/* HQ-1 */}
+                            <circle cx="6" cy="12" r="4" fill="#10b981" />
+                            <text x="20" y="16" fontWeight="600">HQ-East (Virginia)</text>
+                            <text x="20" y="32" fill="#71717a" fontSize="9.5" fontFamily="var(--font-mono), monospace">GATEWAYS: 412 NOMINAL</text>
+
+                            {/* HQ-2 */}
+                            <circle cx="6" cy="62" r="4" fill="#10b981" />
+                            <text x="20" y="66" fontWeight="600">HQ-West (Dublin)</text>
+                            <text x="20" y="82" fill="#71717a" fontSize="9.5" fontFamily="var(--font-mono), monospace">GATEWAYS: 389 NOMINAL</text>
+
+                            {/* HQ-3 */}
+                            <circle cx="6" cy="112" r="4" fill="#10b981" />
+                            <text x="20" y="116" fontWeight="600">HQ-APAC (Sydney)</text>
+                            <text x="20" y="132" fill="#71717a" fontSize="9.5" fontFamily="var(--font-mono), monospace">GATEWAYS: 198 NOMINAL</text>
                           </g>
 
-                          {/* BACKGROUND GRID */}
-                          <g style={{ clipPath: 'url(#card-screen-clip_agent6)' }}>
-                            <rect x="73.2969" y="135.301" width="356" height="129" fill="url(#exec_grid_agent6)" opacity="0.4" />
-                          </g>
+                          {/* Right Panel: Metrics Graph */}
+                          <rect x="270" y="20" width="235" height="320" fill="#0c0d0e" stroke="#222528" strokeWidth="1" />
+                          <rect x="270" y="20" width="235" height="40" fill="#141517" />
+                          <text x="285" y="44" fill="#e4e4e7" fontSize="11" fontFamily="var(--font-mono), monospace" fontWeight="600" letterSpacing="0.05em">SECURITY_SCORE</text>
 
-                          {/* TERMINAL CONTENT: PROMPT & COMPLIANCE TREND */}
-                          <g style={{ clipPath: 'url(#card-screen-clip_agent6)' }}>
-                            {/* Query bar */}
-                            <rect x="85" y="145" width="332" height="22" rx="4" fill="#131416" stroke="rgba(139, 92, 246, 0.25)" strokeWidth="1" />
-                            <circle cx="95" cy="156" r="3" fill="#8B5CF6" className="blink-led-active" />
-                            <text x="105" y="161" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#CFD6E1" fontWeight="bold">Summarize site-wide compliance trends this week.</text>
+                          <g transform="translate(285, 80)">
+                            <text x="0" y="20" fill="#71717a" fontSize="12.5" fontFamily="var(--font-main)">Historical Trust Score</text>
+                            <text x="0" y="55" fill="#6354F3" fontSize="30" fontFamily="var(--font-mono), monospace" fontWeight="bold">99.98%</text>
 
-                            {/* Left panel: Compliance Graph */}
-                            <g>
-                              {/* Axis */}
-                              <path d="M95,245 L95,185 M95,245 L235,245" stroke="#53585C" strokeWidth="1" />
-
-                              {/* Trend area fill & stroke */}
-                              <path d="M95,230 Q 120,205, 145,220 T 195,195 T 230,180 L 230,245 L 95,245 Z" fill="url(#chartGrad_agent6)" />
-                              <path d="M95,230 Q 120,205, 145,220 T 195,195 T 230,180" stroke="#8B5CF6" strokeWidth="1.5" fill="none" />
-
-                              {/* Data points */}
-                              <circle cx="145" cy="220" r="2.5" fill="#8B5CF6" />
-                              <circle cx="195" cy="195" r="2.5" fill="#8B5CF6" />
-                              <circle cx="230" cy="180" r="2.5" fill="#10B981" className="blink-led-active" />
-                              <text x="230" y="172" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#10B981" textAnchor="middle" fontWeight="bold">99.1%</text>
+                            {/* Graph */}
+                            <g transform="translate(0, 80)">
+                              <line x1="0" y1="0" x2="200" y2="0" stroke="#141517" />
+                              <line x1="0" y1="30" x2="200" y2="30" stroke="#141517" />
+                              <line x1="0" y1="60" x2="200" y2="60" stroke="#141517" />
+                              
+                              <path d="M 0 60 Q 40 40 80 50 T 160 10 T 200 5 L 200 80 L 0 80 Z" fill="#1a153b" />
+                              <path d="M 0 60 Q 40 40 80 50 T 160 10 T 200 5" fill="none" stroke="#6354F3" strokeWidth="2.5" className="graph-path5" />
+                              
+                              <circle cx="200" cy="5" r="4" fill="#6354F3" />
                             </g>
 
-                            {/* Right panel: Grade Badge */}
-                            <g>
-                              <rect x="255" y="175" width="162" height="80" rx="6" fill="rgba(255,255,255,0.01)" stroke="#212326" strokeWidth="1" />
-                              <text x="336" y="192" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" fontWeight="bold" textAnchor="middle">SECURITY INDEX</text>
-
-                              <circle cx="336" cy="216" r="16" fill="rgba(16, 185, 129, 0.05)" stroke="rgba(16, 185, 129, 0.2)" strokeWidth="1" />
-                              <text x="336" y="221" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="14" fill="#10B981" fontWeight="bold" textAnchor="middle">A+</text>
-
-                              <text x="336" y="246" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" textAnchor="middle" fontWeight="bold">VERY STRONG</text>
+                            <g transform="translate(0, 190)">
+                              <text x="0" y="10" fill="#71717a" fontSize="11" fontFamily="var(--font-main)">Gateways Online</text>
+                              <text x="0" y="28" fill="#e4e4e7" fontSize="13" fontFamily="var(--font-mono), monospace" fontWeight="600">1,482 Gateways Secured</text>
                             </g>
                           </g>
-
-                          {/* SCANLINE SWEET */}
-                          <g style={{ clipPath: 'url(#card-screen-clip_agent6)' }}>
-                            <line x1="74" y1="136" x2="428" y2="136" stroke="#8B5CF6" strokeWidth="1.5" strokeOpacity="0.4" className="scanline-kiosk-laser" />
-                          </g>
-
-                          {/* PIP STEP 1: Query */}
-                          <g filter="url(#filter1_d_agent6)">
-                            <rect x="73.2969" y="316.301" width="84" height="28" rx="6" fill="#141516" shapeRendering="crispEdges" />
-                            <rect x="73.7969" y="316.801" width="83" height="27" rx="5.5" stroke="#212326" shapeRendering="crispEdges" />
-                            <text x="115.3" y="334" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#CFD6E1" textAnchor="middle">Query</text>
-                          </g>
-
-                          {/* CONNECTING FLOW ARROW 1 */}
-                          <path d="M207.297 330.301L202.297 327.414L202.297 333.188L207.297 330.301ZM157.297 330.301L157.297 330.801L202.797 330.801L202.797 330.301L202.797 329.801L157.297 329.801L157.297 330.301Z" fill="#262728" className="flow-pulse-line-1" />
-
-                          {/* PIP STEP 2: Synthesizing */}
-                          <g filter="url(#filter2_d_agent6)">
-                            <rect x="207.297" y="316.301" width="84" height="28" rx="6" fill="#141516" shapeRendering="crispEdges" />
-                            <rect x="207.797" y="316.801" width="83" height="27" rx="5.5" stroke="#212326" shapeRendering="crispEdges" />
-                            <text x="249.3" y="334" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#CFD6E1" textAnchor="middle">Synthesizing</text>
-                          </g>
-
-                          {/* CONNECTING FLOW ARROW 2 */}
-                          <path d="M336.297 330.301L331.297 327.414V333.188L336.297 330.301ZM291.297 330.301V330.801H331.797V330.301V329.801H291.297V330.301Z" fill="#262728" className="flow-pulse-line-2" />
-
-                          {/* PIP STEP 3: Insights Ready */}
-                          <g filter="url(#filter3_d_agent6)">
-                            <rect x="336.297" y="316.301" width="104" height="28" rx="6" fill="#141516" shapeRendering="crispEdges" />
-                            <rect x="336.797" y="316.801" width="103" height="27" rx="5.5" stroke="#212326" shapeRendering="crispEdges" />
-                            <text x="388.3" y="334" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#CFD6E1" textAnchor="middle">Insights Ready</text>
-                          </g>
-
-                          {/* CARD 4: SECURITY POSTURE (BOTTOM RIGHT) */}
-                          <g className="float-badge-box" style={{ animationDelay: "0.8s" }}>
-                            <foreignObject x="335.997" y="263.001" width="181.6" height="127.6">
-                              <div style={{ backdropFilter: "blur(8.15px)", clipPath: "url(#bgblur_0_agent6_clip_path)", height: "100%", width: "100%" }}></div>
-                            </foreignObject>
-                            <g filter="url(#filter4_d_agent6)">
-                              <rect x="367.297" y="294.301" width="134" height="80" rx="10" fill="#141516" fillOpacity="1" shapeRendering="crispEdges" />
-                              <rect x="367.797" y="294.801" width="133" height="79" rx="9.5" stroke="#212326" shapeRendering="crispEdges" />
-                            </g>
-                            <text x="434.3" y="326" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" fontWeight="bold" textAnchor="middle">Security Posture</text>
-                            <text x="434.3" y="354" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="14" fill="#8B5CF6" fontWeight="bold" textAnchor="middle">A+ Rating</text>
-                          </g>
-
-                          {/* CARD 5: SECURITY INDEX (TOP LEFT) */}
-                          <g className="float-badge-box" style={{ animationDelay: "0.4s" }}>
-                            <foreignObject x="-5.00312" y="-4.99922" width="181.6" height="127.6">
-                              <div style={{ backdropFilter: "blur(8.15px)", clipPath: "url(#bgblur_1_agent6_clip_path)", height: "100%", width: "100%" }}></div>
-                            </foreignObject>
-                            <g filter="url(#filter5_d_agent6)">
-                              <rect x="11.2969" y="11.3008" width="134" height="80" rx="10" fill="#141516" fillOpacity="1" shapeRendering="crispEdges" />
-                              <rect x="11.7969" y="11.8008" width="133" height="79" rx="9.5" stroke="#212326" shapeRendering="crispEdges" />
-                            </g>
-                            <text x="78.3" y="44" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="12" fill="#53585C" fontWeight="bold" textAnchor="middle">Security Index</text>
-                            <text x="78.3" y="70" fontFamily="'Inter', var(--font-sans), sans-serif" fontSize="14" fill="#10B981" fontWeight="bold" textAnchor="middle">99.1% Secured</text>
-                          </g>
-
-                          <defs>
-                            <clipPath id="card-screen-clip_agent6">
-                              <rect x="73.2969" y="135.301" width="356" height="129" rx="10" />
-                            </clipPath>
-                            <pattern id="exec_grid_agent6" width="20" height="20" patternUnits="userSpaceOnUse">
-                              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#212326" strokeWidth="0.5" />
-                            </pattern>
-                            <linearGradient id="chartGrad_agent6" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.2" />
-                              <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0.0" />
-                            </linearGradient>
-                            <filter id="filter0_d_agent6" x="58.7969" y="132.801" width="385" height="158" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feMorphology radius="23" operator="erode" in="SourceAlpha" result="effect1_dropShadow_agent6" />
-                              <feOffset dy="12" />
-                              <feGaussianBlur stdDeviation="18.75" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.000456116 0 0 0 0 0.000233453 0 0 0 0 0.000901442 0 0 0 0.13 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent6" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent6" result="shape" />
-                            </filter>
-                            <filter id="filter1_d_agent6" x="58.7969" y="313.801" width="113" height="57" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feMorphology radius="23" operator="erode" in="SourceAlpha" result="effect1_dropShadow_agent6" />
-                              <feOffset dy="12" />
-                              <feGaussianBlur stdDeviation="18.75" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.000456116 0 0 0 0 0.000233453 0 0 0 0 0.000901442 0 0 0 0.13 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent6" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent6" result="shape" />
-                            </filter>
-                            <filter id="filter2_d_agent6" x="192.797" y="313.801" width="113" height="57" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feMorphology radius="23" operator="erode" in="SourceAlpha" result="effect1_dropShadow_agent6" />
-                              <feOffset dy="12" />
-                              <feGaussianBlur stdDeviation="18.75" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.000456116 0 0 0 0 0.000233453 0 0 0 0 0.000901442 0 0 0 0.13 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent6" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent6" result="shape" />
-                            </filter>
-                            <filter id="filter3_d_agent6" x="321.797" y="313.801" width="121" height="57" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feMorphology radius="23" operator="erode" in="SourceAlpha" result="effect1_dropShadow_agent6" />
-                              <feOffset dy="12" />
-                              <feGaussianBlur stdDeviation="18.75" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.000456116 0 0 0 0 0.000233453 0 0 0 0 0.000901442 0 0 0 0.13 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent6" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent6" result="shape" />
-                            </filter>
-                            <filter id="filter4_d_agent6" x="335.997" y="263.001" width="181.6" height="127.6" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feOffset dx="-10" dy="-10" />
-                              <feGaussianBlur stdDeviation="10.65" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.04218 0 0 0 0 0.04218 0 0 0 0 0.04218 0 0 0 0.73 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent6" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent6" result="shape" />
-                            </filter>
-                            <clipPath id="bgblur_0_agent6_clip_path" transform="translate(-335.997 -263.001)">
-                              <rect x="367.297" y="294.301" width="134" height="80" rx="10" />
-                            </clipPath>
-                            <filter id="filter5_d_agent6" x="-5.00312" y="-4.99922" width="181.6" height="127.6" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                              <feOffset dx="10" dy="10" />
-                              <feGaussianBlur stdDeviation="10.65" />
-                              <feComposite in2="hardAlpha" operator="out" />
-                              <feColorMatrix type="matrix" values="0 0 0 0 0.04218 0 0 0 0 0.04218 0 0 0 0 0.04218 0 0 0 0.73 0" />
-                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_agent6" />
-                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_agent6" result="shape" />
-                            </filter>
-                            <clipPath id="bgblur_1_agent6_clip_path" transform="translate(5.00312 4.99922)">
-                              <rect x="11.2969" y="11.3008" width="134" height="80" rx="10" />
-                            </clipPath>
-                            <linearGradient id="paint0_linear_agent6" x1="256.797" y1="23.3008" x2="256.797" y2="332.301" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#0F1112" />
-                              <stop offset="1" stopColor="#0C0D0F" />
-                            </linearGradient>
-                            <linearGradient id="paint1_linear_agent6" x1="256.797" y1="23.3008" x2="256.797" y2="332.301" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#262728" />
-                              <stop offset="1" stopColor="#0C0D0F" />
-                            </linearGradient>
-                          </defs>
                         </svg>
-                      </>
+                      </div>
                     )}
+
                   </div>
 
                   <div style={{ paddingTop: '16px', borderTop: '1px solid #212326', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '24px', position: 'relative', zIndex: 10 }}>
@@ -3752,7 +3307,7 @@ export default function CommunicationV2Page() {
                 <div
                   className="operational-grid-card"
                   style={{
-                    background: '#0f1012',
+                    background: 'transparent',
                     padding: '32px 28px 28px',
                     display: 'flex',
                     flexDirection: 'column',
@@ -3764,11 +3319,11 @@ export default function CommunicationV2Page() {
                   <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.25, marginBottom: '10px' }}>Check-in takes 90 seconds</h3>
                   <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.65, marginBottom: '28px', flexShrink: 0 }}>Visitors self-serve from pre-registration to badge. Guards stay in the field. No queues. No overrides.</p>
                   <div style={{ flex: 1, borderRadius: '8px', overflow: 'hidden' }}>
-                    <div style={{ background: '#141518', padding: '20px', height: '100%', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <div style={{ background: '#111113', padding: '20px', height: '100%', display: 'flex', flexDirection: 'column', gap: '10px' }}>
                       {[
-                        { initials: 'JL', name: 'James Liu', role: 'VISITOR · PRE-REGISTERED', badge: 'APPROVED', badgeBg: 'rgba(16,185,129,0.15)', badgeColor: '#10b981', badgeBorder: 'rgba(16,185,129,0.25)', avatarBg: 'rgba(139,92,246,0.3)', avatarBorder: 'rgba(139,92,246,0.4)', avatarColor: '#a78bfa' },
-                        { initials: 'SR', name: 'Sarah Rahman', role: 'CONTRACTOR · APEX SEC', badge: 'ESCORTED', badgeBg: 'rgba(139,92,246,0.15)', badgeColor: '#a78bfa', badgeBorder: 'rgba(139,92,246,0.25)', avatarBg: 'rgba(96,165,250,0.2)', avatarBorder: 'rgba(96,165,250,0.3)', avatarColor: '#60a5fa' },
-                        { initials: 'MK', name: 'Mark Kim', role: 'WALK-IN · PENDING', badge: 'CHECKING', badgeBg: 'rgba(251,191,36,0.12)', badgeColor: '#fbbf24', badgeBorder: 'rgba(251,191,36,0.2)', avatarBg: 'rgba(251,191,36,0.15)', avatarBorder: 'rgba(251,191,36,0.3)', avatarColor: '#fbbf24' }
+                        { initials: 'JL', name: 'James Liu', role: 'VISITOR · PRE-REGISTERED', badge: 'APPROVED', badgeBg: 'rgba(175, 249, 98, 0.15)', badgeColor: '#AFF962', badgeBorder: 'rgba(175, 249, 98, 0.25)', avatarBg: 'rgba(99, 84, 243, 0.3)', avatarBorder: 'rgba(99, 84, 243, 0.4)', avatarColor: '#6354F3' },
+                        { initials: 'SR', name: 'Sarah Rahman', role: 'CONTRACTOR · APEX SEC', badge: 'ESCORTED', badgeBg: 'rgba(99, 84, 243, 0.15)', badgeColor: '#6354F3', badgeBorder: 'rgba(99, 84, 243, 0.25)', avatarBg: 'rgba(73, 147, 227, 0.2)', avatarBorder: 'rgba(73, 147, 227, 0.3)', avatarColor: '#4993E3' },
+                        { initials: 'MK', name: 'Mark Kim', role: 'WALK-IN · PENDING', badge: 'CHECKING', badgeBg: 'rgba(252, 229, 69, 0.12)', badgeColor: '#FCE545', badgeBorder: 'rgba(252, 229, 69, 0.2)', avatarBg: 'rgba(252, 229, 69, 0.15)', avatarBorder: 'rgba(252, 229, 69, 0.3)', avatarColor: '#FCE545' }
                       ].map((v, i) => (
                         <div
                           key={i}
@@ -3798,15 +3353,15 @@ export default function CommunicationV2Page() {
                           alignItems: 'center',
                           justifyContent: 'space-between',
                           padding: '10px 14px',
-                          background: 'rgba(16,185,129,0.06)',
-                          border: '1px solid rgba(16,185,129,0.15)',
+                          background: 'rgba(175, 249, 98, 0.06)',
+                          border: '1px solid rgba(175, 249, 98, 0.15)',
                           borderRadius: '8px',
                           animation: 'visitor-row-cycle 6s infinite',
                           animationDelay: '600ms'
                         }}
                       >
                         <span style={{ fontSize: '10px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(255,255,255,0.4)' }}>AVG CHECK-IN TIME</span>
-                        <span style={{ fontSize: '18px', fontWeight: 700, color: '#10b981', fontFamily: 'var(--font-mono), monospace' }}>
+                        <span style={{ fontSize: '18px', fontWeight: 700, color: '#AFF962', fontFamily: 'var(--font-mono), monospace' }}>
                           0:{visitorSeconds < 10 ? '0' + visitorSeconds : visitorSeconds}
                         </span>
                       </div>
@@ -3817,23 +3372,23 @@ export default function CommunicationV2Page() {
                 {/* ── CARD 02 — GUARD ── */}
                 <div
                   className="operational-grid-card"
-                  style={{ background: '#0f1012', padding: '32px 28px 28px', display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: '420px' }}
+                  style={{ background: 'transparent', padding: '32px 28px 28px', display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: '420px' }}
                 >
                   <span style={{ fontSize: '14px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(255,255,255,0.3)', letterSpacing: '0', marginBottom: '14px' }}>Guard Agent</span>
                   <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.25, marginBottom: '10px' }}>Guards document in real time</h3>
                   <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.65, marginBottom: '28px', flexShrink: 0 }}>Incidents logged during the event, not reconstructed after. Hands-free voice. No memory gaps.</p>
                   <div style={{ flex: 1, borderRadius: '8px', overflow: 'hidden' }}>
-                    <div style={{ background: '#0c0d0f', padding: '16px', height: '100%', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    <div style={{ background: '#111113', padding: '16px', height: '100%', display: 'flex', flexDirection: 'column', gap: '6px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px' }}>
-                        {['#ef4444', '#fbbf24', '#10b981'].map((c, i) => <div key={i} style={{ width: '7px', height: '7px', borderRadius: '50%', background: c }} />)}
+                        {['#E44856', '#FCE545', '#AFF962'].map((c, i) => <div key={i} style={{ width: '7px', height: '7px', borderRadius: '50%', background: c }} />)}
                       </div>
                       {[
-                        { tag: '[ GUARD_07 ]', tagColor: '#10b981', text: 'on patrol · Gate 4' },
-                        { tag: 'VOICE_INPUT:', tagColor: '#a78bfa', text: '"Suspicious vehicle, north lot"' },
-                        { tag: 'LOGGED', tagColor: '#10b981', text: '22:14:33 · GPS confirmed' },
-                        { tag: 'DISPATCH', tagColor: '#10b981', text: 'Unit 3 en route · ETA 4min' },
-                        { tag: 'EVIDENCE:', tagColor: '#a78bfa', text: 'photo attached · plate captured' },
-                        { tag: 'INCIDENT_ID:', tagColor: '#10b981', text: 'INC-2847' },
+                        { tag: '[ GUARD_07 ]', tagColor: '#AFF962', text: 'on patrol · Gate 4' },
+                        { tag: 'VOICE_INPUT:', tagColor: '#6354F3', text: '"Suspicious vehicle, north lot"' },
+                        { tag: 'LOGGED', tagColor: '#AFF962', text: '22:14:33 · GPS confirmed' },
+                        { tag: 'DISPATCH', tagColor: '#AFF962', text: 'Unit 3 en route · ETA 4min' },
+                        { tag: 'EVIDENCE:', tagColor: '#6354F3', text: 'photo attached · plate captured' },
+                        { tag: 'INCIDENT_ID:', tagColor: '#AFF962', text: 'INC-2847' },
                       ].map((line, i) => (
                         <div
                           key={i}
@@ -3872,11 +3427,11 @@ export default function CommunicationV2Page() {
                           whiteSpace: 'nowrap',
                           animation: 'typing-line-6 8s steps(30, end) infinite'
                         }}>
-                          <span style={{ color: '#a78bfa' }}>MITHRIV &gt;</span>{' '}
+                          <span style={{ color: '#6354F3' }}>MITHRIV &gt;</span>{' '}
                           <span style={{ color: 'rgba(255,255,255,0.7)' }}>awaiting update</span>
                           <span style={{
                             display: 'inline-block', width: '7px', height: '14px',
-                            background: '#a78bfa', verticalAlign: 'middle', marginLeft: '2px',
+                            background: '#6354F3', verticalAlign: 'middle', marginLeft: '2px',
                             animation: 'terminal-blink 0.8s step-end infinite'
                           }} />
                         </div>
@@ -3888,13 +3443,13 @@ export default function CommunicationV2Page() {
                 {/* ── CARD 03 — EMPLOYEE ── */}
                 <div
                   className="operational-grid-card"
-                  style={{ background: '#0f1012', padding: '32px 28px 28px', display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: '420px' }}
+                  style={{ background: 'transparent', padding: '32px 28px 28px', display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: '420px' }}
                 >
                   <span style={{ fontSize: '14px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(255,255,255,0.3)', letterSpacing: '0', marginBottom: '14px' }}>Employee Agent</span>
                   <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.25, marginBottom: '10px' }}>Employees stop calling help desk</h3>
                   <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.65, marginBottom: '28px', flexShrink: 0 }}>Credential requests, access questions answered in seconds. Tickets drop 40–60%.</p>
                   <div style={{ flex: 1, borderRadius: '8px', overflow: 'hidden' }}>
-                    <div style={{ background: '#141518', padding: '16px', height: '100%', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <div style={{ background: '#111113', padding: '16px', height: '100%', display: 'flex', flexDirection: 'column', gap: '10px' }}>
                       <div
                         style={{
                           background: 'rgba(255,255,255,0.06)',
@@ -3912,9 +3467,9 @@ export default function CommunicationV2Page() {
                       </div>
                       <div
                         style={{
-                          background: 'rgba(139,92,246,0.15)',
-                          border: '1px solid rgba(139,92,246,0.2)',
-                          color: '#e0d4ff',
+                          background: 'rgba(99, 84, 243, 0.15)',
+                          border: '1px solid rgba(99, 84, 243, 0.2)',
+                          color: '#d2cfff',
                           borderRadius: '8px',
                           padding: '10px 12px',
                           fontSize: '12px',
@@ -3925,7 +3480,7 @@ export default function CommunicationV2Page() {
                         }}
                       >
                         Access approved for Saturday 08:00–18:00. Badge updated. Escort not required for your clearance level.
-                        <div style={{ fontSize: '9px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(139,92,246,0.5)', marginTop: '4px' }}>MITHRIV AI · 09:14</div>
+                        <div style={{ fontSize: '9px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(99, 84, 243, 0.5)', marginTop: '4px' }}>MITHRIV AI · 09:14</div>
                       </div>
                       <div
                         style={{
@@ -3933,12 +3488,12 @@ export default function CommunicationV2Page() {
                           alignItems: 'center',
                           gap: '6px',
                           padding: '8px 12px',
-                          background: 'rgba(16,185,129,0.08)',
-                          border: '1px solid rgba(16,185,129,0.2)',
+                          background: 'rgba(175, 249, 98, 0.08)',
+                          border: '1px solid rgba(175, 249, 98, 0.2)',
                           borderRadius: '8px',
                           fontSize: '11px',
                           fontFamily: 'var(--font-mono), monospace',
-                          color: '#10b981',
+                          color: '#AFF962',
                           animation: 'employee-badge-cycle 7s infinite'
                         }}
                       >
@@ -3951,13 +3506,13 @@ export default function CommunicationV2Page() {
                 {/* ── CARD 04 — CONTRACTOR ── */}
                 <div
                   className="operational-grid-card"
-                  style={{ background: '#0f1012', padding: '32px 28px 28px', display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: '420px' }}
+                  style={{ background: 'transparent', padding: '32px 28px 28px', display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: '420px' }}
                 >
                   <span style={{ fontSize: '14px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(255,255,255,0.3)', letterSpacing: '0', marginBottom: '14px' }}>Contractor Agent</span>
                   <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.25, marginBottom: '10px' }}>Contractors arrive prepared</h3>
                   <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.65, marginBottom: '28px', flexShrink: 0 }}>Safety briefing, NDA, escort assigned before the gate. Access expires automatically.</p>
                   <div style={{ flex: 1, borderRadius: '8px', overflow: 'hidden' }}>
-                    <div style={{ background: '#141518', padding: '18px', height: '100%', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <div style={{ background: '#111113', padding: '18px', height: '100%', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                       <div style={{ fontSize: '10px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(255,255,255,0.3)', letterSpacing: '1.5px', marginBottom: '4px' }}>ONBOARDING · MARK STEVENS · APEX</div>
                       {[
                         { text: 'Safety briefing delivered', done: true, tag: 'DONE' },
@@ -4000,7 +3555,7 @@ export default function CommunicationV2Page() {
                                 height="10"
                                 viewBox="0 0 24 24"
                                 fill="none"
-                                stroke="#10b981"
+                                stroke="#AFF962"
                                 strokeWidth="3"
                                 style={{
                                   animation: `contractor-svg-done-cycle 6s infinite`,
@@ -4014,7 +3569,7 @@ export default function CommunicationV2Page() {
                                   width: '6px',
                                   height: '6px',
                                   borderRadius: '50%',
-                                  background: '#fbbf24',
+                                  background: '#FCE545',
                                   animation: `contractor-dot-pending-cycle 6s infinite`,
                                   animationDelay: `${i * 150}ms`
                                 }}
@@ -4022,7 +3577,7 @@ export default function CommunicationV2Page() {
                             }
                           </div>
                           <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.65)', flex: 1 }}>{item.text}</span>
-                          <span style={{ fontSize: '9px', fontFamily: 'var(--font-mono), monospace', color: item.done ? '#10b981' : '#fbbf24', marginLeft: 'auto' }}>{item.tag}</span>
+                          <span style={{ fontSize: '9px', fontFamily: 'var(--font-mono), monospace', color: item.done ? '#AFF962' : '#FCE545', marginLeft: 'auto' }}>{item.tag}</span>
                         </div>
                       ))}
                       <div
@@ -4031,8 +3586,8 @@ export default function CommunicationV2Page() {
                           justifyContent: 'space-between',
                           alignItems: 'center',
                           padding: '10px 12px',
-                          background: 'rgba(139,92,246,0.08)',
-                          border: '1px solid rgba(139,92,246,0.15)',
+                          background: 'rgba(99, 84, 243, 0.08)',
+                          border: '1px solid rgba(99, 84, 243, 0.15)',
                           borderRadius: '6px',
                           marginTop: '4px',
                           animation: 'contractor-item-cycle 6s infinite',
@@ -4040,7 +3595,7 @@ export default function CommunicationV2Page() {
                         }}
                       >
                         <span style={{ fontSize: '10px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(255,255,255,0.3)' }}>ACCESS EXPIRES</span>
-                        <span style={{ fontSize: '14px', fontWeight: 700, color: '#a78bfa', fontFamily: 'var(--font-mono), monospace' }}>18:42:00</span>
+                        <span style={{ fontSize: '14px', fontWeight: 700, color: '#6354F3', fontFamily: 'var(--font-mono), monospace' }}>18:42:00</span>
                       </div>
                     </div>
                   </div>
@@ -4049,22 +3604,22 @@ export default function CommunicationV2Page() {
                 {/* ── CARD 05 — EMERGENCY ── */}
                 <div
                   className="operational-grid-card"
-                  style={{ background: '#0f1012', padding: '32px 28px 28px', display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: '420px' }}
+                  style={{ background: 'transparent', padding: '32px 28px 28px', display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: '420px' }}
                 >
                   <span style={{ fontSize: '14px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(255,255,255,0.3)', letterSpacing: '0', marginBottom: '14px' }}>Emergency Agent</span>
                   <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.25, marginBottom: '10px' }}>Emergencies coordinate automatically</h3>
                   <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.65, marginBottom: '28px', flexShrink: 0 }}>Every stakeholder notified simultaneously. From alarm to all-clear. Accountability in minutes.</p>
                   <div style={{ flex: 1, borderRadius: '8px', overflow: 'hidden' }}>
-                    <div style={{ background: '#0c0d0f', padding: '16px', height: '100%', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.25)', borderRadius: '6px' }}>
-                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ef4444', animation: 'terminal-pulse 1.2s ease-in-out infinite', flexShrink: 0 }} />
-                        <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono), monospace', color: '#ef4444', fontWeight: 600, letterSpacing: '1px' }}>EMERGENCY · MUSTER ACTIVE</span>
+                    <div style={{ background: '#111113', padding: '16px', height: '100%', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', background: 'rgba(228, 72, 86, 0.1)', border: '1px solid rgba(228, 72, 86, 0.25)', borderRadius: '6px' }}>
+                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#E44856', animation: 'terminal-pulse 1.2s ease-in-out infinite', flexShrink: 0 }} />
+                        <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono), monospace', color: '#E44856', fontWeight: 600, letterSpacing: '1px' }}>EMERGENCY · MUSTER ACTIVE</span>
                       </div>
                       {[
-                        { name: 'SMS', status: '1,402 SENT', color: '#10b981' },
-                        { name: 'TEAMS / SLACK', status: 'ALL CHANNELS', color: '#10b981' },
-                        { name: 'VOICE', status: 'BROADCAST', color: '#10b981' },
-                        { name: 'RADIO', status: 'TRANSMITTING', color: '#fbbf24' },
+                        { name: 'SMS', status: '1,402 SENT', color: '#AFF962' },
+                        { name: 'TEAMS / SLACK', status: 'ALL CHANNELS', color: '#AFF962' },
+                        { name: 'VOICE', status: 'BROADCAST', color: '#AFF962' },
+                        { name: 'RADIO', status: 'TRANSMITTING', color: '#FCE545' },
                       ].map((ch, i) => (
                         <div
                           key={i}
@@ -4089,8 +3644,8 @@ export default function CommunicationV2Page() {
                           display: 'flex',
                           justifyContent: 'space-between',
                           padding: '10px 12px',
-                          background: 'rgba(239,68,68,0.06)',
-                          border: '1px solid rgba(239,68,68,0.12)',
+                          background: 'rgba(228, 72, 86, 0.06)',
+                          border: '1px solid rgba(228, 72, 86, 0.12)',
                           borderRadius: '6px',
                           marginTop: '2px',
                           animation: 'emergency-counters-cycle 7s infinite',
@@ -4111,15 +3666,15 @@ export default function CommunicationV2Page() {
                 {/* ── CARD 06 — EXECUTIVE ── */}
                 <div
                   className="operational-grid-card"
-                  style={{ background: '#0f1012', padding: '32px 28px 28px', display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: '420px' }}
+                  style={{ background: 'transparent', padding: '32px 28px 28px', display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: '420px' }}
                 >
                   <span style={{ fontSize: '14px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(255,255,255,0.3)', letterSpacing: '0', marginBottom: '14px' }}>Executive Agent</span>
                   <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.25, marginBottom: '10px' }}>Executives get answers on demand</h3>
                   <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.65, marginBottom: '28px', flexShrink: 0 }}>Security posture, compliance status, incident trends. Natural language. No analyst wait.</p>
                   <div style={{ flex: 1, borderRadius: '8px', overflow: 'hidden' }}>
-                    <div style={{ background: '#141518', padding: '16px', height: '100%', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', background: '#0c0d0f', border: '1px solid rgba(139,92,246,0.2)', borderRadius: '6px' }}>
-                        <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#a78bfa', flexShrink: 0 }} />
+                    <div style={{ background: '#111113', padding: '16px', height: '100%', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', background: 'transparent', border: '1px solid rgba(99, 84, 243, 0.2)', borderRadius: '6px' }}>
+                        <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#6354F3', flexShrink: 0 }} />
                         <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono), monospace', color: 'rgba(255,255,255,0.6)' }}>"Compliance trend this quarter?"</span>
                       </div>
                       <div style={{ flex: 1, display: 'flex', alignItems: 'flex-end', gap: '6px', padding: '10px 12px', background: 'rgba(255,255,255,0.02)', border: '1px solid #202022', borderRadius: '6px' }}>
@@ -4134,8 +3689,8 @@ export default function CommunicationV2Page() {
                               flex: 1,
                               height: bar.h,
                               borderRadius: '3px 3px 0 0',
-                              background: bar.hi ? 'rgba(16,185,129,0.4)' : 'rgba(139,92,246,0.3)',
-                              border: `1px solid ${bar.hi ? 'rgba(16,185,129,0.5)' : 'rgba(139,92,246,0.4)'}`,
+                              background: bar.hi ? 'rgba(175, 249, 98, 0.4)' : 'rgba(99, 84, 243, 0.3)',
+                              border: `1px solid ${bar.hi ? 'rgba(175, 249, 98, 0.5)' : 'rgba(99, 84, 243, 0.4)'}`,
                               transformOrigin: 'bottom',
                               animation: 'executive-bar-scale-cycle 6s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite',
                               animationDelay: `${i * 50}ms`
@@ -4240,7 +3795,7 @@ export default function CommunicationV2Page() {
               
               @keyframes contractor-check-done-cycle {
                 0%, 15% { background: rgba(255,255,255,0.04); border-color: #202022; }
-                25%, 85% { background: rgba(16,185,129,0.2); border-color: rgba(16,185,129,0.4); }
+                25%, 85% { background: rgba(175, 249, 98, 0.2); border-color: rgba(175, 249, 98, 0.4); }
                 95%, 100% { background: rgba(255,255,255,0.04); border-color: #202022; }
               }
               
@@ -4252,7 +3807,7 @@ export default function CommunicationV2Page() {
               
               @keyframes contractor-check-pending-cycle {
                 0%, 25% { background: rgba(255,255,255,0.04); border-color: #202022; }
-                35%, 85% { background: rgba(251,191,36,0.1); border-color: rgba(251,191,36,0.25); }
+                35%, 85% { background: rgba(252, 229, 69, 0.1); border-color: rgba(252, 229, 69, 0.25); }
                 95%, 100% { background: rgba(255,255,255,0.04); border-color: #202022; }
               }
               

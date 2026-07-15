@@ -130,6 +130,7 @@ export default function Navbar() {
             <ul className={`nav-links ${mobileMenuOpen ? 'active' : ''}`} style={{ fontFamily: "'Inter', sans-serif" }}>
                 <li><Link href="/">Home</Link></li>
                 <li><Link href="/home-02">Home 02</Link></li>
+                <li><Link href="/home-03">Home 03</Link></li>
                 <li className={`has-dropdown ${activeDropdown === 'platform' ? 'is-active' : ''}`}>
                     <a style={{ cursor: 'pointer' }} onClick={(e) => { e.preventDefault(); setActiveDropdown(activeDropdown === 'platform' ? null : 'platform'); }}>Platform <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.6, transition: 'transform 0.3s' }}>
                             <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -142,7 +143,7 @@ export default function Navbar() {
                             <Link href="/integration-fabric" className="ent-btn-primary">View Platform Overview <svg className="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path className="arrow-stem" d="M3 12h12" /><path className="arrow-head" d="m9 18 6-6-6-6"/></svg></Link>
                         </div>
                         <div className="mega-right">
-                            <div style={{ padding: '24px 32px 16px 32px', borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
+                            <div style={{ padding: '24px 32px 16px 32px', borderBottom: '1px solid #212326' }}>
                                 <h4 style={{ color: '#ADADAE', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', margin: 0, fontWeight: 600 }}>Core Modules</h4>
                             </div>
                             <div className="mega-grid">
@@ -161,7 +162,7 @@ export default function Navbar() {
                     <a style={{ cursor: 'pointer' }} onClick={(e) => { e.preventDefault(); setActiveDropdown(activeDropdown === 'resources' ? null : 'resources'); }}>Resources <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.6, transition: 'transform 0.3s' }}>
                             <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg></a>
-                    <div className="mega-menu">
+                    <div className="mega-menu resources-menu">
                         <div className="mega-left">
                             <h3 style={{ color: '#F5F7FA', fontSize: '1.1rem', marginBottom: '8px', fontWeight: 600 }}>Intelligence & Insights</h3>
                             <p style={{ color: '#ADADAE', fontSize: '14px', lineHeight: 1.5, marginBottom: '24px', flexGrow: 1 }}>
@@ -170,7 +171,7 @@ export default function Navbar() {
                             <Link href="/resources" className="ent-btn-primary">View All Resources <svg className="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path className="arrow-stem" d="M3 12h12" /><path className="arrow-head" d="m9 18 6-6-6-6"/></svg></Link>
                         </div>
                         <div className="mega-right">
-                            <div style={{ padding: '24px 32px 16px 32px', borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
+                            <div style={{ padding: '24px 32px 16px 32px', borderBottom: '1px solid #212326' }}>
                                 <h4 style={{ color: '#ADADAE', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', margin: 0, fontWeight: 600 }}>All Resources</h4>
                             </div>
                             <div className="mega-grid">

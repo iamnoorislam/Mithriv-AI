@@ -1,4 +1,4 @@
-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300,400&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,600,500,300,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap');
 
 :root {
@@ -11,8 +11,8 @@
     --border-subtle: #1A1C1E;
     --border-hover: rgba(255, 255, 255, 0.15);
 
-    --primary-purple: #8B5CF6;
-    --primary-purple-glow: rgba(139, 92, 246, 0.5);
+    --primary-purple: #7700FF;
+    --primary-purple-glow: rgba(119, 0, 255, 0.5);
     --secondary-blue: #4DA6FF;
     --accent-pink: #FF2D95;
     --highlight-yellow: #FFE500;
@@ -498,8 +498,8 @@ body, p,
 .landing-theme h1,
 .landing-theme .main-heading {
     font-family: var(--font-main);
-    font-size: 72px;
-    font-weight: 700;
+    font-size: 64px;
+    font-weight: 600;
     letter-spacing: -0.03em;
     line-height: 1.1;
     color: var(--text-primary);
@@ -4321,17 +4321,17 @@ body.light-mode * {
     transform: translateX(-50%) translateY(10px) scale(0.95) rotateX(-8deg);
     opacity: var(--hero-overlay-opacity, 0);
     visibility: hidden;
-    width: 700px;
+    width: 780px;
     background: #131416;
     backdrop-filter: blur(24px);
     backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
+    border: 1px solid #212326;
+    border-radius: 6px;
     padding: 0;
     display: flex;
     gap: 0;
     box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.02);
-    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease, visibility 0.7s;
+    transition: transform 0.15s ease, opacity 0.15s ease, visibility 0.15s;
     pointer-events: none;
     z-index: 1000;
 }
@@ -4343,6 +4343,7 @@ body.light-mode * {
     visibility: visible;
     transform: translateX(-50%) translateY(24px) scale(1) rotateX(0deg);
     pointer-events: auto;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease, visibility 0s;
 }
 
 .has-dropdown:hover>a svg,
@@ -4354,9 +4355,13 @@ body.light-mode * {
 .mega-left {
     flex: 0 0 240px;
     padding: 24px;
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    border-right: 1px solid #212326;
     display: flex;
     flex-direction: column;
+}
+
+.resources-menu .mega-left {
+    flex: 0 0 320px;
 }
 
 /* mega-right, mega-grid, mega-item have been moved to navbar.css to prevent conflicts */
@@ -4411,10 +4416,10 @@ body.light-mode * {
 .mega-menu::before {
     content: '';
     position: absolute;
-    top: -40px;
+    top: -25px;
     left: 0;
     width: 100%;
-    height: 40px;
+    height: 25px;
     background: transparent;
 }
 
@@ -6129,13 +6134,8 @@ body.light-mode * {
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 6px,
-        #212326 6px,
-        #212326 7px
-    );
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Cpath d='M-2,8 L2,12 M0,0 L10,10 M8,-2 L12,2' stroke='%23212326' stroke-width='1'/%3E%3C/svg%3E");
+    background-repeat: repeat;
     opacity: 0;
     transition: opacity 0.5s ease;
     pointer-events: none;
@@ -6713,7 +6713,8 @@ body.light-mode * {
 
 .k-console-panel:hover {
     border-color: #212326;
-    background-image: repeating-linear-gradient(45deg, transparent, transparent 6px, #212326 6px, #212326 7px);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Cpath d='M-2,8 L2,12 M0,0 L10,10 M8,-2 L12,2' stroke='%23212326' stroke-width='1'/%3E%3C/svg%3E");
+    background-repeat: repeat;
     box-shadow: none;
 }
 
@@ -6810,7 +6811,8 @@ body.light-mode * {
 .k-feature-card:hover {
     transform: translateY(-3px);
     border-color: #212326;
-    background-image: repeating-linear-gradient(45deg, transparent, transparent 6px, #212326 6px, #212326 7px);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Cpath d='M-2,8 L2,12 M0,0 L10,10 M8,-2 L12,2' stroke='%23212326' stroke-width='1'/%3E%3C/svg%3E");
+    background-repeat: repeat;
     box-shadow: none;
 }
 
@@ -7633,9 +7635,15 @@ body.light-mode * {
 .operational-outcomes-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: #202022;
-    border: 1px solid #202022;
+    gap: 0px;
+    background: transparent;
+    border-top: 1px solid #222528;
+    border-left: 1px solid #222528;
+}
+
+.operational-grid-card {
+    border-right: 1px solid #222528;
+    border-bottom: 1px solid #222528;
 }
 
 .operational-grid-card h3 {
@@ -7785,9 +7793,17 @@ body.light-mode #operational-outcomes {
     border-top: 1px solid rgba(15, 17, 21, 0.04) !important;
     border-bottom: 1px solid rgba(15, 17, 21, 0.04) !important;
 }
+body.light-mode #operational-outcomes .operational-outcomes-grid {
+    border-top: 1px solid rgba(15, 17, 21, 0.05) !important;
+    border-left: 1px solid rgba(15, 17, 21, 0.05) !important;
+    border-bottom: none !important;
+    border-right: none !important;
+}
 body.light-mode #operational-outcomes .operational-grid-card {
     background: #FFFFFF !important;
-    border: 1px solid rgba(15, 17, 21, 0.05) !important;
+    border: none !important;
+    border-right: 1px solid rgba(15, 17, 21, 0.05) !important;
+    border-bottom: 1px solid rgba(15, 17, 21, 0.05) !important;
     box-shadow: 0 4px 20px rgba(15, 17, 21, 0.02) !important;
 }
 body.light-mode #operational-outcomes .operational-grid-card h3 {
@@ -8263,8 +8279,9 @@ body.light-mode .close-cta-section p[style*="color: #B6B6B7"] {
 .word-mask {
     display: inline-block;
     overflow: hidden;
-    vertical-align: top;
-    padding-right: 0.2em;
+    vertical-align: bottom;
+    padding-right: 0.04em;
+    padding-bottom: 0.16em;
 }
 .word-inner {
     display: inline-block;

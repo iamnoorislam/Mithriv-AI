@@ -31,10 +31,15 @@ export default function IntegrationFabricPage() {
         let timer: NodeJS.Timeout;
         const init = () => {
             const w = window as any;
-            if (w.runMain && w.runIntegrationFabric && w.gsap && w.ScrollTrigger && typeof w.Lenis !== 'undefined') {
+            if (w.runHeroDotCanvas02 && w.runMain && w.runIntegrationFabric && w.gsap && w.ScrollTrigger && typeof w.Lenis !== 'undefined') {
                 w.runPreloader && w.runPreloader();
                 w.runMain();
                 w.runIntegrationFabric();
+                try {
+                    w.runHeroDotCanvas02();
+                } catch (e) {
+                    console.error("Error in runHeroDotCanvas02:", e);
+                }
             } else {
                 timer = setTimeout(init, 50);
             }
@@ -52,6 +57,9 @@ export default function IntegrationFabricPage() {
             }
             if (w.cancelIntegrationFabric) {
                 w.cancelIntegrationFabric();
+            }
+            if (w.cancelHeroDotCanvas02Anim) {
+                w.cancelHeroDotCanvas02Anim();
             }
         };
     }, [mounted]);
@@ -84,24 +92,19 @@ export default function IntegrationFabricPage() {
         }
 
         /* Base Resets for this page */
-        body {
-            background-color: var(--bg-base) !important;
-            color: var(--text-secondary) !important;
-            font-family: var(--font-main) !important;
+        .landing-theme {
+            background-color: var(--bg-base);
+            color: var(--text-secondary);
+            font-family: var(--font-main);
             line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
         }
 
-        .global-grid-bg {
-            display: none !important;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
+        .landing-theme h1,
+        .landing-theme h2,
+        .landing-theme h3,
+        .landing-theme h4,
+        .landing-theme h5,
+        .landing-theme h6 {
             color: var(--text-primary);
             font-family: var(--font-main);
             font-weight: 600;
@@ -154,8 +157,8 @@ export default function IntegrationFabricPage() {
             }
         }
 
-        body::before,
-        body::after {
+        .landing-theme::before,
+        .landing-theme::after {
             content: '';
             position: fixed;
             top: 0;
@@ -167,11 +170,11 @@ export default function IntegrationFabricPage() {
             animation: drawVerticalLine 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        body::before {
+        .landing-theme::before {
             left: calc(50% - 640px);
         }
 
-        body::after {
+        .landing-theme::after {
             right: calc(50% - 640px);
         }
 
@@ -232,63 +235,6 @@ export default function IntegrationFabricPage() {
 
         .ent-pill-accent {
             color: var(--accent-purple);
-        }
-
-        .ent-btn-primary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, rgba(22, 20, 18, 0.78) 0%, rgba(14, 12, 11, 0.82) 100%) !important;
-            backdrop-filter: blur(20px) saturate(120%) !important;
-            -webkit-backdrop-filter: blur(20px) saturate(120%) !important;
-            color: #FAF5EB !important;
-            padding: 12px 24px;
-            border-radius: 100px !important;
-            font-weight: 500;
-            font-size: 1rem;
-            text-decoration: none;
-            border: 1px solid rgba(255, 255, 255, 0.32) !important;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            box-shadow: inset 0 0 12px 1.5px rgba(255, 255, 255, 0.28) !important;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-        }
-
-        .ent-btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, rgba(22, 20, 18, 0.45) 0%, rgba(14, 12, 11, 0.5) 100%) !important;
-            backdrop-filter: blur(16px) saturate(120%) !important;
-            -webkit-backdrop-filter: blur(16px) saturate(120%) !important;
-            color: rgba(250, 245, 235, 0.8) !important;
-            padding: 12px 24px;
-            border-radius: 100px !important;
-            border: 1px solid rgba(255, 255, 255, 0.22) !important;
-            text-decoration: none;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            box-shadow: inset 0 0 10px 1px rgba(255, 255, 255, 0.22) !important;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
-        }
-
-        .ent-btn-primary:hover {
-            background: linear-gradient(135deg, rgba(28, 25, 23, 0.85) 0%, rgba(20, 18, 16, 0.9) 100%) !important;
-            border-color: rgba(255, 255, 255, 0.48) !important;
-            color: #ffffff !important;
-            transform: translateY(-2px) scale(1.02) !important;
-            box-shadow: inset 0 0 16px 2.5px rgba(255, 255, 255, 0.45) !important;
-        }
-
-        .ent-btn-secondary:hover {
-            background: linear-gradient(135deg, rgba(28, 25, 23, 0.6) 0%, rgba(20, 18, 16, 0.65) 100%) !important;
-            border-color: rgba(255, 255, 255, 0.38) !important;
-            color: #ffffff !important;
-            transform: translateY(-2px) scale(1.02) !important;
-            box-shadow: inset 0 0 14px 2px rgba(255, 255, 255, 0.35) !important;
         }
 
         /* Bento Grid System */
@@ -1388,41 +1334,104 @@ export default function IntegrationFabricPage() {
 
       ` }} />
 
+            {/* Global Texture overlays */}
+            <div className="global-grid-bg" id="globalGridBg"></div>
+            <div className="grain-overlay"></div>
+
+            {/* HERO SECTION */}
+            <main className="hero-section" id="hero" style={{ paddingTop: '200px', paddingBottom: '120px', position: 'relative', overflow: 'hidden' }}>
+                {/* Interactive Repelling Dot-Grid Matrix Background with Radial Fade-out Mask */}
+                <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    zIndex: 0,
+                    pointerEvents: 'none',
+                    WebkitMaskImage: 'radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.15) 45%, black 85%)',
+                    maskImage: 'radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.15) 45%, black 85%)'
+                }}>
+                    <canvas id="heroDotCanvas" style={{ width: '100%', height: '100%', display: 'block' }}></canvas>
+                </div>
+
+                {/* Hero Content */}
+                <div className="hero-content" style={{ position: 'relative', zIndex: 10, marginTop: '0' }}>
+                    <div className="ent-pill award-pill">✦ Core Infrastructure</div>
+                    
+                    <h1 className="main-heading" style={{ fontSize: 'clamp(40px, 4.2vw, 64px)', margin: '0 0 1.5rem', lineHeight: 1.15, cursor: 'default' }}>
+                        <span className="word-mask"><span className="word-inner w1">Every</span></span>{' '}
+                        <span className="word-mask"><span className="word-inner w2">security</span></span>{' '}
+                        <span className="word-mask"><span className="word-inner w3">system.</span></span><br />
+                        <span className="word-mask"><span className="word-inner w4">One</span></span>{' '}
+                        <span className="word-mask"><span className="word-inner w5">operational</span></span>{' '}
+                        <span className="word-mask"><span className="word-inner w6">model.</span></span>
+                    </h1>
+
+                    <p className="body-text award-fade-up delay-p" style={{ maxWidth: '650px', margin: '0 auto 2.5rem', fontSize: '15px', lineHeight: '1.6', color: '#B6B6B7', fontFamily: 'var(--font-mono)' }}>
+                        Your cameras, access control, and visitor systems already generate data. Mithriv's Integration Fabric connects them into a unified layer, without replacing what works.
+                    </p>
+
+                    <div style={{ display: 'flex', gap: '16px', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
+                        <a href="#" className="ent-btn-primary award-fade-up delay-btn" style={{ padding: '12px 24px', fontSize: '0.95rem', display: 'inline-flex', backdropFilter: 'none', WebkitBackdropFilter: 'none', transform: 'translateZ(0)', position: 'relative', zIndex: 20 }}>Request Assessment <svg className="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path className="arrow-stem" d="M3 12h12" /><path className="arrow-head" d="m9 18 6-6-6-6"/></svg></a>
+                        <a href="#" className="ent-btn-secondary award-fade-up delay-btn" style={{ padding: '12px 24px', fontSize: '0.95rem', display: 'inline-flex', backdropFilter: 'none', WebkitBackdropFilter: 'none', transform: 'translateZ(0)', position: 'relative', zIndex: 20 }}>
+                            View Documentation
+                        </a>
+                    </div>
+                </div>
+
+                {/* Customer Logos */}
+                <div className="relative w-full max-w-[1280px] mx-auto px-6 z-10 award-fade-up delay-strip" style={{ paddingTop: '140px', paddingBottom: '40px', marginTop: 'auto' }}>
+                  <style dangerouslySetInnerHTML={{ __html: `
+                    @keyframes custom-marquee {
+                      0% { transform: translateX(0%); }
+                      100% { transform: translateX(-100%); }
+                    }
+                  `}} />
+                  <div className="text-center" style={{ marginBottom: '24px' }}>
+                    <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em' }}>Trusted by these companies</h2>
+                  </div>
+                  
+                  <div className="relative flex overflow-hidden w-full group">
+                    <div className="flex overflow-hidden relative w-full" style={{ maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)' }}>
+                      {[0, 1].map((marqueeIdx) => (
+                        <div key={marqueeIdx} className="flex shrink-0 items-center justify-start w-max" style={{ gap: '3.5rem', minWidth: '100%', paddingRight: '3.5rem', animation: 'custom-marquee 15s linear infinite' }}>
+                          {[0, 1].map((repeatIdx) => (
+                            <React.Fragment key={repeatIdx}>
+                              <div className="text-[#fff] font-bold text-2xl whitespace-nowrap flex-shrink-0 flex items-center opacity-70 hover:opacity-100 transition-opacity">
+                                <span style={{ letterSpacing: '-0.05em' }}>NEXT<span className="text-[#888]">.</span></span>
+                              </div>
+                              <div className="text-[#fff] font-semibold text-xl whitespace-nowrap flex-shrink-0 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+                                <svg width="28" height="28" viewBox="-11.5 -10.23174 23 20.46348" fill="#61DAFB"><circle cx="0" cy="0" r="2.05" fill="#61DAFB"/><g stroke="#61DAFB" strokeWidth="1" fill="none"><ellipse rx="11" ry="4.2"/><ellipse rx="11" ry="4.2" transform="rotate(60)"/><ellipse rx="11" ry="4.2" transform="rotate(120)"/></g></svg>
+                                React
+                              </div>
+                              <div className="text-[#fff] font-semibold text-xl whitespace-nowrap flex-shrink-0 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'rotate(45deg)' }}><line x1="5" y1="12" x2="19" y2="12"></line><line x1="12" y1="5" x2="12" y2="19"></line></svg>
+                                shadcn/ui
+                              </div>
+                              <div className="text-[#fff] font-semibold text-xl whitespace-nowrap flex-shrink-0 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="#3ECF8E"><path d="M12 2L2 12h10v10l10-10H12V2z"/></svg>
+                                supabase
+                              </div>
+                              <div className="text-[#fff] font-semibold text-xl whitespace-nowrap flex-shrink-0 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 14c2 0 3-2 5-2s3 2 5 2 3-2 5-2"></path><path d="M4 20c2 0 3-2 5-2s3 2 5 2 3-2 5-2"></path></svg>
+                                tailwindcss
+                              </div>
+                              <div className="text-[#fff] font-semibold text-xl whitespace-nowrap flex-shrink-0 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L24 22H0L12 2Z"/></svg>
+                                Vercel
+                              </div>
+                            </React.Fragment>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+            </main>
+
             <div dangerouslySetInnerHTML={{
                 __html: `
-
-    <!-- Hero -->
-    <section class="ent-section" style="padding-top: 180px;">
-        <div class="ent-bg-grid"></div>
-        <div class="ent-container text-center" style="position: relative; z-index: 10;">
-            <div class="ent-pill">
-                <span class="ent-pill-accent">✦</span> Core Infrastructure
-            </div>
-
-            <h1 class="ent-h1">Every Security System.<br>One Operational Model</h1>
-
-            <p class="ent-p-large"
-                style="font-size: 14px; max-width: 600px; margin: 0 auto 48px auto; color: var(--text-secondary); line-height: 1.6;">
-                Your cameras, access control, and visitor systems already generate data. Mithriv's Integration Fabric
-                connects them into a unified layer, without replacing what works.
-            </p>
-
-            <div style="display: flex; gap: 16px; justify-content: center; margin-bottom: 80px;">
-                <a href="#" class="ent-btn-primary">Request Assessment <svg class="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow-stem" d="M3 12h12" /><path class="arrow-head" d="m9 18 6-6-6-6"/></svg></a>
-                <a href="#" class="ent-btn-primary">View Documentation <svg class="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow-stem" d="M3 12h12" /><path class="arrow-head" d="m9 18 6-6-6-6"/></svg></a>
-            </div>
-
-            <!-- Customer Logos -->
-            <div
-                style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; opacity: 0.4; filter: grayscale(100%);">
-                <span style="font-weight: 700; font-size: 1.2rem; color: #A1A8B3;">Genetec</span>
-                <span style="font-weight: 700; font-size: 1.2rem; color: #A1A8B3;">Milestone</span>
-                <span style="font-weight: 700; font-size: 1.2rem; color: #A1A8B3;">LenelS2</span>
-                <span style="font-weight: 700; font-size: 1.2rem; color: #A1A8B3;">Verkada</span>
-                <span style="font-weight: 700; font-size: 1.2rem; color: #A1A8B3;">Envoy</span>
-            </div>
-        </div>
-    </section>
 
     <!-- The Fragmentation Problem (Editorial Redesign) -->
     <section class="ent-section">

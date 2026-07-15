@@ -546,11 +546,11 @@ export default function IntelligenceEnginePage() {
         <div className="hero-content" style={{ position: 'relative', zIndex: 10, marginTop: '0' }}>
           <div className="ent-pill award-pill">Intelligence Engine</div>
           <h1 className="main-heading" style={{ fontSize: 'clamp(40px, 4.2vw, 64px)', margin: '0 0 1.5rem', lineHeight: 1.15, cursor: 'default' }}>
-        <span className="word-mask"><span className="word-inner w1">Your</span></span>
-        <span className="word-mask"><span className="word-inner w2">security</span></span>
+        <span className="word-mask"><span className="word-inner w1">Your</span></span>{' '}
+        <span className="word-mask"><span className="word-inner w2">security</span></span>{' '}
         <span className="word-mask"><span className="word-inner w3">data</span></span><br />
-        <span className="word-mask"><span className="word-inner w4">has</span></span>
-        <span className="word-mask"><span className="word-inner w5">the</span></span>
+        <span className="word-mask"><span className="word-inner w4">has</span></span>{' '}
+        <span className="word-mask"><span className="word-inner w5">the</span></span>{' '}
         <span className="word-mask"><span className="word-inner w6">answer</span></span>
       </h1>
           <p className="body-text award-fade-up delay-p" style={{ maxWidth: '650px', margin: '0 auto 2.5rem', fontSize: '15px', lineHeight: '1.6', color: '#B6B6B7', fontFamily: 'var(--font-mono)' }}>
@@ -579,11 +579,7 @@ export default function IntelligenceEnginePage() {
           </div>
 
           <div className="relative flex overflow-hidden w-full group">
-            {/* Blurs */}
-            <div className="absolute left-0 top-0 bottom-0 w-48 z-20" style={{ background: 'linear-gradient(to right, #131416, transparent)' }}></div>
-            <div className="absolute right-0 top-0 bottom-0 w-48 z-20" style={{ background: 'linear-gradient(to left, #131416, transparent)' }}></div>
-
-            <div className="flex overflow-hidden relative w-full">
+            <div className="flex overflow-hidden relative w-full" style={{ maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)' }}>
               {[0, 1].map((marqueeIdx) => (
                 <div key={marqueeIdx} className="flex shrink-0 items-center justify-start w-max" style={{ gap: '3.5rem', minWidth: '100%', paddingRight: '3.5rem', animation: 'custom-marquee 15s linear infinite' }}>
                   {[0, 1].map((repeatIdx) => (

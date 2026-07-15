@@ -44,6 +44,7 @@ export default function RootLayout({
         <Script src="/main.js" strategy="afterInteractive" />
         <Script src="/home-scripts.js" strategy="afterInteractive" />
         <Script src="/home-02-scripts.js" strategy="afterInteractive" />
+        <Script src="/home-03-scripts.js" strategy="afterInteractive" />
         <Script src="/integration-fabric-scripts.js" strategy="afterInteractive" />
 
         <Navbar />
