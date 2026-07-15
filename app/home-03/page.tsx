@@ -42,9 +42,34 @@ export default function Home03Page() {
     useEffect(() => {
         setMounted(true);
     }, []);
+    useEffect(() => {
+        if (!mounted) return;
+        const swapEl = document.getElementById('word-swap');
+        if (!swapEl) return;
 
+        const words = ['secures', 'predicts', 'unifies', 'adapts'];
+        let idx = 0;
 
+        const interval = setInterval(() => {
+            swapEl.style.transition = 'opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)';
+            swapEl.style.opacity = '0';
+            swapEl.style.transform = 'translateY(-15px)';
 
+            setTimeout(() => {
+                idx = (idx + 1) % words.length;
+                swapEl.textContent = words[idx];
+                swapEl.style.transform = 'translateY(15px)';
+                
+                // Force reflow
+                swapEl.offsetHeight;
+
+                swapEl.style.opacity = '1';
+                swapEl.style.transform = 'translateY(0)';
+            }, 250);
+        }, 2500);
+
+        return () => clearInterval(interval);
+    }, [mounted]);
     useEffect(() => {
         if (!mounted) return;
         const containers = document.querySelectorAll('.react-timeline-icon');
@@ -226,7 +251,7 @@ export default function Home03Page() {
             <h1 class="main-heading">
                 <span class="word-mask"><span class="word-inner w1">Intelligence</span></span>
                 <span class="word-mask"><span class="word-inner w2">that</span></span>
-                <span class="word-mask"><span class="word-inner w3">secures</span></span><br>
+                <span class="word-mask"><span class="word-inner w3" id="word-swap" style="display: inline-block;">secures</span></span><br>
                 <span class="word-mask"><span class="word-inner w4">your</span></span>
                 <span class="word-mask"><span class="word-inner w5">physical</span></span>
                 <span class="word-mask"><span class="word-inner w6">world</span></span>
