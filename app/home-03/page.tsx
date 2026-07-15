@@ -213,7 +213,7 @@ export default function Home03Page() {
         <!-- Background Video Playing as a loop -->
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; pointer-events: none;">
           <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;">
-            <source src="/Banner%20upadate.mp4" type="video/mp4" />
+            <source src="/magnific_video-upscale_ONgSGckynm_1_final.mp4" type="video/mp4" />
           </video>
           <!-- Subtle dark overlay for text readability -->
           <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, rgba(10, 10, 12, 0.3) 0%, rgba(10, 10, 12, 0.7) 100%);"></div>
