@@ -157,7 +157,7 @@ export default function Navbar() {
                     </div>
                 </li>
 
-                <li><Link href="/#">Industries</Link></li>
+                <li><Link href="/404">Industries</Link></li>
                 <li className={`has-dropdown ${activeDropdown === 'resources' ? 'is-active' : ''}`}>
                     <a style={{ cursor: 'pointer' }} onClick={(e) => { e.preventDefault(); setActiveDropdown(activeDropdown === 'resources' ? null : 'resources'); }}>Resources <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.6, transition: 'transform 0.3s' }}>
                             <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -184,7 +184,7 @@ export default function Navbar() {
                         </div>
                     </div>
                 </li>
-                <li><Link href="/#">Company</Link></li>
+                <li><Link href="/404">Company</Link></li>
             </ul>
             <div style={{ display: 'flex', alignItems: 'center' }}>
                 <Link href="/watch-in-action" id="watchDemoBtn" className="ent-btn-primary">Watch Demo <svg className="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path className="arrow-stem" d="M3 12h12" /><path className="arrow-head" d="m9 18 6-6-6-6"/></svg></Link>
