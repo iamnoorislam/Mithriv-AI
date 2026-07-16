@@ -8448,7 +8448,6 @@ body.light-mode .close-cta-section p[style*="color: #B6B6B7"] {
 }
 
 .swap-word.word-active {
-    position: relative !important;
     opacity: 1;
     filter: blur(0px);
     transform: translateY(0) scale(1);
