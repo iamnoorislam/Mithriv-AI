@@ -257,8 +257,8 @@ export default function Home03Page() {
             <h1 class="main-heading">
                 <span class="word-mask"><span class="word-inner w1">Intelligence</span></span>
                 <span class="word-mask"><span class="word-inner w2">that</span></span>
-                <span style="position: relative; display: inline-block; width: 0px; vertical-align: bottom; overflow: visible;">
-                    <span class="swap-container" id="headingSwapContainer" style="position: absolute; left: 0.28em; bottom: 0; display: inline-block; text-align: left; height: 1.15em; overflow: visible; width: 300px;">
+                <span class="word-mask" style="overflow: visible;">
+                    <span class="swap-container" id="headingSwapContainer">
                         <span class="swap-word word-active">secures</span>
                         <span class="swap-word word-hidden">predicts</span>
                         <span class="swap-word word-hidden">unifies</span>
