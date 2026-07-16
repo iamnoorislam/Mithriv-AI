@@ -8424,14 +8424,16 @@ body.light-mode .close-cta-section p[style*="color: #B6B6B7"] {
 @keyframes terminal-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 @keyframes riseKpiBar { 0% { transform: scaleY(0.4); } 100% { transform: scaleY(1); } }
 
-/* Word Swapping vape/blur effect */
+/* Word Swapping 3D Cylinder Flip effect */
 .swap-container {
     position: relative;
     display: inline-block;
     vertical-align: bottom;
     text-align: left;
-    width: 3.4em;
+    width: 3.4em; 
     height: 1.15em;
+    perspective: 400px;
+    transform-style: preserve-3d;
     overflow: visible;
 }
 
@@ -8441,35 +8443,29 @@ body.light-mode .close-cta-section p[style*="color: #B6B6B7"] {
     bottom: 0;
     white-space: nowrap;
     opacity: 0;
-    filter: blur(12px);
-    transform: translateY(16px) scale(0.85);
-    letter-spacing: -0.05em;
-    text-shadow: 0 0 0px rgba(255, 255, 255, 0);
+    filter: blur(6px);
+    transform: rotateX(-90deg) translateZ(0.65em);
+    transform-origin: 50% 50% -0.65em;
     transition: 
-        opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), 
-        filter 0.9s cubic-bezier(0.16, 1, 0.3, 1), 
-        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-        letter-spacing 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-        text-shadow 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    transform-origin: center bottom;
+        opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), 
+        filter 0.75s cubic-bezier(0.16, 1, 0.3, 1), 
+        transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
     pointer-events: none;
+    backface-visibility: hidden;
 }
 
 .swap-word.word-active {
     opacity: 1;
     filter: blur(0px);
-    transform: translateY(0) scale(1);
-    letter-spacing: inherit;
-    text-shadow: 0 0 0px rgba(255, 255, 255, 0);
+    transform: rotateX(0deg) translateZ(0);
     pointer-events: auto;
 }
 
 .swap-word.word-out {
     opacity: 0;
-    filter: blur(20px);
-    transform: translateY(-20px) scale(1.3);
-    letter-spacing: 0.18em;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+    filter: blur(6px);
+    transform: rotateX(90deg) translateZ(0.65em);
     pointer-events: none;
 }
+
 
