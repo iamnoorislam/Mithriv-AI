@@ -8442,9 +8442,16 @@ body.light-mode .close-cta-section p[style*="color: #B6B6B7"] {
     white-space: nowrap;
     opacity: 0;
     filter: blur(12px);
-    transform: translateY(12px) scale(0.9);
-    transition: opacity 0.5s ease-out, filter 0.5s ease-out, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    transform-origin: left bottom;
+    transform: translateY(16px) scale(0.85);
+    letter-spacing: -0.05em;
+    text-shadow: 0 0 0px rgba(255, 255, 255, 0);
+    transition: 
+        opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), 
+        filter 0.9s cubic-bezier(0.16, 1, 0.3, 1), 
+        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+        letter-spacing 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+        text-shadow 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-origin: center bottom;
     pointer-events: none;
 }
 
@@ -8452,13 +8459,17 @@ body.light-mode .close-cta-section p[style*="color: #B6B6B7"] {
     opacity: 1;
     filter: blur(0px);
     transform: translateY(0) scale(1);
+    letter-spacing: inherit;
+    text-shadow: 0 0 0px rgba(255, 255, 255, 0);
     pointer-events: auto;
 }
 
 .swap-word.word-out {
     opacity: 0;
-    filter: blur(16px);
-    transform: translateY(-14px) scale(1.15);
+    filter: blur(20px);
+    transform: translateY(-20px) scale(1.3);
+    letter-spacing: 0.18em;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
     pointer-events: none;
 }
 
