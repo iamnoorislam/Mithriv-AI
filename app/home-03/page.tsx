@@ -222,17 +222,15 @@ export default function Home03Page() {
         </div>
 
         <!-- Hero Content -->
-        <div class="hero-content" style="position: relative; z-index: 10; margin-top: 0; display: flex; flex-direction: column; align-items: center; width: 100%;">
-            <div style="border: 1px solid #212326; background: rgba(255, 255, 255, 0.01); padding: 48px 64px; border-radius: 16px; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); max-width: 960px; width: 100%; margin: 0 auto 32px; box-sizing: border-box; text-align: center;">
-                <h1 class="main-heading" style="margin: 0; font-size: 64px; line-height: 1.15; letter-spacing: -0.03em;">
-                    <span class="word-mask"><span class="word-inner w1">Intelligence</span></span>
-                    <span class="word-mask"><span class="word-inner w2">that</span></span>
-                    <span class="word-mask"><span class="word-inner w3">secures</span></span><br>
-                    <span class="word-mask"><span class="word-inner w4">your</span></span>
-                    <span class="word-mask"><span class="word-inner w5">physical</span></span>
-                    <span class="word-mask"><span class="word-inner w6">world</span></span>
-                </h1>
-            </div>
+        <div class="hero-content" style="position: relative; z-index: 10; margin-top: 0;">
+            <h1 class="main-heading">
+                <span class="word-mask"><span class="word-inner w1">Intelligence</span></span>
+                <span class="word-mask"><span class="word-inner w2">that</span></span>
+                <span class="word-mask"><span class="word-inner w3">secures</span></span><br>
+                <span class="word-mask"><span class="word-inner w4">your</span></span>
+                <span class="word-mask"><span class="word-inner w5">physical</span></span>
+                <span class="word-mask"><span class="word-inner w6">world</span></span>
+            </h1>
             <a href="#" class="ent-btn-primary award-fade-up delay-btn"
                 style="padding: 12px 24px; font-size: 0.95rem; display: inline-flex; -webkit-backdrop-filter: none; backdrop-filter: none; transform: translateZ(0); position: relative; z-index: 20;">Request
                 Consultation <svg class="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="arrow-stem" d="M3 12h12" /><path class="arrow-head" d="m9 18 6-6-6-6"/></svg></a>
