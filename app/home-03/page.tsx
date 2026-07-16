@@ -45,45 +45,31 @@ export default function Home03Page() {
 
     useEffect(() => {
         if (!mounted) return;
-        const container = document.getElementById('headingSwapContainer');
-        if (!container) return;
+        
+        const words = ['secures', 'predicts', 'unifies', 'adapts'];
+        let c = 0, b = false;
+        const el = document.getElementById('heroSwapWord');
+        if (!el) return;
 
-        const words = container.querySelectorAll('.swap-word');
-        if (words.length === 0) return;
+        function swap() {
+            if (b || !el) return;
+            b = true;
+            el.animate([
+                { transform: 'translateY(0) scaleY(1)', opacity: 1, filter: 'blur(0px)' },
+                { transform: 'translateY(-130%) scaleY(0.4)', opacity: 0, filter: 'blur(8px)' }
+            ], { duration: 380, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' }).onfinish = function () {
+                c = (c + 1) % words.length;
+                el.textContent = words[c];
+                el.animate([
+                    { transform: 'translateY(130%) scaleY(0.4)', opacity: 0, filter: 'blur(8px)' },
+                    { transform: 'translateY(0) scaleY(1)', opacity: 1, filter: 'blur(0px)' }
+                ], { duration: 520, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' }).onfinish = function () {
+                    b = false;
+                };
+            };
+        }
 
-        let activeIdx = 0;
-
-        const interval = setInterval(() => {
-            const nextIdx = (activeIdx + 1) % words.length;
-
-            const currentWord = words[activeIdx] as HTMLElement;
-            currentWord.className = 'swap-word word-out';
-
-            // Stagger the entry of the new word by 200ms
-            setTimeout(() => {
-                const nextWord = words[nextIdx] as HTMLElement;
-                nextWord.className = 'swap-word word-active';
-
-                words.forEach((word, idx) => {
-                    if (idx !== nextIdx) {
-                        const w = word as HTMLElement;
-                        if (idx !== activeIdx || w.className !== 'swap-word word-out') {
-                            w.className = 'swap-word word-hidden';
-                        }
-                    }
-                });
-
-                // Reset the old word back to hidden state after its exit transition completes
-                setTimeout(() => {
-                    if (currentWord.className === 'swap-word word-out') {
-                        currentWord.className = 'swap-word word-hidden';
-                    }
-                }, 400);
-
-                activeIdx = nextIdx;
-            }, 200);
-        }, 2500);
-
+        const interval = setInterval(swap, 2500);
         return () => clearInterval(interval);
     }, [mounted]);
 
@@ -270,13 +256,8 @@ export default function Home03Page() {
             <h1 class="main-heading">
                 <span class="word-mask"><span class="word-inner w1">Intelligence</span></span>
                 <span class="word-mask"><span class="word-inner w2">that</span></span>
-                <span class="word-mask">
-                    <span class="swap-container" id="headingSwapContainer">
-                        <span class="swap-word word-active">secures</span>
-                        <span class="swap-word word-hidden">predicts</span>
-                        <span class="swap-word word-hidden">unifies</span>
-                        <span class="swap-word word-hidden">adapts</span>
-                    </span>
+                <span class="word-mask" style="display: inline-block; vertical-align: bottom; overflow: hidden; height: 1.15em; line-height: 1.15;">
+                    <span id="heroSwapWord" class="word-inner w3" style="display: inline-block; white-space: nowrap;">secures</span>
                 </span><br>
                 <span class="word-mask"><span class="word-inner w4">your</span></span>
                 <span class="word-mask"><span class="word-inner w5">physical</span></span>
