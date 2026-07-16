@@ -42,40 +42,9 @@ export default function Home03Page() {
     useEffect(() => {
         setMounted(true);
     }, []);
-    useEffect(() => {
-        if (!mounted) return;
-        const swapEl = document.getElementById('word-swap');
-        if (!swapEl) return;
 
-        const words = ['secures', 'predicts', 'unifies', 'adapts'];
-        let idx = 0;
 
-        const interval = setInterval(() => {
-            // Smooth exit: slide up and fade out
-            swapEl.style.transition = 'opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
-            swapEl.style.opacity = '0';
-            swapEl.style.transform = 'translateY(-100%)';
 
-            setTimeout(() => {
-                idx = (idx + 1) % words.length;
-                swapEl.textContent = words[idx];
-                
-                // Disable transition so we snap to bottom instantly and invisibly
-                swapEl.style.transition = 'none';
-                swapEl.style.transform = 'translateY(100%)';
-                
-                // Force reflow
-                swapEl.offsetHeight;
-
-                // Re-enable transition and slide up smoothly from the bottom
-                swapEl.style.transition = 'opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
-                swapEl.style.opacity = '1';
-                swapEl.style.transform = 'translateY(0)';
-            }, 350);
-        }, 2500);
-
-        return () => clearInterval(interval);
-    }, [mounted]);
     useEffect(() => {
         if (!mounted) return;
         const containers = document.querySelectorAll('.react-timeline-icon');
@@ -253,14 +222,14 @@ export default function Home03Page() {
         </div>
 
         <!-- Hero Content -->
-        <div class="hero-content" style="position: relative; z-index: 10; margin-top: 0;">
-            <h1 class="main-heading">
-                <span class="word-mask"><span class="word-inner w1">Intelligence</span></span>
-                <span class="word-mask"><span class="word-inner w2">that</span></span>
-                <span class="word-mask"><span class="word-inner w3"><span id="word-swap" style="display: inline-block; min-width: 4.2em; text-align: left; vertical-align: top;">secures</span></span></span><br>
-                <span class="word-mask"><span class="word-inner w4">your</span></span>
-                <span class="word-mask"><span class="word-inner w5">physical</span></span>
-                <span class="word-mask"><span class="word-inner w6">world</span></span>
+        <div class="hero-content" style="position: relative; z-index: 10; margin-top: 0; display: flex; flex-direction: column; align-items: center; width: 100%;">
+            <h1 class="main-heading" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 12px; max-width: 900px; margin: 0 auto 32px; font-size: 56px;">
+                <span class="heading-word-box"><span class="word-mask"><span class="word-inner w1">Intelligence</span></span></span>
+                <span class="heading-word-box"><span class="word-mask"><span class="word-inner w2">that</span></span></span>
+                <span class="heading-word-box"><span class="word-mask"><span class="word-inner w3">secures</span></span></span>
+                <span class="heading-word-box"><span class="word-mask"><span class="word-inner w4">your</span></span></span>
+                <span class="heading-word-box"><span class="word-mask"><span class="word-inner w5">physical</span></span></span>
+                <span class="heading-word-box"><span class="word-mask"><span class="word-inner w6">world</span></span></span>
             </h1>
             <a href="#" class="ent-btn-primary award-fade-up delay-btn"
                 style="padding: 12px 24px; font-size: 0.95rem; display: inline-flex; -webkit-backdrop-filter: none; backdrop-filter: none; transform: translateZ(0); position: relative; z-index: 20;">Request

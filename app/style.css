@@ -8423,3 +8423,24 @@ body.light-mode .close-cta-section p[style*="color: #B6B6B7"] {
 @keyframes grant-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; text-shadow: 0 0 10px rgba(73, 178, 92, 0.8); } }
 @keyframes terminal-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 @keyframes riseKpiBar { 0% { transform: scaleY(0.4); } 100% { transform: scaleY(1); } }
+
+/* Heading Word Boxes Styling */
+.heading-word-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #212326;
+    background: rgba(255, 255, 255, 0.01);
+    padding: 8px 24px;
+    margin: 4px 6px;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+.heading-word-box:hover {
+    border-color: #7700FF;
+    background: rgba(119, 0, 255, 0.04);
+    box-shadow: 0 0 20px rgba(119, 0, 255, 0.1);
+    transform: translateY(-2px);
+}
