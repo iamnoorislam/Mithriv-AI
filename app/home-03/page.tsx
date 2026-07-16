@@ -270,7 +270,7 @@ export default function Home03Page() {
             <h1 class="main-heading">
                 <span class="word-mask"><span class="word-inner w1">Intelligence</span></span>
                 <span class="word-mask"><span class="word-inner w2">that</span></span>
-                <span class="word-mask" style="overflow: visible;">
+                <span class="word-mask">
                     <span class="swap-container" id="headingSwapContainer">
                         <span class="swap-word word-active">secures</span>
                         <span class="swap-word word-hidden">predicts</span>
