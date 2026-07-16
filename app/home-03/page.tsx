@@ -253,8 +253,8 @@ export default function Home03Page() {
         </div>
 
         <!-- Hero Content -->
-        <div class="hero-content" style="position: relative; z-index: 10; margin-top: 0; display: flex; flex-direction: column; align-items: flex-start; max-width: 960px; margin-left: auto; margin-right: auto; width: 100%;">
-            <h1 class="main-heading" style="text-align: left; width: 100%; margin-bottom: 32px;">
+        <div class="hero-content" style="position: relative; z-index: 10; margin-top: 0;">
+            <h1 class="main-heading">
                 <span class="word-mask"><span class="word-inner w1">Intelligence</span></span>
                 <span class="word-mask"><span class="word-inner w2">that</span></span>
                 <span class="word-mask" style="overflow: visible;">
