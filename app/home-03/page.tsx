@@ -51,21 +51,27 @@ export default function Home03Page() {
         let idx = 0;
 
         const interval = setInterval(() => {
-            swapEl.style.transition = 'opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)';
+            // Smooth exit: slide up and fade out
+            swapEl.style.transition = 'opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
             swapEl.style.opacity = '0';
             swapEl.style.transform = 'translateY(-100%)';
 
             setTimeout(() => {
                 idx = (idx + 1) % words.length;
                 swapEl.textContent = words[idx];
+                
+                // Disable transition so we snap to bottom instantly and invisibly
+                swapEl.style.transition = 'none';
                 swapEl.style.transform = 'translateY(100%)';
                 
                 // Force reflow
                 swapEl.offsetHeight;
 
+                // Re-enable transition and slide up smoothly from the bottom
+                swapEl.style.transition = 'opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
                 swapEl.style.opacity = '1';
                 swapEl.style.transform = 'translateY(0)';
-            }, 250);
+            }, 350);
         }, 2500);
 
         return () => clearInterval(interval);
@@ -251,7 +257,7 @@ export default function Home03Page() {
             <h1 class="main-heading">
                 <span class="word-mask"><span class="word-inner w1">Intelligence</span></span>
                 <span class="word-mask"><span class="word-inner w2">that</span></span>
-                <span class="word-mask"><span class="word-inner w3"><span id="word-swap" style="display: inline-block; min-width: 160px; text-align: left; vertical-align: top;">secures</span></span></span><br>
+                <span class="word-mask"><span class="word-inner w3"><span id="word-swap" style="display: inline-block; min-width: 8.5ch; text-align: left; vertical-align: top;">secures</span></span></span><br>
                 <span class="word-mask"><span class="word-inner w4">your</span></span>
                 <span class="word-mask"><span class="word-inner w5">physical</span></span>
                 <span class="word-mask"><span class="word-inner w6">world</span></span>
