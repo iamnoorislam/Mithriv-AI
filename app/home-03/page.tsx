@@ -43,6 +43,37 @@ export default function Home03Page() {
         setMounted(true);
     }, []);
 
+    useEffect(() => {
+        if (!mounted) return;
+        const container = document.getElementById('headingSwapContainer');
+        if (!container) return;
+
+        const words = container.querySelectorAll('.swap-word');
+        if (words.length === 0) return;
+
+        let activeIdx = 0;
+
+        const interval = setInterval(() => {
+            const nextIdx = (activeIdx + 1) % words.length;
+
+            const currentWord = words[activeIdx] as HTMLElement;
+            currentWord.className = 'swap-word word-out';
+
+            const nextWord = words[nextIdx] as HTMLElement;
+            nextWord.className = 'swap-word word-active';
+
+            words.forEach((word, idx) => {
+                if (idx !== activeIdx && idx !== nextIdx) {
+                    (word as HTMLElement).className = 'swap-word word-hidden';
+                }
+            });
+
+            activeIdx = nextIdx;
+        }, 2500);
+
+        return () => clearInterval(interval);
+    }, [mounted]);
+
 
 
     useEffect(() => {
@@ -222,11 +253,18 @@ export default function Home03Page() {
         </div>
 
         <!-- Hero Content -->
-        <div class="hero-content" style="position: relative; z-index: 10; margin-top: 0;">
-            <h1 class="main-heading">
+        <div class="hero-content" style="position: relative; z-index: 10; margin-top: 0; display: flex; flex-direction: column; align-items: flex-start; max-width: 960px; margin-left: auto; margin-right: auto; width: 100%;">
+            <h1 class="main-heading" style="text-align: left; width: 100%; margin-bottom: 32px;">
                 <span class="word-mask"><span class="word-inner w1">Intelligence</span></span>
                 <span class="word-mask"><span class="word-inner w2">that</span></span>
-                <span class="word-mask"><span class="word-inner w3">secures</span></span><br>
+                <span class="word-mask" style="overflow: visible;">
+                    <span class="swap-container" id="headingSwapContainer">
+                        <span class="swap-word word-active">secures</span>
+                        <span class="swap-word word-hidden">predicts</span>
+                        <span class="swap-word word-hidden">unifies</span>
+                        <span class="swap-word word-hidden">adapts</span>
+                    </span>
+                </span><br>
                 <span class="word-mask"><span class="word-inner w4">your</span></span>
                 <span class="word-mask"><span class="word-inner w5">physical</span></span>
                 <span class="word-mask"><span class="word-inner w6">world</span></span>
