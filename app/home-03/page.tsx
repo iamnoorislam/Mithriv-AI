@@ -59,16 +59,29 @@ export default function Home03Page() {
             const currentWord = words[activeIdx] as HTMLElement;
             currentWord.className = 'swap-word word-out';
 
-            const nextWord = words[nextIdx] as HTMLElement;
-            nextWord.className = 'swap-word word-active';
+            // Stagger the entry of the new word by 200ms
+            setTimeout(() => {
+                const nextWord = words[nextIdx] as HTMLElement;
+                nextWord.className = 'swap-word word-active';
 
-            words.forEach((word, idx) => {
-                if (idx !== activeIdx && idx !== nextIdx) {
-                    (word as HTMLElement).className = 'swap-word word-hidden';
-                }
-            });
+                words.forEach((word, idx) => {
+                    if (idx !== nextIdx) {
+                        const w = word as HTMLElement;
+                        if (idx !== activeIdx || w.className !== 'swap-word word-out') {
+                            w.className = 'swap-word word-hidden';
+                        }
+                    }
+                });
 
-            activeIdx = nextIdx;
+                // Reset the old word back to hidden state after its exit transition completes
+                setTimeout(() => {
+                    if (currentWord.className === 'swap-word word-out') {
+                        currentWord.className = 'swap-word word-hidden';
+                    }
+                }, 400);
+
+                activeIdx = nextIdx;
+            }, 200);
         }, 2500);
 
         return () => clearInterval(interval);
