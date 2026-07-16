@@ -257,7 +257,7 @@ export default function Home03Page() {
             <h1 class="main-heading">
                 <span class="word-mask"><span class="word-inner w1">Intelligence</span></span>
                 <span class="word-mask"><span class="word-inner w2">that</span></span>
-                <span class="word-mask"><span class="word-inner w3"><span id="word-swap" style="display: inline-block; min-width: 8.5ch; text-align: left; vertical-align: top;">secures</span></span></span><br>
+                <span class="word-mask"><span class="word-inner w3"><span id="word-swap" style="display: inline-block; min-width: 8.5ch; text-align: center; vertical-align: top;">secures</span></span></span><br>
                 <span class="word-mask"><span class="word-inner w4">your</span></span>
                 <span class="word-mask"><span class="word-inner w5">physical</span></span>
                 <span class="word-mask"><span class="word-inner w6">world</span></span>
