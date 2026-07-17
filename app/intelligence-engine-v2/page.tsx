@@ -927,7 +927,7 @@ export default function IntelligenceEnginePage() {
             borderLeft: '1px solid #212326',
             borderRight: '1px solid #212326',
             borderBottom: '1px solid #212326',
-            backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 6px, #212326 6px, #212326 7px)'
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Cpath d='M-1,7 L7,-1' stroke='%23212326' stroke-width='1' shape-rendering='crispEdges'/%3E%3C/svg%3E")`
           }} />
 
           {/* Metrics Section */}
@@ -995,7 +995,7 @@ export default function IntelligenceEnginePage() {
             right: '24px',
             borderLeft: '1px solid #212326',
             borderRight: '1px solid #212326',
-            backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 6px, #212326 6px, #212326 7px)',
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Cpath d='M-1,7 L7,-1' stroke='%23212326' stroke-width='1' shape-rendering='crispEdges'/%3E%3C/svg%3E")`,
             overflow: 'hidden',
             zIndex: -1
           }} className="hide-on-mobile intel-cta-bg">
