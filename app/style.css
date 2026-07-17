@@ -5260,7 +5260,7 @@ body.light-mode * {
 /* Staggered Vertical Feature Scroll Grid (Linear style) */
 .features-scroll-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     position: relative;
     margin-top: 4rem;
     background: transparent;
@@ -5270,7 +5270,7 @@ body.light-mode * {
 
 .feature-col-item {
     position: relative;
-    padding: 3.5rem 2.5rem;
+    padding: 4.5rem 3.5rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -5289,11 +5289,63 @@ body.light-mode * {
 
 .feature-col-item .fig-svg-wrap {
     width: 100%;
-    height: 160px;
+    height: 220px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+.feature-col-item .fig-svg-wrap svg {
+    width: 100%;
+    height: 100%;
+    max-height: 220px;
+    transform: scale(1.2);
+}
+
+/* Brighten and thicken SVG strokes for high visibility */
+.feature-col-item svg path[stroke^="rgba(255, 255, 255"],
+.feature-col-item svg line[stroke^="rgba(255, 255, 255"],
+.feature-col-item svg circle[stroke^="rgba(255, 255, 255"],
+.feature-col-item svg polygon[stroke^="rgba(255, 255, 255"],
+.feature-col-item svg ellipse[stroke^="rgba(255, 255, 255"],
+.feature-col-item svg path[stroke^="rgba(255,255,255"],
+.feature-col-item svg line[stroke^="rgba(255,255,255"],
+.feature-col-item svg circle[stroke^="rgba(255,255,255"],
+.feature-col-item svg polygon[stroke^="rgba(255,255,255"],
+.feature-col-item svg ellipse[stroke^="rgba(255,255,255"] {
+    stroke: rgba(255, 255, 255, 0.6) !important;
+    stroke-width: 1.25px !important;
+}
+
+/* Boost colored accents */
+.feature-col-item svg [stroke="#bbfb02"] {
+    stroke: #c5ff26 !important;
+    stroke-width: 2px !important;
+}
+.feature-col-item svg [fill="#bbfb02"] {
+    fill: #c5ff26 !important;
+}
+.feature-col-item svg [stroke="#FFE500"] {
+    stroke: #ffee33 !important;
+    stroke-width: 2px !important;
+}
+.feature-col-item svg [fill="#FFE500"] {
+    fill: #ffee33 !important;
+}
+.feature-col-item svg [stroke="#4DA6FF"] {
+    stroke: #7ec0ff !important;
+    stroke-width: 2px !important;
+}
+.feature-col-item svg [fill="#4DA6FF"] {
+    fill: #7ec0ff !important;
+}
+.feature-col-item svg [stroke="#7C3CD0"] {
+    stroke: #9d62f2 !important;
+    stroke-width: 2px !important;
+}
+.feature-col-item svg [fill="#7C3CD0"] {
+    fill: #9d62f2 !important;
 }
 
 .feature-col-item h3 {
@@ -5331,8 +5383,7 @@ body.light-mode * {
 }
 
 .feature-col-divider-1 {
-    left: 25%;
-    transition-delay: 0.2s;
+    display: none;
 }
 
 .feature-col-divider-2 {
@@ -5341,8 +5392,7 @@ body.light-mode * {
 }
 
 .feature-col-divider-3 {
-    left: 75%;
-    transition-delay: 0.6s;
+    display: none;
 }
 
 .feature-col-divider-4 {
@@ -5354,36 +5404,38 @@ body.light-mode * {
     transform: scaleY(1);
 }
 
+/* Middle horizontal divider for 2x2 grid */
+.features-scroll-grid::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: 0.5s;
+    z-index: 1;
+}
+
+.sec-ai-agents.reveal-active .features-scroll-grid::after {
+    transform: scaleX(1);
+}
+
 /* Responsiveness */
 @media (max-width: 1024px) {
-    .features-scroll-grid {
-        grid-template-columns: repeat(2, 1fr);
-        border-bottom: none;
-    }
-
-    .feature-col-divider-2 {
-        display: none;
-    }
-
-    .feature-col-divider-1,
-    .feature-col-divider-3 {
-        left: 50%;
-    }
-
-    .features-scroll-grid::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 50%;
-        height: 1px;
-        background: rgba(255, 255, 255, 0.08);
-    }
+    /* Handled by 2x2 default grid layout */
 }
 
 @media (max-width: 640px) {
     .features-scroll-grid {
         grid-template-columns: 1fr;
+    }
+
+    .features-scroll-grid::after {
+        display: none;
     }
 
     .feature-col-divider {
