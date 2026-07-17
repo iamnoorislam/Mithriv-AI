@@ -43,37 +43,7 @@ export default function Home03Page() {
         setMounted(true);
     }, []);
 
-    useEffect(() => {
-        if (!mounted) return;
-        
-        const words = ['secures', 'predicts', 'unifies', 'adapts'];
-        let c = 0, b = false;
-        const el = document.getElementById('heroSwapWord');
-        if (!el) return;
 
-        function swap() {
-            if (b || !el) return;
-            b = true;
-            el.animate([
-                { transform: 'translateY(0) scaleY(1)', opacity: 1, filter: 'blur(0px)' },
-                { transform: 'translateY(-60%) scaleY(0.7)', opacity: 0.4, filter: 'blur(5px)', offset: 0.4 },
-                { transform: 'translateY(-130%) scaleY(0.4)', opacity: 0, filter: 'blur(10px)' }
-            ], { duration: 380, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' }).onfinish = function () {
-                c = (c + 1) % words.length;
-                el.textContent = words[c];
-                el.animate([
-                    { transform: 'translateY(130%) scaleY(0.4)', opacity: 0, filter: 'blur(10px)' },
-                    { transform: 'translateY(60%) scaleY(0.7)', opacity: 0.4, filter: 'blur(5px)', offset: 0.6 },
-                    { transform: 'translateY(0) scaleY(1)', opacity: 1, filter: 'blur(0px)' }
-                ], { duration: 520, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' }).onfinish = function () {
-                    b = false;
-                };
-            };
-        }
-
-        const interval = setInterval(swap, 2500);
-        return () => clearInterval(interval);
-    }, [mounted]);
 
 
 
@@ -256,14 +226,12 @@ export default function Home03Page() {
         <!-- Hero Content -->
         <div class="hero-content" style="position: relative; z-index: 10; margin-top: 0;">
             <h1 class="main-heading">
-                <span class="word-mask"><span class="word-inner w1">Intelligence</span></span>
-                <span class="word-mask"><span class="word-inner w2">that</span></span>
-                <span class="word-mask" style="display: inline-block; vertical-align: -0.15em !important; overflow: hidden; height: 1.15em; line-height: 1.15; width: 4.2em; text-align: left;">
-                    <span id="heroSwapWord" class="word-inner w3" style="display: inline-block; white-space: nowrap; position: relative; top: 0.07em;">secures</span>
+                <span class="word-mask" style="overflow: visible; display: inline-block;">
+                    <span class="word-inner w1" style="white-space: nowrap;">Intelligence that secures</span>
                 </span><br>
-                <span class="word-mask"><span class="word-inner w4">your</span></span>
-                <span class="word-mask"><span class="word-inner w5">physical</span></span>
-                <span class="word-mask"><span class="word-inner w6">world</span></span>
+                <span class="word-mask" style="overflow: visible; display: inline-block;">
+                    <span class="word-inner w4" style="white-space: nowrap;">your physical world</span>
+                </span>
             </h1>
             <a href="#" class="ent-btn-primary award-fade-up delay-btn"
                 style="padding: 12px 24px; font-size: 0.95rem; display: inline-flex; -webkit-backdrop-filter: none; backdrop-filter: none; transform: translateZ(0); position: relative; z-index: 20;">Request
