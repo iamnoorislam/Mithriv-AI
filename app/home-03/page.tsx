@@ -1932,9 +1932,9 @@ export default function Home03Page() {
                                         <polygon points="55,92.5 100,115 100,105 55,82.5" fill="rgba(255,255,255,0.03)" />
                                         <polygon points="145,92.5 100,115 100,105 145,82.5" fill="rgba(255,255,255,0.04)" />
                                         <!-- Dotted Track Lines -->
-                                        <path d="M50,75 L115,107.5" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1"
+                                        <path d="M70,65 L130,95" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1"
                                             stroke-dasharray="3,3" />
-                                        <path d="M70,65 L135,97.5" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1"
+                                        <path d="M75,87.5 L140,120" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1"
                                             stroke-dasharray="3,3" />
 
                                         <g
@@ -1949,14 +1949,14 @@ export default function Home03Page() {
                                                 stroke-width="0.5" />
                                         </g>
                                         <g
-                                            style="transform-origin: 100px 102.5px; animation: avatar-slide 4s linear infinite; animation-delay: 2s;">
-                                            <polygon points="100,95 112,101 100,107 88,101" stroke="rgba(255, 255, 255, 0.25)"
+                                            style="transform-origin: 100px 82.5px; animation: avatar-slide 4s linear infinite; animation-delay: 2s;">
+                                            <polygon points="100,75 112,81 100,87 88,81" stroke="rgba(255, 255, 255, 0.25)"
                                                 stroke-width="0.8" fill="#16161a" />
-                                            <circle cx="100" cy="92" r="2.5" fill="rgba(255,255,255,0.75)"
+                                            <circle cx="100" cy="72" r="2.5" fill="rgba(255,255,255,0.75)"
                                                 stroke="rgba(255, 255, 255, 0.3)" stroke-width="0.5" />
-                                            <path d="M96,98 C96,95.5 104,95.5 104,98" stroke="rgba(255, 255, 255, 0.25)"
+                                            <path d="M96,78 C96,75.5 104,75.5 104,78" stroke="rgba(255, 255, 255, 0.25)"
                                                 stroke-width="0.8" fill="rgba(255,255,255,0.4)" />
-                                            <line x1="100" y1="107" x2="100" y2="112" stroke="rgba(255, 255, 255, 0.2)"
+                                            <line x1="100" y1="87" x2="100" y2="92" stroke="rgba(255, 255, 255, 0.2)"
                                                 stroke-width="0.5" />
                                         </g>
 
