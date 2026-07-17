@@ -403,8 +403,8 @@ export default function Home03Page() {
             <div class="container text-center" style="position: relative; z-index: 10;">
                 <div class="ent-pill" style="margin: 0 auto 24px; display: flex; width: fit-content;">Live Autonomous
                     Response Simulation</div>
-                <h2 class="pixel-heading" style="font-size: 48px; line-height: 1.1; margin-bottom: 24px;">Autonomous
-                    Workplace Intelligence</h2>
+                <h2 class="pixel-heading" style="font-size: 48px; line-height: 1.1; margin-bottom: 24px;">One command,
+                    full operational response</h2>
                 <p class="body-text" style="max-width: 600px; margin: 0 auto 64px; font-size: 14px; line-height: 1.6; font-family: var(--font-mono); text-align: center;">
                     Simulate live operational scenarios and watch Mithriv coordinate security, access control, visitor
                     movement, and emergency response autonomously in realtime.
