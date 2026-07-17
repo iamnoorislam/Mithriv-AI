@@ -5349,6 +5349,11 @@ body.light-mode * {
     stroke-width: 1px !important;
 }
 
+/* Hide the vertical guide line down the middle of the SVGs */
+.feature-col-item svg [d="M100,20 L100,140"] {
+    display: none !important;
+}
+
 .feature-col-item h3 {
     font-family: var(--font-main);
     font-size: 16px;
