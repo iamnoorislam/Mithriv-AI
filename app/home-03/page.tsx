@@ -258,7 +258,7 @@ export default function Home03Page() {
             <h1 class="main-heading">
                 <span class="word-mask"><span class="word-inner w1">Intelligence</span></span>
                 <span class="word-mask"><span class="word-inner w2">that</span></span>
-                <span class="word-mask" style="display: inline-block; vertical-align: -0.18em; overflow: hidden; height: 1.15em; line-height: 1.15; width: 3.4em; text-align: left;">
+                <span class="word-mask" style="display: inline-block; vertical-align: -0.05em; overflow: hidden; height: 1.15em; line-height: 1.15; width: 4.2em; text-align: left;">
                     <span id="heroSwapWord" class="word-inner w3" style="display: inline-block; white-space: nowrap;">secures</span>
                 </span><br>
                 <span class="word-mask"><span class="word-inner w4">your</span></span>
