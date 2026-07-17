@@ -43,6 +43,30 @@ export default function Home03Page() {
         setMounted(true);
     }, []);
 
+    useEffect(() => {
+        if (!mounted) return;
+        const video = document.getElementById('heroBackgroundVideo') as HTMLVideoElement;
+        if (!video) return;
+
+        const playlist = [
+            '/magnific_video-upscale_ONgSGckynm_1_final.mp4',
+            '/magnific_ultracinematic-architectu_0pnIEOpTfW.mp4'
+        ];
+        let currentTrack = 0;
+
+        const handleEnded = () => {
+            currentTrack = (currentTrack + 1) % playlist.length;
+            video.src = playlist[currentTrack];
+            video.load();
+            video.play().catch(err => console.log("Video playback cycle failed:", err));
+        };
+
+        video.addEventListener('ended', handleEnded);
+        return () => {
+            video.removeEventListener('ended', handleEnded);
+        };
+    }, [mounted]);
+
 
 
 
@@ -216,7 +240,7 @@ export default function Home03Page() {
 
         <!-- Background Video Playing as a loop -->
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; pointer-events: none;">
-          <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;">
+          <video id="heroBackgroundVideo" autoplay muted playsinline style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;">
             <source src="/magnific_video-upscale_ONgSGckynm_1_final.mp4" type="video/mp4" />
           </video>
           <!-- Subtle dark overlay for text readability -->
