@@ -1134,15 +1134,6 @@ export default function HomePage() {
                                             stroke-width="0.5" />
                                     </g>
 
-                                    <!-- Yellow target output node -->
-                                    <ellipse cx="140" cy="80" rx="3" ry="1.5" fill="#FFE500" style="animation: node-pulse 2s infinite ease-in-out;" />
-                                    <circle cx="140" cy="80" r="1.5" fill="#FFE500" />
-                                    <ellipse cx="140" cy="80" rx="3" ry="15" stroke="#FFE500" stroke-width="1.2"
-                                        style="transform: rotate(-25deg); opacity: 0.65;" />
-                                    <ellipse cx="140" cy="80" rx="1" ry="10" fill="rgba(255, 229, 0, 0.08)"
-                                        style="transform: rotate(-25deg);" />
-                                    <ellipse cx="60" cy="40" rx="2" ry="10" stroke="rgba(255, 255, 255, 0.2)"
-                                        stroke-width="0.8" style="transform: rotate(-25deg);" />
                                     <path d="M110,87 C130,97 150,90 165,70" stroke="#FFE500" stroke-width="1.5"
                                         stroke-dasharray="3,3" style="animation: arrow-pulse 2s infinite;" />
                                     <polygon points="167,70 164,75 160,70" fill="#FFE500" />
