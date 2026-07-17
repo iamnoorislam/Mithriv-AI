@@ -56,12 +56,14 @@ export default function Home03Page() {
             b = true;
             el.animate([
                 { transform: 'translateY(0) scaleY(1)', opacity: 1, filter: 'blur(0px)' },
-                { transform: 'translateY(-130%) scaleY(0.4)', opacity: 0, filter: 'blur(8px)' }
+                { transform: 'translateY(-60%) scaleY(0.7)', opacity: 0.4, filter: 'blur(5px)', offset: 0.4 },
+                { transform: 'translateY(-130%) scaleY(0.4)', opacity: 0, filter: 'blur(10px)' }
             ], { duration: 380, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' }).onfinish = function () {
                 c = (c + 1) % words.length;
                 el.textContent = words[c];
                 el.animate([
-                    { transform: 'translateY(130%) scaleY(0.4)', opacity: 0, filter: 'blur(8px)' },
+                    { transform: 'translateY(130%) scaleY(0.4)', opacity: 0, filter: 'blur(10px)' },
+                    { transform: 'translateY(60%) scaleY(0.7)', opacity: 0.4, filter: 'blur(5px)', offset: 0.6 },
                     { transform: 'translateY(0) scaleY(1)', opacity: 1, filter: 'blur(0px)' }
                 ], { duration: 520, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' }).onfinish = function () {
                     b = false;
@@ -256,7 +258,7 @@ export default function Home03Page() {
             <h1 class="main-heading">
                 <span class="word-mask"><span class="word-inner w1">Intelligence</span></span>
                 <span class="word-mask"><span class="word-inner w2">that</span></span>
-                <span class="word-mask" style="display: inline-block; vertical-align: bottom; overflow: hidden; height: 1.15em; line-height: 1.15; width: 3.4em; text-align: left;">
+                <span class="word-mask" style="display: inline-block; vertical-align: -0.18em; overflow: hidden; height: 1.15em; line-height: 1.15; width: 3.4em; text-align: left;">
                     <span id="heroSwapWord" class="word-inner w3" style="display: inline-block; white-space: nowrap;">secures</span>
                 </span><br>
                 <span class="word-mask"><span class="word-inner w4">your</span></span>
