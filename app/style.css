@@ -5343,6 +5343,12 @@ body.light-mode * {
     fill: #9d62f2 !important;
 }
 
+/* Standardize all dotted/dashed lines in SVGs for consistent thickness and dash frequency */
+.feature-col-item svg [stroke-dasharray] {
+    stroke-dasharray: 2 3 !important;
+    stroke-width: 1px !important;
+}
+
 .feature-col-item h3 {
     font-family: var(--font-main);
     font-size: 16px;
