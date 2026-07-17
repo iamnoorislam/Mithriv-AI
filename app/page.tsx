@@ -1092,7 +1092,7 @@ export default function HomePage() {
                                     <g style="animation: platform-hover 4s ease-in-out infinite;">
                                         <polygon points="100,115 145,92.5 100,70 55,92.5" fill="rgba(0,0,0,0.3)" />
                                         <polygon points="100,105 145,82.5 100,60 55,82.5" stroke="rgba(255, 255, 255, 0.2)"
-                                            stroke-width="1.2" fill="rgba(255,255,255,0.02)" />
+                                            stroke-width="1.2" fill="#16161a" />
                                         
                                         <!-- Isometric Platform Gridlines -->
                                         <line x1="77.5" y1="81.25" x2="122.5" y2="103.75" stroke="rgba(255, 255, 255, 0.08)" stroke-width="0.75" />
@@ -1107,15 +1107,11 @@ export default function HomePage() {
                                             stroke-width="1" />
                                         <polygon points="55,92.5 100,115 100,105 55,82.5" fill="rgba(255,255,255,0.03)" />
                                         <polygon points="145,92.5 100,115 100,105 145,82.5" fill="rgba(255,255,255,0.04)" />
-                                        <path d="M60,80 L140,120" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1"
-                                            stroke-dasharray="3,3" />
-                                        <path d="M70,65 L130,95" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1"
-                                            stroke-dasharray="3,3" />
 
                                         <g
                                             style="transform-origin: 100px 82.5px; animation: avatar-slide 4s linear infinite;">
                                             <polygon points="100,75 112,81 100,87 88,81" stroke="rgba(255, 255, 255, 0.25)"
-                                                stroke-width="0.8" fill="rgba(255,255,255,0.12)" />
+                                                stroke-width="0.8" fill="#16161a" />
                                             <circle cx="100" cy="72" r="2.5" fill="rgba(255,255,255,0.75)"
                                                 stroke="rgba(255, 255, 255, 0.3)" stroke-width="0.5" />
                                             <path d="M96,78 C96,75.5 104,75.5 104,78" stroke="rgba(255, 255, 255, 0.25)"
@@ -1126,7 +1122,7 @@ export default function HomePage() {
                                         <g
                                             style="transform-origin: 100px 82.5px; animation: avatar-slide 4s linear infinite; animation-delay: 2s;">
                                             <polygon points="100,75 112,81 100,87 88,81" stroke="rgba(255, 255, 255, 0.25)"
-                                                stroke-width="0.8" fill="rgba(255,255,255,0.12)" />
+                                                stroke-width="0.8" fill="#16161a" />
                                             <circle cx="100" cy="72" r="2.5" fill="rgba(255,255,255,0.75)"
                                                 stroke="rgba(255, 255, 255, 0.3)" stroke-width="0.5" />
                                             <path d="M96,78 C96,75.5 104,75.5 104,78" stroke="rgba(255, 255, 255, 0.25)"
