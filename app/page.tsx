@@ -1124,6 +1124,13 @@ export default function HomePage() {
                                     }
                                 </style>
                                 <path d="M100,20 L100,140" stroke="rgba(255, 255, 255, 0.25)" stroke-dasharray="2,2" />
+                                <!-- 100-300% text overlay -->
+                                <g style="animation: text-blink 2s infinite;">
+                                    <text x="100" y="45" font-family="'Outfit', sans-serif" font-weight="900"
+                                        font-size="18" fill="#FFE500" text-anchor="middle" letter-spacing="0.5">100-300%</text>
+                                    <text x="100" y="55" font-family="monospace" font-weight="bold" font-size="7"
+                                        fill="rgba(255,255,255,0.4)" text-anchor="middle" letter-spacing="1">ANNUAL TURNOVER</text>
+                                </g>
                                 <g style="animation: platform-hover 4s ease-in-out infinite;">
                                     <polygon points="100,115 145,92.5 100,70 55,92.5" fill="rgba(0,0,0,0.2)" />
                                     <polygon points="100,105 145,82.5 100,60 55,82.5" stroke="rgba(255, 255, 255, 0.25)"
@@ -1241,18 +1248,18 @@ export default function HomePage() {
                                     }
                                 </style>
                                 <path d="M100,20 L100,140" stroke="rgba(255, 255, 255, 0.25)" stroke-dasharray="2,2" />
-                                <!-- 100-300% text overlay -->
+                                <!-- 12,000h text overlay -->
                                 <g style="animation: text-blink 2s infinite;">
                                     <text x="100" y="45" font-family="'Outfit', sans-serif" font-weight="900"
-                                        font-size="18" fill="#FFE500" text-anchor="middle" letter-spacing="0.5">100-300%</text>
+                                        font-size="18" fill="#4DA6FF" text-anchor="middle" letter-spacing="0.5">12,000h</text>
                                     <text x="100" y="55" font-family="monospace" font-weight="bold" font-size="7"
-                                        fill="rgba(255,255,255,0.4)" text-anchor="middle" letter-spacing="1">ANNUAL TURNOVER</text>
+                                        fill="rgba(255,255,255,0.4)" text-anchor="middle" letter-spacing="1">ON CREDENTIALS</text>
                                 </g>
-                                <ellipse cx="100" cy="80" rx="65" ry="32.5" stroke="rgba(255, 255, 255, 0.25)"
-                                    strokeWidth="2" stroke-dasharray="4,8"
-                                    style="transform-origin: 100px 80px; animation: clock-ticks 20s linear infinite;" />
+                                <ellipse cx="100" cy="98" rx="52" ry="26" stroke="rgba(255, 255, 255, 0.25)"
+                                    strokeWidth="1.6" stroke-dasharray="3,6"
+                                    style="transform-origin: 100px 98px; animation: clock-ticks 20s linear infinite;" />
 
-                                <g transform="translate(100, 80)">
+                                <g transform="translate(100, 98) scale(0.75)">
                                     <polygon points="0,-48 30,-36 0,-24 -30,-36" stroke="rgba(255, 255, 255, 0.25)"
                                         strokeWidth="1.5" fill="rgba(255,255,255,0.02)" />
                                     <polygon points="0,48 30,36 0,24 -30,36" stroke="rgba(255, 255, 255, 0.25)"
@@ -1288,13 +1295,6 @@ export default function HomePage() {
                                         style="transform-origin: 0 32px; animation: sand-pile 4s infinite alternate;" />
                                     <polygon points="0,32 10,27 0,22 -10,27" stroke="#4DA6FF"
                                         strokeWidth="0.8" fill="rgba(77,166,255,0.3)" />
-
-                                    <g transform="translate(45, 0)">
-                                        <rect x="-3" y="-12" width="48" height="15" rx="3" fill="rgba(0,0,0,0.4)"
-                                            stroke="rgba(255, 255, 255, 0.25)" />
-                                        <text x="21" y="-2" font-family="monospace" font-size="8" fill="#ffffff"
-                                            text-anchor="middle" font-weight="bold" letter-spacing="0.5">12,000h</text>
-                                    </g>
                                 </g>
                             </svg>
                         </div>

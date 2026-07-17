@@ -5315,34 +5315,29 @@ body.light-mode * {
 .feature-col-item svg polygon[stroke^="rgba(255,255,255"],
 .feature-col-item svg ellipse[stroke^="rgba(255,255,255"] {
     stroke: rgba(255, 255, 255, 0.6) !important;
-    stroke-width: 1.25px !important;
 }
 
 /* Boost colored accents */
 .feature-col-item svg [stroke="#bbfb02"] {
     stroke: #c5ff26 !important;
-    stroke-width: 2px !important;
 }
 .feature-col-item svg [fill="#bbfb02"] {
     fill: #c5ff26 !important;
 }
 .feature-col-item svg [stroke="#FFE500"] {
     stroke: #ffee33 !important;
-    stroke-width: 2px !important;
 }
 .feature-col-item svg [fill="#FFE500"] {
     fill: #ffee33 !important;
 }
 .feature-col-item svg [stroke="#4DA6FF"] {
     stroke: #7ec0ff !important;
-    stroke-width: 2px !important;
 }
 .feature-col-item svg [fill="#4DA6FF"] {
     fill: #7ec0ff !important;
 }
 .feature-col-item svg [stroke="#7C3CD0"] {
     stroke: #9d62f2 !important;
-    stroke-width: 2px !important;
 }
 .feature-col-item svg [fill="#7C3CD0"] {
     fill: #9d62f2 !important;
