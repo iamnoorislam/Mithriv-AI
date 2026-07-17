@@ -1758,81 +1758,53 @@ export default function Home02Page() {
                                 xmlns="http://www.w3.org/2000/svg">
                                 <style>
                                     @keyframes siren-glow {
-
-                                        0%,
-                                        100% {
-                                            fill: rgba(124, 60, 208, 0.15);
-                                            stroke: rgba(124, 60, 208, 0.4);
-                                        }
-
-                                        50% {
-                                            fill: rgba(124, 60, 208, 0.4);
-                                            stroke: #7C3CD0;
-                                            filter: drop-shadow(0 0 8px #7C3CD0);
-                                        }
+                                        0%, 100% { fill: rgba(124, 60, 208, 0.1); stroke: rgba(124, 60, 208, 0.3); }
+                                        50% { fill: rgba(124, 60, 208, 0.35); stroke: #7C3CD0; }
                                     }
-
                                     @keyframes wave-expand {
-                                        0% {
-                                            transform: scale(0.6);
-                                            opacity: 0;
-                                        }
-
-                                        10% {
-                                            opacity: 0.8;
-                                        }
-
-                                        100% {
-                                            transform: scale(1.4);
-                                            opacity: 0;
-                                        }
+                                        0% { transform: scale(0.6); opacity: 0; }
+                                        15% { opacity: 0.7; }
+                                        100% { transform: scale(1.45); opacity: 0; }
                                     }
-
                                     @keyframes text-blink {
-
-                                        0%,
-                                        100% {
-                                            opacity: 0.3;
-                                        }
-
-                                        50% {
-                                            opacity: 1;
-                                        }
+                                        0%, 100% { opacity: 0.45; }
+                                        50% { opacity: 1; }
                                     }
-
                                     @keyframes noise-flicker {
-
-                                        0%,
-                                        100% {
-                                            opacity: 0.1;
-                                        }
-
-                                        30% {
-                                            opacity: 0.8;
-                                        }
-
-                                        60% {
-                                            opacity: 0.3;
-                                        }
-
-                                        80% {
-                                            opacity: 0.9;
-                                        }
+                                        0%, 100% { opacity: 0.15; }
+                                        30% { opacity: 0.75; }
+                                        60% { opacity: 0.35; }
+                                        80% { opacity: 0.85; }
                                     }
-
-                                    #hero .ent-btn-primary {
-                                        backdrop-filter: none !important;
-                                        -webkit-backdrop-filter: none !important;
-                                        transform: translateZ(0);
+                                    @keyframes led-blink {
+                                        0% { opacity: 0.25; }
+                                        100% { opacity: 1; }
+                                    }
+                                    @keyframes hex-dash {
+                                        to { stroke-dashoffset: -20; }
                                     }
                                 </style>
-                                <!-- Background Grid -->
+                                <defs>
+                                    <radialGradient id="purple-glow" cx="50%" cy="50%" r="50%">
+                                        <stop offset="0%" stop-color="rgba(124, 60, 208, 0.25)" />
+                                        <stop offset="100%" stop-color="rgba(0, 0, 0, 0)" />
+                                    </radialGradient>
+                                </defs>
+                                <circle cx="100" cy="95" r="50" fill="url(#purple-glow)" />
                                 <path d="M100,20 L100,140" stroke="rgba(255, 255, 255, 0.25)" stroke-dasharray="2,2" />
                                 <!-- Outer warning hexagon -->
                                 <polygon points="100,25 155,55 155,115 100,145 45,115 45,55"
-                                    stroke="rgba(124,60,208,0.15)" stroke-width="1.5" stroke-dasharray="4,4" />
+                                    stroke="rgba(124,60,208,0.2)" stroke-width="1.2" stroke-dasharray="4 4"
+                                    style="animation: hex-dash 8s linear infinite;" />
 
-                                <!-- 98% text in high-tech font -->
+                                <!-- LED Vertex indicators -->
+                                <circle cx="100" cy="25" r="2" fill="#7C3CD0" style="animation: led-blink 1s infinite alternate;" />
+                                <circle cx="155" cy="55" r="2" fill="#7C3CD0" style="animation: led-blink 1s infinite alternate 0.3s;" />
+                                <circle cx="155" cy="115" r="2" fill="#7C3CD0" style="animation: led-blink 1s infinite alternate 0.6s;" />
+                                <circle cx="100" cy="145" r="2" fill="#7C3CD0" style="animation: led-blink 1s infinite alternate 0.9s;" />
+                                <circle cx="45" cy="115" r="2" fill="#7C3CD0" style="animation: led-blink 1s infinite alternate 1.2s;" />
+                                <circle cx="45" cy="55" r="2" fill="#7C3CD0" style="animation: led-blink 1s infinite alternate 1.5s;" />
+
                                 <g style="animation: text-blink 2s infinite;">
                                     <text x="100" y="48" font-family="'Outfit', sans-serif" font-weight="900"
                                         font-size="20" fill="#7C3CD0" text-anchor="middle" letter-spacing="1">98%</text>
@@ -1841,7 +1813,6 @@ export default function Home02Page() {
                                         ALARMS</text>
                                 </g>
 
-                                <!-- Chaotic Alert Noise Cloud -->
                                 <g style="animation: noise-flicker 1.5s infinite;">
                                     <circle cx="65" cy="55" r="1.5" fill="rgba(255,255,255,0.15)" />
                                     <circle cx="135" cy="55" r="1.5" fill="rgba(255,255,255,0.15)" />
@@ -1850,22 +1821,21 @@ export default function Home02Page() {
                                     <circle cx="70" cy="110" r="1.5" fill="rgba(255,255,255,0.2)" />
                                     <circle cx="130" cy="110" r="1.5" fill="rgba(255,255,255,0.1)" />
                                     <circle cx="85" cy="65" r="1" fill="rgba(255,255,255,0.25)" />
-                                    <circle cx="115" cy="65" r="1" fill="rgba(255,255,255,0.2)" />
+                                    <circle cx="115" cy="65" r="1" fill="rgba(255,255,255,0.25)" />
                                     <circle cx="75" cy="90" r="1" fill="rgba(255,255,255,0.1)" />
                                     <circle cx="125" cy="90" r="1" fill="rgba(255,255,255,0.3)" />
                                 </g>
 
-                                <!-- Center Siren Beacon (Isometric projection) -->
                                 <g transform="translate(100, 95)">
                                     <ellipse cx="0" cy="0" rx="35" ry="17.5" stroke="#7C3CD0" stroke-width="1"
                                         style="transform-origin: 0 0; animation: wave-expand 2.5s infinite linear;" />
                                     <ellipse cx="0" cy="0" rx="55" ry="27.5" stroke="#7C3CD0" stroke-width="0.5"
                                         style="transform-origin: 0 0; animation: wave-expand 2.5s infinite linear; animation-delay: 1.25s;" />
-                                    <ellipse cx="0" cy="10" rx="18" ry="9" fill="rgba(0,0,0,0.3)" />
-                                    <polygon points="-15,0 15,0 15,10 -15,10" fill="rgba(255,255,255,0.05)"
-                                        stroke="rgba(255, 255, 255, 0.25)" stroke-width="1" />
-                                    <ellipse cx="0" cy="0" rx="15" ry="7.5" fill="rgba(255,255,255,0.08)"
-                                        stroke="rgba(255, 255, 255, 0.25)" />
+                                    <ellipse cx="0" cy="10" rx="18" ry="9" fill="rgba(0,0,0,0.35)" />
+                                    <polygon points="-15,0 15,0 15,10 -15,10" fill="rgba(255,255,255,0.03)"
+                                        stroke="rgba(255, 255, 255, 0.2)" stroke-width="1" />
+                                    <ellipse cx="0" cy="0" rx="15" ry="7.5" fill="rgba(255,255,255,0.05)"
+                                        stroke="rgba(255, 255, 255, 0.2)" />
                                     <path d="M-8,-10 L8,-10 L12,0 L-12,0 Z" stroke="#7C3CD0" stroke-width="1"
                                         style="animation: siren-glow 1s infinite alternate;" />
                                     <ellipse cx="0" cy="-10" rx="8" ry="4" fill="#7C3CD0"
@@ -1885,56 +1855,31 @@ export default function Home02Page() {
                                 xmlns="http://www.w3.org/2000/svg">
                                 <style>
                                     @keyframes avatar-slide {
-                                        0% {
-                                            transform: translate(-30px, -15px);
-                                            opacity: 0;
-                                        }
-
-                                        15% {
-                                            opacity: 1;
-                                        }
-
-                                        85% {
-                                            opacity: 1;
-                                        }
-
-                                        100% {
-                                            transform: translate(30px, 15px);
-                                            opacity: 0;
-                                        }
+                                        0% { transform: translate(-30px, -15px); opacity: 0; }
+                                        15% { opacity: 1; }
+                                        85% { opacity: 1; }
+                                        100% { transform: translate(30px, 15px); opacity: 0; }
                                     }
-
                                     @keyframes platform-hover {
-
-                                        0%,
-                                        100% {
-                                            transform: translateY(0);
-                                        }
-
-                                        50% {
-                                            transform: translateY(-4px);
-                                        }
+                                        0%, 100% { transform: translateY(0); }
+                                        50% { transform: translateY(-4px); }
                                     }
-
                                     @keyframes arrow-pulse {
-
-                                        0%,
-                                        100% {
-                                            stroke-dashoffset: 0;
-                                            opacity: 0.3;
-                                        }
-
-                                        50% {
-                                            opacity: 1;
-                                        }
+                                        0%, 100% { stroke-dashoffset: 0; opacity: 0.35; }
+                                        50% { opacity: 1; }
                                     }
-
-                                    #hero .ent-btn-primary {
-                                        backdrop-filter: none !important;
-                                        -webkit-backdrop-filter: none !important;
-                                        transform: translateZ(0);
+                                    @keyframes node-pulse {
+                                        0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px #FFE500); }
+                                        50% { transform: scale(1.35); filter: drop-shadow(0 0 6px #FFE500); }
                                     }
                                 </style>
+                                <defs>
+                                    <radialGradient id="yellow-glow" cx="50%" cy="50%" r="50%">
+                                        <stop offset="0%" stop-color="rgba(255, 229, 0, 0.18)" />
+                                        <stop offset="100%" stop-color="rgba(0, 0, 0, 0)" />
+                                    </radialGradient>
+                                </defs>
+                                <circle cx="100" cy="95" r="50" fill="url(#yellow-glow)" />
                                 <path d="M100,20 L100,140" stroke="rgba(255, 255, 255, 0.25)" stroke-dasharray="2,2" />
                                 <!-- 100-300% text overlay -->
                                 <g style="animation: text-blink 2s infinite;">
@@ -1944,51 +1889,60 @@ export default function Home02Page() {
                                         fill="rgba(255,255,255,0.4)" text-anchor="middle" letter-spacing="1">ANNUAL TURNOVER</text>
                                 </g>
                                 <g style="animation: platform-hover 4s ease-in-out infinite;">
-                                    <polygon points="100,115 145,92.5 100,70 55,92.5" fill="rgba(0,0,0,0.2)" />
-                                    <polygon points="100,105 145,82.5 100,60 55,82.5" stroke="rgba(255, 255, 255, 0.25)"
-                                        stroke-width="1" fill="rgba(255,255,255,0.02)" />
-                                    <line x1="55" y1="82.5" x2="55" y2="92.5" stroke="rgba(255, 255, 255, 0.25)"
+                                    <polygon points="100,115 145,92.5 100,70 55,92.5" fill="rgba(0,0,0,0.3)" />
+                                    <polygon points="100,105 145,82.5 100,60 55,82.5" stroke="rgba(255, 255, 255, 0.2)"
+                                        stroke-width="1.2" fill="rgba(255,255,255,0.02)" />
+                                    
+                                    <!-- Isometric Platform Gridlines -->
+                                    <line x1="77.5" y1="81.25" x2="122.5" y2="103.75" stroke="rgba(255, 255, 255, 0.08)" stroke-width="0.75" />
+                                    <line x1="66.25" y1="86.87" x2="111.25" y2="109.37" stroke="rgba(255, 255, 255, 0.08)" stroke-width="0.75" />
+                                    <line x1="88.75" y1="75.62" x2="133.75" y2="98.12" stroke="rgba(255, 255, 255, 0.08)" stroke-width="0.75" />
+                                    
+                                    <line x1="55" y1="82.5" x2="55" y2="92.5" stroke="rgba(255, 255, 255, 0.2)"
                                         stroke-width="1" />
-                                    <line x1="145" y1="82.5" x2="145" y2="92.5" stroke="rgba(255, 255, 255, 0.25)"
+                                    <line x1="145" y1="82.5" x2="145" y2="92.5" stroke="rgba(255, 255, 255, 0.2)"
                                         stroke-width="1" />
-                                    <line x1="100" y1="105" x2="100" y2="115" stroke="rgba(255, 255, 255, 0.25)"
+                                    <line x1="100" y1="105" x2="100" y2="115" stroke="rgba(255, 255, 255, 0.2)"
                                         stroke-width="1" />
                                     <polygon points="55,92.5 100,115 100,105 55,82.5" fill="rgba(255,255,255,0.03)" />
                                     <polygon points="145,92.5 100,115 100,105 145,82.5" fill="rgba(255,255,255,0.04)" />
-                                    <path d="M60,80 L140,120" stroke="rgba(255, 255, 255, 0.25)" stroke-width="1"
+                                    <path d="M60,80 L140,120" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1"
                                         stroke-dasharray="3,3" />
-                                    <path d="M70,65 L130,95" stroke="rgba(255, 255, 255, 0.25)" stroke-width="1"
+                                    <path d="M70,65 L130,95" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1"
                                         stroke-dasharray="3,3" />
 
                                     <g
                                         style="transform-origin: 100px 82.5px; animation: avatar-slide 4s linear infinite;">
                                         <polygon points="100,75 112,81 100,87 88,81" stroke="rgba(255, 255, 255, 0.25)"
-                                            stroke-width="0.8" fill="rgba(255,255,255,0.1)" />
-                                        <circle cx="100" cy="72" r="2.5" fill="rgba(255,255,255,0.6)"
-                                            stroke="rgba(255, 255, 255, 0.25)" stroke-width="0.5" />
+                                            stroke-width="0.8" fill="rgba(255,255,255,0.12)" />
+                                        <circle cx="100" cy="72" r="2.5" fill="rgba(255,255,255,0.75)"
+                                            stroke="rgba(255, 255, 255, 0.3)" stroke-width="0.5" />
                                         <path d="M96,78 C96,75.5 104,75.5 104,78" stroke="rgba(255, 255, 255, 0.25)"
                                             stroke-width="0.8" fill="rgba(255,255,255,0.4)" />
-                                        <line x1="100" y1="87" x2="100" y2="92" stroke="rgba(255, 255, 255, 0.25)"
+                                        <line x1="100" y1="87" x2="100" y2="92" stroke="rgba(255, 255, 255, 0.2)"
                                             stroke-width="0.5" />
                                     </g>
                                     <g
                                         style="transform-origin: 100px 82.5px; animation: avatar-slide 4s linear infinite; animation-delay: 2s;">
                                         <polygon points="100,75 112,81 100,87 88,81" stroke="rgba(255, 255, 255, 0.25)"
-                                            stroke-width="0.8" fill="rgba(255,255,255,0.1)" />
-                                        <circle cx="100" cy="72" r="2.5" fill="rgba(255,255,255,0.6)"
-                                            stroke="rgba(255, 255, 255, 0.25)" stroke-width="0.5" />
+                                            stroke-width="0.8" fill="rgba(255,255,255,0.12)" />
+                                        <circle cx="100" cy="72" r="2.5" fill="rgba(255,255,255,0.75)"
+                                            stroke="rgba(255, 255, 255, 0.3)" stroke-width="0.5" />
                                         <path d="M96,78 C96,75.5 104,75.5 104,78" stroke="rgba(255, 255, 255, 0.25)"
                                             stroke-width="0.8" fill="rgba(255,255,255,0.4)" />
-                                        <line x1="100" y1="87" x2="100" y2="92" stroke="rgba(255, 255, 255, 0.25)"
+                                        <line x1="100" y1="87" x2="100" y2="92" stroke="rgba(255, 255, 255, 0.2)"
                                             stroke-width="0.5" />
                                     </g>
 
-                                    <ellipse cx="140" cy="80" rx="3" ry="15" stroke="#FFE500" stroke-width="1.5"
-                                        style="transform: rotate(-25deg); opacity: 0.7;" />
-                                    <ellipse cx="140" cy="80" rx="1" ry="10" fill="rgba(255, 229, 0, 0.1)"
+                                    <!-- Yellow target output node -->
+                                    <ellipse cx="140" cy="80" rx="3" ry="1.5" fill="#FFE500" style="animation: node-pulse 2s infinite ease-in-out;" />
+                                    <circle cx="140" cy="80" r="1.5" fill="#FFE500" />
+                                    <ellipse cx="140" cy="80" rx="3" ry="15" stroke="#FFE500" stroke-width="1.2"
+                                        style="transform: rotate(-25deg); opacity: 0.65;" />
+                                    <ellipse cx="140" cy="80" rx="1" ry="10" fill="rgba(255, 229, 0, 0.08)"
                                         style="transform: rotate(-25deg);" />
-                                    <ellipse cx="60" cy="40" rx="2" ry="10" stroke="rgba(255, 255, 255, 0.25)"
-                                        stroke-width="1" style="transform: rotate(-25deg);" />
+                                    <ellipse cx="60" cy="40" rx="2" ry="10" stroke="rgba(255, 255, 255, 0.2)"
+                                        stroke-width="0.8" style="transform: rotate(-25deg);" />
                                     <path d="M110,87 C130,97 150,90 165,70" stroke="#FFE500" stroke-width="1.5"
                                         stroke-dasharray="3,3" style="animation: arrow-pulse 2s infinite;" />
                                     <polygon points="167,70 164,75 160,70" fill="#FFE500" />
@@ -2007,64 +1961,31 @@ export default function Home02Page() {
                                 xmlns="http://www.w3.org/2000/svg">
                                 <style>
                                     @keyframes sand-drip {
-                                        0% {
-                                            stroke-dashoffset: 0;
-                                        }
-
-                                        100% {
-                                            stroke-dashoffset: -12;
-                                        }
+                                        0% { stroke-dashoffset: 0; }
+                                        100% { stroke-dashoffset: -12; }
                                     }
-
                                     @keyframes clock-ticks {
-                                        0% {
-                                            transform: rotate(0deg);
-                                        }
-
-                                        100% {
-                                            transform: rotate(360deg);
-                                        }
+                                        0% { transform: rotate(0deg); }
+                                        100% { transform: rotate(360deg); }
                                     }
-
                                     @keyframes badge-dissolve {
-                                        0% {
-                                            opacity: 0.8;
-                                            transform: translate(0, 0) scale(0.9) rotate(5deg);
-                                        }
-
-                                        50% {
-                                            opacity: 0.1;
-                                            transform: translate(0, 15px) scale(0.5) rotate(-5deg);
-                                        }
-
-                                        51% {
-                                            opacity: 0;
-                                        }
-
-                                        100% {
-                                            opacity: 0.8;
-                                            transform: translate(0, 0) scale(0.9) rotate(5deg);
-                                        }
+                                        0% { opacity: 0.8; transform: translate(0, 0) scale(0.9) rotate(5deg); }
+                                        50% { opacity: 0.1; transform: translate(0, 15px) scale(0.5) rotate(-5deg); }
+                                        51% { opacity: 0; }
+                                        100% { opacity: 0.8; transform: translate(0, 0) scale(0.9) rotate(5deg); }
                                     }
-
                                     @keyframes sand-pile {
-
-                                        0%,
-                                        100% {
-                                            transform: scaleY(0.9);
-                                        }
-
-                                        50% {
-                                            transform: scaleY(1.2);
-                                        }
-                                    }
-
-                                    #hero .ent-btn-primary {
-                                        backdrop-filter: none !important;
-                                        -webkit-backdrop-filter: none !important;
-                                        transform: translateZ(0);
+                                        0%, 100% { transform: scaleY(0.9); }
+                                        50% { transform: scaleY(1.2); }
                                     }
                                 </style>
+                                <defs>
+                                    <radialGradient id="blue-glow" cx="50%" cy="50%" r="50%">
+                                        <stop offset="0%" stop-color="rgba(77, 166, 255, 0.2)" />
+                                        <stop offset="100%" stop-color="rgba(0, 0, 0, 0)" />
+                                    </radialGradient>
+                                </defs>
+                                <circle cx="100" cy="98" r="50" fill="url(#blue-glow)" />
                                 <path d="M100,20 L100,140" stroke="rgba(255, 255, 255, 0.25)" stroke-dasharray="2,2" />
                                 <!-- 12,000h text overlay -->
                                 <g style="animation: text-blink 2s infinite;">
@@ -2073,33 +1994,36 @@ export default function Home02Page() {
                                     <text x="100" y="55" font-family="monospace" font-weight="bold" font-size="7"
                                         fill="rgba(255,255,255,0.4)" text-anchor="middle" letter-spacing="1">ON CREDENTIALS</text>
                                 </g>
-                                <ellipse cx="100" cy="98" rx="52" ry="26" stroke="rgba(255, 255, 255, 0.25)"
+                                <ellipse cx="100" cy="98" rx="52" ry="26" stroke="rgba(255, 255, 255, 0.2)"
                                     stroke-width="1.6" stroke-dasharray="3,6"
                                     style="transform-origin: 100px 98px; animation: clock-ticks 20s linear infinite;" />
 
+                                <!-- High-Tech Target Crosshair Ticks -->
+                                <path d="M100,66 L100,72 M100,124 L100,130 M68,98 L74,98 M126,98 L132,98" stroke="rgba(77,166,255,0.3)" stroke-width="1" />
+
                                 <g transform="translate(100, 98) scale(0.75)">
-                                    <polygon points="0,-48 30,-36 0,-24 -30,-36" stroke="rgba(255, 255, 255, 0.25)"
+                                    <polygon points="0,-48 30,-36 0,-24 -30,-36" stroke="rgba(255, 255, 255, 0.2)"
                                         stroke-width="1.5" fill="rgba(255,255,255,0.02)" />
-                                    <polygon points="0,48 30,36 0,24 -30,36" stroke="rgba(255, 255, 255, 0.25)"
+                                    <polygon points="0,48 30,36 0,24 -30,36" stroke="rgba(255, 255, 255, 0.2)"
                                         stroke-width="1.5" fill="rgba(255,255,255,0.02)" />
-                                    <line x1="-30" y1="-36" x2="-30" y2="36" stroke="rgba(255, 255, 255, 0.25)"
+                                    <line x1="-30" y1="-36" x2="-30" y2="36" stroke="rgba(255, 255, 255, 0.2)"
                                         stroke-width="1" />
-                                    <line x1="30" y1="-36" x2="30" y2="36" stroke="rgba(255, 255, 255, 0.25)"
+                                    <line x1="30" y1="-36" x2="30" y2="36" stroke="rgba(255, 255, 255, 0.2)"
                                         stroke-width="1" />
-                                    <line x1="0" y1="-24" x2="0" y2="24" stroke="rgba(255, 255, 255, 0.25)"
+                                    <line x1="0" y1="-24" x2="0" y2="24" stroke="rgba(255, 255, 255, 0.2)"
                                         stroke-width="0.8" stroke-dasharray="2,2" />
                                     <path
-                                        d="M-26,-34 C-26,-15 -6,-5 -6,0 C-6,5 -26,15 -26,34 L26,34 C26,15 6,5 6,0 C6,-5 26,-15 26,-34 Z"
-                                        stroke="rgba(255, 255, 255, 0.25)" stroke-width="1" />
+                                        d="M-26,-34 C-26,-15 -6,-5 -6,0 C-6,5 -26,15 -26,34 L26,34 C26,15 6,5 6,0 Z"
+                                        stroke="rgba(255, 255, 255, 0.2)" stroke-width="1" />
 
                                     <g transform="translate(0, -25)"
                                         style="animation: badge-dissolve 4s infinite ease-in;">
-                                        <polygon points="0,-6 10,-2 0,2 -10,-2" stroke="rgba(255, 255, 255, 0.25)"
+                                        <polygon points="0,-6 10,-2 0,2 -10,-2" stroke="rgba(255, 255, 255, 0.2)"
                                             stroke-width="0.8" fill="rgba(255,255,255,0.1)" />
-                                        <line x1="-4" y1="-2" x2="4" y2="-2" stroke="rgba(255, 255, 255, 0.25)"
+                                        <line x1="-4" y1="-2" x2="4" y2="-2" stroke="rgba(255, 255, 255, 0.2)"
                                             stroke-width="0.6" />
-                                        <circle cx="0" cy="0" r="1.5" fill="rgba(255,255,255,0.6)" />
-                                        <line x1="0" y1="1.5" x2="0" y2="4" stroke="rgba(255, 255, 255, 0.25)"
+                                        <circle cx="0" cy="0" r="1.5" fill="rgba(255,255,255,0.65)" />
+                                        <line x1="0" y1="1.5" x2="0" y2="4" stroke="rgba(255, 255, 255, 0.2)"
                                             stroke-width="0.5" />
                                     </g>
 
@@ -2109,7 +2033,7 @@ export default function Home02Page() {
                                     <circle cx="0" cy="0" r="1" fill="#4DA6FF" />
 
                                     <polygon points="0,32 18,24 0,16 -18,24" stroke="#4DA6FF"
-                                        stroke-width="0.8" fill="rgba(77,166,255,0.15)"
+                                        stroke-width="0.8" fill="rgba(77,166,255,0.18)"
                                         style="transform-origin: 0 32px; animation: sand-pile 4s infinite alternate;" />
                                     <polygon points="0,32 10,27 0,22 -10,27" stroke="#4DA6FF"
                                         stroke-width="0.8" fill="rgba(77,166,255,0.3)" />
@@ -2128,50 +2052,35 @@ export default function Home02Page() {
                                 xmlns="http://www.w3.org/2000/svg">
                                 <style>
                                     @keyframes camera-scan {
-
-                                        0%,
-                                        100% {
-                                            transform: rotate(-5deg);
-                                        }
-
-                                        50% {
-                                            transform: rotate(5deg);
-                                        }
+                                        0%, 100% { transform: rotate(-5deg); }
+                                        50% { transform: rotate(5deg); }
                                     }
-
                                     @keyframes lock-pulse {
-
-                                        0%,
-                                        100% {
-                                            stroke: rgba(187, 251, 2, 0.4);
-                                            fill: rgba(187, 251, 2, 0.05);
-                                        }
-
-                                        50% {
-                                            stroke: #bbfb02;
-                                            fill: rgba(187, 251, 2, 0.2);
-                                            filter: drop-shadow(0 0 4px #bbfb02);
-                                        }
+                                        0%, 100% { stroke: rgba(187, 251, 2, 0.4); fill: rgba(187, 251, 2, 0.05); }
+                                        50% { stroke: #bbfb02; fill: rgba(187, 251, 2, 0.25); filter: drop-shadow(0 0 5px #bbfb02); }
                                     }
-
                                     @keyframes light-glow {
-
-                                        0%,
-                                        100% {
-                                            opacity: 0.1;
-                                        }
-
-                                        50% {
-                                            opacity: 0.3;
-                                        }
+                                        0%, 100% { opacity: 0.12; }
+                                        50% { opacity: 0.35; }
                                     }
-
-                                    #hero .ent-btn-primary {
-                                        backdrop-filter: none !important;
-                                        -webkit-backdrop-filter: none !important;
-                                        transform: translateZ(0);
+                                    @keyframes laser-sweep {
+                                        0% { transform: translateY(45px); opacity: 0; }
+                                        50% { opacity: 0.8; }
+                                        100% { transform: translateY(110px); opacity: 0; }
                                     }
                                 </style>
+                                <defs>
+                                    <radialGradient id="green-glow" cx="50%" cy="50%" r="50%">
+                                        <stop offset="0%" stop-color="rgba(187, 251, 2, 0.18)" />
+                                        <stop offset="100%" stop-color="rgba(0, 0, 0, 0)" />
+                                    </radialGradient>
+                                    <linearGradient id="cone-grad-home-refined" x1="100" y1="45" x2="100" y2="110"
+                                        gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="rgba(187, 251, 2, 0.3)" />
+                                        <stop offset="100%" stop-color="rgba(187, 251, 2, 0)" />
+                                    </linearGradient>
+                                </defs>
+                                <circle cx="100" cy="110" r="45" fill="url(#green-glow)" />
                                 <path d="M100,20 L100,140" stroke="rgba(255, 255, 255, 0.25)" stroke-dasharray="2,2" />
                                 <!-- 911 ONLY text overlay -->
                                 <g style="animation: text-blink 2s infinite;">
@@ -2180,23 +2089,26 @@ export default function Home02Page() {
                                     <text x="100" y="55" font-family="monospace" font-weight="bold" font-size="7"
                                         fill="rgba(255,255,255,0.4)" text-anchor="middle" letter-spacing="1">OPERATIONAL CAPACITY</text>
                                 </g>
-                                <polygon points="100,45 60,110 140,110" fill="url(#cone-grad-home)"
+                                <polygon points="100,45 60,110 140,110" fill="url(#cone-grad-home-refined)"
                                     style="animation: light-glow 3s ease-in-out infinite;" />
-                                <ellipse cx="100" cy="110" rx="40" ry="12" stroke="rgba(255, 255, 255, 0.25)"
+                                <ellipse cx="100" cy="110" rx="40" ry="12" stroke="rgba(255, 255, 255, 0.2)"
                                     stroke-width="1" stroke-dasharray="2,2" />
+
+                                <!-- Scanning laser beam line -->
+                                <line x1="65" y1="0" x2="135" y2="0" stroke="#bbfb02" stroke-width="1.2" style="animation: laser-sweep 3s linear infinite;" />
 
                                 <g transform="translate(100, 45)"
                                     style="transform-origin: 0 -5px; animation: camera-scan 6s ease-in-out infinite;">
                                     <path d="M-15,-15 L0,-5" stroke="rgba(255, 255, 255, 0.25)" stroke-width="2" />
                                     <line x1="-15" y1="-15" x2="-15" y2="-5" stroke="rgba(255, 255, 255, 0.25)"
                                         stroke-width="1" />
-                                    <polygon points="-8,-10 12,-20 12,-8 -8,2" fill="rgba(255,255,255,0.05)"
-                                        stroke="rgba(255, 255, 255, 0.25)" stroke-width="1" />
+                                    <polygon points="-8,-10 12,-20 12,-8 -8,2" fill="rgba(255,255,255,0.06)"
+                                        stroke="rgba(255, 255, 255, 0.2)" stroke-width="1" />
                                     <polygon points="12,-20 22,-15 22,-3 12,-8" fill="rgba(255,255,255,0.08)"
                                         stroke="rgba(255, 255, 255, 0.25)" stroke-width="1" />
-                                    <polygon points="-8,-10 12,-20 22,-15 2,-5" fill="rgba(255,255,255,0.1)"
+                                    <polygon points="-8,-10 12,-20 22,-15 2, -5" fill="rgba(255,255,255,0.1)"
                                         stroke="rgba(255, 255, 255, 0.25)" stroke-width="1" />
-                                    <ellipse cx="17" cy="-9" rx="3" ry="5" fill="none" stroke="rgba(255, 255, 255, 0.25)"
+                                    <ellipse cx="17" cy="-9" rx="3" ry="5" fill="none" stroke="rgba(255, 255, 255, 0.2)"
                                         stroke-width="1" />
                                     <circle cx="17" cy="-9" r="1.5" fill="#ffffff" />
                                     <circle cx="10" cy="-14" r="1" fill="#bbfb02" />
@@ -2210,16 +2122,12 @@ export default function Home02Page() {
                                         style="animation: lock-pulse 2s infinite alternate;" />
                                     <circle cx="0" cy="3" r="2.5" fill="#bbfb02" />
                                     <polygon points="-1,3 1,3 2,10 -2,10" fill="#bbfb02" />
-                                    <ellipse cx="0" cy="5" rx="30" ry="15" stroke="#bbfb02" stroke-width="1"
+                                    <ellipse cx="0" cy="5" rx="30" ry="15" stroke="#bbfb02" stroke-width="0.8"
                                         stroke-dasharray="3,3" />
+                                    
+                                    <!-- Dynamic target scan track -->
+                                    <circle cx="0" cy="5" r="36" stroke="#bbfb02" stroke-width="0.5" stroke-dasharray="2,6" style="transform-origin: 0px 5px; animation: clock-ticks 12s linear infinite;" />
                                 </g>
-                                <defs>
-                                    <linearGradient id="cone-grad-home" x1="100" y1="45" x2="100" y2="110"
-                                        gradientUnits="userSpaceOnUse">
-                                        <stop offset="0%" stop-color="rgba(255,255,255,0.2)" />
-                                        <stop offset="100%" stop-color="rgba(255,255,255,0)" />
-                                    </linearGradient>
-                                </defs>
                             </svg>
                         </div>
                         <h3>GSOCs that watch but can't act</h3>
