@@ -1083,60 +1083,62 @@ export default function HomePage() {
                                 <path d="M100,20 L100,140" stroke="rgba(255, 255, 255, 0.25)" stroke-dasharray="2,2" />
                                 <!-- 100-300% text overlay -->
                                 <g style="animation: text-blink 2s infinite;">
-                                    <text x="100" y="45" font-family="'Outfit', sans-serif" font-weight="900"
+                                    <text x="100" y="38" font-family="'Outfit', sans-serif" font-weight="900"
                                         font-size="18" fill="#FFE500" text-anchor="middle" letter-spacing="0.5">100-300%</text>
-                                    <text x="100" y="55" font-family="monospace" font-weight="bold" font-size="7"
+                                    <text x="100" y="48" font-family="monospace" font-weight="bold" font-size="7"
                                         fill="rgba(255,255,255,0.4)" text-anchor="middle" letter-spacing="1">ANNUAL TURNOVER</text>
                                 </g>
-                                <g style="animation: platform-hover 4s ease-in-out infinite;">
-                                    <polygon points="100,115 145,92.5 100,70 55,92.5" fill="rgba(0,0,0,0.3)" />
-                                    <polygon points="100,105 145,82.5 100,60 55,82.5" stroke="rgba(255, 255, 255, 0.2)"
-                                        stroke-width="1.2" fill="rgba(255,255,255,0.02)" />
-                                    
-                                    <!-- Isometric Platform Gridlines -->
-                                    <line x1="77.5" y1="81.25" x2="122.5" y2="103.75" stroke="rgba(255, 255, 255, 0.08)" stroke-width="0.75" />
-                                    <line x1="66.25" y1="86.87" x2="111.25" y2="109.37" stroke="rgba(255, 255, 255, 0.08)" stroke-width="0.75" />
-                                    <line x1="88.75" y1="75.62" x2="133.75" y2="98.12" stroke="rgba(255, 255, 255, 0.08)" stroke-width="0.75" />
-                                    
-                                    <line x1="55" y1="82.5" x2="55" y2="92.5" stroke="rgba(255, 255, 255, 0.2)"
-                                        stroke-width="1" />
-                                    <line x1="145" y1="82.5" x2="145" y2="92.5" stroke="rgba(255, 255, 255, 0.2)"
-                                        stroke-width="1" />
-                                    <line x1="100" y1="105" x2="100" y2="115" stroke="rgba(255, 255, 255, 0.2)"
-                                        stroke-width="1" />
-                                    <polygon points="55,92.5 100,115 100,105 55,82.5" fill="rgba(255,255,255,0.03)" />
-                                    <polygon points="145,92.5 100,115 100,105 145,82.5" fill="rgba(255,255,255,0.04)" />
-                                    <path d="M60,80 L140,120" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1"
-                                        stroke-dasharray="3,3" />
-                                    <path d="M70,65 L130,95" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1"
-                                        stroke-dasharray="3,3" />
+                                <g transform="translate(0, 10)">
+                                    <g style="animation: platform-hover 4s ease-in-out infinite;">
+                                        <polygon points="100,115 145,92.5 100,70 55,92.5" fill="rgba(0,0,0,0.3)" />
+                                        <polygon points="100,105 145,82.5 100,60 55,82.5" stroke="rgba(255, 255, 255, 0.2)"
+                                            stroke-width="1.2" fill="rgba(255,255,255,0.02)" />
+                                        
+                                        <!-- Isometric Platform Gridlines -->
+                                        <line x1="77.5" y1="81.25" x2="122.5" y2="103.75" stroke="rgba(255, 255, 255, 0.08)" stroke-width="0.75" />
+                                        <line x1="66.25" y1="86.87" x2="111.25" y2="109.37" stroke="rgba(255, 255, 255, 0.08)" stroke-width="0.75" />
+                                        <line x1="88.75" y1="75.62" x2="133.75" y2="98.12" stroke="rgba(255, 255, 255, 0.08)" stroke-width="0.75" />
+                                        
+                                        <line x1="55" y1="82.5" x2="55" y2="92.5" stroke="rgba(255, 255, 255, 0.2)"
+                                            stroke-width="1" />
+                                        <line x1="145" y1="82.5" x2="145" y2="92.5" stroke="rgba(255, 255, 255, 0.2)"
+                                            stroke-width="1" />
+                                        <line x1="100" y1="105" x2="100" y2="115" stroke="rgba(255, 255, 255, 0.2)"
+                                            stroke-width="1" />
+                                        <polygon points="55,92.5 100,115 100,105 55,82.5" fill="rgba(255,255,255,0.03)" />
+                                        <polygon points="145,92.5 100,115 100,105 145,82.5" fill="rgba(255,255,255,0.04)" />
+                                        <path d="M60,80 L140,120" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1"
+                                            stroke-dasharray="3,3" />
+                                        <path d="M70,65 L130,95" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1"
+                                            stroke-dasharray="3,3" />
 
-                                    <g
-                                        style="transform-origin: 100px 82.5px; animation: avatar-slide 4s linear infinite;">
-                                        <polygon points="100,75 112,81 100,87 88,81" stroke="rgba(255, 255, 255, 0.25)"
-                                            stroke-width="0.8" fill="rgba(255,255,255,0.12)" />
-                                        <circle cx="100" cy="72" r="2.5" fill="rgba(255,255,255,0.75)"
-                                            stroke="rgba(255, 255, 255, 0.3)" stroke-width="0.5" />
-                                        <path d="M96,78 C96,75.5 104,75.5 104,78" stroke="rgba(255, 255, 255, 0.25)"
-                                            stroke-width="0.8" fill="rgba(255,255,255,0.4)" />
-                                        <line x1="100" y1="87" x2="100" y2="92" stroke="rgba(255, 255, 255, 0.2)"
-                                            stroke-width="0.5" />
-                                    </g>
-                                    <g
-                                        style="transform-origin: 100px 82.5px; animation: avatar-slide 4s linear infinite; animation-delay: 2s;">
-                                        <polygon points="100,75 112,81 100,87 88,81" stroke="rgba(255, 255, 255, 0.25)"
-                                            stroke-width="0.8" fill="rgba(255,255,255,0.12)" />
-                                        <circle cx="100" cy="72" r="2.5" fill="rgba(255,255,255,0.75)"
-                                            stroke="rgba(255, 255, 255, 0.3)" stroke-width="0.5" />
-                                        <path d="M96,78 C96,75.5 104,75.5 104,78" stroke="rgba(255, 255, 255, 0.25)"
-                                            stroke-width="0.8" fill="rgba(255,255,255,0.4)" />
-                                        <line x1="100" y1="87" x2="100" y2="92" stroke="rgba(255, 255, 255, 0.2)"
-                                            stroke-width="0.5" />
-                                    </g>
+                                        <g
+                                            style="transform-origin: 100px 82.5px; animation: avatar-slide 4s linear infinite;">
+                                            <polygon points="100,75 112,81 100,87 88,81" stroke="rgba(255, 255, 255, 0.25)"
+                                                stroke-width="0.8" fill="rgba(255,255,255,0.12)" />
+                                            <circle cx="100" cy="72" r="2.5" fill="rgba(255,255,255,0.75)"
+                                                stroke="rgba(255, 255, 255, 0.3)" stroke-width="0.5" />
+                                            <path d="M96,78 C96,75.5 104,75.5 104,78" stroke="rgba(255, 255, 255, 0.25)"
+                                                stroke-width="0.8" fill="rgba(255,255,255,0.4)" />
+                                            <line x1="100" y1="87" x2="100" y2="92" stroke="rgba(255, 255, 255, 0.2)"
+                                                stroke-width="0.5" />
+                                        </g>
+                                        <g
+                                            style="transform-origin: 100px 82.5px; animation: avatar-slide 4s linear infinite; animation-delay: 2s;">
+                                            <polygon points="100,75 112,81 100,87 88,81" stroke="rgba(255, 255, 255, 0.25)"
+                                                stroke-width="0.8" fill="rgba(255,255,255,0.12)" />
+                                            <circle cx="100" cy="72" r="2.5" fill="rgba(255,255,255,0.75)"
+                                                stroke="rgba(255, 255, 255, 0.3)" stroke-width="0.5" />
+                                            <path d="M96,78 C96,75.5 104,75.5 104,78" stroke="rgba(255, 255, 255, 0.25)"
+                                                stroke-width="0.8" fill="rgba(255,255,255,0.4)" />
+                                            <line x1="100" y1="87" x2="100" y2="92" stroke="rgba(255, 255, 255, 0.2)"
+                                                stroke-width="0.5" />
+                                        </g>
 
-                                    <path d="M110,87 C130,97 150,90 165,70" stroke="#FFE500" stroke-width="1.5"
-                                        stroke-dasharray="3,3" style="animation: arrow-pulse 2s infinite;" />
-                                    <polygon points="167,70 164,75 160,70" fill="#FFE500" />
+                                        <path d="M110,87 C130,97 150,90 165,70" stroke="#FFE500" stroke-width="1.5"
+                                            stroke-dasharray="3,3" style="animation: arrow-pulse 2s infinite;" />
+                                        <polygon points="167,70 164,75 160,70" fill="#FFE500" />
+                                    </g>
                                 </g>
                             </svg>
                         </div>
