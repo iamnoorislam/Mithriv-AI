@@ -1904,9 +1904,9 @@ export default function Home02Page() {
                                         <polygon points="145,92.5 100,115 100,105 145,82.5" fill="rgba(255,255,255,0.04)" />
 
                                         <!-- Dotted Track Lines -->
-                                        <path d="M60,80 L140,120" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1"
+                                        <path d="M60,80 L105,102.5" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1"
                                             stroke-dasharray="3,3" />
-                                        <path d="M70,65 L130,95" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1"
+                                        <path d="M80,70 L125,92.5" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1"
                                             stroke-dasharray="3,3" />
 
                                         <g
