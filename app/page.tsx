@@ -953,7 +953,6 @@ export default function HomePage() {
 
                     <!-- Feature 1 -->
                     <div class="feature-col-item">
-                        <span class="fig-label">FIG 0.2</span>
                         <div class="fig-svg-wrap">
                             <svg viewBox="0 0 200 160" width="100%" height="160" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -1075,7 +1074,6 @@ export default function HomePage() {
 
                     <!-- Feature 2 -->
                     <div class="feature-col-item">
-                        <span class="fig-label">FIG 0.3</span>
                         <div class="fig-svg-wrap">
                             <svg viewBox="0 0 200 160" width="100%" height="160" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -1185,7 +1183,6 @@ export default function HomePage() {
 
                     <!-- Feature 3 -->
                     <div class="feature-col-item">
-                        <span class="fig-label">FIG 0.4</span>
                         <div class="fig-svg-wrap">
                             <svg viewBox="0 0 200 160" width="100%" height="160" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -1244,6 +1241,13 @@ export default function HomePage() {
                                     }
                                 </style>
                                 <path d="M100,20 L100,140" stroke="rgba(255, 255, 255, 0.25)" stroke-dasharray="2,2" />
+                                <!-- 100-300% text overlay -->
+                                <g style="animation: text-blink 2s infinite;">
+                                    <text x="100" y="45" font-family="'Outfit', sans-serif" font-weight="900"
+                                        font-size="18" fill="#FFE500" text-anchor="middle" letter-spacing="0.5">100-300%</text>
+                                    <text x="100" y="55" font-family="monospace" font-weight="bold" font-size="7"
+                                        fill="rgba(255,255,255,0.4)" text-anchor="middle" letter-spacing="1">ANNUAL TURNOVER</text>
+                                </g>
                                 <ellipse cx="100" cy="80" rx="65" ry="32.5" stroke="rgba(255, 255, 255, 0.25)"
                                     strokeWidth="2" stroke-dasharray="4,8"
                                     style="transform-origin: 100px 80px; animation: clock-ticks 20s linear infinite;" />
@@ -1301,7 +1305,6 @@ export default function HomePage() {
 
                     <!-- Feature 4 -->
                     <div class="feature-col-item">
-                        <span class="fig-label">FIG 0.5</span>
                         <div class="fig-svg-wrap">
                             <svg viewBox="0 0 200 160" width="100%" height="160" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -1346,6 +1349,13 @@ export default function HomePage() {
                                     }
                                 </style>
                                 <path d="M100,20 L100,140" stroke="rgba(255, 255, 255, 0.25)" stroke-dasharray="2,2" />
+                                <!-- 911 ONLY text overlay -->
+                                <g style="animation: text-blink 2s infinite;">
+                                    <text x="100" y="45" font-family="'Outfit', sans-serif" font-weight="900"
+                                        font-size="18" fill="#bbfb02" text-anchor="middle" letter-spacing="0.5">911 ONLY</text>
+                                    <text x="100" y="55" font-family="monospace" font-weight="bold" font-size="7"
+                                        fill="rgba(255,255,255,0.4)" text-anchor="middle" letter-spacing="1">OPERATIONAL CAPACITY</text>
+                                </g>
                                 <polygon points="100,45 60,110 140,110" fill="url(#cone-grad-home)"
                                     style="animation: light-glow 3s ease-in-out infinite;" />
                                 <ellipse cx="100" cy="110" rx="40" ry="12" stroke="rgba(255, 255, 255, 0.25)"
