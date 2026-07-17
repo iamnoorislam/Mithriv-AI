@@ -50,7 +50,8 @@ export default function Home03Page() {
 
         const playlist = [
             '/magnific_video-upscale_ONgSGckynm_1_final.mp4',
-            '/magnific_ultracinematic-architectu_0pnIEOpTfW.mp4'
+            '/magnific_ultracinematic-architectu_0pnIEOpTfW.mp4',
+            '/magnific_video-upscale_1sbJpIpr4r_1.mp4'
         ];
         let currentTrack = 0;
 
