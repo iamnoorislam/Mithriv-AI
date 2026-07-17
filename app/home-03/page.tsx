@@ -1923,11 +1923,6 @@ export default function Home03Page() {
                                         <polygon points="100,105 145,82.5 100,60 55,82.5" stroke="rgba(255, 255, 255, 0.2)"
                                             stroke-width="1.2" fill="#16161a" />
                                         
-                                        <!-- Isometric Platform Gridlines -->
-                                        <line x1="77.5" y1="81.25" x2="122.5" y2="103.75" stroke="rgba(255, 255, 255, 0.08)" stroke-width="0.75" />
-                                        <line x1="66.25" y1="86.87" x2="111.25" y2="109.37" stroke="rgba(255, 255, 255, 0.08)" stroke-width="0.75" />
-                                        <line x1="88.75" y1="75.62" x2="133.75" y2="98.12" stroke="rgba(255, 255, 255, 0.08)" stroke-width="0.75" />
-                                        
                                         <line x1="55" y1="82.5" x2="55" y2="92.5" stroke="rgba(255, 255, 255, 0.2)"
                                             stroke-width="1" />
                                         <line x1="145" y1="82.5" x2="145" y2="92.5" stroke="rgba(255, 255, 255, 0.2)"
@@ -1936,6 +1931,12 @@ export default function Home03Page() {
                                             stroke-width="1" />
                                         <polygon points="55,92.5 100,115 100,105 55,82.5" fill="rgba(255,255,255,0.03)" />
                                         <polygon points="145,92.5 100,115 100,105 145,82.5" fill="rgba(255,255,255,0.04)" />
+
+                                        <!-- Dotted Track Lines -->
+                                        <path d="M60,80 L140,120" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1"
+                                            stroke-dasharray="3,3" />
+                                        <path d="M70,65 L130,95" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1"
+                                            stroke-dasharray="3,3" />
 
                                         <g
                                             style="transform-origin: 100px 82.5px; animation: avatar-slide 4s linear infinite;">
