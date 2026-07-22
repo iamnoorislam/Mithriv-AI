@@ -1,12 +1,12 @@
 'use client';
 import React, { useState } from 'react';
-import { 
-  AnimatedLayersIcon, 
-  AnimatedNetworkIcon, 
-  AnimatedShieldCheckIcon, 
-  AnimatedMonitorIcon, 
-  AnimatedUsersIcon, 
-  AnimatedBrainIcon 
+import {
+  AnimatedLayersIcon,
+  AnimatedNetworkIcon,
+  AnimatedShieldCheckIcon,
+  AnimatedMonitorIcon,
+  AnimatedUsersIcon,
+  AnimatedBrainIcon
 } from './AnimatedIcons';
 
 const gridItems = [
@@ -55,9 +55,9 @@ export default function HonestPositioning() {
     <section style={{ padding: '0 0 200px 0', position: 'relative', width: '100%', zIndex: 10, background: 'transparent' }}>
       {/* Background ambient glow */}
       <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '800px', height: '600px', background: 'radial-gradient(circle, rgba(139, 92, 246, 0.03) 0%, transparent 70%)', pointerEvents: 'none', zIndex: 0 }} />
-      
+
       <div className="container" style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 32px', position: 'relative', zIndex: 1 }}>
-        
+
         {/* Top Header Row (Centered) */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '80px', maxWidth: '700px', margin: '0 auto 80px auto' }}>
           <div className="ent-pill" style={{ marginBottom: '24px', display: 'inline-flex', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.6)' }}>
@@ -72,9 +72,9 @@ export default function HonestPositioning() {
         </div>
 
         {/* 3x2 Grid Container (No Radius) */}
-        <div className="hp-grid-container" style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(3, 1fr)', 
+        <div className="hp-grid-container" style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
           background: 'transparent',
           border: '1px solid rgba(255,255,255,0.08)',
           borderRadius: '0',
@@ -83,9 +83,9 @@ export default function HonestPositioning() {
           {gridItems.map((item, idx) => {
             const Icon = item.icon;
             const isHovered = hoveredIdx === idx;
-            
+
             return (
-              <div 
+              <div
                 key={idx}
                 className="hp-grid-card"
                 onMouseEnter={() => setHoveredIdx(idx)}
@@ -102,10 +102,10 @@ export default function HonestPositioning() {
               >
                 {/* Icon Header */}
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
-                  <div style={{ 
-                    width: '53px', 
-                    height: '53px', 
-                    borderRadius: '50%', 
+                  <div style={{
+                    width: '53px',
+                    height: '53px',
+                    borderRadius: '50%',
                     background: 'var(--background, #131416)',
                     border: '1px solid rgba(255,255,255,0.15)',
                     display: 'flex',

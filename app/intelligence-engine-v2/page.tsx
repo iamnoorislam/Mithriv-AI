@@ -677,6 +677,26 @@ export default function IntelligenceEnginePage() {
                 .ent-grid-cell { min-height: 300px; padding: 24px; border-right: none !important; }
                 .ent-grid-cell:nth-child(1), .ent-grid-cell:nth-child(2), .ent-grid-cell:nth-child(3) { border-bottom: 1px solid #212326; }
             }
+            #problem .fig-svg-wrap {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 24px 12px 28px 12px;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            #problem .fig-svg-wrap svg {
+                max-width: 90% !important;
+                height: auto !important;
+                max-height: 180px !important;
+            }
+            #problem .ent-grid-cell {
+                min-height: 480px;
+                padding: 56px 32px 60px 32px;
+                display: flex;
+                flex-direction: column;
+                box-sizing: border-box;
+            }
           ` }} />
           <div className="ent-grid-wrapper">
 
@@ -927,7 +947,7 @@ export default function IntelligenceEnginePage() {
             borderLeft: '1px solid #212326',
             borderRight: '1px solid #212326',
             borderBottom: '1px solid #212326',
-            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Cpath d='M-1,7 L7,-1' stroke='%23212326' stroke-width='1' shape-rendering='crispEdges'/%3E%3C/svg%3E")`
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8.485' height='8.485' viewBox='0 0 8.5 8.5'%3E%3Cpath d='M-2 -2L10.5 10.5M6.5 -2L10.5 2M-2 6.5L2 10.5' stroke='%23ffffff' stroke-opacity='0.08' stroke-width='1' shape-rendering='crispEdges'/%3E%3C/svg%3E")`
           }} />
 
           {/* Metrics Section */}
@@ -971,10 +991,10 @@ export default function IntelligenceEnginePage() {
         <style dangerouslySetInnerHTML={{ __html: `
           @keyframes moveDiagonalsIntel {
               0% { background-position: 0 0; }
-              100% { background-position: 120px 0; }
+              100% { background-position: 8.485px 0; }
           }
           .intel-cta-section:hover .intel-cta-bg {
-              animation: moveDiagonalsIntel 3s linear infinite;
+              animation: moveDiagonalsIntel 0.5s linear infinite;
           }
         ` }} />
         {/* Horizontal Top (Full width) */}
@@ -995,7 +1015,7 @@ export default function IntelligenceEnginePage() {
             right: '24px',
             borderLeft: '1px solid #212326',
             borderRight: '1px solid #212326',
-            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Cpath d='M-1,7 L7,-1' stroke='%23212326' stroke-width='1' shape-rendering='crispEdges'/%3E%3C/svg%3E")`,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8.485' height='8.485' viewBox='0 0 8.5 8.5'%3E%3Cpath d='M-2 -2L10.5 10.5M6.5 -2L10.5 2M-2 6.5L2 10.5' stroke='%23ffffff' stroke-opacity='0.08' stroke-width='1' shape-rendering='crispEdges'/%3E%3C/svg%3E")`,
             overflow: 'hidden',
             zIndex: -1
           }} className="hide-on-mobile intel-cta-bg">

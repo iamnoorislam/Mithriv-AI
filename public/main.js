@@ -1401,74 +1401,74 @@ window.runMain = () => {
         }
     });
 
-// ─── CINEMATIC FEATURE SECTION ─────────────────────────────
-const cinematicFeature = document.getElementById('cinematic-feature');
-if (cinematicFeature) {
-    const tlCinematic = gsap.timeline({
-        scrollTrigger: {
-            trigger: cinematicFeature,
-            start: "top 75%",
-            once: true
-        }
-    });
-
-    const cTag = cinematicFeature.querySelector('.ent-pill');
-    const cHeading = cinematicFeature.querySelector('.std-section-h2');
-    const cSlabs = cinematicFeature.querySelectorAll('.iso-slab');
-    const cPoints = cinematicFeature.querySelectorAll('.isometric-point-item');
-    const cTrustRow = cinematicFeature.querySelector('.cinematic-trust-row');
-
-    // 1. Reveal tag
-    if (cTag) {
-        tlCinematic.from(cTag, {
-            opacity: 0,
-            y: 20,
-            duration: 0.6,
-            ease: "power2.out"
+    // ─── CINEMATIC FEATURE SECTION ─────────────────────────────
+    const cinematicFeature = document.getElementById('cinematic-feature');
+    if (cinematicFeature) {
+        const tlCinematic = gsap.timeline({
+            scrollTrigger: {
+                trigger: cinematicFeature,
+                start: "top 75%",
+                once: true
+            }
         });
-    }
 
-    // 2. Reveal quote heading
-    if (cHeading) {
-        tlCinematic.from(cHeading, {
-            opacity: 0,
-            y: 30,
-            duration: 0.8,
-            ease: "power3.out"
-        }, "-=0.4");
-    }
+        const cTag = cinematicFeature.querySelector('.ent-pill');
+        const cHeading = cinematicFeature.querySelector('.std-section-h2');
+        const cSlabs = cinematicFeature.querySelectorAll('.iso-slab');
+        const cPoints = cinematicFeature.querySelectorAll('.isometric-point-item');
+        const cTrustRow = cinematicFeature.querySelector('.cinematic-trust-row');
 
-    // 3. Reveal 3D Slabs staggered
-    if (cSlabs.length > 0) {
-        tlCinematic.from(cSlabs, {
-            opacity: 0,
-            scale: 0.85,
-            duration: 1.2,
-            stagger: 0.25,
-            ease: "power3.out"
-        }, "-=0.6");
-    }
+        // 1. Reveal tag
+        if (cTag) {
+            tlCinematic.from(cTag, {
+                opacity: 0,
+                y: 20,
+                duration: 0.6,
+                ease: "power2.out"
+            });
+        }
 
-    // 4. Stagger reveal mirrored point cards
-    if (cPoints.length > 0) {
-        tlCinematic.from(cPoints, {
-            opacity: 0,
-            y: 30,
-            duration: 0.8,
-            stagger: 0.15,
-            ease: "power3.out"
-        }, "-=0.6");
+        // 2. Reveal quote heading
+        if (cHeading) {
+            tlCinematic.from(cHeading, {
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                ease: "power3.out"
+            }, "-=0.4");
+        }
+
+        // 3. Reveal 3D Slabs staggered
+        if (cSlabs.length > 0) {
+            tlCinematic.from(cSlabs, {
+                opacity: 0,
+                scale: 0.85,
+                duration: 1.2,
+                stagger: 0.25,
+                ease: "power3.out"
+            }, "-=0.6");
+        }
+
+        // 4. Stagger reveal mirrored point cards
+        if (cPoints.length > 0) {
+            tlCinematic.from(cPoints, {
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: "power3.out"
+            }, "-=0.6");
+        }
+        // 5. Reveal trust row
+        if (cTrustRow) {
+            tlCinematic.from(cTrustRow, {
+                opacity: 0,
+                y: 20,
+                duration: 0.8,
+                ease: "power2.out"
+            }, "-=0.4");
+        }
     }
-    // 5. Reveal trust row
-    if (cTrustRow) {
-        tlCinematic.from(cTrustRow, {
-            opacity: 0,
-            y: 20,
-            duration: 0.8,
-            ease: "power2.out"
-        }, "-=0.4");
-    }
-}
 
     window.cleanupMain = () => {
         if (window.mainScrollListener) {
@@ -1487,7 +1487,7 @@ if (cinematicFeature) {
             gsap.ticker.remove(window.lenisRaf);
             window.lenisRaf = null;
         }
-        
+
         // Remove direct classes modified by mainScrollListener
         const navbar = document.querySelector('.navbar');
         if (navbar) {

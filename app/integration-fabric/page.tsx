@@ -6,6 +6,79 @@ import '../style.css'
 
 export default function IntegrationFabricPage() {
     const [mounted, setMounted] = useState(false);
+    const [hoveredNode, setHoveredNode] = useState<string | null>(null);
+
+    // Capabilities Accordion State
+    const [activeCapability, setActiveCapability] = useState(0);
+
+    const CAPABILITIES_DATA = [
+        {
+            id: 0,
+            num: "01",
+            name: "Access Control",
+            desc: "The foundation of every physical security operation. Badge events, door states, reader health, access rules — all normalized into the operational model in real time.",
+            whatConnects: "Genetec Synergis · HID · Lenel · S2 NetBox · Brivo · AMAG · Gallagher · Honeywell Pro-Watch · Software House · Verkada Access · OpenPath",
+            keyIntegrations: [
+                "Real-time badge events with credential resolution",
+                "Credential lifecycle: provision, suspend, revoke"
+            ]
+        },
+        {
+            id: 1,
+            num: "02",
+            name: "Video Management",
+            desc: "Surveillance footage gains value when correlated with operational context. The Integration Fabric links video to events, locations, and identities — automatically.",
+            whatConnects: "Genetec Security Center · Milestone XProtect · Axis Camera Station · Avigilon · Verkada · Rhombus · Bosch VMS · Eagle Eye Networks",
+            keyIntegrations: [
+                "Automatic camera correlation on access events",
+                "Clip packaging for evidence — seconds, not hours"
+            ]
+        },
+        {
+            id: 2,
+            num: "03",
+            name: "Visitor & Identity",
+            desc: "Visitor data flows where it's needed, when it's needed. From pre-registration through departure — with complete audit trails and automatic credential expiration.",
+            whatConnects: "Envoy · iLobby · Proxyclick · Traction Guest · Sign In Enterprise · Microsoft Entra ID · Okta · Workday · SailPoint · Active Directory",
+            keyIntegrations: [
+                "Temporary credentials tied to visit window",
+                "Termination events revoke building access instantly"
+            ]
+        },
+        {
+            id: 3,
+            num: "04",
+            name: "Workplace Operations",
+            desc: "Space utilization data adds occupancy intelligence to security. Know who should be where — and flag when reality doesn't match the booking.",
+            whatConnects: "Microsoft 365 · Google Workspace · Robin · Skedda · SKIDATA · TIBA · FlashParking",
+            keyIntegrations: [
+                "Room booking vs badge-in correlation",
+                "Vehicle permit aligned with employee status"
+            ]
+        },
+        {
+            id: 4,
+            num: "05",
+            name: "Building Systems",
+            desc: "HVAC, elevators, lighting, and environmental controls complete the operational picture. Security response extends to infrastructure — automatically.",
+            whatConnects: "Johnson Controls Metasys · Honeywell WEBs · Siemens Desigo · Schneider EcoStruxure · Tridium Niagara · BACnet · Modbus",
+            keyIntegrations: [
+                "Elevator recall on fire alarm — automatic",
+                "Floor access policy enforced at destination dispatch"
+            ]
+        },
+        {
+            id: 5,
+            num: "06",
+            name: "Communication & Alerting",
+            desc: "Response requires communication. The Integration Fabric connects to every channel your team uses — and routes the right information to the right person.",
+            whatConnects: "Microsoft Teams · Slack · Cisco Webex · Motorola · Everbridge · AlertMedia · SMS · VoIP/SIP",
+            keyIntegrations: [
+                "Alert routing by role, location, and severity",
+                "Radio-to-app bridging for field coordination"
+            ]
+        }
+    ];
 
     useEffect(() => {
         setMounted(true);
@@ -1332,6 +1405,142 @@ export default function IntegrationFabricPage() {
             position: relative;
         }
 
+        @keyframes slide-diagonal-bg {
+          from { background-position: 0 0; }
+          to { background-position: 8.485px 0; }
+        }
+        .feature-col-divider {
+          background: #212326 !important;
+        }
+        .feature-col-item .fig-label {
+          letter-spacing: 0 !important;
+          text-transform: none !important;
+        }
+        .problem-split-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          position: relative;
+          background: transparent;
+          border-top: 1px solid #212326;
+          border-bottom: 1px solid #212326;
+          border-left: 1px solid #212326;
+          border-right: 1px solid #212326;
+          margin-top: 4rem;
+          width: 100%;
+        }
+
+        .problem-split-left {
+          grid-column: span 2;
+          padding: 3.5rem 2.5rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          box-sizing: border-box;
+          opacity: 1;
+        }
+
+        #problem .fig-svg-wrap {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 24px 12px 28px 12px;
+          width: 100%;
+          margin-bottom: 20px;
+        }
+
+        #problem .fig-svg-wrap svg {
+          max-width: 90% !important;
+          height: auto !important;
+          max-height: 180px !important;
+        }
+
+        #problem .feature-col-item {
+          min-height: 480px;
+          padding: 56px 32px 60px 32px;
+          display: flex;
+          flex-direction: column;
+          box-sizing: border-box;
+        }
+
+        #problem .problem-split-right {
+          grid-column: span 2;
+          padding: 3rem 2.5rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          box-sizing: border-box;
+          opacity: 1;
+        }
+
+        #problem .problem-split-right svg {
+          max-width: 94% !important;
+          height: auto !important;
+        }
+
+        #problem .features-scroll-grid {
+          margin-top: 0;
+          border-top: none;
+        }
+
+        .metrics-horizontal-row-4col {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 0px !important;
+          text-align: left;
+        }
+
+        .metric-col {
+          padding: 0 2.5rem;
+          box-sizing: border-box;
+        }
+
+        @media (max-width: 1024px) {
+          .problem-split-grid {
+            grid-template-columns: 1fr !important;
+            gap: 60px !important;
+            margin: 40px 0 60px 0 !important;
+            border-bottom: none !important;
+          }
+          .problem-split-left {
+            grid-column: span 1 !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+          }
+          .problem-split-right {
+            grid-column: span 1 !important;
+            padding: 0 !important;
+            margin: 0 auto !important;
+          }
+          .problem-split-grid .feature-col-divider {
+            display: none !important;
+          }
+          #problem .features-scroll-grid {
+            border-top: 1px solid #212326 !important;
+            margin-top: 4rem !important;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .metrics-horizontal-row-4col {
+            grid-template-columns: 1fr !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 40px !important;
+          }
+          .metric-col {
+            padding: 0 !important;
+          }
+        }
+
+        @media (max-width: 640px) {
+          #problem {
+            padding: 140px 0 !important;
+          }
+          #problem > div {
+            padding: 0 40px !important;
+          }
+        }
+
       ` }} />
 
             {/* Global Texture overlays */}
@@ -1358,7 +1567,7 @@ export default function IntegrationFabricPage() {
                 {/* Hero Content */}
                 <div className="hero-content" style={{ position: 'relative', zIndex: 10, marginTop: '0' }}>
                     <div className="ent-pill award-pill">✦ Core Infrastructure</div>
-                    
+
                     <h1 className="main-heading" style={{ fontSize: 'clamp(40px, 4.2vw, 64px)', margin: '0 0 1.5rem', lineHeight: 1.15, cursor: 'default' }}>
                         <span className="word-mask"><span className="word-inner w1">Every</span></span>{' '}
                         <span className="word-mask"><span className="word-inner w2">security</span></span>{' '}
@@ -1373,7 +1582,7 @@ export default function IntegrationFabricPage() {
                     </p>
 
                     <div style={{ display: 'flex', gap: '16px', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
-                        <a href="#" className="ent-btn-primary award-fade-up delay-btn" style={{ padding: '12px 24px', fontSize: '0.95rem', display: 'inline-flex', backdropFilter: 'none', WebkitBackdropFilter: 'none', transform: 'translateZ(0)', position: 'relative', zIndex: 20 }}>Request Assessment <svg className="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path className="arrow-stem" d="M3 12h12" /><path className="arrow-head" d="m9 18 6-6-6-6"/></svg></a>
+                        <a href="#" className="ent-btn-primary award-fade-up delay-btn" style={{ padding: '12px 24px', fontSize: '0.95rem', display: 'inline-flex', backdropFilter: 'none', WebkitBackdropFilter: 'none', transform: 'translateZ(0)', position: 'relative', zIndex: 20 }}>Request Assessment <svg className="hover-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path className="arrow-stem" d="M3 12h12" /><path className="arrow-head" d="m9 18 6-6-6-6" /></svg></a>
                         <a href="#" className="ent-btn-secondary award-fade-up delay-btn" style={{ padding: '12px 24px', fontSize: '0.95rem', display: 'inline-flex', backdropFilter: 'none', WebkitBackdropFilter: 'none', transform: 'translateZ(0)', position: 'relative', zIndex: 20 }}>
                             View Documentation
                         </a>
@@ -1382,157 +1591,810 @@ export default function IntegrationFabricPage() {
 
                 {/* Customer Logos */}
                 <div className="relative w-full max-w-[1280px] mx-auto px-6 z-10 award-fade-up delay-strip" style={{ paddingTop: '140px', paddingBottom: '40px', marginTop: 'auto' }}>
-                  <style dangerouslySetInnerHTML={{ __html: `
+                    <style dangerouslySetInnerHTML={{
+                        __html: `
                     @keyframes custom-marquee {
                       0% { transform: translateX(0%); }
                       100% { transform: translateX(-100%); }
                     }
                   `}} />
-                  <div className="text-center" style={{ marginBottom: '24px' }}>
-                    <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em' }}>Trusted by these companies</h2>
-                  </div>
-                  
-                  <div className="relative flex overflow-hidden w-full group">
-                    <div className="flex overflow-hidden relative w-full" style={{ maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)' }}>
-                      {[0, 1].map((marqueeIdx) => (
-                        <div key={marqueeIdx} className="flex shrink-0 items-center justify-start w-max" style={{ gap: '3.5rem', minWidth: '100%', paddingRight: '3.5rem', animation: 'custom-marquee 15s linear infinite' }}>
-                          {[0, 1].map((repeatIdx) => (
-                            <React.Fragment key={repeatIdx}>
-                              <div className="text-[#fff] font-bold text-2xl whitespace-nowrap flex-shrink-0 flex items-center opacity-70 hover:opacity-100 transition-opacity">
-                                <span style={{ letterSpacing: '-0.05em' }}>NEXT<span className="text-[#888]">.</span></span>
-                              </div>
-                              <div className="text-[#fff] font-semibold text-xl whitespace-nowrap flex-shrink-0 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
-                                <svg width="28" height="28" viewBox="-11.5 -10.23174 23 20.46348" fill="#61DAFB"><circle cx="0" cy="0" r="2.05" fill="#61DAFB"/><g stroke="#61DAFB" strokeWidth="1" fill="none"><ellipse rx="11" ry="4.2"/><ellipse rx="11" ry="4.2" transform="rotate(60)"/><ellipse rx="11" ry="4.2" transform="rotate(120)"/></g></svg>
-                                React
-                              </div>
-                              <div className="text-[#fff] font-semibold text-xl whitespace-nowrap flex-shrink-0 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'rotate(45deg)' }}><line x1="5" y1="12" x2="19" y2="12"></line><line x1="12" y1="5" x2="12" y2="19"></line></svg>
-                                shadcn/ui
-                              </div>
-                              <div className="text-[#fff] font-semibold text-xl whitespace-nowrap flex-shrink-0 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="#3ECF8E"><path d="M12 2L2 12h10v10l10-10H12V2z"/></svg>
-                                supabase
-                              </div>
-                              <div className="text-[#fff] font-semibold text-xl whitespace-nowrap flex-shrink-0 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 14c2 0 3-2 5-2s3 2 5 2 3-2 5-2"></path><path d="M4 20c2 0 3-2 5-2s3 2 5 2 3-2 5-2"></path></svg>
-                                tailwindcss
-                              </div>
-                              <div className="text-[#fff] font-semibold text-xl whitespace-nowrap flex-shrink-0 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L24 22H0L12 2Z"/></svg>
-                                Vercel
-                              </div>
-                            </React.Fragment>
-                          ))}
-                        </div>
-                      ))}
+                    <div className="text-center" style={{ marginBottom: '24px' }}>
+                        <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em' }}>Trusted by these companies</h2>
                     </div>
-                  </div>
+
+                    <div className="relative flex overflow-hidden w-full group">
+                        <div className="flex overflow-hidden relative w-full" style={{ maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)' }}>
+                            {[0, 1].map((marqueeIdx) => (
+                                <div key={marqueeIdx} className="flex shrink-0 items-center justify-start w-max" style={{ gap: '3.5rem', minWidth: '100%', paddingRight: '3.5rem', animation: 'custom-marquee 15s linear infinite' }}>
+                                    {[0, 1].map((repeatIdx) => (
+                                        <React.Fragment key={repeatIdx}>
+                                            <div className="text-[#fff] font-bold text-2xl whitespace-nowrap flex-shrink-0 flex items-center opacity-70 hover:opacity-100 transition-opacity">
+                                                <span style={{ letterSpacing: '-0.05em' }}>NEXT<span className="text-[#888]">.</span></span>
+                                            </div>
+                                            <div className="text-[#fff] font-semibold text-xl whitespace-nowrap flex-shrink-0 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+                                                <svg width="28" height="28" viewBox="-11.5 -10.23174 23 20.46348" fill="#61DAFB"><circle cx="0" cy="0" r="2.05" fill="#61DAFB" /><g stroke="#61DAFB" strokeWidth="1" fill="none"><ellipse rx="11" ry="4.2" /><ellipse rx="11" ry="4.2" transform="rotate(60)" /><ellipse rx="11" ry="4.2" transform="rotate(120)" /></g></svg>
+                                                React
+                                            </div>
+                                            <div className="text-[#fff] font-semibold text-xl whitespace-nowrap flex-shrink-0 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'rotate(45deg)' }}><line x1="5" y1="12" x2="19" y2="12"></line><line x1="12" y1="5" x2="12" y2="19"></line></svg>
+                                                shadcn/ui
+                                            </div>
+                                            <div className="text-[#fff] font-semibold text-xl whitespace-nowrap flex-shrink-0 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="#3ECF8E"><path d="M12 2L2 12h10v10l10-10H12V2z" /></svg>
+                                                supabase
+                                            </div>
+                                            <div className="text-[#fff] font-semibold text-xl whitespace-nowrap flex-shrink-0 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 14c2 0 3-2 5-2s3 2 5 2 3-2 5-2"></path><path d="M4 20c2 0 3-2 5-2s3 2 5 2 3-2 5-2"></path></svg>
+                                                tailwindcss
+                                            </div>
+                                            <div className="text-[#fff] font-semibold text-xl whitespace-nowrap flex-shrink-0 flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+                                                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L24 22H0L12 2Z" /></svg>
+                                                Vercel
+                                            </div>
+                                        </React.Fragment>
+                                    ))}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </main>
 
-            <div dangerouslySetInnerHTML={{
-                __html: `
+            {/* Section 2: The Fragmentation Problem */}
+            <section
+                className="section sec-ai-agents reveal-section"
+                id="problem"
+                style={{
+                    position: 'relative',
+                    background: 'transparent',
+                    color: '#ffffff',
+                    width: '100%',
+                    padding: '140px 0',
+                    overflow: 'hidden'
+                }}
+            >
+                <div className="container">
+                    <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginBottom: '24px' }}>
+                        <span className="ent-pill" style={{ marginBottom: '0px' }}>THE FRAGMENTATION PROBLEM</span>
+                    </div>
+                    <h2 className="std-section-h2 text-center" style={{ fontSize: '48px', fontWeight: 600, letterSpacing: '-0.02em', textAlign: 'center', lineHeight: '1.1', marginBottom: '24px' }}>Your security stack is speaking in silos</h2>
+                    <p className="std-section-subheading text-center" style={{ maxWidth: '600px', margin: '0 auto 3rem', fontSize: '14px', lineHeight: '1.6', color: '#B6B6B7', fontFamily: 'var(--font-mono)' }}>
+                        Your operation generates millions of data points daily. None of it is connected. All of it requires a human to bridge the gap.
+                    </p>
 
-    <!-- The Fragmentation Problem (Editorial Redesign) -->
-    <section class="ent-section">
-        <div class="atmospheric-bg"></div>
-        <div class="ent-container" style="position: relative; z-index: 10;">
+                    {/* Contrast split layout with high-tech animated SVG diagram */}
+                    <div className="problem-split-grid">
+                        <div className="feature-col-divider" style={{ left: '50%' }}></div>
+                        <div className="problem-split-left">
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                                {/* 4 SEC_OP Bullet Points */}
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                        <span style={{ fontSize: '10px', fontFamily: 'var(--font-mono)', color: '#EA49B2', textTransform: 'uppercase', letterSpacing: '2px', border: '1px solid rgba(234, 73, 178, 0.3)', padding: '2px 6px' }}>SEC_OP_A</span>
+                                        <span style={{ width: '4px', height: '4px', backgroundColor: '#EA49B2', borderRadius: '50%' }}></span>
+                                        <span style={{ fontSize: '10px', fontFamily: 'var(--font-mono)', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '1px' }}>UNLINKED</span>
+                                    </div>
+                                    <h3 style={{ fontSize: '20px', fontWeight: 500, letterSpacing: '-0.02em', margin: 0, color: '#ffffff', lineHeight: '1.2' }}>
+                                        Your access control has 47,000 badge events.
+                                    </h3>
+                                </div>
 
-            <div class="editorial-layout">
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                        <span style={{ fontSize: '10px', fontFamily: 'var(--font-mono)', color: '#FCE545', textTransform: 'uppercase', letterSpacing: '2px', border: '1px solid rgba(252, 229, 69, 0.3)', padding: '2px 6px' }}>SEC_OP_B</span>
+                                        <span style={{ width: '4px', height: '4px', backgroundColor: '#FCE545', borderRadius: '50%' }}></span>
+                                        <span style={{ fontSize: '10px', fontFamily: 'var(--font-mono)', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '1px' }}>ISOLATED</span>
+                                    </div>
+                                    <h3 style={{ fontSize: '20px', fontWeight: 500, letterSpacing: '-0.02em', margin: 0, color: '#ffffff', lineHeight: '1.2' }}>
+                                        Your VMS has 2.3 terabytes of footage.
+                                    </h3>
+                                </div>
 
-                <!-- Left: Sticky Editorial Text -->
-                <div class="sticky-col">
-                    <div class="ent-pill" style="margin-bottom: 32px;">The Fragmentation Tax</div>
-                    <h2 class="ent-h1" style="font-size: 48px; margin-bottom: 32px; line-height: 1.05;">
-                        Data everywhere.<br>Context nowhere
-                    </h2>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                        <span style={{ fontSize: '10px', fontFamily: 'var(--font-mono)', color: '#4993E3', textTransform: 'uppercase', letterSpacing: '2px', border: '1px solid rgba(73, 147, 227, 0.3)', padding: '2px 6px' }}>SEC_OP_C</span>
+                                        <span style={{ width: '4px', height: '4px', backgroundColor: '#4993E3', borderRadius: '50%' }}></span>
+                                        <span style={{ fontSize: '10px', fontFamily: 'var(--font-mono)', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '1px' }}>STANDALONE</span>
+                                    </div>
+                                    <h3 style={{ fontSize: '20px', fontWeight: 500, letterSpacing: '-0.02em', margin: 0, color: '#ffffff', lineHeight: '1.2' }}>
+                                        Your visitor system has 340 check-ins.
+                                    </h3>
+                                </div>
 
-                    <div style="display: flex; flex-direction: column; gap: 24px; max-width: 560px;">
-                        <p class="ent-p" style="line-height: 1.7; color: var(--text-primary);">
-                            A campus processes thousands of badge events and terabytes of video daily. The problem isn’t
-                            a lack of signals.
-                        </p>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                        <span style={{ fontSize: '10px', fontFamily: 'var(--font-mono)', color: '#E44856', textTransform: 'uppercase', letterSpacing: '2px', border: '1px solid rgba(228, 72, 86, 0.3)', padding: '2px 6px' }}>SEC_OP_D</span>
+                                        <span style={{ width: '4px', height: '4px', backgroundColor: '#E44856', borderRadius: '50%' }}></span>
+                                        <span style={{ fontSize: '10px', fontFamily: 'var(--font-mono)', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '1px' }}>LATENCY</span>
+                                    </div>
+                                    <h3 style={{ fontSize: '20px', fontWeight: 500, letterSpacing: '-0.02em', margin: 0, color: '#ffffff', lineHeight: '1.2' }}>
+                                        Yet a single alert still takes four platforms, six browser tabs, and twelve minutes to investigate.
+                                    </h3>
+                                </div>
 
-                        <p class="ent-p" style="line-height: 1.7;">
-                            But when an incident occurs, teams investigate manually. Jumping across disconnected systems
-                            to cross-check logs, verify bookings, and rebuild context by hand.
-                        </p>
+                                {/* Bottom Verdict Line */}
+                                <div style={{
+                                    margin: '20px -2.5rem -3.5rem -2.5rem',
+                                    padding: '30px 2.5rem 3rem 2.5rem',
+                                    borderTop: '1px solid #212326',
+                                    backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'8.485\' height=\'8.485\' viewBox=\'0 0 8.5 8.5\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M-2 -2L10.5 10.5M6.5 -2L10.5 2M-2 6.5L2 10.5\' stroke=\'%23ffffff\' stroke-opacity=\'0.08\' stroke-width=\'1\'/%3E%3C/svg%3E")',
+                                    animation: 'slide-diagonal-bg 0.5s linear infinite'
+                                }}>
+                                    <p style={{ fontSize: '22px', lineHeight: '1.5', fontWeight: 400, color: '#B6B6B7', letterSpacing: '-0.01em', margin: 0, position: 'relative', zIndex: 1 }}>
+                                        The systems are capable. <span style={{ color: '#E44856', fontWeight: 600 }}>The connections aren't.</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
 
-                        <div style="padding-left: 24px; border-left: 2px solid var(--border-subtle); margin-top: 16px;">
-                            <p class="ent-p"
-                                style="color: var(--text-muted); font-family: var(--font-mono); line-height: 1.8;">
-                                > Four platforms.<br>
-                                > Multiple browser tabs.<br>
-                                > Minutes lost per alert.<br>
-                                > Massive operational cost.
+                        <div className="problem-split-right">
+                            {/* Isometric 8 Disconnected Systems SVG */}
+                            <svg viewBox="0 0 400 330" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <filter id="glow-red" x="-50%" y="-50%" width="200%" height="200%">
+                                        <feGaussianBlur stdDeviation="3" result="blur" />
+                                        <feMerge>
+                                            <feMergeNode in="blur" />
+                                            <feMergeNode in="SourceGraphic" />
+                                        </feMerge>
+                                    </filter>
+                                </defs>
+
+                                <style>{`
+                  @keyframes pulse-ring-err {
+                    0% { transform: scale(0.95); opacity: 0; }
+                    50% { opacity: 0.35; }
+                    100% { transform: scale(1.3); opacity: 0; }
+                  }
+                  @keyframes blink-led-red {
+                    0%, 100% { opacity: 0.3; }
+                    50% { opacity: 1; }
+                  }
+                  @keyframes dash-flow {
+                    0% { stroke-dashoffset: 20; }
+                    100% { stroke-dashoffset: 0; }
+                  }
+                  .blink-led-red {
+                    animation: blink-led-red 1.2s infinite alternate;
+                  }
+                  .broken-dash-line {
+                    stroke-dasharray: 4, 6;
+                    animation: dash-flow 2s infinite linear;
+                  }
+                `}</style>
+
+                                {/* BACKGROUND ISOMETRIC FLOOR GRID */}
+                                <g opacity="0.08">
+                                    {[-4, -2, 0, 2, 4].map(i => {
+                                        const x1 = 200 + i * 30 * 0.866 - 160 * 0.866;
+                                        const y1 = 160 + i * 30 * 0.5 - 160 * 0.5;
+                                        const x2 = 200 + i * 30 * 0.866 + 160 * 0.866;
+                                        const y2 = 160 + i * 30 * 0.5 + 160 * 0.5;
+                                        return <line key={`x-${i}`} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#E44856" strokeWidth="0.4" strokeDasharray="1, 8" />;
+                                    })}
+                                    {[-4, -2, 0, 2, 4].map(i => {
+                                        const x1 = 200 - 160 * 0.866 + i * 30 * 0.866;
+                                        const y1 = 160 + 160 * 0.5 + i * 30 * 0.5;
+                                        const x2 = 200 + 160 * 0.866 + i * 30 * 0.866;
+                                        const y2 = 160 - 160 * 0.5 + i * 30 * 0.5;
+                                        return <line key={`y-${i}`} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#E44856" strokeWidth="0.4" strokeDasharray="1, 8" />;
+                                    })}
+                                </g>
+
+                                {/* BROKEN DISCONNECTED WIRES BETWEEN 8 SYSTEMS */}
+                                <path d="M130,55 L200,40" stroke="#E44856" strokeWidth="1" className="broken-dash-line" opacity="0.6" />
+                                <path d="M200,40 L270,55" stroke="#E44856" strokeWidth="1" className="broken-dash-line" opacity="0.6" />
+                                <path d="M95,110 L130,55" stroke="#E44856" strokeWidth="1" className="broken-dash-line" opacity="0.6" />
+                                <path d="M95,110 L200,125" stroke="#E44856" strokeWidth="1" className="broken-dash-line" opacity="0.6" />
+                                <path d="M200,125 L305,110" stroke="#E44856" strokeWidth="1" className="broken-dash-line" opacity="0.6" />
+                                <path d="M270,55 L305,110" stroke="#E44856" strokeWidth="1" className="broken-dash-line" opacity="0.6" />
+                                <path d="M95,110 L130,195" stroke="#E44856" strokeWidth="1" className="broken-dash-line" opacity="0.6" />
+                                <path d="M130,195 L200,125" stroke="#E44856" strokeWidth="1" className="broken-dash-line" opacity="0.6" />
+                                <path d="M200,125 L270,195" stroke="#E44856" strokeWidth="1" className="broken-dash-line" opacity="0.6" />
+                                <path d="M305,110 L270,195" stroke="#E44856" strokeWidth="1" className="broken-dash-line" opacity="0.6" />
+
+                                {/* BROKEN CROSS MARKS ON CONNECTIONS */}
+                                {[[165, 47.5], [235, 47.5], [112.5, 82.5], [147.5, 117.5], [252.5, 117.5], [287.5, 82.5], [112.5, 152.5], [165, 160], [235, 160], [287.5, 152.5]].map(([cx, cy], idx) => (
+                                    <g key={idx} transform={`translate(${cx}, ${cy})`}>
+                                        <circle cx="0" cy="0" r="4" fill="#0c0d0f" stroke="#E44856" strokeWidth="0.8" />
+                                        <line x1="-1.5" y1="-1.5" x2="1.5" y2="1.5" stroke="#E44856" strokeWidth="1" />
+                                        <line x1="1.5" y1="-1.5" x2="-1.5" y2="1.5" stroke="#E44856" strokeWidth="1" />
+                                    </g>
+                                ))}
+
+                                {/* 8 ISOMETRIC 3D SYSTEM BLOCKS */}
+                                {[
+                                    { id: 'vms', name: 'VMS', sub: 'CCTV Feeds', x: 130, y: 55 },
+                                    { id: 'acs', name: 'ACS', sub: 'Badge Access', x: 200, y: 40 },
+                                    { id: 'iam', name: 'HR / IAM', sub: 'User Directory', x: 270, y: 55 },
+                                    { id: 'visitor', name: 'VISITOR', sub: 'Kiosks', x: 95, y: 110 },
+                                    { id: 'siem', name: 'SIEM', sub: 'Log Server', x: 200, y: 125 },
+                                    { id: 'dispatch', name: 'DISPATCH', sub: 'Radios', x: 305, y: 110 },
+                                    { id: 'alerts', name: 'ALERTS', sub: 'Intrusion', x: 130, y: 195 },
+                                    { id: 'analytics', name: 'ANALYTICS', sub: 'AI Cameras', x: 270, y: 195 },
+                                ].map((sys) => {
+                                    const isHovered = hoveredNode === sys.id;
+                                    return (
+                                        <g
+                                            key={sys.id}
+                                            onMouseEnter={() => setHoveredNode(sys.id)}
+                                            onMouseLeave={() => setHoveredNode(null)}
+                                            style={{
+                                                cursor: 'pointer',
+                                                transformOrigin: `${sys.x}px ${sys.y}px`,
+                                                transform: isHovered ? 'scale(1.1) translateY(-3px)' : 'scale(1)',
+                                                transition: 'transform 0.3s ease, filter 0.3s ease',
+                                                filter: isHovered ? 'drop-shadow(0px 0px 10px rgba(228, 72, 86, 0.8))' : 'none'
+                                            }}
+                                        >
+                                            {/* Top Face */}
+                                            <polygon points={`${sys.x},${sys.y + 24} ${sys.x - 36},${sys.y} ${sys.x},${sys.y - 24} ${sys.x + 36},${sys.y}`} fill={isHovered ? 'rgba(228, 72, 86, 0.2)' : 'rgba(20, 20, 28, 0.95)'} stroke={isHovered ? '#E44856' : 'rgba(228, 72, 86, 0.4)'} strokeWidth="0.8" />
+                                            {/* Left Face */}
+                                            <polygon points={`${sys.x},${sys.y + 24} ${sys.x - 36},${sys.y} ${sys.x - 36},${sys.y + 12} ${sys.x},${sys.y + 36}`} fill="#0F0F16" stroke="rgba(228, 72, 86, 0.15)" strokeWidth="0.5" />
+                                            {/* Right Face */}
+                                            <polygon points={`${sys.x},${sys.y + 24} ${sys.x},${sys.y + 36} ${sys.x + 36},${sys.y + 12} ${sys.x + 36},${sys.y}`} fill="#0A0A0F" stroke="rgba(228, 72, 86, 0.15)" strokeWidth="0.5" />
+                                            {/* System Details */}
+                                            <g transform={`matrix(0.866, 0.5, -0.866, 0.5, ${sys.x}, ${sys.y})`}>
+                                                <circle cx="-16" cy="16" r="1.2" fill="#E44856" className="blink-led-red" />
+                                                <text x="0" y="-2" fontFamily="system-ui, -apple-system, sans-serif" fontSize="7.5" fill="#ffffff" fontWeight="bold" textAnchor="middle">{sys.name}</text>
+                                                <text x="0" y="7" fontFamily="var(--font-mono), monospace" fontSize="5.5" fill="rgba(255,255,255,0.4)" textAnchor="middle">{sys.sub}</text>
+                                            </g>
+                                        </g>
+                                    );
+                                })}
+
+                                {/* BOTTOM READOUT LABEL */}
+                                <text
+                                    x="200"
+                                    y="275"
+                                    fontFamily="var(--font-mono), monospace"
+                                    fontSize="8"
+                                    fill="#E44856"
+                                    textAnchor="middle"
+                                    fontWeight="bold"
+                                    style={{ letterSpacing: '2px' }}
+                                >
+                                    {!hoveredNode && "8_SILOED_PLATFORMS · UNLINKED"}
+                                    {hoveredNode === 'vms' && "VMS_ISOLATED > NO_LINK"}
+                                    {hoveredNode === 'acs' && "ACS_UNSYNCED > NO_LINK"}
+                                    {hoveredNode === 'iam' && "IAM_DIRECTORY > NO_SYNC"}
+                                    {hoveredNode === 'visitor' && "VISITOR_KIOSK > NO_LOG"}
+                                    {hoveredNode === 'siem' && "SIEM_ANALYTICS > MANUAL_MODE"}
+                                    {hoveredNode === 'dispatch' && "DISPATCH_RADIO > NO_RESPONSE"}
+                                    {hoveredNode === 'alerts' && "ALARM_PANEL > UNCORRELATED"}
+                                    {hoveredNode === 'analytics' && "AI_CAMERAS > STANDALONE"}
+                                </text>
+                            </svg>
+                        </div>
+                    </div>
+
+                    {/* 4 Consequence Cards below */}
+                    <div className="features-scroll-grid" style={{
+                        borderLeft: '1px solid #212326',
+                        borderRight: '1px solid #212326'
+                    }}>
+                        {/* Vertical Dividers */}
+                        <div className="feature-col-divider feature-col-divider-1"></div>
+                        <div className="feature-col-divider feature-col-divider-2"></div>
+                        <div className="feature-col-divider feature-col-divider-3"></div>
+
+                        {/* Feature 1 */}
+                        <div className="feature-col-item">
+                            <div className="fig-svg-wrap">
+                                <svg viewBox="0 0 240 160" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <style>{`
+                    @keyframes alertPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+                    .pulse { animation: alertPulse 1.5s infinite; }
+                  `}</style>
+
+                                    {/* Left: Badge Reader */}
+                                    <rect x="35" y="45" width="50" height="70" rx="4" stroke="rgba(255,255,255,0.15)" strokeWidth="1" fill="rgba(255,255,255,0.01)" />
+                                    <text x="60" y="60" fontFamily="var(--font-mono), monospace" fontSize="6.5" fill="rgba(255,255,255,0.4)" textAnchor="middle">READER</text>
+                                    <path d="M52,80 L68,80 M52,90 L68,90" stroke="#E44856" strokeWidth="1.5" strokeLinecap="round" />
+                                    <circle cx="60" cy="85" r="10" stroke="#E44856" strokeWidth="1" strokeDasharray="2,2" className="pulse" />
+
+                                    {/* Broken Connection */}
+                                    <line x1="95" y1="80" x2="145" y2="80" stroke="rgba(255,255,255,0.1)" strokeWidth="1.5" strokeDasharray="3 3" />
+                                    <g transform="translate(120, 80)">
+                                        <circle cx="0" cy="0" r="5" fill="#E44856" />
+                                        <line x1="-2" y1="-2" x2="2" y2="2" stroke="#FFFFFF" strokeWidth="1" />
+                                        <line x1="2" y1="-2" x2="-2" y2="2" stroke="#FFFFFF" strokeWidth="1" />
+                                    </g>
+
+                                    {/* Right: HR Directory */}
+                                    <rect x="155" y="45" width="50" height="70" rx="4" stroke="rgba(255,255,255,0.15)" strokeWidth="1" fill="rgba(255,255,255,0.01)" />
+                                    <text x="180" y="60" fontFamily="var(--font-mono), monospace" fontSize="6.5" fill="rgba(255,255,255,0.4)" textAnchor="middle">HR / IAM</text>
+                                    <text x="180" y="85" fontFamily="var(--font-mono), monospace" fontSize="6.5" fill="#E44856" textAnchor="middle" fontWeight="bold" className="pulse">NO SYNC</text>
+                                    <line x1="165" y1="100" x2="195" y2="100" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                                </svg>
+                            </div>
+                            <h3>Twelve minutes per alert</h3>
+                            <p className="card-desc">A badge anomaly at the datacenter triggers. Your operator pulls the access log, switches to the VMS, scrubs to the timestamp, checks the visitor system. Twelve minutes. For one alert. Multiplied by 200+ alerts daily.</p>
+                        </div>
+
+                        {/* Feature 2 */}
+                        <div className="feature-col-item">
+                            <div className="fig-svg-wrap">
+                                <svg viewBox="0 0 240 160" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <style>{`
+                    @keyframes alertPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+                    .pulse { animation: alertPulse 1.5s infinite; }
+                  `}</style>
+
+                                    {/* Left: Camera Unit */}
+                                    <rect x="40" y="50" width="30" height="60" rx="3" stroke="rgba(255,255,255,0.15)" strokeWidth="1" fill="rgba(255,255,255,0.01)" />
+                                    <circle cx="55" cy="70" r="7" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
+                                    <text x="55" y="100" fontFamily="var(--font-mono), monospace" fontSize="6" fill="rgba(255,255,255,0.4)" textAnchor="middle">CAM_04</text>
+
+                                    {/* Disconnected Line */}
+                                    <path d="M80,80 L160,80" stroke="rgba(255,255,255,0.1)" strokeWidth="1.5" strokeDasharray="3,3" />
+                                    <g transform="translate(120, 80)">
+                                        <circle cx="0" cy="0" r="8" stroke="#E44856" strokeWidth="1" fill="rgba(228, 72, 86, 0.05)" className="pulse" />
+                                        <line x1="-3" y1="-3" x2="3" y2="3" stroke="#E44856" strokeWidth="1.2" />
+                                        <line x1="3" y1="-3" x2="-3" y2="3" stroke="#E44856" strokeWidth="1.2" />
+                                    </g>
+
+                                    {/* Right: Security Console */}
+                                    <rect x="170" y="50" width="30" height="60" rx="3" stroke="rgba(255,255,255,0.15)" strokeWidth="1" fill="rgba(255,255,255,0.01)" />
+                                    <text x="185" y="100" fontFamily="var(--font-mono), monospace" fontSize="6" fill="rgba(255,255,255,0.4)" textAnchor="middle">CONSOLE</text>
+
+                                    {/* Warning Banner */}
+                                    <text x="120" y="125" fontFamily="var(--font-mono), monospace" fontSize="7" fill="#E44856" textAnchor="middle" fontWeight="bold" className="pulse">FEEDS ISOLATED</text>
+                                </svg>
+                            </div>
+                            <h3>Credentials that outlive employment</h3>
+                            <p className="card-desc">A terminated employee's badge is deactivated. Their vehicle permit isn't. They're back in the parking structure at 11pm.</p>
+                        </div>
+
+                        {/* Feature 3 */}
+                        <div className="feature-col-item">
+                            <div className="fig-svg-wrap">
+                                <svg viewBox="0 0 240 160" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <style>{`
+                    @keyframes delayPulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+                    .pulse { animation: delayPulse 1.5s infinite; }
+                  `}</style>
+
+                                    {/* Timeline Track */}
+                                    <line x1="40" y1="80" x2="200" y2="80" stroke="rgba(255,255,255,0.1)" strokeWidth="1.5" />
+
+                                    {/* Incident Alert Node */}
+                                    <circle cx="40" cy="80" r="4" fill="rgba(255,255,255,0.3)" />
+                                    <text x="40" y="62" fontFamily="var(--font-mono), monospace" fontSize="6.5" fill="rgba(255,255,255,0.5)" textAnchor="middle" fontWeight="bold">Alert</text>
+                                    <text x="40" y="95" fontFamily="var(--font-mono), monospace" fontSize="5.5" fill="rgba(255,255,255,0.4)" textAnchor="middle">00:00</text>
+
+                                    {/* Manual Audit Path */}
+                                    <path d="M110,80 L200,80" stroke="#E44856" strokeWidth="1.5" className="pulse" />
+
+                                    {/* Manual correlation in middle */}
+                                    <g transform="translate(110, 80)">
+                                        <circle cx="0" cy="0" r="10" stroke="#FCE545" strokeWidth="1" fill="#0c0d0f" className="pulse" />
+                                        <text x="0" y="2" fontFamily="var(--font-mono), monospace" fontSize="5" fill="#FCE545" textAnchor="middle" fontWeight="bold">🔍</text>
+                                    </g>
+                                    <text x="110" y="62" fontFamily="var(--font-mono), monospace" fontSize="6.5" fill="#FCE545" textAnchor="middle" fontWeight="bold">Manual Search</text>
+                                    <text x="110" y="100" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#FCE545" textAnchor="middle" fontWeight="bold">12 Min Delay</text>
+
+                                    {/* End Node (Late Context) */}
+                                    <circle cx="200" cy="80" r="4" fill="#E44856" />
+                                    <text x="200" y="62" fontFamily="var(--font-mono), monospace" fontSize="6.5" fill="#E44856" textAnchor="middle" fontWeight="bold">Correlated</text>
+                                    <text x="200" y="95" fontFamily="var(--font-mono), monospace" fontSize="5.5" fill="#E44856" textAnchor="middle">12m 40s</text>
+                                </svg>
+                            </div>
+                            <h3>Expired access that isn't</h3>
+                            <p className="card-desc">A visitor's temporary access should have expired at 11am. It's 2pm. No one noticed. The credential is still active.</p>
+                        </div>
+
+                        {/* Feature 4 */}
+                        <div className="feature-col-item">
+                            <div className="fig-svg-wrap">
+                                <svg viewBox="0 0 240 160" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <style>{`
+                    @keyframes siloPulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+                    .pulse { animation: siloPulse 1.5s infinite; }
+                  `}</style>
+
+                                    {/* Silo 1: VMS */}
+                                    <g transform="translate(45, 45)">
+                                        <rect x="0" y="0" width="30" height="40" rx="3" stroke="rgba(255,255,255,0.15)" strokeWidth="1" fill="rgba(255,255,255,0.01)" />
+                                        <line x1="0" y1="12" x2="30" y2="12" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                                        <line x1="0" y1="24" x2="30" y2="24" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                                        <text x="15" y="52" fontFamily="var(--font-mono), monospace" fontSize="6.5" fill="rgba(255,255,255,0.4)" textAnchor="middle">VMS</text>
+                                    </g>
+
+                                    {/* Silo 2: HR */}
+                                    <g transform="translate(105, 45)">
+                                        <rect x="0" y="0" width="30" height="40" rx="3" stroke="rgba(255,255,255,0.15)" strokeWidth="1" fill="rgba(255,255,255,0.01)" />
+                                        <line x1="0" y1="12" x2="30" y2="12" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                                        <line x1="0" y1="24" x2="30" y2="24" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                                        <text x="15" y="52" fontFamily="var(--font-mono), monospace" fontSize="6.5" fill="rgba(255,255,255,0.4)" textAnchor="middle">HR</text>
+                                    </g>
+
+                                    {/* Silo 3: ACS */}
+                                    <g transform="translate(165, 45)">
+                                        <rect x="0" y="0" width="30" height="40" rx="3" stroke="rgba(255,255,255,0.15)" strokeWidth="1" fill="rgba(255,255,255,0.01)" />
+                                        <line x1="0" y1="12" x2="30" y2="12" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                                        <line x1="0" y1="24" x2="30" y2="24" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                                        <text x="15" y="52" fontFamily="var(--font-mono), monospace" fontSize="6.5" fill="rgba(255,255,255,0.4)" textAnchor="middle">ACS</text>
+                                    </g>
+
+                                    {/* Broken Sync Indicator */}
+                                    <rect x="35" y="115" width="170" height="20" rx="3" stroke="#E44856" strokeWidth="1" strokeDasharray="3,3" fill="rgba(228, 72, 86, 0.02)" className="pulse" />
+                                    <text x="120" y="127" fontFamily="var(--font-mono), monospace" fontSize="6.5" fill="#E44856" textAnchor="middle" fontWeight="bold" className="pulse">NO UNIFIED CONTEXT</text>
+                                </svg>
+                            </div>
+                            <h3>Headcounts on paper</h3>
+                            <p className="card-desc">A fire alarm activates. Your team has no live view of who is inside. They're running headcounts against paper sign-in sheets.</p>
+                        </div>
+                    </div>
+
+                    {/* Diagonal connecting bridge */}
+                    <div style={{
+                        width: '100%',
+                        height: '60px',
+                        borderLeft: '1px solid #212326',
+                        borderRight: '1px solid #212326',
+                        borderBottom: '1px solid #212326',
+                        backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'8.485\' height=\'8.485\' viewBox=\'0 0 8.5 8.5\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M-2 -2L10.5 10.5M6.5 -2L10.5 2M-2 6.5L2 10.5\' stroke=\'%23ffffff\' stroke-opacity=\'0.08\' stroke-width=\'1\'/%3E%3C/svg%3E")',
+                        animation: 'slide-diagonal-bg 0.5s linear infinite'
+                    }} />
+
+                    {/* Stats Row */}
+                    <div className="metrics-row-wrap" style={{
+                        width: '100%',
+                        borderLeft: '1px solid #212326',
+                        borderRight: '1px solid #212326',
+                        borderBottom: '1px solid #212326'
+                    }}>
+                        <div className="metrics-horizontal-row-4col">
+                            {[
+                                { num: '8–12', desc: 'average disconnected security systems per enterprise' },
+                                { num: '4–6', desc: 'platforms required to investigate a single incident manually' },
+                                { num: '12 min', desc: 'average manual investigation time per alert' },
+                                { num: '200+', desc: 'alerts processed daily, each requiring the same manual bridging' }
+                            ].map((metric, idx) => (
+                                <div key={idx} className="metric-col" style={{
+                                    opacity: 1,
+                                    padding: '40px 24px',
+                                    textAlign: 'center',
+                                    borderRight: idx !== 3 ? '1px solid #212326' : 'none'
+                                }}>
+                                    <div style={{
+                                        fontFamily: 'var(--font-mono), monospace',
+                                        fontSize: '36px',
+                                        fontWeight: 'bold',
+                                        color: '#FFFFFF',
+                                        lineHeight: '1.1',
+                                        marginBottom: '8px',
+                                        letterSpacing: '-0.03em'
+                                    }}>
+                                        {metric.num}
+                                    </div>
+                                    <p style={{
+                                        fontSize: '13px',
+                                        fontWeight: '400',
+                                        lineHeight: '1.4',
+                                        color: 'rgba(255,255,255,0.5)',
+                                        margin: 0
+                                    }}>
+                                        {metric.desc}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* SECTION 3: INTEGRATION CATEGORIES */}
+            <section id="capabilities" style={{ padding: '140px 0', background: 'transparent', position: 'relative', zIndex: 10, width: '100%' }}>
+                <div className="container" style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 32px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'flex-start', width: '100%', marginBottom: '16px' }}>
+                        <span className="ent-pill" style={{ marginLeft: 0 }}>INTEGRATION CATEGORIES</span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', width: '100%', margin: '0 0 60px', flexWrap: 'wrap', gap: '28px' }}>
+                        <h2 className="std-section-h2" style={{ maxWidth: '700px', fontSize: '52px', fontWeight: 600, letterSpacing: '-0.02em', margin: '0', textAlign: 'left', lineHeight: 1.2 }}>
+                            Six connection layers. One operational model.
+                        </h2>
+                        <div style={{ maxWidth: '400px', marginBottom: '22px' }}>
+                            <p style={{ fontSize: '14px', color: '#B6B6B7', lineHeight: 1.6, textAlign: 'left', margin: '0' }}>
+                                Pre-built integrations deploy in days. Custom integrations build on documented APIs. Every system that touches physical security connects here.
                             </p>
                         </div>
                     </div>
+
+                    <div className="agents-accordion-grid">
+                        {/* Left side: Accordion list */}
+                        <div className="agents-accordion-left">
+                            {CAPABILITIES_DATA.map((cap) => (
+                                <div
+                                    key={cap.id}
+                                    className={`agent-accordion-card ${activeCapability === cap.id ? 'active' : ''}`}
+                                    onClick={() => setActiveCapability(cap.id)}
+                                >
+                                    <div className="agent-accordion-header">
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                            <span style={{ fontSize: '14px', fontFamily: 'var(--font-mono), monospace', color: activeCapability === cap.id ? '#6354F3' : 'rgba(255,255,255,0.3)', fontWeight: 600 }}>{cap.num}</span>
+                                            <h3 className="agent-accordion-title" style={{ fontSize: '14px', fontFamily: 'var(--font-mono), monospace', fontWeight: activeCapability === cap.id ? 600 : 400, color: activeCapability === cap.id ? '#ffffff' : 'rgba(255,255,255,0.4)', margin: 0 }}>{cap.name}</h3>
+                                        </div>
+                                    </div>
+
+                                    <div className="agent-accordion-content">
+                                        <div className="agent-accordion-content-inner">
+                                            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '8px' }}>
+
+                                                {/* What Connects Block */}
+                                                <div>
+                                                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', fontWeight: 700, color: 'rgba(228,72,86,0.85)', letterSpacing: '2px', textTransform: 'uppercase', display: 'block', marginBottom: '10px', border: '1px solid rgba(228,72,86,0.2)', padding: '2px 6px', width: 'fit-content' }}>
+                                                        WHAT CONNECTS
+                                                    </span>
+                                                    <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.75)', lineHeight: '1.5', margin: 0, fontFamily: 'var(--font-main)' }}>
+                                                        {cap.whatConnects}
+                                                    </p>
+                                                </div>
+
+                                                {/* Key Integrations Block */}
+                                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0px' }}>
+                                                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', fontWeight: 700, color: 'rgba(99,84,243,0.85)', letterSpacing: '2px', textTransform: 'uppercase', display: 'block', marginBottom: '10px', border: '1px solid rgba(99,84,243,0.2)', padding: '2px 6px', width: 'fit-content' }}>
+                                                        KEY INTEGRATIONS
+                                                    </span>
+                                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0px' }}>
+                                                        {cap.keyIntegrations.map((metric, i) => (
+                                                            <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '8px 0', borderBottom: 'none', position: 'relative' }}>
+                                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6354F3" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: '3px', flexShrink: 0 }}>
+                                                                    <polyline points="20 6 9 17 4 12" />
+                                                                </svg>
+                                                                <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)', lineHeight: '1.5', margin: 0, fontFamily: 'var(--font-main)' }}>
+                                                                    {metric}
+                                                                </p>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Right side: Sticky Dashboard Panel (Single Live Node Map) */}
+                        <div className="agents-accordion-right">
+                            <div className="agents-dashboard-panel" style={{ position: 'sticky', top: '120px' }}>
+                                <div className="agents-dashboard-panel-inner" style={{ display: 'flex', flexDirection: 'column', width: '100%', minHeight: '480px' }}>
+
+                                    {/* Panel Body: Interactive Integration Fabric Node Map */}
+                                    <div style={{ flex: 1, position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+                                        <div style={{ width: '100%', height: '100%', minHeight: '440px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+                                            <svg width="100%" height="100%" viewBox="0 0 500 380" style={{ position: 'relative', zIndex: 1, background: 'radial-gradient(circle at 50% 50%, rgba(99, 84, 243, 0.08) 0%, transparent 70%)' }}>
+                                                <defs>
+                                                    <filter id="hubGlowPurpleNode" x="-50%" y="-50%" width="200%" height="200%">
+                                                        <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#6354F3" floodOpacity="0.6" />
+                                                    </filter>
+                                                    <filter id="nodeActiveGlowMap" x="-50%" y="-50%" width="200%" height="200%">
+                                                        <feDropShadow dx="0" dy="0" stdDeviation="8" floodColor="#7700FF" floodOpacity="0.7" />
+                                                    </filter>
+                                                    <style>{`
+                                                        @keyframes spinSlowHub { 100% { transform: rotate(360deg); } }
+                                                        @keyframes spinReverseHub { 100% { transform: rotate(-360deg); } }
+                                                        @keyframes pulseCoreHub { 0%, 100% { transform: scale(0.92); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } }
+                                                    `}</style>
+                                                </defs>
+
+                                                {/* Background Grid */}
+                                                <pattern id="nodeGridMap" width="24" height="24" patternUnits="userSpaceOnUse">
+                                                    <circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.04)" />
+                                                </pattern>
+                                                <rect width="100%" height="100%" fill="url(#nodeGridMap)" />
+
+                                                {/* CENTER HUB: INTEGRATION FABRIC */}
+                                                <g transform="translate(250, 190)">
+                                                    <circle cx="0" cy="0" r="48" fill="rgba(99, 84, 243, 0.08)" filter="url(#hubGlowPurpleNode)" />
+                                                    <circle cx="0" cy="0" r="40" fill="none" stroke="rgba(99, 84, 243, 0.5)" strokeWidth="1.5" strokeDasharray="6 6" style={{ transformOrigin: 'center', animation: 'spinSlowHub 16s linear infinite' }} />
+                                                    <circle cx="0" cy="0" r="32" fill="none" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="1" strokeDasharray="3 9" style={{ transformOrigin: 'center', animation: 'spinReverseHub 12s linear infinite' }} />
+                                                    <circle cx="0" cy="0" r="24" fill="#0B0D12" stroke="#6354F3" strokeWidth="2" filter="url(#hubGlowPurpleNode)" />
+                                                    <circle cx="0" cy="0" r="9" fill="#7700FF" style={{ transformOrigin: 'center', animation: 'pulseCoreHub 2s infinite ease-in-out' }} />
+                                                    <text x="0" y="38" textAnchor="middle" fill="#ffffff" fontSize="9" fontWeight="700" fontFamily="var(--font-mono)" letterSpacing="1px">FABRIC HUB</text>
+                                                </g>
+
+                                                {/* 6 OUTER NODES & CONNECTING LINES */}
+                                                {[
+                                                    { idx: 0, title: "Access Control", x: 250, y: 55, path: "M 250 190 L 250 55" },
+                                                    { idx: 1, title: "Video Management", x: 385, y: 120, path: "M 250 190 L 385 120" },
+                                                    { idx: 2, title: "Visitor & Identity", x: 385, y: 260, path: "M 250 190 L 385 260" },
+                                                    { idx: 3, title: "Workplace Ops", x: 250, y: 325, path: "M 250 190 L 250 325" },
+                                                    { idx: 4, title: "Building Systems", x: 115, y: 260, path: "M 250 190 L 115 260" },
+                                                    { idx: 5, title: "Comm & Alerting", x: 115, y: 120, path: "M 250 190 L 115 120" }
+                                                ].map((node) => {
+                                                    const isActive = activeCapability === node.idx;
+                                                    return (
+                                                        <g key={node.idx}>
+                                                            {/* Connection Line */}
+                                                            <path
+                                                                d={node.path}
+                                                                fill="none"
+                                                                stroke={isActive ? "#6354F3" : "rgba(255, 255, 255, 0.12)"}
+                                                                strokeWidth={isActive ? 2.5 : 1}
+                                                                strokeDasharray={isActive ? "none" : "4 4"}
+                                                                filter={isActive ? "url(#hubGlowPurpleNode)" : "none"}
+                                                                style={{ transition: 'stroke 0.3s ease, stroke-width 0.3s ease' }}
+                                                            />
+
+                                                            {/* Active Data Flow Packet Pulse */}
+                                                            {isActive && (
+                                                                <>
+                                                                    <circle cx="0" cy="0" r="4" fill="#ffffff" filter="url(#nodeActiveGlowMap)">
+                                                                        <animateMotion path={node.path} dur="1.4s" repeatCount="indefinite" />
+                                                                    </circle>
+                                                                    <circle cx="0" cy="0" r="3" fill="#6354F3">
+                                                                        <animateMotion path={node.path} dur="1.4s" begin="0.7s" repeatCount="indefinite" />
+                                                                    </circle>
+                                                                </>
+                                                            )}
+
+                                                            {/* Outer Node Button */}
+                                                            <g transform={`translate(${node.x}, ${node.y})`}>
+                                                                <rect
+                                                                    x="-65"
+                                                                    y="-18"
+                                                                    width="130"
+                                                                    height="36"
+                                                                    rx="18"
+                                                                    fill="#0B0D12"
+                                                                    stroke={isActive ? "#6354F3" : "rgba(255, 255, 255, 0.18)"}
+                                                                    strokeWidth={isActive ? 2 : 1}
+                                                                    filter={isActive ? "url(#nodeActiveGlowMap)" : "none"}
+                                                                    style={{ transition: 'all 0.3s ease', cursor: 'pointer' }}
+                                                                    onClick={() => setActiveCapability(node.idx)}
+                                                                />
+                                                                {isActive && (
+                                                                    <rect
+                                                                        x="-65"
+                                                                        y="-18"
+                                                                        width="130"
+                                                                        height="36"
+                                                                        rx="18"
+                                                                        fill="rgba(99, 84, 243, 0.12)"
+                                                                    />
+                                                                )}
+                                                                <circle
+                                                                    cx="-46"
+                                                                    cy="0"
+                                                                    r="4"
+                                                                    fill={isActive ? "#6354F3" : "rgba(255, 255, 255, 0.3)"}
+                                                                />
+                                                                <text
+                                                                    x="-34"
+                                                                    y="4"
+                                                                    fill={isActive ? "#ffffff" : "rgba(255, 255, 255, 0.6)"}
+                                                                    fontSize="9"
+                                                                    fontWeight={isActive ? "700" : "500"}
+                                                                    fontFamily="var(--font-mono)"
+                                                                >
+                                                                    {node.title}
+                                                                </text>
+                                                            </g>
+                                                        </g>
+                                                    );
+                                                })}
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Right: Cascading Intelligence Modules -->
-                <div class="staggered-col">
+                <style dangerouslySetInnerHTML={{ __html: `
+                    /* Accordion grid for Capabilities section */
+                    .agents-accordion-grid {
+                      display: grid;
+                      grid-template-columns: 4fr 6fr;
+                      gap: 0;
+                      align-items: stretch;
+                      background: rgba(10, 11, 14, 0.4);
+                      border: 1px solid #212326;
+                      overflow: hidden;
+                    }
+                    @media (max-width: 991px) {
+                      .agents-accordion-grid {
+                        grid-template-columns: 1fr;
+                      }
+                    }
 
-                    <!-- Module 1 -->
-                    <div class="module-card">
-                        <div class="module-header">
-                            <span class="module-label">SYS_ARCH / INFRASTRUCTURE</span>
-                            <div class="module-status">
-                                <div class="status-dot error"></div> FRAGMENTED
-                            </div>
-                        </div>
-                        <h3 class="ent-h3" style="font-size: 1rem; color: var(--text-primary); margin-bottom: 16px;">
-                            Disconnected Silos</h3>
-                        <p class="ent-p">Enterprises operate 8–12 independent security systems with zero contextual
-                            synchronization. Data is isolated by design.</p>
-                    </div>
+                    .agents-accordion-left {
+                      display: flex;
+                      flex-direction: column;
+                      border-right: 1px solid #212326;
+                      background: rgba(255, 255, 255, 0.01);
+                    }
 
-                    <!-- Module 2 -->
-                    <div class="module-card">
-                        <div class="module-header">
-                            <span class="module-label">OPS / WORKFLOW</span>
-                            <div class="module-status">
-                                <div class="status-dot"></div> MANUAL_MODE
-                            </div>
-                        </div>
-                        <h3 class="ent-h3" style="font-size: 1rem; color: var(--text-primary); margin-bottom: 16px;">
-                            Manual Correlation</h3>
-                        <p class="ent-p">Security teams reconstruct timelines by switching across platforms, matching
-                            timestamps and identities by eye.</p>
-                    </div>
+                    .agent-accordion-card {
+                      background: transparent;
+                      border: none;
+                      border-bottom: 1px solid #212326;
+                      padding: 24px 32px;
+                      cursor: pointer;
+                      transition: all 0.2s ease;
+                      outline: none;
+                      text-align: left;
+                    }
+                    
+                    .agent-accordion-card:last-child {
+                      border-bottom: none;
+                    }
 
-                    <!-- Module 3 -->
-                    <div class="module-card">
-                        <div class="module-header">
-                            <span class="module-label">PERF / RESPONSE</span>
-                            <div class="module-status">
-                                <div class="status-dot error"></div> LATENCY_HIGH
-                            </div>
-                        </div>
-                        <h3 class="ent-h3" style="font-size: 1rem; color: var(--text-primary); margin-bottom: 16px;">
-                            Slow Investigations</h3>
-                        <p class="ent-p">Critical incident response workflows stretch into hours because operators must
-                            piece together the narrative from scattered fragments.</p>
-                    </div>
+                    .agent-accordion-card:hover {
+                      background: rgba(255, 255, 255, 0.02);
+                    }
 
-                    <!-- Module 4 -->
-                    <div class="module-card">
-                        <div class="module-header">
-                            <span class="module-label">DATA / INTEGRITY</span>
-                            <div class="module-status">
-                                <div class="status-dot error"></div> CONTEXT_LOST
-                            </div>
-                        </div>
-                        <h3 class="ent-h3" style="font-size: 1rem; color: var(--text-primary); margin-bottom: 16px;">
-                            Information Decay</h3>
-                        <p class="ent-p">Every system stores state independently. When an event happens, the true
-                            context is lost between the gaps of these separate databases.</p>
-                    </div>
+                    .agent-accordion-card.active {
+                      background: rgba(255, 255, 255, 0.03);
+                    }
 
-                </div>
-            </div>
-        </div>
-    </section>
+                    .agent-accordion-header {
+                      display: flex;
+                      justify-content: flex-start;
+                      align-items: center;
+                    }
+
+                    .agent-accordion-title {
+                      font-size: 1.125rem;
+                      font-weight: 600;
+                      color: #ffffff;
+                      margin: 0;
+                      font-family: var(--font-mono), monospace;
+                    }
+
+                    .agent-accordion-content {
+                      display: grid;
+                      grid-template-rows: 0fr;
+                      opacity: 0;
+                      transition: grid-template-rows 0.3s linear, opacity 0.3s linear, margin-top 0.3s linear;
+                    }
+
+                    .agent-accordion-card.active .agent-accordion-content {
+                      grid-template-rows: 1fr;
+                      opacity: 1;
+                      margin-top: 24px;
+                    }
+
+                    .agent-accordion-content-inner {
+                      overflow: hidden;
+                    }
+
+                    .agents-accordion-right {
+                      position: relative;
+                      height: 100%;
+                    }
+
+                    .agents-dashboard-panel {
+                      background: transparent;
+                      border: none;
+                      padding: 32px;
+                      height: 100%;
+                      display: flex;
+                      flex-direction: column;
+                      position: relative;
+                      overflow: hidden;
+                      transition: transform 0.1s ease, box-shadow 0.1s ease;
+                    }
+
+                    .agents-dashboard-panel-inner {
+                      flex: 1;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      min-height: 480px;
+                      position: relative;
+                    }
+                ` }} />
+            </section>
+
+            <div dangerouslySetInnerHTML={{
+                __html: `
 
     <!-- OS Configuration Panel -->
     <section class="ent-section os-config-section">

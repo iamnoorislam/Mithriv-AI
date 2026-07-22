@@ -953,9 +953,32 @@ export default function CommunicationV2Page() {
           opacity: 1;
         }
 
-        .problem-split-right {
+        #problem .fig-svg-wrap {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 24px 12px 28px 12px;
+          width: 100%;
+          margin-bottom: 20px;
+        }
+
+        #problem .fig-svg-wrap svg {
+          max-width: 90% !important;
+          height: auto !important;
+          max-height: 180px !important;
+        }
+
+        #problem .feature-col-item {
+          min-height: 480px;
+          padding: 56px 32px 60px 32px;
+          display: flex;
+          flex-direction: column;
+          box-sizing: border-box;
+        }
+
+        #problem .problem-split-right {
           grid-column: span 2;
-          padding: 2.5rem;
+          padding: 3rem 2.5rem;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -963,11 +986,9 @@ export default function CommunicationV2Page() {
           opacity: 1;
         }
 
-        #problem .problem-split-left,
-        #problem .problem-split-right,
-        #problem .feature-col-item {
-          opacity: 1;
-          transform: translateY(0);
+        #problem .problem-split-right svg {
+          max-width: 94% !important;
+          height: auto !important;
         }
 
         #problem .features-scroll-grid {
@@ -1382,7 +1403,7 @@ export default function CommunicationV2Page() {
                   margin: '40px -2.5rem -3.5rem -2.5rem', 
                   padding: '40px 2.5rem 3.5rem 2.5rem', 
                   borderTop: '1px solid #212326', 
-                  backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'8\' height=\'8\' viewBox=\'0 0 8 8\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M-1,-1 L9,9 M7,-1 L9,1 M-1,7 L1,9\' stroke=\'%23212326\' stroke-width=\'1\'/%3E%3C/svg%3E")',
+                  backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'8.485\' height=\'8.485\' viewBox=\'0 0 8.5 8.5\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M-2 -2L10.5 10.5M6.5 -2L10.5 2M-2 6.5L2 10.5\' stroke=\'%23ffffff\' stroke-opacity=\'0.08\' stroke-width=\'1\'/%3E%3C/svg%3E")',
                   animation: 'slide-diagonal-bg 0.5s linear infinite'
                 }}>
                   <p style={{ fontSize: '24px', lineHeight: '1.5', fontWeight: 400, color: '#B6B6B7', letterSpacing: '-0.01em', margin: 0, position: 'relative', zIndex: 1 }}>
@@ -1782,40 +1803,32 @@ export default function CommunicationV2Page() {
 
             {/* Feature 1 */}
             <div className="feature-col-item">
-              <span className="fig-label">Fig 0.1</span>
               <div className="fig-svg-wrap">
-                <svg viewBox="0 0 200 160" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg viewBox="0 0 240 160" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <style>{`
-                    @keyframes pulse-ring-comm-1 {
-                      0% { transform: scale(0.5); opacity: 1; }
-                      50% { opacity: 0.5; }
-                      100% { transform: scale(1.3); opacity: 0; }
-                    }
-                    @keyframes blink-warning-comm-1 {
-                      0%, 100% { opacity: 0.2; }
-                      50% { opacity: 1; fill: #6354F3; }
-                    }
-                    @keyframes line-draw-comm-1 {
-                      0% { stroke-dashoffset: 24; }
-                      100% { stroke-dashoffset: 0; }
-                    }
+                    @keyframes alertPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+                    .pulse { animation: alertPulse 1.5s infinite; }
                   `}</style>
-                  <path d="M100,20 L100,140" stroke="rgba(255,255,255,0.2)" strokeDasharray="2,2" />
+                  
+                  {/* Left: Kiosk Box */}
+                  <rect x="35" y="45" width="50" height="70" rx="4" stroke="rgba(255,255,255,0.15)" strokeWidth="1" fill="rgba(255,255,255,0.01)" />
+                  <text x="60" y="60" fontFamily="var(--font-mono), monospace" fontSize="6.5" fill="rgba(255,255,255,0.4)" textAnchor="middle">KIOSK</text>
+                  <path d="M55,85 L65,85 M60,80 L60,90" stroke="#E44856" strokeWidth="1.5" strokeLinecap="round" />
+                  <circle cx="60" cy="85" r="10" stroke="#E44856" strokeWidth="1" strokeDasharray="2,2" className="pulse" />
 
-                  <g transform="translate(100, 80)">
-                    <ellipse cx="0" cy="0" rx="35" ry="17.5" stroke="#6354F3" strokeWidth="1" style={{ transformOrigin: '0 0', animation: 'pulse-ring-comm-1 2.5s infinite linear' }} />
-                    <ellipse cx="0" cy="0" rx="55" ry="27.5" stroke="#6354F3" strokeWidth="0.5" style={{ transformOrigin: '0 0', animation: 'pulse-ring-comm-1 2.5s infinite linear', animationDelay: '1.25s' }} />
-
-                    <polygon points="-30,10 30,10 40,25 -40,25" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-
-                    <line x1="0" y1="10" x2="0" y2="-15" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" />
-
-                    <polygon points="-16,-35 16,-35 16,-15 -16,-15" fill="rgba(0,0,0,0.6)" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-
-                    <text x="0" y="-21" fontFamily="monospace" fontWeight="bold" fontSize="8" fill="#6354F3" textAnchor="middle" style={{ animation: 'blink-warning-comm-1 1.5s infinite' }}>[WAIT 20m]</text>
-
-                    <line x1="-35" y1="0" x2="35" y2="0" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" strokeDasharray="3,3" style={{ animation: 'line-draw-comm-1 2s linear infinite' }} />
+                  {/* Broken Connection */}
+                  <line x1="95" y1="80" x2="145" y2="80" stroke="rgba(255,255,255,0.1)" strokeWidth="1.5" strokeDasharray="3 3" />
+                  <g transform="translate(120, 80)">
+                    <circle cx="0" cy="0" r="5" fill="#E44856" />
+                    <line x1="-2" y1="-2" x2="2" y2="2" stroke="#FFFFFF" strokeWidth="1" />
+                    <line x1="2" y1="-2" x2="-2" y2="2" stroke="#FFFFFF" strokeWidth="1" />
                   </g>
+
+                  {/* Right: Security Override */}
+                  <rect x="155" y="45" width="50" height="70" rx="4" stroke="rgba(255,255,255,0.15)" strokeWidth="1" fill="rgba(255,255,255,0.01)" />
+                  <text x="180" y="60" fontFamily="var(--font-mono), monospace" fontSize="6.5" fill="rgba(255,255,255,0.4)" textAnchor="middle">OVERRIDE</text>
+                  <text x="180" y="85" fontFamily="var(--font-mono), monospace" fontSize="6.5" fill="#E44856" textAnchor="middle" fontWeight="bold" className="pulse">NO LOG</text>
+                  <line x1="165" y1="100" x2="195" y2="100" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
                 </svg>
               </div>
               <h3>Fragmented Visitor Flow</h3>
@@ -1824,37 +1837,33 @@ export default function CommunicationV2Page() {
 
             {/* Feature 2 */}
             <div className="feature-col-item">
-              <span className="fig-label">Fig 0.2</span>
               <div className="fig-svg-wrap">
-                <svg viewBox="0 0 200 160" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg viewBox="0 0 240 160" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <style>{`
-                    @keyframes wave-dissolve-comm-2 {
-                      0% { transform: scale(0.5); opacity: 1; }
-                      100% { transform: scale(1.5); opacity: 0; }
-                    }
-                    @keyframes tower-signal-comm-2 {
-                      0%, 100% { opacity: 0.3; }
-                      50% { opacity: 1; }
-                    }
-                    @keyframes static-noise-comm-2 {
-                      0%, 100% { stroke-dashoffset: 0; }
-                      50% { stroke-dashoffset: 10; }
-                    }
+                    @keyframes alertPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+                    .pulse { animation: alertPulse 1.5s infinite; }
                   `}</style>
-                  <path d="M100,20 L100,140" stroke="rgba(255,255,255,0.2)" stroke-dasharray="2,2" />
 
-                  <g transform="translate(100, 80)">
-                    <ellipse cx="0" cy="-20" rx="20" ry="10" stroke="rgba(252, 229, 69, 0.4)" strokeWidth="1" style={{ transformOrigin: '0 -20px', animation: 'wave-dissolve-comm-2 3s infinite linear' }} />
-                    <ellipse cx="0" cy="-20" rx="40" ry="20" stroke="rgba(252, 229, 69, 0.2)" strokeWidth="0.5" style={{ transformOrigin: '0 -20px', animation: 'wave-dissolve-comm-2 3s infinite linear', animationDelay: '1.5s' }} />
+                  {/* Left: Radio Handset */}
+                  <rect x="40" y="50" width="30" height="60" rx="3" stroke="rgba(255,255,255,0.15)" strokeWidth="1" fill="rgba(255,255,255,0.01)" />
+                  <line x1="55" y1="50" x2="55" y2="35" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                  <circle cx="55" cy="33" r="1.5" fill="rgba(255,255,255,0.3)" />
+                  <text x="55" y="100" fontFamily="var(--font-mono), monospace" fontSize="6" fill="rgba(255,255,255,0.4)" textAnchor="middle">RADIO</text>
 
-                    <polygon points="-8,25 8,25 2,-20 -2,-20" fill="rgba(255, 255, 255, 0.05)" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                    <line x1="-5" y1="10" x2="5" y2="10" stroke="rgba(255,255,255,0.2)" />
-                    <line x1="-3" y1="-5" x2="3" y2="-5" stroke="rgba(255,255,255,0.2)" />
-
-                    <circle cx="0" cy="-22" r="3" fill="#FCE545" style={{ animation: 'tower-signal-comm-2 1s infinite alternate' }} />
-
-                    <path d="M-40,25 L-20,15 L0,20 L20,15 L40,25" stroke="rgba(255,255,255,0.2)" strokeWidth="1" strokeDasharray="2,2" style={{ animation: 'static-noise-comm-2 0.5s infinite linear' }} />
+                  {/* Disconnected Line */}
+                  <path d="M80,80 L160,80" stroke="rgba(255,255,255,0.1)" strokeWidth="1.5" strokeDasharray="3,3" />
+                  <g transform="translate(120, 80)">
+                    <circle cx="0" cy="0" r="8" stroke="#E44856" strokeWidth="1" fill="rgba(228, 72, 86, 0.05)" className="pulse" />
+                    <line x1="-3" y1="-3" x2="3" y2="3" stroke="#E44856" strokeWidth="1.2" />
+                    <line x1="3" y1="-3" x2="-3" y2="3" stroke="#E44856" strokeWidth="1.2" />
                   </g>
+
+                  {/* Right: Dispatch HQ */}
+                  <rect x="170" y="50" width="30" height="60" rx="3" stroke="rgba(255,255,255,0.15)" strokeWidth="1" fill="rgba(255,255,255,0.01)" />
+                  <text x="185" y="100" fontFamily="var(--font-mono), monospace" fontSize="6" fill="rgba(255,255,255,0.4)" textAnchor="middle">DISPATCH</text>
+                  
+                  {/* Warning Banner */}
+                  <text x="120" y="125" fontFamily="var(--font-mono), monospace" fontSize="7" fill="#E44856" textAnchor="middle" fontWeight="bold" className="pulse">NO ANSWER</text>
                 </svg>
               </div>
               <h3>Muted Field Operations</h3>
@@ -1863,42 +1872,36 @@ export default function CommunicationV2Page() {
 
             {/* Feature 3 */}
             <div className="feature-col-item">
-              <span className="fig-label">Fig 0.3</span>
               <div className="fig-svg-wrap">
-                <svg viewBox="0 0 200 160" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg viewBox="0 0 240 160" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <style>{`
-                    @keyframes sand-drip-comm-3 {
-                      0% { stroke-dashoffset: 0; }
-                      100% { stroke-dashoffset: -12; }
-                    }
-                    @keyframes badge-glow-comm-3 {
-                      0%, 100% { opacity: 0.4; }
-                      50% { opacity: 1; filter: drop-shadow(0 0 4px #4993E3); }
-                    }
+                    @keyframes delayPulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+                    .pulse { animation: delayPulse 1.5s infinite; }
                   `}</style>
-                  <path d="M100,20 L100,140" stroke="rgba(255,255,255,0.2)" stroke-dasharray="2,2" />
+                  
+                  {/* Timeline Track */}
+                  <line x1="40" y1="80" x2="200" y2="80" stroke="rgba(255,255,255,0.1)" strokeWidth="1.5" />
+                  
+                  {/* Request Node */}
+                  <circle cx="40" cy="80" r="4" fill="rgba(255,255,255,0.3)" />
+                  <text x="40" y="62" fontFamily="var(--font-mono), monospace" fontSize="6.5" fill="rgba(255,255,255,0.5)" textAnchor="middle" fontWeight="bold">Request</text>
+                  <text x="40" y="95" fontFamily="var(--font-mono), monospace" fontSize="5.5" fill="rgba(255,255,255,0.4)" textAnchor="middle">T+0h</text>
 
-                  <g transform="translate(100, 80)">
-                    <polygon points="0,-40 24,-30 0,-18 -24,-30" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" fill="rgba(255,255,255,0.05)" />
-                    <polygon points="0,40 24,30 0,18 -24,30" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" fill="rgba(255,255,255,0.05)" />
+                  {/* Late Approved Path */}
+                  <path d="M110,80 L200,80" stroke="#E44856" strokeWidth="1.5" className="pulse" />
 
-                    <line x1="-24" y1="-30" x2="-24" y2="30" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                    <line x1="24" y1="-30" x2="24" y2="30" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                    <line x1="0" y1="-18" x2="0" y2="18" stroke="rgba(255,255,255,0.2)" strokeWidth="0.8" strokeDasharray="2,2" />
-
-                    <path d="M-20,-28 C-20,-12 -5,-4 -5,0 C-5,4 -20,12 -20,28 L20,28 C20,12 5,4 5,0 C5,-4 20,-12 20,-28 Z" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-
-                    <line x1="0" y1="-4" x2="0" y2="20" stroke="#4993E3" strokeWidth="1" strokeDasharray="2,4" style={{ strokeDashoffset: 0, animation: 'sand-drip-comm-3 1s linear infinite' }} />
-                    <circle cx="0" cy="0" r="1" fill="#ffffff" />
-
-                    <polygon points="0,26 12,20 0,14 -12,20" stroke="rgba(255,255,255,0.2)" strokeWidth="0.8" fill="rgba(255,255,255,0.08)" />
-                    <polygon points="0,26 8,22 0,18 -8,22" stroke="rgba(255,255,255,0.2)" strokeWidth="0.8" fill="rgba(255,255,255,0.15)" />
-
-                    <g transform="translate(32, -8)">
-                      <rect x="-3" y="-12" width="38" height="15" rx="0" fill="rgba(0,0,0,0.6)" stroke="rgba(73, 147, 227, 0.3)" strokeWidth="1" style={{ animation: 'badge-glow-comm-3 2s infinite alternate' }} />
-                      <text x="16" y="-2" fontFamily="monospace" fontSize="8" fill="#4993E3" textAnchor="middle" fontWeight="bold">96h</text>
-                    </g>
+                  {/* Pending approval in middle */}
+                  <g transform="translate(110, 80)">
+                    <circle cx="0" cy="0" r="10" stroke="#FCE545" strokeWidth="1" fill="#0c0d0f" className="pulse" />
+                    <text x="0" y="2" fontFamily="var(--font-mono), monospace" fontSize="5" fill="#FCE545" textAnchor="middle" fontWeight="bold">⏳</text>
                   </g>
+                  <text x="110" y="62" fontFamily="var(--font-mono), monospace" fontSize="6.5" fill="#FCE545" textAnchor="middle" fontWeight="bold">Inboxes</text>
+                  <text x="110" y="100" fontFamily="var(--font-mono), monospace" fontSize="6" fill="#FCE545" textAnchor="middle" fontWeight="bold">+96h Delay</text>
+
+                  {/* End Node (Late) */}
+                  <circle cx="200" cy="80" r="4" fill="#E44856" />
+                  <text x="200" y="62" fontFamily="var(--font-mono), monospace" fontSize="6.5" fill="#E44856" textAnchor="middle" fontWeight="bold">Approved</text>
+                  <text x="200" y="95" fontFamily="var(--font-mono), monospace" fontSize="5.5" fill="#E44856" textAnchor="middle">Late</text>
                 </svg>
               </div>
               <h3>Access Request Bottlenecks</h3>
@@ -1907,56 +1910,40 @@ export default function CommunicationV2Page() {
 
             {/* Feature 4 */}
             <div className="feature-col-item">
-              <span className="fig-label">Fig 0.4</span>
               <div className="fig-svg-wrap">
-                <svg viewBox="0 0 200 160" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg viewBox="0 0 240 160" width="100%" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <style>{`
-                    @keyframes nodeglow-comm-4 {
-                      0%, 100% { opacity: 0.15; }
-                      50% { opacity: 0.6; stroke: #AFF962; }
-                    }
-                    @keyframes line-flicker-comm-4 {
-                      0%, 100% { opacity: 0.05; }
-                      50% { opacity: 0.4; }
-                    }
+                    @keyframes siloPulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+                    .pulse { animation: siloPulse 1.5s infinite; }
                   `}</style>
-                  <path d="M100,20 L100,140" stroke="rgba(255,255,255,0.2)" stroke-dasharray="2,2" />
-
-                  <g transform="translate(100, 80)">
-                    <g style={{ animation: 'nodeglow-comm-4 3s infinite alternate' }}>
-                      <rect x="-40" y="-35" width="24" height="14" rx="0" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                      <text x="-28" y="-25" fontFamily="monospace" fontSize="6" fill="rgba(255,255,255,0.5)" textAnchor="middle">TEAM</text>
-
-                      <rect x="16" y="-35" width="24" height="14" rx="0" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                      <text x="28" y="-25" fontFamily="monospace" fontSize="6" fill="rgba(255,255,255,0.5)" textAnchor="middle">SMS</text>
-
-                      <rect x="-55" y="-5" width="24" height="14" rx="0" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                      <text x="-43" y="5" fontFamily="monospace" fontSize="6" fill="rgba(255,255,255,0.5)" textAnchor="middle">RAD</text>
-
-                      <rect x="31" y="-5" width="24" height="14" rx="0" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                      <text x="43" y="5" fontFamily="monospace" fontSize="6" fill="rgba(255,255,255,0.5)" textAnchor="middle">VMS</text>
-
-                      <rect x="-40" y="25" width="24" height="14" rx="0" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                      <text x="-28" y="35" fontFamily="monospace" fontSize="6" fill="rgba(255,255,255,0.5)" textAnchor="middle">MAIL</text>
-
-                      <rect x="16" y="25" width="24" height="14" rx="0" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                      <text x="28" y="35" fontFamily="monospace" fontSize="6" fill="rgba(255,255,255,0.5)" textAnchor="middle">LOGS</text>
-                    </g>
-
-                    <g style={{ animation: 'line-flicker-comm-4 2s infinite' }}>
-                      <line x1="-16" y1="-28" x2="16" y2="-28" stroke="rgba(255,255,255,0.2)" strokeWidth="1" strokeDasharray="2,2" />
-                      <line x1="-31" y1="2" x2="31" y2="2" stroke="rgba(255,255,255,0.2)" strokeWidth="1" strokeDasharray="2,2" />
-                      <line x1="-16" y1="32" x2="16" y2="32" stroke="rgba(255,255,255,0.2)" strokeWidth="1" strokeDasharray="2,2" />
-                      <line x1="-28" y1="-21" x2="-43" y2="-5" stroke="rgba(255,255,255,0.2)" strokeWidth="1" strokeDasharray="2,2" />
-                      <line x1="28" y1="-21" x2="43" y2="-5" stroke="rgba(255,255,255,0.2)" strokeWidth="1" strokeDasharray="2,2" />
-                    </g>
-
-                    <g transform="translate(0, 0)">
-                      <circle cx="0" cy="0" r="10" fill="rgba(0,0,0,0.8)" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                      <line x1="-4" y1="-4" x2="4" y2="4" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" />
-                      <line x1="4" y1="-4" x2="-4" y2="4" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" />
-                    </g>
+                  
+                  {/* Silo 1: VMS */}
+                  <g transform="translate(45, 45)">
+                    <rect x="0" y="0" width="30" height="40" rx="3" stroke="rgba(255,255,255,0.15)" strokeWidth="1" fill="rgba(255,255,255,0.01)" />
+                    <line x1="0" y1="12" x2="30" y2="12" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                    <line x1="0" y1="24" x2="30" y2="24" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                    <text x="15" y="52" fontFamily="var(--font-mono), monospace" fontSize="6.5" fill="rgba(255,255,255,0.4)" textAnchor="middle">VMS</text>
                   </g>
+
+                  {/* Silo 2: HR */}
+                  <g transform="translate(105, 45)">
+                    <rect x="0" y="0" width="30" height="40" rx="3" stroke="rgba(255,255,255,0.15)" strokeWidth="1" fill="rgba(255,255,255,0.01)" />
+                    <line x1="0" y1="12" x2="30" y2="12" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                    <line x1="0" y1="24" x2="30" y2="24" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                    <text x="15" y="52" fontFamily="var(--font-mono), monospace" fontSize="6.5" fill="rgba(255,255,255,0.4)" textAnchor="middle">HR</text>
+                  </g>
+
+                  {/* Silo 3: ACS */}
+                  <g transform="translate(165, 45)">
+                    <rect x="0" y="0" width="30" height="40" rx="3" stroke="rgba(255,255,255,0.15)" strokeWidth="1" fill="rgba(255,255,255,0.01)" />
+                    <line x1="0" y1="12" x2="30" y2="12" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                    <line x1="0" y1="24" x2="30" y2="24" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                    <text x="15" y="52" fontFamily="var(--font-mono), monospace" fontSize="6.5" fill="rgba(255,255,255,0.4)" textAnchor="middle">ACS</text>
+                  </g>
+
+                  {/* Broken Sync Indicator */}
+                  <rect x="35" y="115" width="170" height="20" rx="3" stroke="#E44856" strokeWidth="1" strokeDasharray="3,3" fill="rgba(228, 72, 86, 0.02)" className="pulse" />
+                  <text x="120" y="127" fontFamily="var(--font-mono), monospace" fontSize="6.5" fill="#E44856" textAnchor="middle" fontWeight="bold" className="pulse">NO UNIFIED CONTEXT</text>
                 </svg>
               </div>
               <h3>Information & Data Silos</h3>
@@ -1971,7 +1958,7 @@ export default function CommunicationV2Page() {
             borderLeft: '1px solid #212326',
             borderRight: '1px solid #212326',
             borderBottom: '1px solid #212326',
-            backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'8\' height=\'8\' viewBox=\'0 0 8 8\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M-1,-1 L9,9 M7,-1 L9,1 M-1,7 L1,9\' stroke=\'%23212326\' stroke-width=\'1\'/%3E%3C/svg%3E")',
+            backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'8.485\' height=\'8.485\' viewBox=\'0 0 8.5 8.5\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M-2 -2L10.5 10.5M6.5 -2L10.5 2M-2 6.5L2 10.5\' stroke=\'%23ffffff\' stroke-opacity=\'0.08\' stroke-width=\'1\'/%3E%3C/svg%3E")',
             animation: 'slide-diagonal-bg 0.5s linear infinite'
           }} />
 

@@ -2,88 +2,97 @@
 @import "tailwindcss";
 
 :root {
-  --background: #131416;
-  --foreground: #ffffff;
-  --primary-purple: #7700FF;
-  --primary-glow: rgba(131, 80, 232, 0.15);
-  --surface-card: #1a1b1e;
-  --border-subtle: #1A1C1E;
+    --background: #131416;
+    --foreground: #ffffff;
+    --primary-purple: #7700FF;
+    --primary-glow: rgba(131, 80, 232, 0.15);
+    --surface-card: #1a1b1e;
+    --border-subtle: #1A1C1E;
 
-  /* Modern sign-in component variables (dark by default to match theme) */
-  --skeleton: hsl(218, 36%, 16%);
-  --btn-border: hsl(217deg, 32.6%, 17.5%);
-  --input: hsl(219, 63%, 16%);
-  --radius: 0.5rem;
+    /* Modern sign-in component variables (dark by default to match theme) */
+    --skeleton: hsl(218, 36%, 16%);
+    --btn-border: hsl(217deg, 32.6%, 17.5%);
+    --input: hsl(219, 63%, 16%);
+    --radius: 0.5rem;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-purple-primary: var(--primary-purple);
-  --color-surface-card: var(--surface-card);
-  --color-border-subtle: var(--border-subtle);
-  --font-sans: var(--font-inter);
-  --font-mono: var(--font-jetbrains-mono);
-  
-  --color-skeleton: var(--skeleton);
-  --color-border: var(--btn-border);
-  --color-input: var(--input);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-purple-primary: var(--primary-purple);
+    --color-surface-card: var(--surface-card);
+    --color-border-subtle: var(--border-subtle);
+    --font-sans: var(--font-inter);
+    --font-mono: var(--font-jetbrains-mono);
 
-  --shadow-input: 0px 2px 3px -1px rgba(0, 0, 0, 0.1), 0px 1px 0px 0px rgba(25, 28, 33, 0.02), 0px 0px 0px 1px rgba(25, 28, 33, 0.08);
+    --color-skeleton: var(--skeleton);
+    --color-border: var(--btn-border);
+    --color-input: var(--input);
 
-  --animate-ripple: ripple 2s ease calc(var(--i, 0) * 0.2s) infinite;
-  --animate-orbit: orbit calc(var(--duration) * 1s) linear infinite;
+    --shadow-input: 0px 2px 3px -1px rgba(0, 0, 0, 0.1), 0px 1px 0px 0px rgba(25, 28, 33, 0.02), 0px 0px 0px 1px rgba(25, 28, 33, 0.08);
 
-  @keyframes ripple {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); }
-    50% { transform: translate(-50%, -50%) scale(0.9); }
-  }
+    --animate-ripple: ripple 2s ease calc(var(--i, 0) * 0.2s) infinite;
+    --animate-orbit: orbit calc(var(--duration) * 1s) linear infinite;
 
-  @keyframes orbit {
-    0% {
-      transform: rotate(0deg) translateY(calc(var(--radius) * 1px)) rotate(0deg);
+    @keyframes ripple {
+
+        0%,
+        100% {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        50% {
+            transform: translate(-50%, -50%) scale(0.9);
+        }
     }
-    100% {
-      transform: rotate(360deg) translateY(calc(var(--radius) * 1px)) rotate(-360deg);
+
+    @keyframes orbit {
+        0% {
+            transform: rotate(0deg) translateY(calc(var(--radius) * 1px)) rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg) translateY(calc(var(--radius) * 1px)) rotate(-360deg);
+        }
     }
-  }
-  
-  /* Global subheadings & body copy text color overrides to #B6B6B7 */
-  --color-slate-300: #B6B6B7;
-  --color-slate-400: #B6B6B7;
-  --color-slate-500: #B6B6B7;
-  --color-gray-300: #B6B6B7;
-  --color-gray-400: #B6B6B7;
-  --color-gray-500: #B6B6B7;
-  --color-zinc-300: #B6B6B7;
-  --color-zinc-400: #B6B6B7;
-  --color-zinc-500: #B6B6B7;
+
+    /* Global subheadings & body copy text color overrides to #B6B6B7 */
+    --color-slate-300: #B6B6B7;
+    --color-slate-400: #B6B6B7;
+    --color-slate-500: #B6B6B7;
+    --color-gray-300: #B6B6B7;
+    --color-gray-400: #B6B6B7;
+    --color-gray-500: #B6B6B7;
+    --color-zinc-300: #B6B6B7;
+    --color-zinc-400: #B6B6B7;
+    --color-zinc-500: #B6B6B7;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
 }
 
 /* Custom dashed border with extra long dashes (little long dots) and seamless hover color swap */
 .dashed-card-border {
-  background-color: rgba(255, 255, 255, 0.015); /* Subtle default background fill */
-  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%231A1C1E' stroke-width='1' stroke-dasharray='4%2c 3' stroke-linecap='square'/%3e%3c/svg%3e");
-  background-position: left top;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  
-  /* Hardware-accelerated properties to prevent subpixel layout rendering jitter */
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  will-change: transform, background-color;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    background-color: rgba(255, 255, 255, 0.015);
+    /* Subtle default background fill */
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%231A1C1E' stroke-width='1' stroke-dasharray='4%2c 3' stroke-linecap='square'/%3e%3c/svg%3e");
+    background-position: left top;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+    /* Hardware-accelerated properties to prevent subpixel layout rendering jitter */
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    will-change: transform, background-color;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .dashed-card-border:hover {
-  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%231A1C1E' stroke-width='1' stroke-dasharray='4%2c 3' stroke-linecap='square'/%3e%3c/svg%3e");
-  background-color: #141419;
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%231A1C1E' stroke-width='1' stroke-dasharray='4%2c 3' stroke-linecap='square'/%3e%3c/svg%3e");
+    background-color: #141419;
 }
 
 
@@ -215,23 +224,36 @@ body {
 }
 
 @utility g-button {
-  border-radius: var(--radius);
-  border: 1px solid var(--btn-border);
+    border-radius: var(--radius);
+    border: 1px solid var(--btn-border);
 }
 
 @keyframes gradient-pan {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 @keyframes marquee {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-100%); }
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
 }
 
 .animate-marquee {
-  animation: marquee 30s linear infinite;
+    animation: marquee 30s linear infinite;
 }
 
 /* Nav links spacing and hover styling exactly matching style.css */
@@ -250,7 +272,8 @@ body {
 }
 
 .nav-links li a {
-    color: #FAF5EB !important; /* Premium Off-White text */
+    color: #FAF5EB !important;
+    /* Premium Off-White text */
     text-decoration: none;
     font-family: 'Satoshi', var(--font-main), sans-serif !important;
     font-size: 0.95rem;
@@ -263,7 +286,8 @@ body {
 
 .nav-links li a:hover {
     opacity: 1;
-    color: #8350e8 !important; /* purple hover exactly like style.css */
+    color: #8350e8 !important;
+    /* purple hover exactly like style.css */
 }
 
 /* Dotted Animated Footer SVG Logo */
@@ -287,6 +311,7 @@ body {
         opacity: 0;
         filter: blur(4px);
     }
+
     100% {
         transform: translateX(0) scale(1);
         opacity: 1;
@@ -295,8 +320,15 @@ body {
 }
 
 @keyframes svgDotSmoothPulse {
-    0%, 100% { opacity: 0.2; }
-    50% { opacity: 1.0; }
+
+    0%,
+    100% {
+        opacity: 0.2;
+    }
+
+    50% {
+        opacity: 1.0;
+    }
 }
 
 .svg-dot {

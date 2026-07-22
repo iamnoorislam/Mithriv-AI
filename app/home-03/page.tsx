@@ -1,5 +1,6 @@
 "use client";
 import ComplianceAutomates from "@/components/ui/ComplianceAutomates";
+import AutonomousResponseTerminal from "@/components/AutonomousResponseTerminal";
 
 import React, { useEffect, useState } from 'react'
 import Script from 'next/script'
@@ -109,6 +110,14 @@ export default function Home03Page() {
                 const root = createRoot(container);
                 root.render(<TimelineIcon IconComponent={Icon} color={color} />);
             }
+        });
+
+        const terminalContainers = document.querySelectorAll('.autonomous-terminal-container');
+        terminalContainers.forEach(container => {
+            if (container.hasAttribute('data-rendered')) return;
+            container.setAttribute('data-rendered', 'true');
+            const root = createRoot(container);
+            root.render(<AutonomousResponseTerminal />);
         });
     }, [mounted]);
 
@@ -1823,7 +1832,7 @@ export default function Home03Page() {
                                 <path d="M100,20 L100,140" stroke="rgba(255, 255, 255, 0.25)" stroke-dasharray="2,2" />
                                 <!-- Outer warning hexagon -->
                                 <polygon points="100,25 155,55 155,115 100,145 45,115 45,55"
-                                    stroke="rgba(124,60,208,0.2)" stroke-width="1.2" stroke-dasharray="4 4"
+                                    stroke="rgba(124,60,208,0.2)" stroke-width="1" stroke-dasharray="4 4"
                                     style="animation: hex-dash 8s linear infinite;" />
 
                                 <!-- LED Vertex indicators -->
@@ -1858,7 +1867,7 @@ export default function Home03Page() {
                                 <g transform="translate(100, 95)">
                                     <ellipse cx="0" cy="0" rx="35" ry="17.5" stroke="#7C3CD0" stroke-width="1"
                                         style="transform-origin: 0 0; animation: wave-expand 2.5s infinite linear;" />
-                                    <ellipse cx="0" cy="0" rx="55" ry="27.5" stroke="#7C3CD0" stroke-width="0.5"
+                                    <ellipse cx="0" cy="0" rx="55" ry="27.5" stroke="#7C3CD0" stroke-width="1"
                                         style="transform-origin: 0 0; animation: wave-expand 2.5s infinite linear; animation-delay: 1.25s;" />
                                     <ellipse cx="0" cy="10" rx="18" ry="9" fill="rgba(0,0,0,0.35)" />
                                     <polygon points="-15,0 15,0 15,10 -15,10" fill="rgba(255,255,255,0.03)"
@@ -1921,7 +1930,7 @@ export default function Home03Page() {
                                     <g style="animation: platform-hover 4s ease-in-out infinite;">
                                         <polygon points="100,115 145,92.5 100,70 55,92.5" fill="rgba(0,0,0,0.3)" />
                                         <polygon points="100,105 145,82.5 100,60 55,82.5" stroke="rgba(255, 255, 255, 0.2)"
-                                            stroke-width="1.2" fill="#16161a" />
+                                            stroke-width="1" fill="#16161a" />
                                         
                                         <line x1="55" y1="82.5" x2="55" y2="92.5" stroke="rgba(255, 255, 255, 0.2)"
                                             stroke-width="1" />
@@ -1940,27 +1949,27 @@ export default function Home03Page() {
                                         <g
                                             style="transform-origin: 100px 82.5px; animation: avatar-slide 4s linear infinite;">
                                             <polygon points="100,75 112,81 100,87 88,81" stroke="rgba(255, 255, 255, 0.25)"
-                                                stroke-width="0.8" fill="#16161a" />
+                                                stroke-width="1" fill="#16161a" />
                                             <circle cx="100" cy="72" r="2.5" fill="rgba(255,255,255,0.75)"
-                                                stroke="rgba(255, 255, 255, 0.3)" stroke-width="0.5" />
+                                                stroke="rgba(255, 255, 255, 0.3)" stroke-width="1" />
                                             <path d="M96,78 C96,75.5 104,75.5 104,78" stroke="rgba(255, 255, 255, 0.25)"
-                                                stroke-width="0.8" fill="rgba(255,255,255,0.4)" />
+                                                stroke-width="1" fill="rgba(255,255,255,0.4)" />
                                             <line x1="100" y1="87" x2="100" y2="92" stroke="rgba(255, 255, 255, 0.2)"
-                                                stroke-width="0.5" />
+                                                stroke-width="1" />
                                         </g>
                                         <g
                                             style="transform-origin: 100px 82.5px; animation: avatar-slide 4s linear infinite; animation-delay: 2s;">
                                             <polygon points="100,75 112,81 100,87 88,81" stroke="rgba(255, 255, 255, 0.25)"
-                                                stroke-width="0.8" fill="#16161a" />
+                                                stroke-width="1" fill="#16161a" />
                                             <circle cx="100" cy="72" r="2.5" fill="rgba(255,255,255,0.75)"
-                                                stroke="rgba(255, 255, 255, 0.3)" stroke-width="0.5" />
+                                                stroke="rgba(255, 255, 255, 0.3)" stroke-width="1" />
                                             <path d="M96,78 C96,75.5 104,75.5 104,78" stroke="rgba(255, 255, 255, 0.25)"
-                                                stroke-width="0.8" fill="rgba(255,255,255,0.4)" />
+                                                stroke-width="1" fill="rgba(255,255,255,0.4)" />
                                             <line x1="100" y1="87" x2="100" y2="92" stroke="rgba(255, 255, 255, 0.2)"
-                                                stroke-width="0.5" />
+                                                stroke-width="1" />
                                         </g>
 
-                                        <path d="M110,87 C130,97 150,90 165,70" stroke="#FFE500" stroke-width="1.5"
+                                        <path d="M110,87 C130,97 150,90 165,70" stroke="#FFE500" stroke-width="1"
                                             stroke-dasharray="3,3" style="animation: arrow-pulse 2s infinite;" />
                                         <polygon points="167,70 164,75 160,70" fill="#FFE500" />
                                     </g>
@@ -2012,24 +2021,21 @@ export default function Home03Page() {
                                     <text x="100" y="55" font-family="monospace" font-weight="bold" font-size="7"
                                         fill="rgba(255,255,255,0.4)" text-anchor="middle" letter-spacing="1">ON CREDENTIALS</text>
                                 </g>
-                                <ellipse cx="100" cy="98" rx="52" ry="26" stroke="rgba(255, 255, 255, 0.2)"
-                                    stroke-width="1.6" stroke-dasharray="3,6"
-                                    style="transform-origin: 100px 98px; animation: clock-ticks 20s linear infinite;" />
 
                                 <!-- High-Tech Target Crosshair Ticks -->
                                 <path d="M100,66 L100,72 M100,124 L100,130 M68,98 L74,98 M126,98 L132,98" stroke="rgba(77,166,255,0.3)" stroke-width="1" />
 
                                 <g transform="translate(100, 98) scale(0.75)">
                                     <polygon points="0,-48 30,-36 0,-24 -30,-36" stroke="rgba(255, 255, 255, 0.2)"
-                                        stroke-width="1.5" fill="rgba(255,255,255,0.02)" />
+                                        stroke-width="1" fill="rgba(255,255,255,0.02)" />
                                     <polygon points="0,48 30,36 0,24 -30,36" stroke="rgba(255, 255, 255, 0.2)"
-                                        stroke-width="1.5" fill="rgba(255,255,255,0.02)" />
+                                        stroke-width="1" fill="rgba(255,255,255,0.02)" />
                                     <line x1="-30" y1="-36" x2="-30" y2="36" stroke="rgba(255, 255, 255, 0.2)"
                                         stroke-width="1" />
                                     <line x1="30" y1="-36" x2="30" y2="36" stroke="rgba(255, 255, 255, 0.2)"
                                         stroke-width="1" />
                                     <line x1="0" y1="-24" x2="0" y2="24" stroke="rgba(255, 255, 255, 0.2)"
-                                        stroke-width="0.8" stroke-dasharray="2,2" />
+                                        stroke-width="1" stroke-dasharray="2,2" />
                                     <path
                                         d="M-26,-34 C-26,-15 -6,-5 -6,0 C-6,5 -26,15 -26,34 L26,34 C26,15 6,5 6,0 C6,-5 26,-15 26,-34 Z"
                                         stroke="rgba(255, 255, 255, 0.2)" stroke-width="1" />
@@ -2037,12 +2043,12 @@ export default function Home03Page() {
                                     <g transform="translate(0, -25)"
                                         style="animation: badge-dissolve 4s infinite ease-in;">
                                         <polygon points="0,-6 10,-2 0,2 -10,-2" stroke="rgba(255, 255, 255, 0.2)"
-                                            stroke-width="0.8" fill="rgba(255,255,255,0.1)" />
+                                            stroke-width="1" fill="rgba(255,255,255,0.1)" />
                                         <line x1="-4" y1="-2" x2="4" y2="-2" stroke="rgba(255, 255, 255, 0.2)"
-                                            stroke-width="0.6" />
+                                            stroke-width="1" />
                                         <circle cx="0" cy="0" r="1.5" fill="rgba(255,255,255,0.65)" />
                                         <line x1="0" y1="1.5" x2="0" y2="4" stroke="rgba(255, 255, 255, 0.2)"
-                                            stroke-width="0.5" />
+                                            stroke-width="1" />
                                     </g>
 
                                     <line x1="0" y1="-5" x2="0" y2="25" stroke="#4DA6FF" stroke-width="1"
@@ -2051,10 +2057,10 @@ export default function Home03Page() {
                                     <circle cx="0" cy="0" r="1" fill="#4DA6FF" />
 
                                     <polygon points="0,32 18,24 0,16 -18,24" stroke="#4DA6FF"
-                                        stroke-width="0.8" fill="rgba(77,166,255,0.18)"
+                                        stroke-width="1" fill="rgba(77,166,255,0.18)"
                                         style="transform-origin: 0 32px; animation: sand-pile 4s infinite alternate;" />
                                     <polygon points="0,32 10,27 0,22 -10,27" stroke="#4DA6FF"
-                                        stroke-width="0.8" fill="rgba(77,166,255,0.3)" />
+                                        stroke-width="1" fill="rgba(77,166,255,0.3)" />
                                 </g>
                             </svg>
                         </div>
@@ -2113,11 +2119,11 @@ export default function Home03Page() {
                                     stroke-width="1" stroke-dasharray="2,2" />
 
                                 <!-- Scanning laser beam line -->
-                                <line x1="65" y1="0" x2="135" y2="0" stroke="#bbfb02" stroke-width="1.2" style="animation: laser-sweep 3s linear infinite;" />
+                                <line x1="65" y1="0" x2="135" y2="0" stroke="#bbfb02" stroke-width="1" style="animation: laser-sweep 3s linear infinite;" />
 
                                 <g transform="translate(100, 45)"
                                     style="transform-origin: 0 -5px; animation: camera-scan 6s ease-in-out infinite;">
-                                    <path d="M-15,-15 L0,-5" stroke="rgba(255, 255, 255, 0.25)" stroke-width="2" />
+                                    <path d="M-15,-15 L0,-5" stroke="rgba(255, 255, 255, 0.25)" stroke-width="1" />
                                     <line x1="-15" y1="-15" x2="-15" y2="-5" stroke="rgba(255, 255, 255, 0.25)"
                                         stroke-width="1" />
                                     <polygon points="-8,-10 12,-20 12,-8 -8,2" fill="rgba(255,255,255,0.06)"
@@ -2134,17 +2140,14 @@ export default function Home03Page() {
 
                                 <g transform="translate(100, 95)">
                                     <rect x="-14" y="-5" width="28" height="22" rx="3" stroke="#bbfb02"
-                                        stroke-width="1.5" style="animation: lock-pulse 2s infinite alternate;" />
+                                        stroke-width="1" style="animation: lock-pulse 2s infinite alternate;" />
                                     <path d="M-9,-5 L-9,-14 C-9,-19 9,-19 9,-14 L9,-5" stroke="#bbfb02"
-                                        stroke-width="1.5" fill="none"
+                                        stroke-width="1" fill="none"
                                         style="animation: lock-pulse 2s infinite alternate;" />
                                     <circle cx="0" cy="3" r="2.5" fill="#bbfb02" />
                                     <polygon points="-1,3 1,3 2,10 -2,10" fill="#bbfb02" />
-                                    <ellipse cx="0" cy="5" rx="30" ry="15" stroke="#bbfb02" stroke-width="0.8"
+                                    <ellipse cx="0" cy="5" rx="30" ry="15" stroke="#bbfb02" stroke-width="1"
                                         stroke-dasharray="3,3" />
-                                    
-                                    <!-- Dynamic target scan track -->
-                                    <circle cx="0" cy="5" r="36" stroke="#bbfb02" stroke-width="0.5" stroke-dasharray="2,6" style="transform-origin: 0px 5px; animation: clock-ticks 12s linear infinite;" />
                                 </g>
                             </svg>
                         </div>
@@ -2378,9 +2381,9 @@ export default function Home03Page() {
                     </div>
 
                     <!-- Center Column: Animated 3D Isometric Graphic -->
-                    <div class="isometric-center-graphic">
-                        <div class="trigger-illustration-wrapper">
-                            <img src="/SVGs/SOP Agents 1.svg" alt="SOP Agent Architecture Diagram" style="width: 90%; height: auto; display: block; margin: 0 auto;" />
+                    <div class="isometric-center-graphic" style="display: flex; align-items: stretch; justify-content: center; width: 100%; height: 100%;">
+                        <div class="trigger-illustration-wrapper" style="display: flex; flex-direction: column; align-items: stretch; justify-content: center; width: 100%; height: 100%;">
+                            <div class="autonomous-terminal-container" style="display: flex; flex-direction: column; align-items: stretch; justify-content: center; width: 100%; height: 100%;"></div>
                         </div>
                     </div>
 
@@ -2484,7 +2487,7 @@ export default function Home03Page() {
                     </span>
                     <h2 class="std-section-h2 cinematic-reveal-title"
                         style="margin: 0; font-size: 48px; font-weight: 600; letter-spacing: -0.02em;">
-                        Everything visible. Everything queryable</h2>
+                        Everything visible, everything queryable</h2>
                 </div>
 
                 

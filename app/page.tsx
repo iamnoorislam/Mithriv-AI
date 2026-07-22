@@ -3,172 +3,182 @@
 import React, { useEffect, useState } from 'react'
 import Script from 'next/script'
 import './style.css'
+import AutonomousResponseTerminal from '../components/AutonomousResponseTerminal'
 import { createRoot } from 'react-dom/client'
 import { AnimatedIncidentIcon, AnimatedCredentialIcon, AnimatedVisitorIcon, AnimatedSafetyIcon, AnimatedGuardIcon, AnimatedVehicleIcon, AnimatedBlogIcon, AnimatedBotIcon, AnimatedBrainIcon, AnimatedCaseStudiesIcon, AnimatedNetworkIcon, AnimatedUsersIcon, AnimatedBriefcaseIcon, AnimatedMessageIcon, AnimatedLayersIcon, AnimatedZapIcon, AnimatedMonitorIcon, AnimatedEbookIcon, AnimatedFileCodeIcon, AnimatedRadarIcon, AnimatedCheckSquareIcon, AnimatedPresentationIcon } from '../components/AnimatedIcons'
 
 function TimelineIcon({ IconComponent, color }: { IconComponent: any, color: string }) {
-  const [isHovered, setIsHovered] = React.useState(false);
-  const containerRef = React.useRef<HTMLDivElement>(null);
-  
-  React.useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    let parent = el.closest('.timeline-item, .isometric-point-item, .k-feature-card, .k-console-panel');
-    if (!parent) return;
-    
-    const handleEnter = () => setIsHovered(true);
-    const handleLeave = () => setIsHovered(false);
-    
-    parent.addEventListener('mouseenter', handleEnter);
-    parent.addEventListener('mouseleave', handleLeave);
-    
-    return () => {
-      parent.removeEventListener('mouseenter', handleEnter);
-      parent.removeEventListener('mouseleave', handleLeave);
-    };
-  }, []);
+    const [isHovered, setIsHovered] = React.useState(false);
+    const containerRef = React.useRef<HTMLDivElement>(null);
 
-  return (
-    <div ref={containerRef} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-      <IconComponent color={color} size={20} isHovered={isHovered} />
-    </div>
-  );
+    React.useEffect(() => {
+        const el = containerRef.current;
+        if (!el) return;
+        let parent = el.closest('.timeline-item, .isometric-point-item, .k-feature-card, .k-console-panel');
+        if (!parent) return;
+
+        const handleEnter = () => setIsHovered(true);
+        const handleLeave = () => setIsHovered(false);
+
+        parent.addEventListener('mouseenter', handleEnter);
+        parent.addEventListener('mouseleave', handleLeave);
+
+        return () => {
+            parent.removeEventListener('mouseenter', handleEnter);
+            parent.removeEventListener('mouseleave', handleLeave);
+        };
+    }, []);
+
+    return (
+        <div ref={containerRef} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+            <IconComponent color={color} size={20} isHovered={isHovered} />
+        </div>
+    );
 }
 
 export default function HomePage() {
-  const [mounted, setMounted] = useState(false);
+    const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
-  useEffect(() => {
-    if (!mounted) return;
-    const containers = document.querySelectorAll('.react-timeline-icon');
-    containers.forEach(container => {
-      if (container.hasAttribute('data-rendered')) return;
-      container.setAttribute('data-rendered', 'true');
-      
-      const iconName = container.getAttribute('data-icon');
-      const color = container.getAttribute('data-color') || 'currentColor';
-      let Icon = null;
-      if (iconName === 'network') Icon = AnimatedIncidentIcon;
-      if (iconName === 'case') Icon = AnimatedCredentialIcon;
-      if (iconName === 'bot') Icon = AnimatedVisitorIcon;
-      if (iconName === 'brain') Icon = AnimatedSafetyIcon;
-      if (iconName === 'podcast') Icon = AnimatedGuardIcon;
-      if (iconName === 'ebook') Icon = AnimatedVehicleIcon;
-      if (iconName === 'icon-brain') Icon = AnimatedBrainIcon;
-      if (iconName === 'icon-network') Icon = AnimatedNetworkIcon;
-      if (iconName === 'icon-eye') Icon = AnimatedSafetyIcon;
-      if (iconName === 'icon-shield') Icon = AnimatedGuardIcon;
-      if (iconName === 'icon-bot') Icon = AnimatedBotIcon;
-      if (iconName === 'icon-users') Icon = AnimatedUsersIcon;
-      if (iconName === 'icon-briefcase') Icon = AnimatedBriefcaseIcon;
-      if (iconName === 'icon-message') Icon = AnimatedMessageIcon;
-      if (iconName === 'icon-layers') Icon = AnimatedLayersIcon;
-      if (iconName === 'icon-zap') Icon = AnimatedZapIcon;
-      if (iconName === 'icon-monitor') Icon = AnimatedMonitorIcon;
-      if (iconName === 'bento-book') Icon = AnimatedFileCodeIcon;
-      if (iconName === 'bento-users') Icon = AnimatedRadarIcon;
-      if (iconName === 'bento-shield') Icon = AnimatedCheckSquareIcon;
-      if (iconName === 'bento-briefcase') Icon = AnimatedPresentationIcon;
-      
-      if (Icon) {
-        const root = createRoot(container);
-        root.render(<TimelineIcon IconComponent={Icon} color={color} />);
-      }
-    });
-  }, [mounted]);
+    useEffect(() => {
+        if (!mounted) return;
+        const containers = document.querySelectorAll('.react-timeline-icon');
+        containers.forEach(container => {
+            if (container.hasAttribute('data-rendered')) return;
+            container.setAttribute('data-rendered', 'true');
 
-  useEffect(() => {
-    if (!mounted) return;
+            const iconName = container.getAttribute('data-icon');
+            const color = container.getAttribute('data-color') || 'currentColor';
+            let Icon = null;
+            if (iconName === 'network') Icon = AnimatedIncidentIcon;
+            if (iconName === 'case') Icon = AnimatedCredentialIcon;
+            if (iconName === 'bot') Icon = AnimatedVisitorIcon;
+            if (iconName === 'brain') Icon = AnimatedSafetyIcon;
+            if (iconName === 'podcast') Icon = AnimatedGuardIcon;
+            if (iconName === 'ebook') Icon = AnimatedVehicleIcon;
+            if (iconName === 'icon-brain') Icon = AnimatedBrainIcon;
+            if (iconName === 'icon-network') Icon = AnimatedNetworkIcon;
+            if (iconName === 'icon-eye') Icon = AnimatedSafetyIcon;
+            if (iconName === 'icon-shield') Icon = AnimatedGuardIcon;
+            if (iconName === 'icon-bot') Icon = AnimatedBotIcon;
+            if (iconName === 'icon-users') Icon = AnimatedUsersIcon;
+            if (iconName === 'icon-briefcase') Icon = AnimatedBriefcaseIcon;
+            if (iconName === 'icon-message') Icon = AnimatedMessageIcon;
+            if (iconName === 'icon-layers') Icon = AnimatedLayersIcon;
+            if (iconName === 'icon-zap') Icon = AnimatedZapIcon;
+            if (iconName === 'icon-monitor') Icon = AnimatedMonitorIcon;
+            if (iconName === 'bento-book') Icon = AnimatedFileCodeIcon;
+            if (iconName === 'bento-users') Icon = AnimatedRadarIcon;
+            if (iconName === 'bento-shield') Icon = AnimatedCheckSquareIcon;
+            if (iconName === 'bento-briefcase') Icon = AnimatedPresentationIcon;
 
-    // Hide Preloaders
-    setTimeout(() => {
-      const preloader1 = document.getElementById('premium-preloader');
-      if (preloader1) {
-        preloader1.style.opacity = '0';
-        setTimeout(() => preloader1.style.display = 'none', 500);
-      }
-      const preloader2 = document.querySelector('.preloader');
-      if (preloader2) {
-        (preloader2 as HTMLElement).style.opacity = '0';
-        setTimeout(() => (preloader2 as HTMLElement).style.display = 'none', 500);
-      }
-    }, 800);
+            if (Icon) {
+                const root = createRoot(container);
+                root.render(<TimelineIcon IconComponent={Icon} color={color} />);
+            }
+        });
 
-    let timer: NodeJS.Timeout;
-    let refreshTimers: NodeJS.Timeout[] = [];
-    let deferTimer: NodeJS.Timeout;
+        const terminalContainers = document.querySelectorAll('.autonomous-terminal-container');
+        terminalContainers.forEach(container => {
+            if (container.hasAttribute('data-rendered')) return;
+            container.setAttribute('data-rendered', 'true');
+            const root = createRoot(container);
+            root.render(<AutonomousResponseTerminal />);
+        });
+    }, [mounted]);
 
-    const init = () => {
-      const w = window as any;
-      if (w.runMain && w.runConsoleSimulation && w.runDotCanvas && w.gsap && w.ScrollTrigger && typeof w.Lenis !== 'undefined') {
-        // Defer script initializations by 100ms to allow DOM layout to complete
-        deferTimer = setTimeout(() => {
-          try {
-            w.runPreloader && w.runPreloader();
-          } catch (e) {
-            console.error("Error in runPreloader:", e);
-          }
-          try {
-            w.runMain();
-          } catch (e) {
-            console.error("Error in runMain:", e);
-          }
-          try {
-            w.runConsoleSimulation();
-          } catch (e) {
-            console.error("Error in runConsoleSimulation:", e);
-          }
-          try {
-            w.runDotCanvas();
-          } catch (e) {
-            console.error("Error in runDotCanvas:", e);
-          }
+    useEffect(() => {
+        if (!mounted) return;
 
-          // Schedule staggered refreshes for ScrollTrigger positions
-          if (w.ScrollTrigger) {
-            refreshTimers.push(setTimeout(() => w.ScrollTrigger.refresh(), 100));
-            refreshTimers.push(setTimeout(() => w.ScrollTrigger.refresh(), 500));
-            refreshTimers.push(setTimeout(() => w.ScrollTrigger.refresh(), 1000));
-            refreshTimers.push(setTimeout(() => w.ScrollTrigger.refresh(), 2000));
-          }
-        }, 100);
-      } else {
-        timer = setTimeout(init, 50);
-      }
-    };
-    init();
+        // Hide Preloaders
+        setTimeout(() => {
+            const preloader1 = document.getElementById('premium-preloader');
+            if (preloader1) {
+                preloader1.style.opacity = '0';
+                setTimeout(() => preloader1.style.display = 'none', 500);
+            }
+            const preloader2 = document.querySelector('.preloader');
+            if (preloader2) {
+                (preloader2 as HTMLElement).style.opacity = '0';
+                setTimeout(() => (preloader2 as HTMLElement).style.display = 'none', 500);
+            }
+        }, 800);
 
-    return () => {
-      clearTimeout(timer);
-      clearTimeout(deferTimer);
-      refreshTimers.forEach(t => clearTimeout(t));
+        let timer: NodeJS.Timeout;
+        let refreshTimers: NodeJS.Timeout[] = [];
+        let deferTimer: NodeJS.Timeout;
 
-      const w = window as any;
-      if (w.cleanupMain) {
-        w.cleanupMain();
-      }
-      if (w.gsap && w.ScrollTrigger) {
-        w.ScrollTrigger.getAll().forEach((t: any) => t.kill(true));
-      }
-      if (w.cancelDotCanvasAnim) {
-        w.cancelDotCanvasAnim();
-      }
-      if (w.consoleClickSimulationListener) {
-        document.removeEventListener('click', w.consoleClickSimulationListener);
-        w.consoleClickSimulationListener = null;
-      }
-    };
-  }, [mounted]);
+        const init = () => {
+            const w = window as any;
+            if (w.runMain && w.runConsoleSimulation && w.runDotCanvas && w.gsap && w.ScrollTrigger && typeof w.Lenis !== 'undefined') {
+                // Defer script initializations by 100ms to allow DOM layout to complete
+                deferTimer = setTimeout(() => {
+                    try {
+                        w.runPreloader && w.runPreloader();
+                    } catch (e) {
+                        console.error("Error in runPreloader:", e);
+                    }
+                    try {
+                        w.runMain();
+                    } catch (e) {
+                        console.error("Error in runMain:", e);
+                    }
+                    try {
+                        w.runConsoleSimulation();
+                    } catch (e) {
+                        console.error("Error in runConsoleSimulation:", e);
+                    }
+                    try {
+                        w.runDotCanvas();
+                    } catch (e) {
+                        console.error("Error in runDotCanvas:", e);
+                    }
 
-  if (!mounted) return null;
+                    // Schedule staggered refreshes for ScrollTrigger positions
+                    if (w.ScrollTrigger) {
+                        refreshTimers.push(setTimeout(() => w.ScrollTrigger.refresh(), 100));
+                        refreshTimers.push(setTimeout(() => w.ScrollTrigger.refresh(), 500));
+                        refreshTimers.push(setTimeout(() => w.ScrollTrigger.refresh(), 1000));
+                        refreshTimers.push(setTimeout(() => w.ScrollTrigger.refresh(), 2000));
+                    }
+                }, 100);
+            } else {
+                timer = setTimeout(init, 50);
+            }
+        };
+        init();
 
-  return (
-    <div className="landing-theme">
-      <div dangerouslySetInnerHTML={{ __html: `
+        return () => {
+            clearTimeout(timer);
+            clearTimeout(deferTimer);
+            refreshTimers.forEach(t => clearTimeout(t));
+
+            const w = window as any;
+            if (w.cleanupMain) {
+                w.cleanupMain();
+            }
+            if (w.gsap && w.ScrollTrigger) {
+                w.ScrollTrigger.getAll().forEach((t: any) => t.kill(true));
+            }
+            if (w.cancelDotCanvasAnim) {
+                w.cancelDotCanvasAnim();
+            }
+            if (w.consoleClickSimulationListener) {
+                document.removeEventListener('click', w.consoleClickSimulationListener);
+                w.consoleClickSimulationListener = null;
+            }
+        };
+    }, [mounted]);
+
+    if (!mounted) return null;
+
+    return (
+        <div className="landing-theme">
+            <div dangerouslySetInnerHTML={{
+                __html: `
     <div class="global-grid-bg" id="globalGridBg"></div>
     <main class="hero-section" id="hero">
         <!-- Canvas Frame Sequence Background -->
@@ -994,7 +1004,7 @@ export default function HomePage() {
                                 <path d="M100,20 L100,140" stroke="rgba(255, 255, 255, 0.25)" stroke-dasharray="2,2" />
                                 <!-- Outer warning hexagon -->
                                 <polygon points="100,25 155,55 155,115 100,145 45,115 45,55"
-                                    stroke="rgba(124,60,208,0.2)" stroke-width="1.2" stroke-dasharray="4 4"
+                                    stroke="rgba(124,60,208,0.2)" stroke-width="1" stroke-dasharray="4 4"
                                     style="animation: hex-dash 8s linear infinite;" />
 
                                 <!-- LED Vertex indicators -->
@@ -1029,7 +1039,7 @@ export default function HomePage() {
                                 <g transform="translate(100, 95)">
                                     <ellipse cx="0" cy="0" rx="35" ry="17.5" stroke="#7C3CD0" stroke-width="1"
                                         style="transform-origin: 0 0; animation: wave-expand 2.5s infinite linear;" />
-                                    <ellipse cx="0" cy="0" rx="55" ry="27.5" stroke="#7C3CD0" stroke-width="0.5"
+                                    <ellipse cx="0" cy="0" rx="55" ry="27.5" stroke="#7C3CD0" stroke-width="1"
                                         style="transform-origin: 0 0; animation: wave-expand 2.5s infinite linear; animation-delay: 1.25s;" />
                                     <ellipse cx="0" cy="10" rx="18" ry="9" fill="rgba(0,0,0,0.35)" />
                                     <polygon points="-15,0 15,0 15,10 -15,10" fill="rgba(255,255,255,0.03)"
@@ -1092,7 +1102,7 @@ export default function HomePage() {
                                     <g style="animation: platform-hover 4s ease-in-out infinite;">
                                         <polygon points="100,115 145,92.5 100,70 55,92.5" fill="rgba(0,0,0,0.3)" />
                                         <polygon points="100,105 145,82.5 100,60 55,82.5" stroke="rgba(255, 255, 255, 0.2)"
-                                            stroke-width="1.2" fill="#16161a" />
+                                            stroke-width="1" fill="#16161a" />
                                         
                                         <line x1="55" y1="82.5" x2="55" y2="92.5" stroke="rgba(255, 255, 255, 0.2)"
                                             stroke-width="1" />
@@ -1111,27 +1121,27 @@ export default function HomePage() {
                                         <g
                                             style="transform-origin: 100px 82.5px; animation: avatar-slide 4s linear infinite;">
                                             <polygon points="100,75 112,81 100,87 88,81" stroke="rgba(255, 255, 255, 0.25)"
-                                                stroke-width="0.8" fill="#16161a" />
+                                                stroke-width="1" fill="#16161a" />
                                             <circle cx="100" cy="72" r="2.5" fill="rgba(255,255,255,0.75)"
-                                                stroke="rgba(255, 255, 255, 0.3)" stroke-width="0.5" />
+                                                stroke="rgba(255, 255, 255, 0.3)" stroke-width="1" />
                                             <path d="M96,78 C96,75.5 104,75.5 104,78" stroke="rgba(255, 255, 255, 0.25)"
-                                                stroke-width="0.8" fill="rgba(255,255,255,0.4)" />
+                                                stroke-width="1" fill="rgba(255,255,255,0.4)" />
                                             <line x1="100" y1="87" x2="100" y2="92" stroke="rgba(255, 255, 255, 0.2)"
-                                                stroke-width="0.5" />
+                                                stroke-width="1" />
                                         </g>
                                         <g
                                             style="transform-origin: 100px 82.5px; animation: avatar-slide 4s linear infinite; animation-delay: 2s;">
                                             <polygon points="100,75 112,81 100,87 88,81" stroke="rgba(255, 255, 255, 0.25)"
-                                                stroke-width="0.8" fill="#16161a" />
+                                                stroke-width="1" fill="#16161a" />
                                             <circle cx="100" cy="72" r="2.5" fill="rgba(255,255,255,0.75)"
-                                                stroke="rgba(255, 255, 255, 0.3)" stroke-width="0.5" />
+                                                stroke="rgba(255, 255, 255, 0.3)" stroke-width="1" />
                                             <path d="M96,78 C96,75.5 104,75.5 104,78" stroke="rgba(255, 255, 255, 0.25)"
-                                                stroke-width="0.8" fill="rgba(255,255,255,0.4)" />
+                                                stroke-width="1" fill="rgba(255,255,255,0.4)" />
                                             <line x1="100" y1="87" x2="100" y2="92" stroke="rgba(255, 255, 255, 0.2)"
-                                                stroke-width="0.5" />
+                                                stroke-width="1" />
                                         </g>
 
-                                        <path d="M110,87 C130,97 150,90 165,70" stroke="#FFE500" stroke-width="1.5"
+                                        <path d="M110,87 C130,97 150,90 165,70" stroke="#FFE500" stroke-width="1"
                                             stroke-dasharray="3,3" style="animation: arrow-pulse 2s infinite;" />
                                         <polygon points="167,70 164,75 160,70" fill="#FFE500" />
                                     </g>
@@ -1183,24 +1193,20 @@ export default function HomePage() {
                                     <text x="100" y="55" font-family="monospace" font-weight="bold" font-size="7"
                                         fill="rgba(255,255,255,0.4)" text-anchor="middle" letter-spacing="1">ON CREDENTIALS</text>
                                 </g>
-                                <ellipse cx="100" cy="98" rx="52" ry="26" stroke="rgba(255, 255, 255, 0.2)"
-                                    stroke-width="1.6" stroke-dasharray="3,6"
-                                    style="transform-origin: 100px 98px; animation: clock-ticks 20s linear infinite;" />
-
                                 <!-- High-Tech Target Crosshair Ticks -->
                                 <path d="M100,66 L100,72 M100,124 L100,130 M68,98 L74,98 M126,98 L132,98" stroke="rgba(77,166,255,0.3)" stroke-width="1" />
 
                                 <g transform="translate(100, 98) scale(0.75)">
                                     <polygon points="0,-48 30,-36 0,-24 -30,-36" stroke="rgba(255, 255, 255, 0.2)"
-                                        stroke-width="1.5" fill="rgba(255,255,255,0.02)" />
+                                        stroke-width="1" fill="rgba(255,255,255,0.02)" />
                                     <polygon points="0,48 30,36 0,24 -30,36" stroke="rgba(255, 255, 255, 0.2)"
-                                        stroke-width="1.5" fill="rgba(255,255,255,0.02)" />
+                                        stroke-width="1" fill="rgba(255,255,255,0.02)" />
                                     <line x1="-30" y1="-36" x2="-30" y2="36" stroke="rgba(255, 255, 255, 0.2)"
                                         stroke-width="1" />
                                     <line x1="30" y1="-36" x2="30" y2="36" stroke="rgba(255, 255, 255, 0.2)"
                                         stroke-width="1" />
                                     <line x1="0" y1="-24" x2="0" y2="24" stroke="rgba(255, 255, 255, 0.2)"
-                                        stroke-width="0.8" stroke-dasharray="2,2" />
+                                        stroke-width="1" stroke-dasharray="2,2" />
                                     <path
                                         d="M-26,-34 C-26,-15 -6,-5 -6,0 C-6,5 -26,15 -26,34 L26,34 C26,15 6,5 6,0 C6,-5 26,-15 26,-34 Z"
                                         stroke="rgba(255, 255, 255, 0.2)" stroke-width="1" />
@@ -1208,12 +1214,12 @@ export default function HomePage() {
                                     <g transform="translate(0, -25)"
                                         style="animation: badge-dissolve 4s infinite ease-in;">
                                         <polygon points="0,-6 10,-2 0,2 -10,-2" stroke="rgba(255, 255, 255, 0.2)"
-                                            stroke-width="0.8" fill="rgba(255,255,255,0.1)" />
+                                            stroke-width="1" fill="rgba(255,255,255,0.1)" />
                                         <line x1="-4" y1="-2" x2="4" y2="-2" stroke="rgba(255, 255, 255, 0.2)"
-                                            stroke-width="0.6" />
+                                            stroke-width="1" />
                                         <circle cx="0" cy="0" r="1.5" fill="rgba(255,255,255,0.65)" />
                                         <line x1="0" y1="1.5" x2="0" y2="4" stroke="rgba(255, 255, 255, 0.2)"
-                                            stroke-width="0.5" />
+                                            stroke-width="1" />
                                     </g>
 
                                     <line x1="0" y1="-5" x2="0" y2="25" stroke="#4DA6FF" stroke-width="1"
@@ -1222,10 +1228,10 @@ export default function HomePage() {
                                     <circle cx="0" cy="0" r="1" fill="#4DA6FF" />
 
                                     <polygon points="0,32 18,24 0,16 -18,24" stroke="#4DA6FF"
-                                        stroke-width="0.8" fill="rgba(77,166,255,0.18)"
+                                        stroke-width="1" fill="rgba(77,166,255,0.18)"
                                         style="transform-origin: 0 32px; animation: sand-pile 4s infinite alternate;" />
                                     <polygon points="0,32 10,27 0,22 -10,27" stroke="#4DA6FF"
-                                        stroke-width="0.8" fill="rgba(77,166,255,0.3)" />
+                                        stroke-width="1" fill="rgba(77,166,255,0.3)" />
                                 </g>
                             </svg>
                         </div>
@@ -1270,7 +1276,7 @@ export default function HomePage() {
                                     </linearGradient>
                                 </defs>
                                 <circle cx="100" cy="110" r="45" fill="url(#green-glow)" />
-                                <path d="M100,20 L100,140" stroke="rgba(255, 255, 255, 0.25)" stroke-dasharray="2,2" />
+                                <path d="M100,20 L100,140" stroke="rgba(255, 255, 255, 0.25)" stroke-width="1" stroke-dasharray="2,2" />
                                 <!-- 911 ONLY text overlay -->
                                 <g style="animation: text-blink 2s infinite;">
                                     <text x="100" y="45" font-family="'Outfit', sans-serif" font-weight="900"
@@ -1281,14 +1287,14 @@ export default function HomePage() {
                                 <polygon points="100,45 60,110 140,110" fill="url(#cone-grad-home-refined)"
                                     style="animation: light-glow 3s ease-in-out infinite;" />
                                 <ellipse cx="100" cy="110" rx="40" ry="12" stroke="rgba(255, 255, 255, 0.2)"
-                                    stroke-width="1" stroke-dasharray="2,2" />
+                                     stroke-width="1" stroke-dasharray="2,2" />
 
                                 <!-- Scanning laser beam line -->
-                                <line x1="65" y1="0" x2="135" y2="0" stroke="#bbfb02" stroke-width="1.2" style="animation: laser-sweep 3s linear infinite;" />
+                                <line x1="65" y1="0" x2="135" y2="0" stroke="#bbfb02" stroke-width="1" style="animation: laser-sweep 3s linear infinite;" />
 
                                 <g transform="translate(100, 45)"
                                     style="transform-origin: 0 -5px; animation: camera-scan 6s ease-in-out infinite;">
-                                    <path d="M-15,-15 L0,-5" stroke="rgba(255, 255, 255, 0.25)" stroke-width="2" />
+                                    <path d="M-15,-15 L0,-5" stroke="rgba(255, 255, 255, 0.25)" stroke-width="1" />
                                     <line x1="-15" y1="-15" x2="-15" y2="-5" stroke="rgba(255, 255, 255, 0.25)"
                                         stroke-width="1" />
                                     <polygon points="-8,-10 12,-20 12,-8 -8,2" fill="rgba(255,255,255,0.06)"
@@ -1305,17 +1311,14 @@ export default function HomePage() {
 
                                 <g transform="translate(100, 95)">
                                     <rect x="-14" y="-5" width="28" height="22" rx="3" stroke="#bbfb02"
-                                        stroke-width="1.5" style="animation: lock-pulse 2s infinite alternate;" />
+                                        stroke-width="1" style="animation: lock-pulse 2s infinite alternate;" />
                                     <path d="M-9,-5 L-9,-14 C-9,-19 9,-19 9,-14 L9,-5" stroke="#bbfb02"
-                                        stroke-width="1.5" fill="none"
+                                        stroke-width="1" fill="none"
                                         style="animation: lock-pulse 2s infinite alternate;" />
                                     <circle cx="0" cy="3" r="2.5" fill="#bbfb02" />
                                     <polygon points="-1,3 1,3 2,10 -2,10" fill="#bbfb02" />
-                                    <ellipse cx="0" cy="5" rx="30" ry="15" stroke="#bbfb02" stroke-width="0.8"
+                                    <ellipse cx="0" cy="5" rx="30" ry="15" stroke="#bbfb02" stroke-width="1"
                                         stroke-dasharray="3,3" />
-                                    
-                                    <!-- Dynamic target scan track -->
-                                    <circle cx="0" cy="5" r="36" stroke="#bbfb02" stroke-width="0.5" stroke-dasharray="2,6" style="transform-origin: 0px 5px; animation: clock-ticks 12s linear infinite;" />
                                 </g>
                             </svg>
                         </div>
@@ -1542,8 +1545,10 @@ export default function HomePage() {
                     </div>
 
                     <!-- Center Column: Animated 3D Isometric Graphic -->
-                    <div class="trigger-illustration-wrapper">
-                        <img src="/SVGs/SOP Agents 1.svg" alt="SOP Agent Architecture Diagram" style={{ width: '90%', height: 'auto', display: 'block', margin: '0 auto' }} />
+                    <div class="isometric-center-graphic" style="display: flex; align-items: stretch; justify-content: center; width: 100%; height: 100%;">
+                        <div class="trigger-illustration-wrapper" style="display: flex; flex-direction: column; align-items: stretch; justify-content: center; width: 100%; height: 100%;">
+                            <div class="autonomous-terminal-container" style="display: flex; flex-direction: column; align-items: stretch; justify-content: center; width: 100%; height: 100%;"></div>
+                        </div>
                     </div>
                     <!-- Right Column: Symmetrical Left-Aligned Points -->
                     <div class="isometric-col col-right">
@@ -1620,7 +1625,7 @@ export default function HomePage() {
                     </span>
                     <h2 class="std-section-h2 cinematic-reveal-title"
                         style="margin: 0; font-size: 48px; font-weight: 600; letter-spacing: -0.02em;">
-                        Everything visible. Everything queryable</h2>
+                        Everything visible, everything queryable</h2>
                 </div>
 
                 <!-- Middle Row: Interactive Command Console Dashboard -->
@@ -2198,6 +2203,6 @@ export default function HomePage() {
 
 
       ` }} />
-    </div>
-  )
+        </div>
+    )
 }
