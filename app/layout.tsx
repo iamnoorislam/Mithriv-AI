@@ -17,6 +17,11 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Mithriv - Conscious Security",
   description: "Mithriv is the AI execution layer that knows your sites, correlates across systems, and acts in real time.",
+  icons: {
+    icon: "/icon.svg?v=2",
+    shortcut: "/icon.svg?v=2",
+    apple: "/icon.svg?v=2",
+  },
 };
 
 import Navbar from "@/components/Navbar";

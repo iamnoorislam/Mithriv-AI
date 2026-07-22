@@ -1,0 +1,10 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Premium dark tile background to make it stand out on both light/dark browser tabs -->
+  <rect width="32" height="32" rx="7" fill="#0B0D12" />
+  
+  <!-- The M from Mithriv logo centered and scaled up to 75% for larger tab presence -->
+  <g transform="translate(3.08, 7.51) scale(0.75)">
+    <path d="M14.6418 22.6412L8.32043 7.05699L10.7902 7.55676L5.05688 22.6401H0L9.88 0L19.7589 22.6401H14.6428L14.6418 22.6412Z" fill="#FFFFFF"/>
+    <path d="M29.3449 22.6412L23.0236 7.05699L25.4933 7.55676L19.76 22.6401H14.7031L24.5831 0L34.4621 22.6401H29.346L29.3449 22.6412Z" fill="#FFFFFF"/>
+  </g>
+</svg>
